@@ -10,7 +10,7 @@ public class Chest : MonoBehaviour
     {
         chestItem = new List<ItemInfo> ();
 
-        PlayerData.Instance.item.Add(ItemCSV.Instance.find("OldNecklace"));
+        PlayerData.Instance.item.Add(CSVData.Instance.find("OldNecklace"));
 
         //chestItem = PlayerData.Instance.item;
         //PlayerData.Instance.item.Add(ItemCSV.Instance.find("OldArmour"));
