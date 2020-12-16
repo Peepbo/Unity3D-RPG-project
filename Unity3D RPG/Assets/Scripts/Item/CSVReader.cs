@@ -38,12 +38,12 @@ namespace CSVReader
                 if(arrayHeader != null && arrayHeader.Length > 0)
                 {
                     //행에 있는 총 데이터 수
-                    int rowCount = arrayLineData.Length - 2;
+                    int rowCount = arrayLineData.Length - 1;
                     int columnCount = arrayHeader.Length;
                     //행렬 데이터
                     string[,] arrayData = new string[rowCount, columnCount];
                     //LineSplit으로 나누면 마지막 줄에 빈 공란이 딸려옴 => -1계산
-                    for (int row = 1; row < arrayLineData.Length - 1; ++row)
+                    for (int row = 1; row < arrayLineData.Length; ++row)
                     {
                         //해당 라인 데이터 배열로 분리
                         string[] tempLine = Regex.Split(arrayLineData[row], WordSplit);

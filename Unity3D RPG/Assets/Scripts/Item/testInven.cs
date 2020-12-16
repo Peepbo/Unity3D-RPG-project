@@ -10,8 +10,9 @@ public class testInven : MonoBehaviour
     
     void Start()
     {
-
-        Debug.Log(ItemCSV.Instance.find("OldSword").itemName);
+       // List<ItemInfo> a = new List<ItemInfo>();
+       // a.Add(ItemCSV.Instance.find("OldSword"));
+        Debug.Log(ItemCSV.Instance.find("NewSword").itemName);
         
     }
 
