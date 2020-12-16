@@ -15,7 +15,7 @@ public abstract class EnemyManager : MonoBehaviour
     [Range(1, 10)]
     public float attackRange;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         print("awake");
          controller = GetComponent<CharacterController>();

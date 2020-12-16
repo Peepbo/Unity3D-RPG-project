@@ -7,8 +7,9 @@ public class EnemyB : EnemyManager
     GameObject arrowPrefab;
     Transform firePoint;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         arrowPrefab = GameObject.Find("arrow");
         firePoint = transform.Find("firePoint");
     }
@@ -24,10 +25,11 @@ public class EnemyB : EnemyManager
     protected override void attack()
     {
         //fire 
-        float dis = Vector3.Distance(target.transform.position, transform.position);
-        if (dis < attackRange)
-        {
-            Instantiate(arrowPrefab, target.transform);
-        }
+
+        //float dis = Vector3.Distance(target.transform.position, transform.position);
+        //if (dis < attackRange)
+        //{
+        //    Instantiate(arrowPrefab, target.transform);
+        //}
     }
 }
