@@ -5,6 +5,7 @@ using UnityEngine;
 
 
 [CSVReader.Data("itemName")]
+[System.Serializable]
 public class ItemInfo
 {
     public int id;
