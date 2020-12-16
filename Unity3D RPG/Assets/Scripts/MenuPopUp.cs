@@ -6,6 +6,7 @@ public class MenuPopUp : MonoBehaviour
 {
     public GameObject MenuPanel;
     public GameObject MenuIcon;
+    public GameObject AchievementPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +33,22 @@ public class MenuPopUp : MonoBehaviour
     {
         MenuPanel.SetActive(false);
         MenuIcon.SetActive(true);
+    }
+
+    public void AchievementPop()
+    {
+        AchievementPanel.SetActive(true);
+        MenuPanel.SetActive(false);
+    }
+
+    public void AchievementClose()
+    {
+        AchievementPanel.SetActive(false);
+        MenuPanel.SetActive(true);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
