@@ -34,7 +34,7 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
     {
         Vector2 value = eventData.position - (Vector2)_Background.position;
 
-        value = Vector2.ClampMagnitude(value, radius);// 조이스틱 못나가게 가두기
+        value = Vector2.ClampMagnitude(value, radius);
 
         _Joystick.localPosition = value;
 
