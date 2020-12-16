@@ -411,6 +411,8 @@ GameObject:
   - component: {fileID: 296232257}
   - component: {fileID: 296232256}
   - component: {fileID: 296232255}
+  - component: {fileID: 296232259}
+  - component: {fileID: 296232260}
   m_Layer: 0
   m_Name: EnemyB
   m_TagString: Untagged
@@ -498,6 +500,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!143 &296232259
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296232254}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &296232260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296232254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdad1767a9e3724cabf955858757bcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  findRange: 6.07
+  attackRange: 2.3
 --- !u!1 &486331820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,7 +1054,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!136 &1236677687
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1110,6 +1145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 1.32
   findRange: 6.4
+  attackRange: 1.7
 --- !u!143 &1236677692
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1138,7 +1174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1501230455}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
