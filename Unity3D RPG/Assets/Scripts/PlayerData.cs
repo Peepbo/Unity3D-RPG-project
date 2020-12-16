@@ -6,13 +6,19 @@ public class PlayerData : Singleton<PlayerData>
 {
     protected PlayerData() { }
 
-    public List<ItemInfo> item = new List<ItemInfo>();
+    public List<ItemInfo> myItem = new List<ItemInfo>();
+    public int myCurrency;
 
-    public string output = "이건되?";
+    public void SaveChest(ItemInfo item)
+    {
+        myItem.Add(item);
+    }
 
     public void LoadData()
     {
         //item.Add(ItemCSV.Instance.find("OldSword"));
+        //myItem에 csv data 받아오기
+
     }
 
     public void SaveData()
