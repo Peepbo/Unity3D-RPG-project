@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    public List<string> chestItem;
+    public List<ItemInfo> chestItem;
     // Start is called before the first frame update
     void Start()
     {
-        chestItem = new List<string> ();
+        chestItem = new List<ItemInfo> ();
 
-        PlayerData.Instance.item.Add(ItemCSV.Instance.find("OldNecklace"));
+        PlayerData.Instance.myItem.Add(CSVData.Instance.find("OldNecklace"));
 
+        //chestItem = PlayerData.Instance.item;
         //PlayerData.Instance.item.Add(ItemCSV.Instance.find("OldArmour"));
 
         //chestItem.Add(ItemCSV.Instance.find("OldArmour").itemName);
@@ -20,14 +21,6 @@ public class Chest : MonoBehaviour
         //chestItem[2] = (ItemCSV.Instance.find("OldNecklace").itemName);
 
         //Debug.Log(chestItem[4]);
-    }
-
-    void chestUpdate()
-    {
-        //for (int i = 0; i < PlayerData.Instance.item.Count; i++)
-        //{
-        //    chestItem.Add(PlayerData.Instance.item[i].itemName);
-        //}
     }
 
     // Update is called once per frame

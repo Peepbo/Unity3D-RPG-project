@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MenuPopUp : MonoBehaviour
 {
-    public GameObject MenuPanel;
-    public GameObject MenuIcon;
-    public GameObject AchievementPanel;
+    public GameObject menuPanel;
+    public GameObject menuIcon;
+    public GameObject achievementPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -25,26 +25,26 @@ public class MenuPopUp : MonoBehaviour
          Time.timeScale = 0f; // 먼저 시간을 정지시킨다. (게임내 시간으로 게임 시간이 정지된다. 애니메이션 , 게임구동 관련 시간)
         // ↑ 이거 쓸지안쓸지 몰라서 일단 넣어놓았음.추후 수정 예정
 
-         MenuPanel.SetActive(true);
-         MenuIcon.SetActive(false);
+         menuPanel.SetActive(true);
+         menuIcon.SetActive(false);
     }
 
     public void MenuClose()
     {
-        MenuPanel.SetActive(false);
-        MenuIcon.SetActive(true);
+        menuPanel.SetActive(false);
+        menuIcon.SetActive(true);
     }
 
     public void AchievementPop()
     {
-        AchievementPanel.SetActive(true);
-        MenuPanel.SetActive(false);
+        achievementPanel.SetActive(true);
+        menuPanel.SetActive(false);
     }
 
     public void AchievementClose()
     {
-        AchievementPanel.SetActive(false);
-        MenuPanel.SetActive(true);
+        achievementPanel.SetActive(false);
+        menuPanel.SetActive(true);
     }
 
     public void QuitGame()
