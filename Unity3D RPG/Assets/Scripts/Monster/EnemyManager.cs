@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public abstract class EnemyManager : MonoBehaviour
 {
-    protected private CharacterController controller;
-    protected private GameObject target;
+    protected CharacterController controller;
+    protected GameObject target;
 
     [Range(1, 5)]
     public float speed = 1;
@@ -15,9 +15,10 @@ public class EnemyManager : MonoBehaviour
     [Range(1, 10)]
     public float attackRange;
 
-    private void Awake()
+    protected void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        print("awake");
+         controller = GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
     }
 
@@ -29,7 +30,7 @@ public class EnemyManager : MonoBehaviour
 
     protected virtual void Move()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) <= findRange)
+        if (Vector3.Distance(transform.position, target.transform.position) < findRange)
         {
             Vector3 lookPos = target.transform.position - transform.position;
             //target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치
@@ -42,5 +43,6 @@ public class EnemyManager : MonoBehaviour
             controller.Move(lookPos * speed * Time.deltaTime);
         }
     }
-    
+    protected abstract void attack();
+
 }
