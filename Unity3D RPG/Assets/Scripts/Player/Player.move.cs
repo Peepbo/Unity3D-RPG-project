@@ -28,7 +28,7 @@ partial class Player
             transform.Translate(moveVec * speed * Time.deltaTime);
         }
     }
-    void Turn()
+    void Turn()     
     {
        //나중에 
 
