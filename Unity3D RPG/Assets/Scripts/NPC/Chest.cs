@@ -10,22 +10,15 @@ public class Chest : MonoBehaviour
     {
         chestItem = new List<ItemInfo> ();
 
-        PlayerData.Instance.myItem.Add(CSVData.Instance.find("OldNecklace"));
-
-        //chestItem = PlayerData.Instance.item;
-        //PlayerData.Instance.item.Add(ItemCSV.Instance.find("OldArmour"));
-
-        //chestItem.Add(ItemCSV.Instance.find("OldArmour").itemName);
-        //chestItem[1] = ItemCSV.Instance.find("OldArmour").itemName;
-        //chestItem[2] = ItemCSV.Instance.find("OldArmour").itemName;
-        //chestItem[2] = (ItemCSV.Instance.find("OldNecklace").itemName);
-
-        //Debug.Log(chestItem[4]);
+        //CSVData.Instance.CSVSave(200, "OldItem", "FastRun", "Resources/testPlayerSave.csv");
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            PlayerData.Instance.ChangeStat("atk", 0);
+        }
     }
 }
