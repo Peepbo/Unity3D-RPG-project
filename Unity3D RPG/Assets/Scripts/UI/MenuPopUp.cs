@@ -11,6 +11,8 @@ public class MenuPopUp : MonoBehaviour
     public GameObject shopIcon;
     public GameObject shopPanel;
 
+    public GameObject quitPanel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,14 @@ public class MenuPopUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Application.platform == RuntimePlatform.Android) // 안드로이드에서
+        {
+            if (Input.GetKeyDown(KeyCode.Escape)) // 뒤로가기 버튼 누르면
+            {
+                Time.timeScale = 0f; // 시간정지
+                quitPanel.SetActive(true);
+            }
+        }
     }
 
     public void MenuPop()
@@ -69,5 +78,10 @@ public class MenuPopUp : MonoBehaviour
         shopPanel.SetActive(false);
         shopIcon.SetActive(true);
         menuIcon.SetActive(true);
+    }
+
+    public void Continue()
+    {
+        quitPanel.SetActive(false);
     }
 }
