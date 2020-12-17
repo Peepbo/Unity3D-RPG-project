@@ -25,6 +25,7 @@ public class IncreaseStat : MonoBehaviour
         string[] _result = str.Split(new char[] { ',' });
         PlayerData.Instance.ChangeStat(_result[0], int.Parse(_result[1]));
         ListUpdate();
+        PlayerData.Instance.SaveData();
     }
 
     public void ListUpdate()

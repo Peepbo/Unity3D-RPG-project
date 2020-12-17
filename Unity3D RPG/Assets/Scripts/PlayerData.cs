@@ -39,6 +39,11 @@ public class PlayerData : Singleton<PlayerData>
 
     public void LoadData()
     {
+        for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i+=2)
+        {
+            myItem.Add(CSVData.Instance.find(CSVData.Instance.playerRootLoad[i]));
+        }
+       
         List<string> list = CSVData.Instance.playerAbilityLoad;
 
         for(int i = 0; i < list.Count; i++)
@@ -57,6 +62,16 @@ public class PlayerData : Singleton<PlayerData>
 
     public void SaveData()
     {
+        List<string> _ability = new List<string>();
+        for(int i = 0; i < 4; i++)
+        {
+            for(int j = 0; j < 4; j++)
+            {
+                _ability.Add(info[i, j].ToString());
+            }
+        }
 
+        CSVData.Instance.PlayerSave(myCurrency, "OldSword", "OldArmour", "OldNeck",
+            myItem, _ability, "Resources/playerStateDB.csv");
     }
 }
