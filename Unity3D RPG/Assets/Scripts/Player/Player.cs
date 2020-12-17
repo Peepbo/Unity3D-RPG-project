@@ -4,6 +4,7 @@ using UnityEngine;
 
 partial class Player : MonoBehaviour
 {
+   
     private void Awake()
     {
         rigid = GetComponent<Rigidbody>();
@@ -20,5 +21,6 @@ partial class Player : MonoBehaviour
         Move();
         GetInput();
         Turn();
+        
     }
 }

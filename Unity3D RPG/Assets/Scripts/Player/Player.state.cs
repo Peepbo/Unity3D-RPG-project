@@ -4,9 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Scripts.Player
+
+partial class Player
 {
-    class Player
+    public enum State
     {
+        ATK,
+        CRIATK,
+        HIT,
+        EVASION,
+        GUARD,
+        DIE
+        
     }
+
+    public State state;
+
+
 }
+
