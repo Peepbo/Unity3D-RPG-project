@@ -1,4 +1,5 @@
 ﻿using CSVReader;
+using CSVWrite;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,20 +17,20 @@ public class ItemInfo
     public string prefabName;
 }
 
-public class ItemCSV : Singleton<ItemCSV>
+public class CSVData : Singleton<CSVData>
 {
-    protected ItemCSV() { }
+    protected CSVData() { }
 
     private Dictionary<string, ItemInfo> dictionaryData;
 
     //public Dictionary<string, ItemInfo> itemDB { get { return dictionaryData; } }
     public ItemInfo find(string key) { return dictionaryData[key]; }
-    
+
     void Awake()
     {
         //데이터 불러오기 => 파일을 열어서 데이터가 담겨있는 테이블로 변환해줌
         Table table = CSVReader.Reader.ReadCSVToTable("ItemDB");
-        
+
         ////테이블에 있는 데이터를 배열로 변환
         //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();     
         ////테이블에 있는 데이터를 List로 변환
@@ -40,8 +41,12 @@ public class ItemCSV : Singleton<ItemCSV>
 
         Debug.Log("SucceededLoad");
         //Debug.Log(dictionaryData["OldSword"].itemName);
-        
+
         System.GC.Collect();
+    }
+    public void CSVSave(int money, string itemName, string ability, string filePath)
+    {
+        CSVWrite.Write.Save(money, itemName, ability, "Assets/" + filePath);
     }
 
 }
