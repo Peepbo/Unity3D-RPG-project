@@ -38,9 +38,10 @@ public class ObjectPool : MonoBehaviour
         {
             for (int i = 0; i < item.amountToPool; i++)
             {
-                GameObject obj = Instantiate(item.objectToPool);
-                obj.SetActive(false);
-                pooledObjects.Add(obj);
+                GameObject _obj = Instantiate(item.objectToPool);
+                _obj.transform.parent = transform;
+                _obj.SetActive(false);
+                pooledObjects.Add(_obj);
             }
         }
 
@@ -87,12 +88,12 @@ public class ObjectPool : MonoBehaviour
                 if (item.shouldExpand == true)
                 {
                     //생성 후
-                    GameObject obj = Instantiate(item.objectToPool);
-                    obj.SetActive(false);
-                    pooledObjects.Add(obj);
+                    GameObject _obj = Instantiate(item.objectToPool);
+                    _obj.SetActive(false);
+                    pooledObjects.Add(_obj);
 
                     //반환
-                    return obj;
+                    return _obj;
                 }
             }
         }
