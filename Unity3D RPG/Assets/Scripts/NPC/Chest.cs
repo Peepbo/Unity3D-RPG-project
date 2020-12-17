@@ -16,9 +16,6 @@ public class Chest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            PlayerData.Instance.ChangeStat("atk", 0);
-        }
+
     }
 }

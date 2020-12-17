@@ -17,11 +17,6 @@ public class PlayerData : Singleton<PlayerData>
         myItem.Add(item);
     }
 
-    bool CheckIndex(int statNumber, int index)
-    {
-        return false;
-    }
-
     public void ChangeStat(string statName, int index)
     {
         if (index > 3) return;
