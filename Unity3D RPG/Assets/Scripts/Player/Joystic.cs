@@ -27,6 +27,7 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
         if(isTouch)
         {
             player.transform.position += movePosition;
+            player.transform.LookAt(player.transform.position + movePosition);
         }
     }
 
