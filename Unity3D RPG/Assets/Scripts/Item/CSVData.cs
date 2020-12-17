@@ -39,8 +39,8 @@ public class CSVData : Singleton<CSVData>
         //데이터 불러오기 => 파일을 열어서 데이터가 담겨있는 테이블로 변환해줌
         Table itemTable = CSVReader.Reader.ReadCSVToTable("ItemDB");
         playerItemData = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",0,1);
-        playerAbility = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",1,2);
-        playerRootData = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",2,3);
+        playerRootData = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",1,2);
+        playerAbility = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",2,3);
         ////테이블에 있는 데이터를 배열로 변환
         //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();     
         ////테이블에 있는 데이터를 List로 변환
