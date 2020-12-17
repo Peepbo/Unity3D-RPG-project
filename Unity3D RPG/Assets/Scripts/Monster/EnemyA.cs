@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyA : EnemyManager
 {
-    protected override void Move()
+    public override void Move()
     {
         base.Move();
     }
@@ -15,7 +15,7 @@ public class EnemyA : EnemyManager
         Gizmos.DrawWireSphere(transform.position, findRange);
     }
 
-    protected override void attack()
+    public override void Attack()
     {
         //swing the weapon
         float dis = Vector3.Distance(transform.position, target.transform.position);
@@ -25,6 +25,10 @@ public class EnemyA : EnemyManager
             print("attack");
         }
     }
-    
+
+    public override void Damage(float damage)
+    {
+        base.Damage(damage);
+    }
 
 }

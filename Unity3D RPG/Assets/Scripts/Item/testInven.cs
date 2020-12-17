@@ -12,8 +12,8 @@ public class testInven : MonoBehaviour
     {
        // List<ItemInfo> a = new List<ItemInfo>();
        // a.Add(ItemCSV.Instance.find("OldSword"));
-        Debug.Log(ItemCSV.Instance.find("NewSword").itemName);
-        
+        Debug.Log(CSVData.Instance.find("NewSword").itemName);
+        //CSVData.Instance.CSVSave(200, "OldItem", "FastRun", "Resources/testPlayerSave.csv");
     }
 
     // Update is called once per frame
