@@ -39,6 +39,17 @@ public class PlayerData : Singleton<PlayerData>
 
     public void LoadData()
     {
+        List<string> list = CSVData.Instance.playerAbilityLoad;
+
+        for(int i = 0; i < list.Count; i++)
+        {
+            Debug.Log(i / 4 + "," + i % 4 + "은 " + int.Parse(list[i]));
+            info[i / 4, i % 4] = int.Parse(list[i]);
+        }
+
+        myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
+
+        Debug.Log(myCurrency);
         //item.Add(ItemCSV.Instance.find("OldSword"));
         //myItem에 csv data 받아오기
         //csv에서 stat 받아오기

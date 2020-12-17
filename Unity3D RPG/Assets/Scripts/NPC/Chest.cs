@@ -8,6 +8,7 @@ public class Chest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerData.Instance.LoadData();
         chestItem = new List<ItemInfo> ();
 
         //CSVData.Instance.CSVSave(200, "OldItem", "FastRun", "Resources/testPlayerSave.csv");

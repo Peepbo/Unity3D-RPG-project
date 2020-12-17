@@ -8,6 +8,10 @@ public class IncreaseStat : MonoBehaviour
     string str;
     public GameObject popUp;
     public Text popName;
+
+    public TextLink[] tl;
+    public Text currencyText;
+
     public void SaveData(string statData)
     {
         str = statData;
@@ -20,5 +24,20 @@ public class IncreaseStat : MonoBehaviour
     {
         string[] _result = str.Split(new char[] { ',' });
         PlayerData.Instance.ChangeStat(_result[0], int.Parse(_result[1]));
+        ListUpdate();
+    }
+
+    public void ListUpdate()
+    {
+        for(int i = 0; i < tl.Length; i++)
+        {
+            tl[i].GetCSV();
+        }
+    }
+
+    private void Update()
+    {
+        currencyText.text = "Currency : " +
+            PlayerData.Instance.myCurrency.ToString();
     }
 }
