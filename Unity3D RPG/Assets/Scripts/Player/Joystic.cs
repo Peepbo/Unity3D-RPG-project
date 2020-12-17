@@ -51,6 +51,6 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
     public void OnPointerUp(PointerEventData eventData)
     {
         isTouch = false;
-        _Joystick.localPosition = Vector3.zero;   
+        _Joystick.localPosition = Vector3.zero;
     }
 }

@@ -31,7 +31,7 @@ public class ItemCSV : Singleton<ItemCSV>
         Table table = CSVReader.Reader.ReadCSVToTable("ItemDB");
         
         ////테이블에 있는 데이터를 배열로 변환
-        //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();
+        //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();     
         ////테이블에 있는 데이터를 List로 변환
         //List<ItemInfo> listData = table.TableToList<ItemInfo>();
 

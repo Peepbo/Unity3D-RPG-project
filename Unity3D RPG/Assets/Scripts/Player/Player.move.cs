@@ -10,8 +10,8 @@ partial class Player
 {
     float hAxis;
     float vAxis;
-    public float speed;
     Rigidbody rigid;
+    public float speed;
     Vector3 moveVec;
 
     void GetInput()
@@ -31,7 +31,7 @@ partial class Player
     void Turn()     
     {
        //나중에 
-
+        
     }
 }
 
