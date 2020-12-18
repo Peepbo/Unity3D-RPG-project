@@ -14,7 +14,7 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
 
     private bool isTouch = false;
     private Vector3 movePosition;
-
+    Vector3 dir;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,9 +38,10 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
         value = Vector2.ClampMagnitude(value, radius);
 
         _Joystick.localPosition = value;
-
-        value = value.normalized;
-        movePosition = new Vector3(value.x * moveSpeed * Time.deltaTime, 0f, value.y * moveSpeed * Time.deltaTime);
+        dir = new Vector3(value.x, 0f, value.y);
+        dir = -(Camera.main.transform.forward + (dir-Vector3.forward)).normalized;
+        
+        movePosition = new Vector3(dir.x * moveSpeed * Time.deltaTime, 0f, dir.z * moveSpeed * Time.deltaTime);
 
     }
 
