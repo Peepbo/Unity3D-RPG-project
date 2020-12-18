@@ -47,4 +47,11 @@ public abstract class EnemyManager : MonoBehaviour
         }
     }
 
+    public static Vector3 GetRandomDirection()
+    {
+        float _randomDir = UnityEngine.Random.Range(-1f, 1f);
+
+        return new Vector3(_randomDir,0, _randomDir).normalized;
+    }
+
 }
