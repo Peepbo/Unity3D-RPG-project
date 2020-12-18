@@ -17,6 +17,12 @@ public class Chest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            ItemInfo _item = CSVData.Instance.find("OldArmour");
+            PlayerData.Instance.SaveChest(_item);
 
+            Debug.Log(_item.itemName + " " + _item.count + "개 창고로 이동");
+        }
     }
 }
