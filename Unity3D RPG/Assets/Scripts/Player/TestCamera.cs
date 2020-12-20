@@ -16,7 +16,7 @@ public class TestCamera : MonoBehaviour
     private Vector2 prevPoint;
 
     private Vector3 originalPos;
-    public Button btn;  // 시점(yaw)을 원상태로 되돌리는 버튼
+    //public Button btn;  // 시점(yaw)을 원상태로 되돌리는 버튼
 
     public Transform cameraTransform;
     public float cameraSensitivity;
@@ -32,11 +32,11 @@ public class TestCamera : MonoBehaviour
         this.originalPos = new Vector3(0, 0, 0);
         this.cameraPitch = 35f;
 
-        this.btn.onClick.AddListener(() =>
-        {
-            this.transform.eulerAngles = this.originalPos;
+        //this.btn.onClick.AddListener(() =>
+        //{
+        //    this.transform.eulerAngles = this.originalPos;
 
-        });
+        //});
     }
 
     // Update is called once per frame

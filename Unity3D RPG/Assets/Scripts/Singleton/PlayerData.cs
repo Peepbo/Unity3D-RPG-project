@@ -15,6 +15,7 @@ public class PlayerData : Singleton<PlayerData>
     public void SaveChest(ItemInfo item)
     {
         myItem.Add(item);
+        SaveData();
     }
 
     public void ChangeStat(string statName, int index)
@@ -34,21 +35,36 @@ public class PlayerData : Singleton<PlayerData>
 
         info[_statNumber, index]++;
 
-        Debug.Log(statName + index + "의 능력치가 " + info[_statNumber, index] + "가 되었습니다");
+        //Debug.Log(statName + index + "의 능력치가 " + info[_statNumber, index] + "가 되었습니다");
     }
 
     public void LoadData()
     {
-        for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i+=2)
+        myItem.Clear();
+
+        Debug.Log(CSVData.Instance.playerRootLoad.Count);
+
+        ItemInfo _item = null;
+        for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
         {
-            myItem.Add(CSVData.Instance.find(CSVData.Instance.playerRootLoad[i]));
+            if (i % 2 == 0)
+                _item = CSVData.Instance.find(CSVData.Instance.playerRootLoad[i]);
+            else
+            {
+                if (_item.id != 4) _item.count = 1;
+                else _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
+
+                //Debug.Log(_item.itemName + ", " + _item.count);
+                myItem.Add(_item);
+            }
         }
+        //Debug.Log(myItem.Count);
        
         List<string> list = CSVData.Instance.playerAbilityLoad;
 
         for(int i = 0; i < list.Count; i++)
         {
-            Debug.Log(i / 4 + "," + i % 4 + "은 " + int.Parse(list[i]));
+            //Debug.Log(i / 4 + "," + i % 4 + "은 " + int.Parse(list[i]));
             info[i / 4, i % 4] = int.Parse(list[i]);
         }
 

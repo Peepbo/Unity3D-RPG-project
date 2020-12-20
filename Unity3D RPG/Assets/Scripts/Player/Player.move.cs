@@ -17,6 +17,7 @@ partial class Player
     void GetInput()
     {
         hAxis = Input.GetAxisRaw("Horizontal");
+
         vAxis = Input.GetAxisRaw("Vertical");
         
     }

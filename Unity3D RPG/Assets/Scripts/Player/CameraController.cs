@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private GameObject playerTest;
+    
     public TouchBoard touchBoard;
     protected float cameraAngleX;
     protected float cameraAngleY;

@@ -9,6 +9,10 @@ public abstract class EnemyManager : MonoBehaviour
     protected int hp;
     protected bool isDead;
 
+    public Transform pivotCenter;
+    public Transform Radar;
+
+
 
     public int MaxHp = 10;
     [Range(1, 5)]
@@ -42,9 +46,28 @@ public abstract class EnemyManager : MonoBehaviour
 
         if (hp <= 0 && !isDead)
         {
-            //사망처리 함수
-            print("사망");
+            isDead = true;
         }
+    }
+
+    public Vector3 GetRandomDirection()
+    {
+        float _ranX = UnityEngine.Random.Range(-1f, 1f);
+        float _ranZ = UnityEngine.Random.Range(-1f, 1f);
+
+        //Vector3 temp = new Vector3(_randomDir, 0, _randomDir).normalized;
+
+        //위랑 아래랑 같다 ok? oo
+
+        //Vector3 temp = new Vector3(_randomDir, 0, _randomDir);
+        //temp.Normalize();
+        //ran = 0.3f
+
+        //return vector3(0.3f,0,1.0f);
+
+        //-1~1 사이값으로 받을라고 normalized
+
+        return new Vector3(_ranX, 0, _ranZ);
     }
 
 }

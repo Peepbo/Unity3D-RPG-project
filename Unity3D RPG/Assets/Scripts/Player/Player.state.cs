@@ -7,19 +7,77 @@ using System.Threading.Tasks;
 
 partial class Player
 {
-    public enum State
+
+    bool isCombo;
+
+    bool isAtk;
+    bool isCri;
+
+
+    public enum PlayerState
     {
+        IDLE,
+        MOVE,
         ATK,
         CRIATK,
         HIT,
-        EVASION,
+        EVASION,    
         GUARD,
         DIE
         
     }
 
-    public State state;
+    public PlayerState state = PlayerState.IDLE;
 
+
+    public void ChangeState()
+    {
+        switch (state)
+        {
+            case PlayerState.IDLE:
+                
+                // state = State.ATK;
+                //state = State.HIT
+                break;
+            case PlayerState.MOVE:
+
+                break;
+            case PlayerState.ATK:
+                
+                // state = State.CRIATK
+                //state = State.IDLE
+                //state = State.HIT
+                //state = State.EVASION
+                break;
+            case PlayerState.CRIATK:
+                //state = State.IDLE
+                //state = State.HIT
+                //state = State.EVASION
+                break;
+            case PlayerState.HIT:
+                //state = State.IDLE
+                break;
+            case PlayerState.EVASION:
+                break;
+            case PlayerState.GUARD:
+                break;
+            case PlayerState.DIE:
+                break;
+            default:
+                break;
+        }
+
+
+    }
+
+    public void PlayerAtk()
+    {
+
+    }
+    public void PlayerCriticalAtk()
+    {
+
+    }
 
 }
 
