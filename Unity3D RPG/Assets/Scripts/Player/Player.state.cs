@@ -14,54 +14,54 @@ partial class Player
     bool isCri;
 
 
-    public enum State
+    public enum PlayerState
     {
         IDLE,
         MOVE,
         ATK,
         CRIATK,
         HIT,
-        EVASION,
+        EVASION,    
         GUARD,
         DIE
         
     }
 
-    public State state = State.IDLE;
+    public PlayerState state = PlayerState.IDLE;
 
 
     public void ChangeState()
     {
         switch (state)
         {
-            case State.IDLE:
+            case PlayerState.IDLE:
                 
                 // state = State.ATK;
                 //state = State.HIT
                 break;
-            case State.MOVE:
+            case PlayerState.MOVE:
 
                 break;
-            case State.ATK:
+            case PlayerState.ATK:
                 
                 // state = State.CRIATK
                 //state = State.IDLE
                 //state = State.HIT
                 //state = State.EVASION
                 break;
-            case State.CRIATK:
+            case PlayerState.CRIATK:
                 //state = State.IDLE
                 //state = State.HIT
                 //state = State.EVASION
                 break;
-            case State.HIT:
+            case PlayerState.HIT:
                 //state = State.IDLE
                 break;
-            case State.EVASION:
+            case PlayerState.EVASION:
                 break;
-            case State.GUARD:
+            case PlayerState.GUARD:
                 break;
-            case State.DIE:
+            case PlayerState.DIE:
                 break;
             default:
                 break;

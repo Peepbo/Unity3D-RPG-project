@@ -27,7 +27,7 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
         if(isTouch)
         {
             player.transform.position += movePosition;
-            player.transform.LookAt(player.transform.position + movePosition);
+
         }
     }
 
@@ -38,13 +38,21 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
         value = Vector2.ClampMagnitude(value, radius);
 
         _Joystick.localPosition = value;
-        dir = new Vector3(value.x, 0f, value.y);
-        dir = -(Camera.main.transform.forward + (dir-Vector3.forward)).normalized;
+        dir = new Vector3(value.x, 0f, value.y).normalized;
         
-        movePosition = new Vector3(dir.x * moveSpeed * Time.deltaTime, 0f, dir.z * moveSpeed * Time.deltaTime);
 
+        if(dir.magnitude>=0.1f)
+        {
+            float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
+        
+            movePosition = new Vector3(dir.x * moveSpeed * Time.deltaTime, 0f, dir.z * moveSpeed * Time.deltaTime);
+            player.transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+        }
     }
-
+   
+  
+   
     public void OnPointerDown(PointerEventData eventData)
     {
         isTouch = true;

@@ -21,6 +21,6 @@ partial class Player : MonoBehaviour
         Move();
         GetInput();
         Turn();
-        
+        ChangeState();
     }
 }
