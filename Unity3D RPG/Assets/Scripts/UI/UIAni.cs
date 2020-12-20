@@ -23,8 +23,8 @@ public class UIAni : MonoBehaviour
 
         if (myImage.color.a > 0.05f)
         {
-            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.deltaTime * 3f);
-            myText.color = Color.Lerp(myText.color, textColor, Time.deltaTime * 3f);
+            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.realtimeSinceStartup * 0.05f);
+            myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.05f);
         }
         else gameObject.SetActive(false);
     }
