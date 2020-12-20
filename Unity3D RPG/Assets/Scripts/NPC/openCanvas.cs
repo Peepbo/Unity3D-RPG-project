@@ -34,6 +34,6 @@ public class openCanvas : MonoBehaviour
 
     private void Update()
     {
-        canvas.SetActive(isActive);
+        //canvas.SetActive(isActive);
     }
 }
