@@ -91,9 +91,9 @@ public class RangeEnemy : EnemyManager
         else state = RangeState.Run;
     }
 
-    public override void Damage(int damage)
+    public override void Damaged(int damage)
     {
-        base.Damage(damage);
+        base.Damaged(damage);
     }
     protected void OnDrawGizmos()
     {

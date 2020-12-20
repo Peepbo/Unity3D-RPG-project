@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 9004361559125019013}
   - component: {fileID: 1481051046588625929}
   - component: {fileID: 2692577599290808384}
+  - component: {fileID: 8473643314931547855}
+  - component: {fileID: 506806858120089130}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Enemy
@@ -152,7 +154,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835668531912915487}
-  m_LocalRotation: {x: -0, y: 0.0000004768371, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 17.34, y: 0, z: 26.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -261,6 +263,35 @@ MonoBehaviour:
   thinkCoolTime: 2
   observeRange: 5
   action: 0
+--- !u!114 &8473643314931547855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca4b68b8d152ac4cbaf712f686fc346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 30
+  radius: 5
+--- !u!114 &506806858120089130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f4c63e5a89c6745bb40314e8f58569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BakedApple: {fileID: 7884476209299313834, guid: ae404a11c4d84a64c93bb4304561fbe1,
+    type: 3}
+  items: OldNecklace,OldArmour,OldSword
 --- !u!1 &9011955504191210655
 GameObject:
   m_ObjectHideFlags: 0
