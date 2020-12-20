@@ -20,14 +20,22 @@ public class MeleeEnemy : EnemyManager
     public int action = 0;
     Vector3 currentPos;
 
+    //del
+    float _number = 0;
+    float _count =2;
+
+
     IEnumerator delay()
     {
         isDelay = true;
         yield return new WaitForSeconds(1f);
         isDelay = false;
-
     }
-
+    IEnumerator disappearObject()
+    {
+        yield return new WaitForSeconds(2f); 
+        this.enabled = false;
+    }
     protected override void Awake()
     {
         base.Awake();
@@ -43,8 +51,17 @@ public class MeleeEnemy : EnemyManager
     {
         base.Update();
         ChangeState();
-    }
 
+        //del
+        _number += Time.deltaTime;
+        if(_number > _count && hp>0)
+        {
+            Damage(1);
+            _number = 0;
+        }
+
+    }
+    
     private void ChangeState()
     {
         //감시 중이며
@@ -112,7 +129,7 @@ public class MeleeEnemy : EnemyManager
 
             transform.rotation = Quaternion.Euler(0, _able[_index], 0);
             state = MeleeState.Run;
-            
+
             isRangeOver = false;
         }
 
@@ -196,7 +213,6 @@ public class MeleeEnemy : EnemyManager
             transform.rotation = Quaternion.LookRotation(_direction);
             controller.Move(_direction * speed * Time.deltaTime);
 
-            //  if (_distance > findRange) isObserve = true;
             if (_distance > findRange)
             {
                 currentPos = transform.position;
@@ -206,50 +222,30 @@ public class MeleeEnemy : EnemyManager
 
             if (_distance < attackRange)
             {
-                print("attack Player!");
+                //print("attack Player!");
                 state = MeleeState.Attack;
             }
         }
 
-
-        //로컬 기준
-        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        //if (_distance < walkableRange)
-        //{
-        //    //vector3.forward = vector(0,0,1) <- world좌표
-        //    //0,0,1
-
-        //    //transform.forward <- local좌표의 forward
-
-        //    //월드 기준
-        //    controller.Move(transform.forward * speed * Time.deltaTime);
-        //}
-
-
-        //controller.Move(Vector3.forward * speed * Time.deltaTime);
-        //Vector3 _lookPos = target.transform.position - transform.position;
-        ////target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치
-        //_lookPos.y = 0;
-
-        //transform.rotation = Quaternion.LookRotation(_lookPos);
-
-        //_lookPos.Normalize();
-
-        //controller.Move(_lookPos * speed * Time.deltaTime);
     }
 
     public override void Attack()
     {
         Vector3 _lookPos = (target.transform.position - transform.position).normalized;
-        //y축 바라보면서 도는 거 방지
+
+        //y축 바라보면서 회전 방지
+        //target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치라고 인식시켜준다.
         _lookPos.y = 0;
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
         transform.rotation = Quaternion.LookRotation(_lookPos);
+
+
+
         if (_distance > attackRange)
         {
-            print("추적중");
+            //print("추적중");
             state = MeleeState.Run;
         }
     }
@@ -257,9 +253,20 @@ public class MeleeEnemy : EnemyManager
     public override void Damage(int damage)
     {
         base.Damage(damage);
+        if (isDead)
+        {
+            state = MeleeState.Die;
+        }
     }
 
-    private void Die() { }
+    private void Die()
+    {
+        print("die");
+        if(this.enabled)
+        {
+            StartCoroutine(disappearObject());
+        }
+    }
 
     protected void OnDrawGizmos()
     {
