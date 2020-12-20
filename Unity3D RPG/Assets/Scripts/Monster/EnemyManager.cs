@@ -46,8 +46,7 @@ public abstract class EnemyManager : MonoBehaviour
 
         if (hp <= 0 && !isDead)
         {
-            //사망처리 함수
-            print("사망");
+            isDead = true;
         }
     }
 
