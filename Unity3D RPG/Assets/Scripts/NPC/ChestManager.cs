@@ -8,7 +8,7 @@ public class ChestManager : MonoBehaviour
     public GameObject slots;
     public GameObject[] gmData;
 
-    private void Start()
+    private void Awake()
     {
         gmData = new GameObject[32];
         for (int i = 0; i < 32; i++)

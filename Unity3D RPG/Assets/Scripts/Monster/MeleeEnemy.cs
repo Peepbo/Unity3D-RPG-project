@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ enum MeleeState
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;
+    ViewingAngle _viewingAngle;
+
     bool isObserve = true;
     bool isRangeOver = false;
     bool isDelay = false;
@@ -22,7 +23,7 @@ public class MeleeEnemy : EnemyManager
 
     //del
     float _number = 0;
-    float _count =2;
+    float _count = 2;
 
 
     IEnumerator delay()
@@ -33,13 +34,18 @@ public class MeleeEnemy : EnemyManager
     }
     IEnumerator disappearObject()
     {
-        yield return new WaitForSeconds(2f); 
-        this.enabled = false;
+        yield return new WaitForSeconds(2f);
+        print("die");
+        DropItem item;
+        item = GetComponent<DropItem>();
+        item.dropItem(3);
+        gameObject.SetActive(false);
     }
     protected override void Awake()
     {
         base.Awake();
         state = MeleeState.Idle;
+        _viewingAngle = GetComponent<ViewingAngle>();
     }
 
     private void Start()
@@ -52,16 +58,18 @@ public class MeleeEnemy : EnemyManager
         base.Update();
         ChangeState();
 
+
+        _viewingAngle.ableToDamage();
         //del
-        _number += Time.deltaTime;
-        if(_number > _count && hp>0)
-        {
-            Damage(1);
-            _number = 0;
-        }
+        //_number += Time.deltaTime;
+        //if (_number > _count && hp > 0)
+        //{
+        //    Damaged(1);
+        //    _number = 0;
+        //}
 
     }
-    
+
     private void ChangeState()
     {
         //감시 중이며
@@ -97,6 +105,7 @@ public class MeleeEnemy : EnemyManager
 
     public void RangeOver()
     {
+        if (isDead) return;
         //여기는 휴식 반경을 넘어갔을 때!
         thinkCoolTime -= Time.deltaTime;
 
@@ -119,13 +128,16 @@ public class MeleeEnemy : EnemyManager
                 pivotCenter.rotation = Quaternion.Euler(pivotCenter.rotation.x, _angle[i], pivotCenter.rotation.z);
 
                 //만약 observeRange안에 있으면
-                if (Vector3.Distance(Radar.position, currentPos) < observeRange)
+                if (Vector3.Distance(radar.position, currentPos) < observeRange)
                 {
                     _able.Add(_angle[i]);
                 }
             }
             StartCoroutine(delay());
-            int _index = UnityEngine.Random.Range(0, _able.Count);
+            int _index = Random.Range(0, _able.Count);
+
+
+
 
             transform.rotation = Quaternion.Euler(0, _able[_index], 0);
             state = MeleeState.Run;
@@ -145,8 +157,8 @@ public class MeleeEnemy : EnemyManager
 
         if (thinkCoolTime < 0)
         {
-            thinkCoolTime = UnityEngine.Random.Range(2, 6);
-            action = UnityEngine.Random.Range(0, 2);
+            thinkCoolTime = Random.Range(2, 6);
+            action = Random.Range(0, 2);
 
             state = (MeleeState)action;
 
@@ -162,14 +174,9 @@ public class MeleeEnemy : EnemyManager
 
     public void Idle()
     {
-
-        //print("Idle");
-        //Stay the position
-        //Find the Target
         float _distance = Vector3.Distance(transform.position, target.transform.position);
         if (_distance < findRange)
         {
-            //isObserve = false;
             state = MeleeState.Run;
         }
     }
@@ -231,41 +238,43 @@ public class MeleeEnemy : EnemyManager
 
     public override void Attack()
     {
-        Vector3 _lookPos = (target.transform.position - transform.position).normalized;
-
-        //y축 바라보면서 회전 방지
-        //target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치라고 인식시켜준다.
-        _lookPos.y = 0;
+        //Vector3 _lookPos = (target.transform.position - transform.position).normalized;
+        ////y축 바라보면서 회전 방지
+        ////target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치라고 인식시켜준다.
+        //_lookPos.y = 0;
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
-        transform.rotation = Quaternion.LookRotation(_lookPos);
+        //transform.rotation = Quaternion.LookRotation(_lookPos);
+
+        //if (_viewingAngle.ableToDamage())
+        //{
+        //    //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
 
 
+        //}
 
-        if (_distance > attackRange)
+        if (_distance > attackRange || !_viewingAngle.ableToDamage())
         {
             //print("추적중");
             state = MeleeState.Run;
         }
     }
 
-    public override void Damage(int damage)
+    public override void Damaged(int damage)
     {
-        base.Damage(damage);
+        base.Damaged(damage);
         if (isDead)
         {
+            StartCoroutine(disappearObject());
+
             state = MeleeState.Die;
         }
     }
 
     private void Die()
     {
-        print("die");
-        if(this.enabled)
-        {
-            StartCoroutine(disappearObject());
-        }
+        
     }
 
     protected void OnDrawGizmos()
