@@ -17,7 +17,6 @@ public class StatManager : MonoBehaviour
     public void SaveData(string statData)
     {
         str = statData;
-
         popName.text = statData;
 
         PopSetting(true);
