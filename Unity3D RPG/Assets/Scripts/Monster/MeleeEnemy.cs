@@ -247,13 +247,14 @@ public class MeleeEnemy : EnemyManager
 
         //transform.rotation = Quaternion.LookRotation(_lookPos);
 
-        //if (_viewingAngle.ableToDamage())
-        //{
-        //    //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
+        if (viewingAngle.ableToDamage())
+        {
+            print("attack");
+            //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
 
-        //}
+        }
 
-        if (_distance > attackRange || !viewingAngle.ableToDamage())
+        if (_distance > attackRange)
         {
             //print("추적중");
             state = MeleeState.RUN;
