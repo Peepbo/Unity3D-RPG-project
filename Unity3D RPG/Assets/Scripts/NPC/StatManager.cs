@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IncreaseStat : MonoBehaviour
+public class StatManager : MonoBehaviour
 {
     string str;
     public GameObject popUp;
@@ -41,7 +41,7 @@ public class IncreaseStat : MonoBehaviour
     {
         for(int i = 0; i < tl.Length; i++)
         {
-            tl[i].GetCSV();
+            tl[i].GetData();
         }
     }
 

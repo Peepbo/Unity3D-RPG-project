@@ -52,26 +52,18 @@ public class PlayerData : Singleton<PlayerData>
                 if (_item.id != 4) _item.count = 1;
                 else _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
 
-                //Debug.Log(_item.itemName + ", " + _item.count);
                 myItem.Add(_item);
             }
         }
-        //Debug.Log(myItem.Count);
        
         List<string> list = CSVData.Instance.playerAbilityLoad;
 
         for(int i = 0; i < list.Count; i++)
         {
-            //Debug.Log(i / 4 + "," + i % 4 + "은 " + int.Parse(list[i]));
             info[i / 4, i % 4] = int.Parse(list[i]);
         }
 
         myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
-
-        //Debug.Log(myCurrency);
-        //item.Add(ItemCSV.Instance.find("OldSword"));
-        //myItem에 csv data 받아오기
-        //csv에서 stat 받아오기
     }
 
     public void SaveData()
@@ -87,11 +79,5 @@ public class PlayerData : Singleton<PlayerData>
 
         CSVData.Instance.PlayerSave(myCurrency, "OldSword", "OldArmour", "OldNeck",
             myItem, _ability, "Resources/playerStateDB.csv");
-    }
-
-    private void Awake()
-    {
-        //Debug.Log("playerData awake");
-        //LoadData();
     }
 }
