@@ -9,11 +9,11 @@ public class CameraLook : MonoBehaviour
     [SerializeField]
     private float lookSpeed = 1;
     private CinemachineFreeLook cinemachine;
-    private PlayerMain playerInput;
+    private MainPlayer playerInput;
 
     private void Awake()
     {
-        playerInput = new PlayerMain();
+        playerInput = new MainPlayer();
         cinemachine = GetComponent<CinemachineFreeLook>();
     }
     private void OnEnable()

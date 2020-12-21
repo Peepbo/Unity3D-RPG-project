@@ -5,7 +5,7 @@ using UnityEngine;
 partial class Player : MonoBehaviour
 {
     PlayerController playerC;
-    private PlayerMain playerInput;
+    private MainPlayer playerInput;
     private void Awake()
     {
 
@@ -21,10 +21,7 @@ partial class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("1");
-        }
+        
         
         Move();
         GetInput();
