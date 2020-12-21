@@ -4,17 +4,17 @@ using UnityEngine;
 
 public abstract class EnemyManager : MonoBehaviour
 {
+    //근거리 , 원거리 , 마법형
+
     protected CharacterController controller;
     protected GameObject target;
     protected int hp;
     protected bool isDead;
 
     public Transform pivotCenter;
-    public Transform Radar;
+    public Transform radar;
 
-
-
-    public int MaxHp = 10;
+    public int maxHp = 10;
     [Range(1, 5)]
     public float speed = 1;
     [Range(5, 15)]
@@ -27,7 +27,7 @@ public abstract class EnemyManager : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
-        hp = MaxHp;
+        hp = maxHp;
     }
 
     // Update is called once per frame
@@ -41,23 +41,20 @@ public abstract class EnemyManager : MonoBehaviour
 
     public virtual void Damaged(int damage)
     {
-
         hp -= damage;
 
         if (hp <= 0 && !isDead)
         {
+            hp = 0;
             isDead = true;
         }
     }
 
     public Vector3 GetRandomDirection()
     {
-        float _ranX = UnityEngine.Random.Range(-1f, 1f);
-        float _ranZ = UnityEngine.Random.Range(-1f, 1f);
-
+        float _ranX = Random.Range(-1f, 1f);
+        float _ranZ = Random.Range(-1f, 1f);
         //Vector3 temp = new Vector3(_randomDir, 0, _randomDir).normalized;
-
-        //위랑 아래랑 같다 ok? oo
 
         //Vector3 temp = new Vector3(_randomDir, 0, _randomDir);
         //temp.Normalize();
