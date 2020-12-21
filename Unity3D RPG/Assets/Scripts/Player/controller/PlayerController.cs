@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    private Player player;
     private PlayerMain playerInput;
     private CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    [SerializeField]
-    private float playerSpeed = 2.0f;
-    [SerializeField]
-    private float jumpHeight = 1.0f;
+    public float playerSpeed = 2.0f;
     [SerializeField]
     private float gravityValue = -9.81f;
     [SerializeField]
     private float rotationSpeed = 4f;
 
+    public Vector2 value;
     private Transform cameraMain;
 
     private Transform child;
 
     private void Awake()
     {
+        player = new Player();
         playerInput = new PlayerMain();
         controller = GetComponent<CharacterController>();
     }
@@ -49,27 +48,22 @@ public class PlayerController : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        Vector2 movementInput = playerInput.Playermain.Move.ReadValue<Vector2>();
+        Vector2 _movementInput = playerInput.playerMain.Move.ReadValue<Vector2>();
+        value = _movementInput;
+        Vector3 _move = (cameraMain.forward * _movementInput.y + cameraMain.right * _movementInput.x);
+        _move.y = 0f;
 
-        Vector3 move = (cameraMain.forward * movementInput.y + cameraMain.right * movementInput.x);
-        move.y = 0f;
-        controller.Move(move * Time.deltaTime * playerSpeed);
-        child.LookAt(child.position+move);
+      
+         controller.Move(_move * Time.deltaTime * playerSpeed);
+         child.LookAt(child.position+ _move);
+        
        
 
-        //// Changes the height position of the player..
-        //if (Input.GetButtonDown("Jump") && groundedPlayer)
-        //{
-        //    playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
-        //}
+        
+        playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
+        controller.Move(playerVelocity * Time.deltaTime); // 움직임 적용
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
 
-        if(movementInput!= Vector2.zero)
-        {
-            Quaternion rotation = Quaternion.Euler(new Vector3(child.localEulerAngles.x,cameraMain.localEulerAngles.y,child.localEulerAngles.z));
-           
-        }
+        
     }
 }

@@ -235,7 +235,7 @@ public class @PlayerMain : IInputActionCollection, IDisposable
             }
         }
     }
-    public PlayerMainActions @Playermain => new PlayerMainActions(this);
+    public PlayerMainActions playerMain => new PlayerMainActions(this);
     public interface IPlayerMainActions
     {
         void OnMove(InputAction.CallbackContext context);
