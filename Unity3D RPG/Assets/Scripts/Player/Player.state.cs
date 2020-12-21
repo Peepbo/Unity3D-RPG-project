@@ -51,9 +51,8 @@ partial class Player
                 {
                     state = PlayerState.IDLE;
                 }
-                
-
                 break;
+
             case PlayerState.ATK:
                 
                 // state = State.CRIATK

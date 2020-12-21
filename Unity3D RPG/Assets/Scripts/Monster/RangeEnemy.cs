@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum RangeState
 {
-    Idle, Run, Attack, Damaged, Die
+    IDLE, RUN, ATTACK, DAMAGED, DIE
 };
 public class RangeEnemy : EnemyManager
 {
@@ -18,7 +18,7 @@ public class RangeEnemy : EnemyManager
     protected override void Awake()
     {
         base.Awake();
-        state = RangeState.Idle;
+        state = RangeState.IDLE;
         firePoint = transform.Find("firePoint");
     }
     protected override void Update()
@@ -31,17 +31,17 @@ public class RangeEnemy : EnemyManager
     {
         switch (state)
         {
-            case RangeState.Idle:
+            case RangeState.IDLE:
                 break;
-            case RangeState.Run:
+            case RangeState.RUN:
                 Move();
                 break;
-            case RangeState.Attack:
+            case RangeState.ATTACK:
                 Attack();
                 break;
-            case RangeState.Damaged:
+            case RangeState.DAMAGED:
                 break;
-            case RangeState.Die:
+            case RangeState.DIE:
                 break;
         }
     }
@@ -52,7 +52,7 @@ public class RangeEnemy : EnemyManager
         //
         if (Vector3.Distance(transform.position, target.transform.position) < findRange)
         {
-            state = RangeState.Run;
+            state = RangeState.RUN;
         }
     }
     public override void Move()
@@ -88,7 +88,7 @@ public class RangeEnemy : EnemyManager
                 spawnCount = 0;
             }
         }
-        else state = RangeState.Run;
+        else state = RangeState.RUN;
     }
 
     public override void Damaged(int damage)

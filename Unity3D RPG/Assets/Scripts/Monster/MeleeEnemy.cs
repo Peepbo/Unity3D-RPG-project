@@ -4,12 +4,12 @@ using UnityEngine;
 
 enum MeleeState
 {
-    Idle, Run, Attack, Damaged, Die
+    IDLE, RUN, ATTACK, DAMAGED, DIE
 };
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;
-    ViewingAngle _viewingAngle;
+    ViewingAngle viewingAngle;
 
     bool isObserve = true;
     bool isRangeOver = false;
@@ -44,8 +44,8 @@ public class MeleeEnemy : EnemyManager
     protected override void Awake()
     {
         base.Awake();
-        state = MeleeState.Idle;
-        _viewingAngle = GetComponent<ViewingAngle>();
+        state = MeleeState.IDLE;
+        viewingAngle = GetComponent<ViewingAngle>();
     }
 
     private void Start()
@@ -59,7 +59,7 @@ public class MeleeEnemy : EnemyManager
         ChangeState();
 
 
-        _viewingAngle.ableToDamage();
+        viewingAngle.ableToDamage();
         //del
         //_number += Time.deltaTime;
         //if (_number > _count && hp > 0)
@@ -84,18 +84,18 @@ public class MeleeEnemy : EnemyManager
 
         switch (state)
         {
-            case MeleeState.Idle:
+            case MeleeState.IDLE:
                 Idle();
                 break;
-            case MeleeState.Run:
+            case MeleeState.RUN:
                 Move();
                 break;
-            case MeleeState.Attack:
+            case MeleeState.ATTACK:
                 Attack();
                 break;
-            case MeleeState.Damaged:
+            case MeleeState.DAMAGED:
                 break;
-            case MeleeState.Die:
+            case MeleeState.DIE:
                 Die();
                 break;
         }
@@ -140,7 +140,7 @@ public class MeleeEnemy : EnemyManager
 
 
             transform.rotation = Quaternion.Euler(0, _able[_index], 0);
-            state = MeleeState.Run;
+            state = MeleeState.RUN;
 
             isRangeOver = false;
         }
@@ -162,7 +162,7 @@ public class MeleeEnemy : EnemyManager
 
             state = (MeleeState)action;
 
-            if (state == MeleeState.Run)
+            if (state == MeleeState.RUN)
             {
                 //Vector3 _angle = transform.eulerAngles;
                 //_angle.y = UnityEngine.Random.Range(0, 359);
@@ -177,7 +177,7 @@ public class MeleeEnemy : EnemyManager
         float _distance = Vector3.Distance(transform.position, target.transform.position);
         if (_distance < findRange)
         {
-            state = MeleeState.Run;
+            state = MeleeState.RUN;
         }
     }
 
@@ -206,7 +206,7 @@ public class MeleeEnemy : EnemyManager
                     isRangeOver = true;
                     thinkCoolTime = 5;
 
-                    state = MeleeState.Idle;
+                    state = MeleeState.IDLE;
                 }
 
             }
@@ -223,14 +223,14 @@ public class MeleeEnemy : EnemyManager
             if (_distance > findRange)
             {
                 currentPos = transform.position;
-                state = MeleeState.Idle;
+                state = MeleeState.IDLE;
                 isObserve = true;
             }
 
             if (_distance < attackRange)
             {
                 //print("attack Player!");
-                state = MeleeState.Attack;
+                state = MeleeState.ATTACK;
             }
         }
 
@@ -251,13 +251,12 @@ public class MeleeEnemy : EnemyManager
         //{
         //    //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
 
-
         //}
 
-        if (_distance > attackRange || !_viewingAngle.ableToDamage())
+        if (_distance > attackRange || !viewingAngle.ableToDamage())
         {
             //print("추적중");
-            state = MeleeState.Run;
+            state = MeleeState.RUN;
         }
     }
 
@@ -268,7 +267,7 @@ public class MeleeEnemy : EnemyManager
         {
             StartCoroutine(disappearObject());
 
-            state = MeleeState.Die;
+            state = MeleeState.DIE;
         }
     }
 
