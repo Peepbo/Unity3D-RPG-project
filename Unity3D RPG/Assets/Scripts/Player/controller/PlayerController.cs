@@ -54,14 +54,14 @@ public class PlayerController : MonoBehaviour
         _move.y = 0f;
 
       
-         controller.Move(_move * Time.deltaTime * playerSpeed);
+         controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
          child.LookAt(child.position+ _move);
         
        
 
         
         playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
-        controller.Move(playerVelocity * Time.deltaTime); // 움직임 적용
+        controller.Move(playerVelocity * Time.deltaTime); // 중력적용
 
 
         

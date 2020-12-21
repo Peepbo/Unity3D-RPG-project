@@ -40,9 +40,7 @@ public class PlayerData : Singleton<PlayerData>
 
     public void LoadData()
     {
-        myItem.Clear();
-
-        Debug.Log(CSVData.Instance.playerRootLoad.Count);
+        //Debug.Log(CSVData.Instance.playerRootLoad.Count);
 
         ItemInfo _item = null;
         for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
@@ -70,7 +68,7 @@ public class PlayerData : Singleton<PlayerData>
 
         myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
 
-        Debug.Log(myCurrency);
+        //Debug.Log(myCurrency);
         //item.Add(ItemCSV.Instance.find("OldSword"));
         //myItem에 csv data 받아오기
         //csv에서 stat 받아오기
@@ -89,5 +87,11 @@ public class PlayerData : Singleton<PlayerData>
 
         CSVData.Instance.PlayerSave(myCurrency, "OldSword", "OldArmour", "OldNeck",
             myItem, _ability, "Resources/playerStateDB.csv");
+    }
+
+    private void Awake()
+    {
+        //Debug.Log("playerData awake");
+        //LoadData();
     }
 }

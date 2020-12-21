@@ -39,15 +39,14 @@ public abstract class EnemyManager : MonoBehaviour
     public abstract void Move();
     public abstract void Attack();
 
-    public virtual void Damage(int damage)
+    public virtual void Damaged(int damage)
     {
 
         hp -= damage;
 
         if (hp <= 0 && !isDead)
         {
-            //사망처리 함수
-            print("사망");
+            isDead = true;
         }
     }
 

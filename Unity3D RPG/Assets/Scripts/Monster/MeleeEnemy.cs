@@ -10,6 +10,8 @@ enum MeleeState
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;
+    ViewingAngle _viewingAngle;
+
     bool isObserve = true;
     bool isRangeOver = false;
     bool isDelay = false;
@@ -20,18 +22,31 @@ public class MeleeEnemy : EnemyManager
     public int action = 0;
     Vector3 currentPos;
 
+    //del
+    float _number = 0;
+    float _count = 2;
+
+
     IEnumerator delay()
     {
         isDelay = true;
         yield return new WaitForSeconds(1f);
         isDelay = false;
-
     }
-
+    IEnumerator disappearObject()
+    {
+        yield return new WaitForSeconds(2f);
+        print("die");
+        DropItem item;
+        item = GetComponent<DropItem>();
+        item.dropItem(3);
+        gameObject.SetActive(false);
+    }
     protected override void Awake()
     {
         base.Awake();
         state = MeleeState.Idle;
+        _viewingAngle = GetComponent<ViewingAngle>();
     }
 
     private void Start()
@@ -43,6 +58,15 @@ public class MeleeEnemy : EnemyManager
     {
         base.Update();
         ChangeState();
+
+        //del
+        _number += Time.deltaTime;
+        if (_number > _count && hp > 0)
+        {
+            Damaged(1);
+            _number = 0;
+        }
+
     }
 
     private void ChangeState()
@@ -80,6 +104,7 @@ public class MeleeEnemy : EnemyManager
 
     public void RangeOver()
     {
+        if (isDead) return;
         //여기는 휴식 반경을 넘어갔을 때!
         thinkCoolTime -= Time.deltaTime;
 
@@ -112,7 +137,7 @@ public class MeleeEnemy : EnemyManager
 
             transform.rotation = Quaternion.Euler(0, _able[_index], 0);
             state = MeleeState.Run;
-            
+
             isRangeOver = false;
         }
 
@@ -145,14 +170,9 @@ public class MeleeEnemy : EnemyManager
 
     public void Idle()
     {
-
-        //print("Idle");
-        //Stay the position
-        //Find the Target
         float _distance = Vector3.Distance(transform.position, target.transform.position);
         if (_distance < findRange)
         {
-            //isObserve = false;
             state = MeleeState.Run;
         }
     }
@@ -196,7 +216,6 @@ public class MeleeEnemy : EnemyManager
             transform.rotation = Quaternion.LookRotation(_direction);
             controller.Move(_direction * speed * Time.deltaTime);
 
-            //  if (_distance > findRange) isObserve = true;
             if (_distance > findRange)
             {
                 currentPos = transform.position;
@@ -206,60 +225,52 @@ public class MeleeEnemy : EnemyManager
 
             if (_distance < attackRange)
             {
-                print("attack Player!");
+                //print("attack Player!");
                 state = MeleeState.Attack;
             }
         }
 
-
-        //로컬 기준
-        //transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        //if (_distance < walkableRange)
-        //{
-        //    //vector3.forward = vector(0,0,1) <- world좌표
-        //    //0,0,1
-
-        //    //transform.forward <- local좌표의 forward
-
-        //    //월드 기준
-        //    controller.Move(transform.forward * speed * Time.deltaTime);
-        //}
-
-
-        //controller.Move(Vector3.forward * speed * Time.deltaTime);
-        //Vector3 _lookPos = target.transform.position - transform.position;
-        ////target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치
-        //_lookPos.y = 0;
-
-        //transform.rotation = Quaternion.LookRotation(_lookPos);
-
-        //_lookPos.Normalize();
-
-        //controller.Move(_lookPos * speed * Time.deltaTime);
     }
 
     public override void Attack()
     {
-        Vector3 _lookPos = (target.transform.position - transform.position).normalized;
-        //y축 바라보면서 도는 거 방지
-        _lookPos.y = 0;
+
+        //Vector3 _lookPos = (target.transform.position - transform.position).normalized;
+        ////y축 바라보면서 회전 방지
+        ////target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치라고 인식시켜준다.
+        //_lookPos.y = 0;
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
-        transform.rotation = Quaternion.LookRotation(_lookPos);
-        if (_distance > attackRange)
+        //transform.rotation = Quaternion.LookRotation(_lookPos);
+
+        if (_viewingAngle.ableToDamage())
         {
-            print("추적중");
+            //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
+        }
+
+        if (_distance > attackRange || !_viewingAngle.ableToDamage())
+        {
+            //print("추적중");
             state = MeleeState.Run;
         }
     }
 
-    public override void Damage(int damage)
+    public override void Damaged(int damage)
     {
-        base.Damage(damage);
+        base.Damaged(damage);
+        if (isDead)
+        {
+            StartCoroutine(disappearObject());
+
+            state = MeleeState.Die;
+        }
     }
 
-    private void Die() { }
+    private void Die()
+    {
+        
+    }
 
     protected void OnDrawGizmos()
     {

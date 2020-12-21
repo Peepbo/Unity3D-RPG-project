@@ -8,8 +8,8 @@ public class TextLink : MonoBehaviour
     public int inputA;
     public int inputB;
     Text myText;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         myText = GetComponent<Text>();
     }

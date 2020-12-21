@@ -10,23 +10,24 @@ namespace CSVSimpleReader
         //CSV
         public static List<string> Reader(string fileName, int startRow=0, int endRow=0)
          {
-             List<string> playerSaveInfo = new List<string>();
-             TextAsset playerData = Resources.Load(fileName)as TextAsset ;
-             string[] rowData = playerData.text.Split(new char[] { '\n' });
+             List<string> _playerSaveInfo = new List<string>();
+
+             TextAsset _playerData = Resources.Load(fileName)as TextAsset ;
+             string[] _rowData = _playerData.text.Split(new char[] { '\n' });
             if (endRow == 0)
-                endRow = rowData.Length;
+                endRow = _rowData.Length;
             
              for (int i = startRow; i < endRow; i++)
              {
-                 string[] column = rowData[i].Split(new char[] { ',' });
+                 string[] _column = _rowData[i].Split(new char[] { ',' });
          
-                 for(int k=0; k<column.Length; k++)
+                 for(int k=0; k<_column.Length; k++)
                      {
-                         playerSaveInfo.Add(column[k]);
+                         _playerSaveInfo.Add(_column[k]);
                      }
              }
              
-                 return playerSaveInfo;
+                 return _playerSaveInfo;
          }
 
         //   //List<ItemInfo> itemList = new List<ItemInfo>();
