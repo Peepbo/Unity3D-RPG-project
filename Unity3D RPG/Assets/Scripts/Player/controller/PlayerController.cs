@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        Vector2 _movementInput = playerInput.playerMain.Move.ReadValue<Vector2>();
+        Vector2 _movementInput = playerInput.PlayerMain.Move.ReadValue<Vector2>();
         value = _movementInput;
         Vector3 _move = (cameraMain.forward * _movementInput.y + cameraMain.right * _movementInput.x);
         _move.y = 0f;
