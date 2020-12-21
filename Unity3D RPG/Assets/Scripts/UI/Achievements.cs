@@ -10,10 +10,10 @@ using UnityEngine.UI;
 
 public enum ACHIEVE_STATE
 {
-    AS_YET,
-    AS_PROGRESS,
-    AS_FINISH,
-    AS_DONE
+    YET,
+    PROGRESS,
+    DONE,
+    ACHIEVE
 }
 
 public class AchieveData
@@ -31,13 +31,13 @@ public class Achievements : MonoBehaviour
 
     public void Content(int order)
     {
-        if(data[order].state == ACHIEVE_STATE.AS_FINISH)
+        if(data[order].state == ACHIEVE_STATE.ACHIEVE)
         {
             //아이템을 얻는다
             PlayerData.Instance.myCurrency += data[order].reward;
             //
 
-            data[order].state = ACHIEVE_STATE.AS_DONE;
+            data[order].state = ACHIEVE_STATE.DONE;
         }
     }
 
