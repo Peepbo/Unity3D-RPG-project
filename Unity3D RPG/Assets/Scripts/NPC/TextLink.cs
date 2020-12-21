@@ -14,14 +14,8 @@ public class TextLink : MonoBehaviour
         myText = GetComponent<Text>();
     }
 
-    public void GetCSV()
+    public void GetData()
     {
         myText.text = PlayerData.Instance.info[inputA, inputB].ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //myText.text = PlayerData.Instance.info[inputA, inputB].ToString();
     }
 }
