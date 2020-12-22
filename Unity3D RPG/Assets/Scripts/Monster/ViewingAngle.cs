@@ -26,6 +26,7 @@ public class ViewingAngle : MonoBehaviour
     {
         //Mathf.Deg2Rad : Degree to radius , (PI *2)/360과 같음
         cosValue = Mathf.Cos(Mathf.Deg2Rad * (angle / 2));
+
         direction = target.transform.position - transform.position;
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
@@ -33,11 +34,15 @@ public class ViewingAngle : MonoBehaviour
         //타겟이 인식 가능한 거리에 있을 때
         if (_distance < radius)
         {
+            //만약 맵이 평면이라면 target과 현재 transfrom y를 0으로 만들어주기
             if (Vector3.Dot(direction.normalized, transform.forward) > cosValue)
             {
                 isCol = true;
             }
-            else isCol = false;
+            else
+            {
+                isCol = false;
+            }
         }
         else
         {

@@ -20,10 +20,10 @@ public class ShopManager : MonoBehaviour
     public void BuyItem()
     {
         ItemInfo _item = CSVData.Instance.find(itemName);
+
         PlayerData.Instance.SaveChest(_item);
         
         Debug.Log(_item.itemName + "을 얻었습니다!");
-        PlayerData.Instance.SaveData();
 
         cm.GetData();
     }

@@ -30,7 +30,7 @@ public class CameraLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 _delta = playerInput.playerMain.Look.ReadValue<Vector2>();
+        Vector2 _delta = playerInput.PlayerMain.Look.ReadValue<Vector2>();
         cinemachine.m_XAxis.Value += _delta.x * 200* lookSpeed * Time.deltaTime;
         cinemachine.m_YAxis.Value += -_delta.y * lookSpeed * Time.deltaTime;
     }

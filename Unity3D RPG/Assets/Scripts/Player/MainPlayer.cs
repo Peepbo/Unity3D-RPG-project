@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Player/PlayerMain.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Player/MainPlayer.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class MainPlayer : IInputActionCollection, IDisposable
+public class @MainPlayer : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public MainPlayer()
+    public @MainPlayer()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""PlayerMain"",
+    ""name"": ""MainPlayer"",
     ""maps"": [
         {
             ""name"": ""PlayerMain"",
@@ -196,8 +196,8 @@ public class MainPlayer : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMain_Look;
     public struct PlayerMainActions
     {
-        private MainPlayer m_Wrapper;
-        public PlayerMainActions(MainPlayer wrapper) { m_Wrapper = wrapper; }
+        private @MainPlayer m_Wrapper;
+        public PlayerMainActions(@MainPlayer wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_PlayerMain_Move;
         public InputAction @Atk => m_Wrapper.m_PlayerMain_Atk;
         public InputAction @Look => m_Wrapper.m_PlayerMain_Look;
@@ -235,7 +235,7 @@ public class MainPlayer : IInputActionCollection, IDisposable
             }
         }
     }
-    public PlayerMainActions playerMain => new PlayerMainActions(this);
+    public PlayerMainActions @PlayerMain => new PlayerMainActions(this);
     public interface IPlayerMainActions
     {
         void OnMove(InputAction.CallbackContext context);
