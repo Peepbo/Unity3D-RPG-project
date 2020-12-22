@@ -14,7 +14,7 @@ public class ViewingAngle : MonoBehaviour
 
     private void Awake()
     {
-        target = GameObject.FindWithTag("Player");
+        target = GameObject.FindWithTag("Player").transform.Find("Pivot").gameObject;
     }
     // Update is called once per frame
     void Update()

@@ -14,6 +14,7 @@ public class MeleeEnemy : EnemyManager
     bool isObserve = true;
     bool isRangeOver = false;
     bool isDelay = false;
+    bool isAttackActive = false;
 
     public float thinkCoolTime = 10f;
     public float observeRange = 5f;
@@ -21,9 +22,13 @@ public class MeleeEnemy : EnemyManager
     public int action = 0;
     Vector3 currentPos;
 
+
+
     //del
-    float _number = 0;
-    float _count = 2;
+
+    public float stay = 0f;
+    //float _number = 0;
+    //float _count = 2;
 
 
     IEnumerator delay()
@@ -235,24 +240,52 @@ public class MeleeEnemy : EnemyManager
         }
 
     }
-
-    public override void Attack()
+    IEnumerator PatternBasic()
     {
-        //Vector3 _lookPos = (target.transform.position - transform.position).normalized;
-        ////y축 바라보면서 회전 방지
-        ////target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치라고 인식시켜준다.
-        //_lookPos.y = 0;
+        print("start");
 
+        BasicAttack _attack = BasicAttack.FindObjectOfType<BasicAttack>();
+
+        isAttackActive = true;
+        yield return new WaitForSeconds(2f);
+        //print("1");
+        _attack.hit();
+        yield return new WaitForSeconds(1f);
+        //print("2");
+        _attack.hit();
+        yield return new WaitForSeconds(1f);
+        //print("3");
+        _attack.hit();
+
+        isAttackActive = false;
+    }
+    public override void Attack()
+    {    
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
-        //transform.rotation = Quaternion.LookRotation(_lookPos);
-
-        if (viewingAngle.ableToDamage())
+        //부채꼴 범위 안에 있으면
+        if (viewingAngle.ableToDamage() && !isAttackActive)
         {
-            print("attack");
-            //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
+            stay += Time.deltaTime;
 
+            //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
+            if(stay > 1)
+            {
+                stay = 0;
+                StartCoroutine(PatternBasic());
+            }
         }
+
+        if (!isAttackActive)
+        {
+            Vector3 _sp = target.transform.position;
+            _sp.y = transform.position.y;
+
+            transform.forward = Vector3.Slerp(transform.forward, _sp - transform.position, Time.deltaTime * 3f);
+        }
+
+        if (viewingAngle.ableToDamage() == false) stay = 0;
+
 
         if (_distance > attackRange)
         {
@@ -274,7 +307,7 @@ public class MeleeEnemy : EnemyManager
 
     private void Die()
     {
-        
+
     }
 
     protected void OnDrawGizmos()
@@ -293,5 +326,6 @@ public class MeleeEnemy : EnemyManager
             Gizmos.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 0.5f));
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
+
     }
 }
