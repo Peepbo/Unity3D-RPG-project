@@ -19,20 +19,24 @@ partial class Player
         hAxis = Input.GetAxisRaw("Horizontal");
 
         vAxis = Input.GetAxisRaw("Vertical");
-        
+
     }
     void Move()
     {
-        moveVec = new Vector3(hAxis, 0, vAxis);
-        if (hAxis != 0 || vAxis != 0)
+        if (isDash == false)
         {
-            transform.Translate(moveVec * speed * Time.deltaTime);
+
+            moveVec = new Vector3(hAxis, 0, vAxis);
+            if (hAxis != 0 || vAxis != 0)
+            {
+                transform.Translate(moveVec * speed * Time.deltaTime);
+            }
         }
     }
-    void Turn()     
+    void Turn()
     {
-       //나중에 
-        
+        //나중에 
+
     }
 }
 

@@ -16,7 +16,7 @@ partial class Player
     bool isAtk;
     bool isCri;
 
-    bool isDash;
+    public bool isDash;
     public float dashTime;
     public float dashSpeed;
 
@@ -39,7 +39,6 @@ partial class Player
         EVASION,    
         GUARD,
         DIE
-        
     }
 
     public PlayerState state = PlayerState.IDLE;
@@ -60,6 +59,11 @@ partial class Player
                     Debug.Log("to move");
                 }
 
+                if( isAtk)
+                {
+                    state = PlayerState.ATK;
+                }
+
                 break;
             case PlayerState.MOVE:
                 if(playerC.value == Vector2.zero)
@@ -67,16 +71,20 @@ partial class Player
                     state = PlayerState.IDLE;
                     Debug.Log("to idle");
                 }
+
+                if (isAtk)
+                {
+                    state = PlayerState.ATK;
+                }
                 break;
 
             case PlayerState.ATK:
-                
 
+                if (!isAtk)
+                {
+                    state = PlayerState.IDLE;
+                }
 
-                // state = State.CRIATK
-                //state = State.IDLE
-                //state = State.HIT
-                //state = State.EVASION
                 break;
             case PlayerState.CRIATK:
                 //state = State.IDLE
@@ -99,7 +107,11 @@ partial class Player
 
     }
     
-    public void PlayerAtk()
+    public void PlayerAtkStart()
+    {
+        isAtk = true;
+    }
+    public void PlayerAtkEnd()
     {
 
     }
@@ -107,20 +119,26 @@ partial class Player
     {
 
     }
+  
     IEnumerator DashMove()
     {
         float startTime = Time.time;
+        
         while (Time.time < startTime + dashTime)
         {
             moveScript.controller.Move(moveScript.child.forward * dashSpeed * Time.deltaTime);
            
             yield return null;
         }
-
-
+       
+        Debug.Log("change Idle");
+        state = PlayerState.IDLE;
+        isDash = false;
     }
     public void PlayerDash()
     {
+        isDash = true;
+        state = PlayerState.EVASION;
          StartCoroutine(DashMove());
     }
 
