@@ -11,17 +11,7 @@ public class MeleeEnemy : EnemyManager
     MeleeState state;
     ViewingAngle viewingAngle;
 
-    bool isObserve = true;
-    bool isRangeOver = false;
-    bool isDelay = false;
     bool isAttackActive = false;
-
-    public float thinkCoolTime = 10f;
-    public float observeRange = 5f;
-
-    public int action = 0;
-    Vector3 currentPos;
-
 
 
     //del
@@ -105,7 +95,6 @@ public class MeleeEnemy : EnemyManager
                 break;
         }
 
-
     }
 
     public void RangeOver()
@@ -140,7 +129,6 @@ public class MeleeEnemy : EnemyManager
             }
             StartCoroutine(delay());
             int _index = Random.Range(0, _able.Count);
-
 
 
 
@@ -248,13 +236,10 @@ public class MeleeEnemy : EnemyManager
 
         isAttackActive = true;
         yield return new WaitForSeconds(2f);
-        //print("1");
         _attack.hit();
         yield return new WaitForSeconds(1f);
-        //print("2");
         _attack.hit();
         yield return new WaitForSeconds(1f);
-        //print("3");
         _attack.hit();
 
         isAttackActive = false;
@@ -278,10 +263,10 @@ public class MeleeEnemy : EnemyManager
 
         if (!isAttackActive)
         {
-            Vector3 _sp = target.transform.position;
-            _sp.y = transform.position.y;
+            Vector3 _targetPos = target.transform.position;
+            _targetPos.y = transform.position.y;
 
-            transform.forward = Vector3.Slerp(transform.forward, _sp - transform.position, Time.deltaTime * 3f);
+            transform.forward = Vector3.Slerp(transform.forward, _targetPos - transform.position, Time.deltaTime * 3f);
         }
 
         if (viewingAngle.ableToDamage() == false) stay = 0;

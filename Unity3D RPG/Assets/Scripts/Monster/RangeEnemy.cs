@@ -6,19 +6,34 @@ public enum RangeState
 {
     IDLE, RUN, ATTACK, DAMAGED, DIE
 };
+enum AttackState
+{
+    GAUGING, ATTACK, REST
+}
+
 public class RangeEnemy : EnemyManager
 {
     RangeState state;
+    AttackState atkState;
 
-    GameObject arrowPrefab;
     Transform firePoint;
+    public string prefabTag;
 
     float spawnCount = 0;
+
+    float atkTime = 0;
+    bool oneShot = false;
+
     protected override void Awake()
     {
         base.Awake();
         state = RangeState.IDLE;
         firePoint = transform.Find("firePoint");
+
+    }
+    private void Start()
+    {
+        currentPos = transform.position;
     }
     protected override void Update()
     {
@@ -26,11 +41,29 @@ public class RangeEnemy : EnemyManager
         ChangeState();
     }
 
+    IEnumerator delay()
+    {
+        isDelay = true;
+        yield return new WaitForSeconds(1f);
+        isDelay = false;
+    }
+
     private void ChangeState()
     {
+        //감시 중이며
+        if (isObserve)
+        {
+            //선을 넘지 않으면? 
+            if (!isRangeOver) Observe();
+
+            //선을 넘으면?
+            else RangeOver();
+        }
+
         switch (state)
         {
             case RangeState.IDLE:
+                Idle();
                 break;
             case RangeState.RUN:
                 Move();
@@ -44,11 +77,78 @@ public class RangeEnemy : EnemyManager
                 break;
         }
     }
+
+    public void RangeOver()
+    {
+        if (isDead) return;
+        //여기는 휴식 반경을 넘어갔을 때!
+        thinkCoolTime -= Time.deltaTime;
+
+        if (thinkCoolTime < 0)
+        {
+            thinkCoolTime = 3f;
+            //체크 할 각도
+            float[] _angle = { 0, 60, 120, 180, 240, 300 };
+
+            //0번,3번,5번
+
+            //0 1   2
+
+            //0,60,120
+
+            List<float> _able = new List<float>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                pivotCenter.rotation = Quaternion.Euler(pivotCenter.rotation.x, _angle[i], pivotCenter.rotation.z);
+
+                //만약 observeRange안에 있으면
+                if (Vector3.Distance(radar.position, currentPos) < observeRange)
+                {
+                    _able.Add(_angle[i]);
+                }
+            }
+            StartCoroutine(delay());
+            int _index = Random.Range(0, _able.Count);
+
+
+
+            transform.rotation = Quaternion.Euler(0, _able[_index], 0);
+            state = RangeState.RUN;
+
+            isRangeOver = false;
+        }
+
+        //Debug.Log("여러분 저 선넘었어요!");
+    }
+
+    public void Observe()
+    {
+        //반경 5m
+
+        //휴식할때만 사용
+        thinkCoolTime -= Time.deltaTime;
+
+        if (thinkCoolTime < 0)
+        {
+            thinkCoolTime = Random.Range(2, 6);
+            action = Random.Range(0, 2);
+
+            state = (RangeState)action;
+
+            if (state == RangeState.RUN)
+            {
+                //Vector3 _angle = transform.eulerAngles;
+                //_angle.y = UnityEngine.Random.Range(0, 359);
+                //transform.eulerAngles = _angle;
+                transform.forward = GetRandomDirection();
+            }
+        }
+    }
+
+
     public void Idle()
     {
-        //
-        // 
-        //
         if (Vector3.Distance(transform.position, target.transform.position) < findRange)
         {
             state = RangeState.RUN;
@@ -56,38 +156,165 @@ public class RangeEnemy : EnemyManager
     }
     public override void Move()
     {
-        Vector3 _lookPos = target.transform.position - transform.position;
-        //target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치
-        _lookPos.y = 0;
+        float _distance = Vector3.Distance(target.transform.position, transform.position);
 
-        transform.rotation = Quaternion.LookRotation(_lookPos);
 
-        _lookPos.Normalize();
+        if (isObserve)
+        {
+            //print("감시중");
 
-        controller.Move(_lookPos * speed * Time.deltaTime);
+            if (_distance < findRange)
+            {
+                isObserve = false;
+            }
+            controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
 
+            float _center2here = Vector3.Distance(transform.position, currentPos);
+
+            if (isDelay == false)
+            {
+                if (_center2here > observeRange)
+                {
+                    isRangeOver = true;
+                    thinkCoolTime = 5;
+
+                    state = RangeState.IDLE;
+                }
+
+            }
+        }
+        else
+        {
+            Vector3 _lookPos = target.transform.position - transform.position;
+            //target의 y축이 어디에 있든, 현재 오브젝트가 바라보고 있는 건 y=0 위치
+            _lookPos.y = 0;
+
+            transform.rotation = Quaternion.LookRotation(_lookPos);
+
+            _lookPos.Normalize();
+
+            controller.Move(_lookPos * speed * Time.deltaTime);
+
+            if (_distance > findRange)
+            {
+                state = RangeState.IDLE;
+
+                //ai resetting
+                currentPos = transform.position;
+                thinkCoolTime = 2f;
+                isObserve = true;
+            }
+
+            if (_distance < attackRange)
+            {
+                state = RangeState.ATTACK;
+            }
+        }
+    }
+
+    IEnumerator AttackAction()
+    {
+        //something = true;
+
+        atkState = AttackState.GAUGING;
+        yield return new WaitForSeconds(2.0f);
+        atkState = AttackState.ATTACK;
+        yield return new WaitForSeconds(0.5f);
+        atkState = AttackState.REST;
+        yield return new WaitForSeconds(1.0f);
+
+        float _distance = (target.transform.position - transform.position).magnitude;
+
+        if (_distance > attackRange)
+        {
+            atkState = AttackState.GAUGING;
+            state = RangeState.RUN;
+        }
+
+        //something = false;
     }
 
     public override void Attack()
     {
         //fire 
-        arrowPrefab = ObjectPool.SharedInstance.GetPooledObject("arrow");
 
-        float _dis = Vector3.Distance(target.transform.position, transform.position);
-        spawnCount += Time.deltaTime;
-        if (_dis < attackRange)
+
+        //float _dis = Vector3.Distance(target.transform.position, transform.position);
+
+        ////del
+        Vector3 _target2here = target.transform.position - transform.position; //return 거리 + 방향
+        float _distance = _target2here.magnitude; //return 거리
+        Vector3 _direction = _target2here.normalized;
+        //return 방향
+
+        ////
+        //STATE
+        //1.플레이어 노려보기
+        //2.공격
+        //3.휴식
+
+        //1. 코루틴
+        //2. float += time.deltatime
+
+        atkTime += Time.deltaTime;
+
+        if (atkTime < 2f) atkState = AttackState.GAUGING;
+        else if (atkTime < 2.5f) atkState = AttackState.ATTACK;
+        else if (atkTime < 3.5f) atkState = AttackState.REST;
+
+        else //time >= 3.5
         {
-            if (spawnCount > 3.0f)
+            atkTime = 0;
+            //상대가 나갔는지 안나갔는지 상태 변환
+            if (_distance > attackRange)
             {
-                arrowPrefab.transform.position = firePoint.position;
-                arrowPrefab.transform.rotation = transform.rotation;
-                arrowPrefab.SetActive(true);
-                // Instantiate(arrowPrefab,firePoint.position,transform.rotation);
-
-                spawnCount = 0;
+                atkState = AttackState.GAUGING;
+                state = RangeState.RUN;
             }
+
         }
-        else state = RangeState.RUN;
+
+        switch (atkState)
+        {
+            case AttackState.GAUGING:
+                //1.플레이어 노려보기
+                {
+
+                    if (atkTime < 1.8f)
+                    {
+                        _direction.y = 0;
+                        transform.rotation = Quaternion.LookRotation(_direction);
+
+                        oneShot = false;
+                    }
+
+                }
+                break;
+            case AttackState.ATTACK:
+                //2.공격
+                {
+                    if (!oneShot)
+                    {
+                        oneShot = true;
+
+                        var _prefabFactory = ObjectPool.SharedInstance.GetPooledObject(prefabTag);
+
+                        if (_prefabFactory != null)
+                        {
+                            _prefabFactory.transform.position = firePoint.position;
+                            _prefabFactory.transform.rotation = transform.rotation;
+                            _prefabFactory.SetActive(true);
+                        }
+                    }
+                }
+                break;
+            case AttackState.REST:
+                //3.휴식
+                {
+
+                }
+                break;
+        }
     }
 
     public override void Damaged(int damage)
@@ -96,12 +323,13 @@ public class RangeEnemy : EnemyManager
     }
     protected void OnDrawGizmos()
     {
-        Gizmos.color = Color.Lerp(Color.cyan, Color.red, Mathf.PingPong(Time.time, 0.5f));
+        Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, findRange);
 
-        Gizmos.color = Color.Lerp(Color.red, Color.red, Mathf.PingPong(Time.time, 0.5f));
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, observeRange);
     }
-
 }
-

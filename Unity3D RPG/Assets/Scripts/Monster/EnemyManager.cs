@@ -6,11 +6,14 @@ public abstract class EnemyManager : MonoBehaviour
 {
     //근거리 , 원거리 , 마법형
 
+    #region
     protected CharacterController controller;
     protected GameObject target;
     protected int hp;
     protected bool isDead;
     protected float gravity;
+
+    #endregion
 
     public Transform pivotCenter;
     public Transform radar;
@@ -23,6 +26,19 @@ public abstract class EnemyManager : MonoBehaviour
     [Range(1, 10)]
     public float attackRange;
 
+
+    #region Idle AI
+    public float thinkCoolTime = 10f;
+    public float observeRange = 5f;
+    public int action = 0;
+
+    protected Vector3 currentPos;
+
+    //Idle AI
+    protected bool isObserve = true;
+    protected bool isRangeOver = false;
+    protected bool isDelay = false;
+    #endregion
 
     protected virtual void Awake()
     {
