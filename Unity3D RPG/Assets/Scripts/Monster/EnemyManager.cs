@@ -10,6 +10,7 @@ public abstract class EnemyManager : MonoBehaviour
     protected GameObject target;
     protected int hp;
     protected bool isDead;
+    protected float gravity;
 
     public Transform pivotCenter;
     public Transform radar;
@@ -41,6 +42,7 @@ public abstract class EnemyManager : MonoBehaviour
 
     public virtual void Damaged(int damage)
     {
+        if (hp == 0) return; 
         hp -= damage;
 
         if (hp <= 0 && !isDead)
