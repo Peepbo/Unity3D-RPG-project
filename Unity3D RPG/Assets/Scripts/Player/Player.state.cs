@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,15 +7,28 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
+
 partial class Player
 {
-
+    PlayerController moveScript;
     bool isCombo;
 
     bool isAtk;
     bool isCri;
 
+    bool isDash;
+    public float dashTime;
+    public float dashSpeed;
 
+    void StateStart()
+    {
+        moveScript = GetComponent<PlayerController>();
+
+    }
+    void StateUpdate()
+    {
+        
+    }
     public enum PlayerState
     {
         IDLE,
@@ -43,6 +57,7 @@ partial class Player
                 if(_movementInput != Vector2.zero)
                 {
                     state = PlayerState.MOVE;
+                    Debug.Log("to move");
                 }
 
                 break;
@@ -50,11 +65,14 @@ partial class Player
                 if(playerC.value == Vector2.zero)
                 {
                     state = PlayerState.IDLE;
+                    Debug.Log("to idle");
                 }
                 break;
 
             case PlayerState.ATK:
                 
+
+
                 // state = State.CRIATK
                 //state = State.IDLE
                 //state = State.HIT
@@ -89,6 +107,24 @@ partial class Player
     {
 
     }
+    IEnumerator DashMove()
+    {
+        float startTime = Time.time;
+        while (Time.time < startTime + dashTime)
+        {
+            moveScript.controller.Move(moveScript.child.forward * dashSpeed * Time.deltaTime);
+           
+            yield return null;
+        }
 
+
+    }
+    public void PlayerDash()
+    {
+         StartCoroutine(DashMove());
+    }
+
+
+   
 }
 

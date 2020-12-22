@@ -15,14 +15,16 @@ partial class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StateStart();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+
+        StateUpdate();
         Move();
         GetInput();
         Turn();

@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Player player;
     private MainPlayer playerInput;
-    private CharacterController controller;
+    public CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
     public float playerSpeed = 2.0f;
@@ -16,9 +16,10 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeed = 4f;
 
     public Vector2 value;
-    private Transform cameraMain;
+    public Vector3 value3;
 
-    private Transform child;
+    private Transform cameraMain;
+    public Transform child;
 
     private void Awake()
     {
@@ -52,8 +53,9 @@ public class PlayerController : MonoBehaviour
         value = _movementInput;
         Vector3 _move = (cameraMain.forward * _movementInput.y + cameraMain.right * _movementInput.x);
         _move.y = 0f;
+        value3 = _move;
 
-      
+
          controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
          child.LookAt(child.position+ _move);
         
