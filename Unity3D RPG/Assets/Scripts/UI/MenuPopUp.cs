@@ -7,6 +7,7 @@ public class MenuPopUp : MonoBehaviour
     public GameObject menuPanel;
     public GameObject menuIcon;
     public GameObject achievementPanel;
+    public GameObject settingPanel;
 
     public GameObject shopIcon;
     public GameObject shopPanel;
@@ -85,5 +86,15 @@ public class MenuPopUp : MonoBehaviour
     public void Continue()
     {
         quitPanel.SetActive(false);
+    }
+
+    public void SettingPop()
+    {
+        settingPanel.SetActive(true);
+    }
+
+    public void SettingClose()
+    {
+        settingPanel.SetActive(false);
     }
 }

@@ -60,7 +60,6 @@ public class ObjectPool : MonoBehaviour
         //풀에 존재하는 오브젝트 만큼 for문을 돈다
         for (int i = 0; i < pooledObjects.Count; i++)
         {
-
             //그 오브젝트가 Hierarchy창에서 활성화가 아니며,
             //내가 매개변수로 입력한 tag와 그 오브젝트의 tag가 같을 때
             if (pooledObjects[i].activeInHierarchy == false &&
