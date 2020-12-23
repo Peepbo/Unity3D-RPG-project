@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     void Start()
     {
         PlayerData.Instance.LoadData();
-        statData.ListUpdate();
+        //statData.ListUpdate();
         chestData.GetData();
 
         Debug.Log("data roading end");

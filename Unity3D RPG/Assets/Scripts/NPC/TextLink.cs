@@ -16,6 +16,6 @@ public class TextLink : MonoBehaviour
 
     public void GetData()
     {
-        myText.text = PlayerData.Instance.info[inputA, inputB].ToString();
+        //myText.text = PlayerData.Instance.info[inputA, inputB].ToString();
     }
 }
