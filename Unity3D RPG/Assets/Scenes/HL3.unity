@@ -1256,13 +1256,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c31cdff900384fa3600598c2ac09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpBar: {fileID: 0}
+  staminaBar: {fileID: 0}
   speed: 0
+  playerName: 
   maxHp: 10
-  Hp: 10
+  hp: 100
+  maxStamina: 100
+  stamina: 100
+  def: 0
   power: 0
-  isDash: 0
   dashTime: 0
   dashSpeed: 0
+  guardStamina: 0
+  condition: 0
+  isDash: 0
   state: 0
 --- !u!1 &1143230004
 GameObject:
@@ -1537,7 +1545,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1331797396}
-  m_LocalRotation: {x: 0.14781776, y: -0.00000001902599, z: 0.0000000028436171, w: 0.9890146}
+  m_LocalRotation: {x: 0.14781776, y: 0.000000019025993, z: -0.0000000028436176, w: 0.9890146}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1687,6 +1695,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Melee
       objectReference: {fileID: 0}
+    - target: {fileID: 835668531912915487, guid: cd1f12e842f070d4f9d2e730bda90edd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd1f12e842f070d4f9d2e730bda90edd, type: 3}
 --- !u!1001 &1602526147
@@ -1759,7 +1772,7 @@ PrefabInstance:
     - target: {fileID: 2033451922985777879, guid: d12bc07856648224d8d40620296d87de,
         type: 3}
       propertyPath: itemsToPool.Array.data[0].amountToPool
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2033451922985777879, guid: d12bc07856648224d8d40620296d87de,
         type: 3}
@@ -1835,6 +1848,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Range
+      objectReference: {fileID: 0}
+    - target: {fileID: 334528291149973862, guid: ac58ddaedd5c60b479ea8a354406d1aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 334528291149973863, guid: ac58ddaedd5c60b479ea8a354406d1aa,
+        type: 3}
+      propertyPath: findRange
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac58ddaedd5c60b479ea8a354406d1aa, type: 3}

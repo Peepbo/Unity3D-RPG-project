@@ -6,14 +6,14 @@ enum MeleeState
 {
     IDLE, RUN, ATTACK, DAMAGED, DIE
 };
-enum MoveState
+enum M_MoveState
 {
     OBSERVE, TRACK, RETURN
 }
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;
-    MoveState moveState;
+    M_MoveState moveState;
 
     ViewingAngle viewingAngle;
 
@@ -192,25 +192,25 @@ public class MeleeEnemy : EnemyManager
             {
                 //플레이어 쫓아감
                 isObserve = false;
-                moveState = MoveState.TRACK;
+                moveState = M_MoveState.TRACK;
             }
             else
             {
-                moveState = MoveState.OBSERVE;
+                moveState = M_MoveState.OBSERVE;
             }
         }
         else
         {
             if (_distance > findRange)
             {
-                moveState = MoveState.RETURN;
+                moveState = M_MoveState.RETURN;
             }
         }
 
 
         switch (moveState)
         {
-            case MoveState.OBSERVE:
+            case M_MoveState.OBSERVE:
 
                 //주변을 멤돌때
                 {
@@ -232,7 +232,7 @@ public class MeleeEnemy : EnemyManager
                     }
                 }
                 break;
-            case MoveState.TRACK:
+            case M_MoveState.TRACK:
                 //플레이어 추적
                 {
                     //2.플레이어를 쫓아감
@@ -253,7 +253,7 @@ public class MeleeEnemy : EnemyManager
                     }
                 }
                 break;
-            case MoveState.RETURN:
+            case M_MoveState.RETURN:
                 //spawn지점으로 리턴
                 {
                     print("3");

@@ -33,7 +33,6 @@ public abstract class EnemyManager : MonoBehaviour
     public float observeRange = 5f;
     public int action = 0;
 
-    protected Vector3 currentPos;
 
     protected Vector3 spawnPos;
 

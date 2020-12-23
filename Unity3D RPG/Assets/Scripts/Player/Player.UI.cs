@@ -23,13 +23,13 @@ partial class Player
     public void HpBarControl()
     {
          
-         hpBar.fillAmount = (float)hp / (float)maxHp;
+         //hpBar.fillAmount = (float)hp / (float)maxHp;
          
     }
     public void StaminaBarControl()
     {
         
-        staminaBar.fillAmount = (float)stamina / (float)maxStamina;
+        //staminaBar.fillAmount = (float)stamina / (float)maxStamina;
     }
 }
 
