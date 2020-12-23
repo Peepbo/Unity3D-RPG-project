@@ -6,16 +6,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CSVReader.Data("itemName")]
+[CSVReader.Data("id")]
 public class ItemInfo
 {
     public int id;
+    public int kindID;
     public string kind;
     public string itemName;
-    public int atk;
-    public int def;
-    public int price;
+    public string grade;
     public int count;
+    public int atk;
+    public float atkSpeed;
+    public int def;
+    public string skill;
+    public int skillIncrease;
+    public string ingredient1;
+    public int ingredientCount1;
+    public string ingredient2;
+    public int ingredientCount2;
+    public string ingredient3;
+    public int ingredientCount3;
+    public string ingredient4;
+    public int ingredientCount4;
+    public int price;
+    public string descript;
+    public float dropRate;
     public string prefabName;
 }
 
@@ -23,7 +38,7 @@ public class CSVData : Singleton<CSVData>
 {
     protected CSVData() { }
 
-    Dictionary<string, ItemInfo> dictionaryData;
+    Dictionary<int, ItemInfo> dictionaryData;
     List<string> playerItemData = new List<string>();
     List<string> playerRootData = new List<string>();
     List<string> playerAbility = new List<string>();
@@ -32,7 +47,7 @@ public class CSVData : Singleton<CSVData>
     public List<string> playerRootLoad { get { return playerRootData; } }
     
 
-    public ItemInfo find(string key) { return dictionaryData[key]; }
+    public ItemInfo find(int key) { return dictionaryData[key]; }
 
     void Awake()
     {
@@ -47,7 +62,7 @@ public class CSVData : Singleton<CSVData>
         //List<ItemInfo> listData = playerStateTable.TableToList<ItemInfo>();
 
         //테이블에 있는 데이터를 Dictionary로 변환
-        dictionaryData = _itemTable.TableToDictionary<string, ItemInfo>();
+        dictionaryData = _itemTable.TableToDictionary<int, ItemInfo>();
 
         Debug.Log("SucceededLoad");
         //for(int i=0; i<playerRootData.Count;i++)

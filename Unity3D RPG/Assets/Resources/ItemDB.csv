@@ -1,6 +1,78 @@
-ID,Kind,Name,ATK,DEF,Price,count,PrefabName
-1,Weapon,OldSword,5,0,500,1,PrefOldSword
-2,Armour,OldArmour,0,5,1000,1,PrefOldArmour
-3,Accessory,OldNecklace,2,2,2000,1,PrefOldNecklace
-1,Weapon,NewSword,10,0,2000,1,PrefNewSword
-4,Root,OrcTooth,0,0,0,1,PrefOrcTooth
+ID,KindID,Kind,Name,Grade,ItemCount,ATK,ATKSpeed,DEF,Skill,SkillIncrease,Material1,Count,Material2,Count,Material3,Count,Material4,Count,Price,Descript,DropRate,PrefabName
+0,1,Weapon,모험가의 검,normal,1,10,1,0,guard,0,수정 가루,10,,,,,,,1000,,0,Pref_ExplorerSword
+1,1,Weapon,전사의 검,normal,1,20,1,0,guard,0,모험가의 검,1,수정 가루,20,작은 녹색 수정,10,고블린 전사의 증표,5,2000,,0,Pref_SoldierSword
+2,1,Weapon,,normal,1,40,1,0,guard,0,,,,,,,,,4000,,0,
+3,1,Weapon,,normal,1,80,1,0,guard,0,,,,,,,,,8000,,0,
+4,1,Weapon,,normal,1,160,1,0,guard,0,,,,,,,,,16000,,0,
+5,1,Weapon,,normal,1,320,1,0,guard,0,,,,,,,,,32000,,0,
+6,1,Weapon,족장의 검,rare,1,50,1,0,guard,0,모험가의 검,1,고블린 수정,10,고블린 족장의 증표,5,족장의 목걸이,1,5000,,0,Pref_ChieftainSword
+7,1,Weapon,,rare,1,100,1,0,guard,0,,,,,,,,,10000,,0,
+8,1,Weapon,,rare,1,200,1,0,guard,0,,,,,,,,,20000,,0,
+9,1,Weapon,,rare,1,400,1,0,guard,0,,,,,,,,,40000,,0,
+10,1,Weapon,,rare,1,800,1,0,guard,0,,,,,,,,,80000,,0,
+11,1,Weapon,모험가의 대검,normal,1,30,0.3,0,guard,0,수정 가루,10,,,,,,,1000,,0,Pref_ExplorerGreatsword
+12,1,Weapon,전사의 대검,normal,1,60,0.3,0,guard,0,모험가의 대검,1,수정 가루,20,작은 녹색 수정,10,고블린 전사의 증표,5,2000,,0,Pref_SoldierGreatsword
+13,1,Weapon,,normal,1,120,0.3,0,guard,0,,,,,,,,,4000,,0,
+14,1,Weapon,,normal,1,240,0.3,0,guard,0,,,,,,,,,8000,,0,
+15,1,Weapon,,normal,1,480,0.3,0,guard,0,,,,,,,,,16000,,0,
+16,1,Weapon,,normal,1,960,0.3,0,guard,0,,,,,,,,,32000,,0,
+17,1,Weapon,족장의 대검,rare,1,150,0.3,0,guard,0,모험가의 대검,1,고블린 수정,10,고블린 족장의 증표,5,족장의 목걸이,1,5000,,0,Pref_ChieftainGreatsword
+18,1,Weapon,,rare,1,300,0.3,0,guard,0,,,,,,,,,10000,,0,
+19,1,Weapon,,rare,1,600,0.3,0,guard,0,,,,,,,,,20000,,0,
+20,1,Weapon,,rare,1,1200,0.3,0,guard,0,,,,,,,,,40000,,0,
+21,1,Weapon,,rare,1,2400,0.3,0,guard,0,,,,,,,,,80000,,0,
+22,1,Weapon,모험가의 단검,normal,1,5,2,0,evasion,0,수정 가루,10,,,,,,,1000,,0,Pref_ExplorerDagger
+23,1,Weapon,전사의 단검,normal,1,10,2,0,evasion,0,모험가의 단검,1,수정 가루,20,작은 녹색 수정,10,고블린 전사의 증표,5,2000,,0,Pref_SoldierDagger
+24,1,Weapon,,normal,1,20,2,0,evasion,0,,,,,,,,,4000,,0,
+25,1,Weapon,,normal,1,40,2,0,evasion,0,,,,,,,,,8000,,0,
+26,1,Weapon,,normal,1,80,2,0,evasion,0,,,,,,,,,16000,,0,
+27,1,Weapon,,normal,1,160,2,0,evasion,0,,,,,,,,,32000,,0,
+28,1,Weapon,족장의 단검,rare,1,25,2,0,evasion,0,모험가의 단검,1,고블린 수정,10,고블린 족장의 증표,5,족장의 목걸이,1,5000,,0,Pref_ChieftainSword
+29,1,Weapon,,rare,1,50,2,0,evasion,0,,,,,,,,,10000,,0,
+30,1,Weapon,,rare,1,100,2,0,evasion,0,,,,,,,,,20000,,0,
+31,1,Weapon,,rare,1,200,2,0,evasion,0,,,,,,,,,40000,,0,
+32,1,Weapon,,rare,1,400,2,0,evasion,0,,,,,,,,,80000,,0,
+33,2,Armour,모험가의 옷,normal,1,0,0,20,,0,수정 가루,10,,,,,,,1000,,0,Pref_ExplorerTop
+34,2,Armour,의식용 옷,normal,1,0,0,30,,0,모험가 옷,1,수정 가루,20,작은 녹색 수정,10,고블린 샤먼의 증표,5,2000,,0,Pref_SacrificialClothes
+35,2,Armour,,normal,1,0,0,45,,0,,,,,,,,,4000,,0,
+36,2,Armour,,normal,1,0,0,65,,0,,,,,,,,,8000,,0,
+37,2,Armour,,normal,1,0,0,100,,0,,,,,,,,,16000,,0,
+38,2,Armour,,normal,1,0,0,150,,0,,,,,,,,,32000,,0,
+39,2,Armour,족장의 옷,rare,1,0,0,60,,0,모험가 옷,1,고블린 수정,10,고블린 족장의 증표,5,족장의 목걸이,1,5000,,0,Pref_ChieftainClothes
+40,2,Armour,,rare,1,0,0,90,,0,,,,,,,,,10000,,0,
+41,2,Armour,,rare,1,0,0,130,,0,,,,,,,,,20000,,0,
+42,2,Armour,,rare,1,0,0,200,,0,,,,,,,,,40000,,0,
+43,2,Armour,,rare,1,0,0,300,,0,,,,,,,,,80000,,0,
+44,3,Accessory,강화의 반지1,normal,1,0,0,0,신체 단련,1,수정가루,100,작은수정,30,보스수정,10,,,10000,,0,Pref_Reinforced_ring1
+45,3,Accessory,강화의 반지2,normal,1,0,0,0,지구력 단련,1,수정가루,100,작은수정,30,보스수정,10,,,10000,,0,Pref_Reinforced_ring2
+46,3,Accessory,강화의 반지3,normal,1,0,0,0,예리한 감각,1,수정가루,100,작은수정,30,보스수정,10,,,10000,,0,Pref_Reinforced_ring3
+47,3,Accessory,강화의 반지4,normal,1,0,0,0,방어술,1,수정가루,100,작은수정,30,보스수정,10,,,10000,,0,Pref_Reinforced_ring4
+48,3,Accessory,특성의 반지1,rare,1,0,0,0,아드레날린,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring1
+49,3,Accessory,특성의 반지2,rare,1,0,0,0,피의 순환,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring2
+50,3,Accessory,특성의 반지3,rare,1,0,0,0,축적,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring3
+51,3,Accessory,특성의 반지4,rare,1,0,0,0,적응,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring4
+52,3,Accessory,특성의 반지5,rare,1,0,0,0,카운터,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring5
+53,3,Accessory,특성의 반지6,rare,1,0,0,0,예측,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring6
+54,3,Accessory,특성의 반지7,rare,1,0,0,0,효율적인 움직임,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring7
+55,3,Accessory,특성의 반지8,rare,1,0,0,0,기민한 행동,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring8
+56,3,Accessory,특성의 반지9,rare,1,0,0,0,포션 강화,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring9
+57,3,Accessory,특성의 반지10,rare,1,0,0,0,포션 주머니,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring10
+58,3,Accessory,특성의 반지11,rare,1,0,0,0,보물 사냥꾼,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring11
+59,3,Accessory,특성의 반지12,rare,1,0,0,0,마지막 기회,1,수정가루,100,보스 수정,20,레어소재,1,,,50000,,0,Pref_Characteristic_ring12
+60,4,Root,수정 가루,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Crystal_flour
+61,4,Root,작은 고블린 수정,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Small_Goblin_Crystal
+62,4,Root,고블린 수정,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Goblin_Crystal
+63,4,Root,고블린 전사의 증표,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Soldier_Token
+64,4,Root,고블린 사냥꾼의 증표,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Hunter_Token
+65,4,Root,주술용 해골,rare,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Sorcerous_Skull
+66,4,Root,고블린 대샤먼의 증표,normal,1,0,0,0,,0,,,,,,,,,0,,0.5,Pref_Goblin_Sorcerer_Token
+67,4,Root,스켈레톤 뼈,normal,1,0,0,0,,0,,,,,,,,,0,굴러다니던 스켈레톤의 뼈,0.5,Pref_Skeleton_born
+68,4,Root,스켈레톤 검날,normal,1,0,0,0,,0,,,,,,,,,0,스켈레톤이 들고 다니던 검의 조각,0.3,Pref_Skeleton_blade
+69,4,Root,스켈레톤 화살촉,normal,1,0,0,0,,0,,,,,,,,,0,스켈레톤이 들고 다니던 화살의 촉,0.3,Pref_Skeleton_arrowHead
+70,4,Root,고블린의 인장,normal,1,0,0,0,,0,,,,,,,,,0,고블린들의 신분증,0.5,Pref_Goblin_Seal
+71,4,Root,고블린의 몽둥이 조각,normal,1,0,0,0,,0,,,,,,,,,0,고블린이 들고 다니던 몽둥이의 조각,0.3,Pref_Piece_of_Goblin_Bat
+72,4,Root,고블린의 지팡이 조각,normal,1,0,0,0,,0,,,,,,,,,0,고블린 샤먼이 들고 다니던 지팡이의 조각,0.3,Pref_Piece_of_Goblin_Wand
+73,4,Root,고블린 족장의 인장,normal,1,0,0,0,,0,,,,,,,,,0,고블린 족장의 증표,0.4,Pref_Chieftain_Seal
+74,4,Root,고블린 족장의 장신구,normal,1,0,0,0,,0,,,,,,,,,0,고블린 족장이 쓰고 다니던 장신구,0.2,Pref_Chieftain_Accessories
+75,4,Root,고블린 족장의 도끼날,normal,1,0,0,0,,0,,,,,,,,,0,고블린 족장의 무기가 파괴되어 나온 조각,0.2,Pref_Chieftain_Axblade
+76,4,Root,고블린의 정수,normal,1,0,0,0,,0,,,,,,,,,0,고블린족의 모든 힘이 담겨진 정수,0.1,Pref_Goblin_Essence
