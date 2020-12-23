@@ -11,7 +11,7 @@ using UnityEngine.Audio;
     public AudioClip clip;
 }
 
-enum PlayerName { BGM,AMB}
+enum PlayerName { BGM1,BGM2,AMB}
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField]
@@ -60,9 +60,6 @@ public class SoundManager : Singleton<SoundManager>
         StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
 
     }
-    IEnumerator ObjectPoolReturn(float time, GameObject gameObject)
-    { yield return new WaitForSeconds(time); gameObject.SetActive(false); }
-
     public void AMBPlay(string clipName, float volume = 0.5f)
     {
         player[(int)PlayerName.AMB].clip = soundBank[clipName];
@@ -70,13 +67,44 @@ public class SoundManager : Singleton<SoundManager>
         player[(int)PlayerName.AMB].Play();
 
     }
-    //앰비사운드도 만들어서 넣기
-
     public void BGMPlay(string clipName)
     {
-        player[(int)PlayerName.BGM].clip = soundBank[clipName];
-        player[(int)PlayerName.BGM].Play();
+        if(player[(int)PlayerName.BGM1].isPlaying)
+        {
+            player[(int)PlayerName.BGM2].clip = soundBank[clipName];
+            player[(int)PlayerName.BGM2].volume = 0f;
+            player[(int)PlayerName.BGM2].Play();
+            StartCoroutine(FadeIn(player[(int)PlayerName.BGM2]));
+            StartCoroutine(FadeOut(player[(int)PlayerName.BGM1]));
+        }
+        else
+        {
+            player[(int)PlayerName.BGM1].clip = soundBank[clipName];
+            player[(int)PlayerName.BGM1].volume = 0f;
+            player[(int)PlayerName.BGM1].Play();
+            StartCoroutine(FadeIn(player[(int)PlayerName.BGM1]));
+            if(player[(int)PlayerName.BGM2].isPlaying)
+                StartCoroutine(FadeOut(player[(int)PlayerName.BGM2]));
+        }
     }
+
+    public void BGMStop(string clipName)
+    {
+        if(player[(int)PlayerName.BGM1].clip == soundBank[clipName])
+        {
+            player[(int)PlayerName.BGM1].Stop();
+        }
+        else
+        {
+            player[(int)PlayerName.BGM2].Stop();
+        }
+    }
+    public void BGMAllStop()
+    {
+        player[(int)PlayerName.BGM1].Stop();
+        player[(int)PlayerName.BGM2].Stop();
+    }
+
     public void SFXVolumeFader(float volume)
     {
         mixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20); 
@@ -85,11 +113,11 @@ public class SoundManager : Singleton<SoundManager>
     {
         mixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20); // logScale 사용 유니티 볼륨값이
     }
-
     public void MasterVolumeFader(float volume)
     {
         mixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
     }
+
     public void SFXMuteSwitch()
     {
         if (!isSFXMute)            isSFXMute = true;
@@ -98,10 +126,17 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void BGMMuteSwitch()
     {
-        if (!player[(int)PlayerName.BGM].mute)            player[(int)PlayerName.BGM].mute = true;
-        else            player[(int)PlayerName.BGM].mute = false;
+        if (!player[(int)PlayerName.BGM1].mute)
+        {
+            player[(int)PlayerName.BGM1].mute = true;
+            player[(int)PlayerName.BGM2].mute = true;
+        }
+        else
+        {
+            player[(int)PlayerName.BGM1].mute = false;
+            player[(int)PlayerName.BGM2].mute = false;
+        }
     }
-
     public void MasterMuteSwitch()
     {
         if (!isMasterMute)
@@ -116,17 +151,32 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(AudioSource player)
     {
-        player[(int)PlayerName.BGM].volume -= 0.01f;
-        yield return new WaitForSeconds(0.1f);
-        if (player[(int)PlayerName.BGM].volume > 0.0001f)
-            StartCoroutine(FadeOut());
-        else
-            player[(int)PlayerName.BGM].volume = 0.0001f;
-
-    }   
-    
         
+        player.volume -= 0.01f;
+        yield return new WaitForSeconds(0.1f);
+        if (player.volume > 0.0001f)
+            StartCoroutine(FadeOut(player));
+        else
+        {
+            player.volume = 0.0001f;
+            player.Stop();
+        }
+
+    }
+    public IEnumerator FadeIn(AudioSource player)
+    {
+        player.volume += 0.01f;
+        yield return new WaitForSeconds(0.1f);
+        if (player.volume <= 1f)
+            StartCoroutine(FadeIn(player));
+        else
+            player.volume = 1f;
+
+    }
+
+    IEnumerator ObjectPoolReturn(float time, GameObject gameObject)
+    { yield return new WaitForSeconds(time); gameObject.SetActive(false); }
 }
 
