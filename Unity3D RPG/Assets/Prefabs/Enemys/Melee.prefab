@@ -246,13 +246,14 @@ GameObject:
   - component: {fileID: 2692577599290808384}
   - component: {fileID: 8473643314931547855}
   - component: {fileID: 506806858120089130}
+  - component: {fileID: 50046781}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &506806857385467983
 Transform:
   m_ObjectHideFlags: 0
@@ -401,6 +402,25 @@ MonoBehaviour:
   BakedApple: {fileID: 7884476209299313834, guid: ae404a11c4d84a64c93bb4304561fbe1,
     type: 3}
   items: OldNecklace,OldArmour,OldSword
+--- !u!95 &50046781
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &9011955504191210655
 GameObject:
   m_ObjectHideFlags: 0

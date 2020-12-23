@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 334528291149973857}
   - component: {fileID: 334528291149973856}
   - component: {fileID: 334528291149973863}
+  - component: {fileID: 915213245}
   m_Layer: 0
   m_Name: Range
   m_TagString: Enemy
@@ -477,13 +478,32 @@ MonoBehaviour:
   maxHp: 10
   def: 1
   speed: 1
-  findRange: 10
+  findRange: 15
   attackRange: 7
   thinkCoolTime: 2
   observeRange: 5
   action: 0
   prefabTag: FireBall
   tempEffect: {fileID: 0}
+--- !u!95 &915213245
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334528291149973862}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &334528291358258894
 GameObject:
   m_ObjectHideFlags: 0

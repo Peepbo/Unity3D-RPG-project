@@ -18,7 +18,6 @@ public class MeleeEnemy : EnemyManager
     ViewingAngle viewingAngle;
 
     bool isAttackActive = false;
-    bool isReturn = false;
 
     //del
 
