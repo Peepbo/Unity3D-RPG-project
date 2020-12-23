@@ -5,30 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 partial class Player
 {
     PlayerController moveScript;
-    bool isCombo;
-
-    bool isAtk;
-    bool isCri;
-
     public bool isDash;
-    public float dashTime;
-    public float dashSpeed;
-
-    void StateStart()
-    {
-        moveScript = GetComponent<PlayerController>();
-
-    }
-    void StateUpdate()
-    {
-        
-    }
+    bool    isCombo;
+    int     comboCount;
+    bool    isAtk;
+    bool    isCri;
+    bool    isFight;                //전투중이냐
+    int     fightTimer;
     public enum PlayerState
     {
         IDLE,
@@ -36,10 +25,21 @@ partial class Player
         ATK,
         CRIATK,
         HIT,
-        EVASION,    
+        EVASION,
         GUARD,
         DIE
     }
+    
+
+    void StateStart()
+    {
+        moveScript = GetComponent<PlayerController>();
+    }
+    void StateUpdate()
+    {
+        
+    }
+   
 
     public PlayerState state = PlayerState.IDLE;
 
@@ -52,11 +52,12 @@ partial class Player
 
                 // state = State.ATK;
                 //state = State.HIT
+                FightEnd();
+
                 Vector2 _movementInput = playerC.value;
                 if(_movementInput != Vector2.zero)
                 {
                     state = PlayerState.MOVE;
-                    Debug.Log("to move");
                 }
 
                 if( isAtk)
@@ -64,12 +65,12 @@ partial class Player
                     state = PlayerState.ATK;
                 }
 
+
                 break;
             case PlayerState.MOVE:
                 if(playerC.value == Vector2.zero)
                 {
                     state = PlayerState.IDLE;
-                    Debug.Log("to idle");
                 }
 
                 if (isAtk)
@@ -103,10 +104,25 @@ partial class Player
             default:
                 break;
         }
-
+    }
+    void FightStart()
+    {
+        fightTimer = 0;
+        isFight = true;
+    }
+    void FightEnd()
+    { //전투중인지 검사
+        if (isFight)
+        {
+            fightTimer++;
+            if (fightTimer > 100)
+            {
+                fightTimer = 0;
+                isFight = false;
+            }
+        }
 
     }
-    
     public void PlayerAtkStart()
     {
         isAtk = true;
@@ -137,9 +153,18 @@ partial class Player
     }
     public void PlayerDash()
     {
-        isDash = true;
-        state = PlayerState.EVASION;
-         StartCoroutine(DashMove());
+        
+        if( stamina> 30)
+        {
+            stamina -= 30;
+            if(stamina < 0)
+            {
+                stamina = 0;
+            }
+            isDash = true;
+            state = PlayerState.EVASION;
+            StartCoroutine(DashMove());
+        }
     }
 
 

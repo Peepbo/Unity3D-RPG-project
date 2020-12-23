@@ -6,19 +6,20 @@ public abstract class EnemyManager : MonoBehaviour
 {
     //근거리 , 원거리 , 마법형
 
-    #region
+    #region protected 
     protected CharacterController controller;
     protected GameObject target;
     protected int hp;
     protected bool isDead;
     protected float gravity;
-
     #endregion
 
     public Transform pivotCenter;
     public Transform radar;
 
+    //shared stat
     public int maxHp = 10;
+    public float def = 1f;
     [Range(1, 5)]
     public float speed = 1;
     [Range(5, 15)]
@@ -33,6 +34,8 @@ public abstract class EnemyManager : MonoBehaviour
     public int action = 0;
 
     protected Vector3 currentPos;
+
+    protected Vector3 spawnPos;
 
     //Idle AI
     protected bool isObserve = true;

@@ -29,5 +29,7 @@ partial class Player : MonoBehaviour
         GetInput();
         Turn();
         ChangeState();
+        PlayerUiUpdate();
+        PlayerStatUpdate();
     }
 }

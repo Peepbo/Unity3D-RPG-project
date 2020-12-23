@@ -360,7 +360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &334528291149973852
 Transform:
   m_ObjectHideFlags: 0
@@ -436,7 +436,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334528291149973862}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -475,6 +475,7 @@ MonoBehaviour:
   pivotCenter: {fileID: 25966211}
   radar: {fileID: 1710574959}
   maxHp: 10
+  def: 1
   speed: 1
   findRange: 10
   attackRange: 7
@@ -482,6 +483,7 @@ MonoBehaviour:
   observeRange: 5
   action: 0
   prefabTag: FireBall
+  tempEffect: {fileID: 0}
 --- !u!1 &334528291358258894
 GameObject:
   m_ObjectHideFlags: 0
