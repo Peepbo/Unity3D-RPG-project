@@ -6,13 +6,19 @@ enum MeleeState
 {
     IDLE, RUN, ATTACK, DAMAGED, DIE
 };
+enum MoveState
+{
+    OBSERVE, TRACK, RETURN
+}
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;
+    MoveState moveState;
+
     ViewingAngle viewingAngle;
 
     bool isAttackActive = false;
-
+    bool isReturn = false;
 
     //del
 
@@ -45,7 +51,8 @@ public class MeleeEnemy : EnemyManager
 
     private void Start()
     {
-        currentPos = transform.position;
+        // currentPos = transform.position;
+        spawnPos = transform.position;
     }
 
     protected override void Update()
@@ -122,7 +129,7 @@ public class MeleeEnemy : EnemyManager
                 pivotCenter.rotation = Quaternion.Euler(pivotCenter.rotation.x, _angle[i], pivotCenter.rotation.z);
 
                 //만약 observeRange안에 있으면
-                if (Vector3.Distance(radar.position, currentPos) < observeRange)
+                if (Vector3.Distance(radar.position, spawnPos) < observeRange)
                 {
                     _able.Add(_angle[i]);
                 }
@@ -182,50 +189,165 @@ public class MeleeEnemy : EnemyManager
 
         if (isObserve)
         {
-            //print("감시중");
-
             if (_distance < findRange)
             {
+                //플레이어 쫓아감
                 isObserve = false;
+                moveState = MoveState.TRACK;
             }
-            controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
-
-            float _center2here = Vector3.Distance(transform.position, currentPos);
-
-            if (isDelay == false)
+            else
             {
-                if (_center2here > observeRange)
-                {
-                    isRangeOver = true;
-                    thinkCoolTime = 5;
+                moveState = MoveState.OBSERVE;
+            }
+        }
 
-                    state = MeleeState.IDLE;
+        if (_distance > findRange)
+        {
+            moveState = MoveState.RETURN;
+        }
+
+
+        switch (moveState)
+        {
+            case MoveState.OBSERVE:
+
+                //주변을 멤돌때
+                {
+                    controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
+
+                    float _center2here = Vector3.Distance(transform.position, spawnPos);
+
+                    if (isDelay == false)
+                    {
+                        if (_center2here > observeRange)
+                        {
+                            isRangeOver = true;
+                            thinkCoolTime = 5;
+
+                            state = MeleeState.IDLE;
+                        }
+
+                    }
+                }
+                break;
+            case MoveState.TRACK:
+                break;
+            case MoveState.RETURN:
+
+                {
+                    print("3");
+                    print("집으로 돌아가자");
+
+                    Vector3 _return = spawnPos - transform.position;
+                    float _here2Spawn = _return.magnitude;
+                    Vector3 _returnDirection = _return.normalized;
+
+                    _returnDirection.y = 0;
+
+                    transform.rotation = Quaternion.LookRotation(_returnDirection);
+
+                    controller.Move(_returnDirection * speed * Time.deltaTime);
+                    print("집으로 가는중?");
+
+                    // isReturn = true;
+
+                    if (_here2Spawn <= 1.0f)
+                    {
+                        print("집이닿");
+                        state = MeleeState.IDLE;
+                        isObserve = true;
+
+                        // isReturn = false;
+                    }
+
                 }
 
-            }
+                break;
+            default:
+                break;
         }
-        else
-        {
-            //findRange범위에서 Target 방향으로
-            Vector3 _direction = target.transform.position - transform.position;
-            _direction.Normalize();
-            _direction.y = 0;
-            transform.rotation = Quaternion.LookRotation(_direction);
-            controller.Move(_direction * speed * Time.deltaTime);
+        //if (isObserve)
+        //{
+        //    print("1");
+        //    //print("감시중");
 
-            if (_distance > findRange)
-            {
-                currentPos = transform.position;
-                state = MeleeState.IDLE;
-                isObserve = true;
-            }
+        //    //1. 주변을 돌아다님
+        //    if (_distance < findRange) //플레이어가 안에 들어왔을때
+        //    {
+        //        isObserve = false;
+        //    }
+        //    controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
 
-            if (_distance < attackRange)
-            {
-                //print("attack Player!");
-                state = MeleeState.ATTACK;
-            }
-        }
+        //    float _center2here = Vector3.Distance(transform.position, spawnPos);
+
+        //    if (isDelay == false)
+        //    {
+        //        if (_center2here > observeRange)
+        //        {
+        //            isRangeOver = true;
+        //            thinkCoolTime = 5;
+
+        //            state = MeleeState.IDLE;
+        //        }
+
+        //    }
+        //}
+        //else
+        //{
+        //    //3.집으로 돌아가기(isobserve ==false; , isRangeOver ==false)
+        //    if (_distance > findRange)
+        //    {
+        //        print("3");
+        //        print("집으로 돌아가자");
+        //        Vector3 _return = spawnPos - transform.position;
+        //        float _here2Spawn = _return.magnitude;
+        //        Vector3 _returnDirection = _return.normalized;
+
+        //        _returnDirection.y = 0;
+
+        //        transform.rotation = Quaternion.LookRotation(_returnDirection);
+        //        controller.Move(_returnDirection * speed * Time.deltaTime);
+        //        print("집으로 가는중?");
+
+        //        isReturn = true;
+
+        //        if (_here2Spawn <= 1.0f)
+        //        {
+        //            print("집이닿");
+        //            state = MeleeState.IDLE;
+        //            isObserve = true;
+
+        //            isReturn = false;
+        //        }
+
+        //        //// currentPos = transform.position;
+        //        //state = MeleeState.IDLE;
+        //        //isObserve = true;
+        //    }
+        //    else if (!isReturn)
+        //    {
+        //        //2.플레이어를 쫓아감
+        //        print("2");
+        //        //findRange범위에서 Target 방향으로
+        //        Vector3 _direction = target.transform.position - transform.position;
+        //        _direction.Normalize();
+        //        _direction.y = 0;
+        //        transform.rotation = Quaternion.LookRotation(_direction);
+        //        controller.Move(_direction * speed * Time.deltaTime);
+
+        //        print("!isObserve = false;");
+
+
+        //        if (_distance < attackRange)
+        //        {
+        //            //print("attack Player!");
+        //            state = MeleeState.ATTACK;
+        //        }
+
+        //    }
+
+
+        //}
 
     }
     IEnumerator PatternBasic()
@@ -245,7 +367,7 @@ public class MeleeEnemy : EnemyManager
         isAttackActive = false;
     }
     public override void Attack()
-    {    
+    {
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
         //부채꼴 범위 안에 있으면
@@ -254,7 +376,7 @@ public class MeleeEnemy : EnemyManager
             stay += Time.deltaTime;
 
             //얘가 공격할 때 저 위에 함수가 true면? 플레이가 맞는거
-            if(stay > 1)
+            if (stay > 1)
             {
                 stay = 0;
                 StartCoroutine(PatternBasic());
@@ -302,15 +424,15 @@ public class MeleeEnemy : EnemyManager
 
         if (isObserve)
         {
-            Gizmos.color = Color.green;
-            //Gizmos.color = Color.Lerp(Color.clear, Color.green, Mathf.PingPong(Time.time, 1.0f));
-            Gizmos.DrawWireSphere(currentPos, observeRange);
+
         }
         else
         {
             Gizmos.color = Color.Lerp(Color.white, Color.red, Mathf.PingPong(Time.time, 0.5f));
             Gizmos.DrawWireSphere(transform.position, attackRange);
         }
-
+        Gizmos.color = Color.green;
+        //Gizmos.color = Color.Lerp(Color.clear, Color.green, Mathf.PingPong(Time.time, 1.0f));
+        Gizmos.DrawWireSphere(spawnPos, observeRange);
     }
 }

@@ -18,8 +18,7 @@ public class RangeEnemy : EnemyManager
 
     Transform firePoint;
     public string prefabTag;
-
-    float spawnCount = 0;
+    public GameObject tempEffect;
 
     float atkTime = 0;
     bool oneShot = false;
