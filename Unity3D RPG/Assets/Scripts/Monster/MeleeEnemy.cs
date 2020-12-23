@@ -145,7 +145,6 @@ public class MeleeEnemy : EnemyManager
             isRangeOver = false;
         }
 
-        //Debug.Log("여러분 저 선넘었어요!");
     }
 
     public void Observe()
@@ -200,10 +199,12 @@ public class MeleeEnemy : EnemyManager
                 moveState = MoveState.OBSERVE;
             }
         }
-
-        if (_distance > findRange)
+        else
         {
-            moveState = MoveState.RETURN;
+            if (_distance > findRange)
+            {
+                moveState = MoveState.RETURN;
+            }
         }
 
 
@@ -213,6 +214,7 @@ public class MeleeEnemy : EnemyManager
 
                 //주변을 멤돌때
                 {
+                    print("1");
                     controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
 
                     float _center2here = Vector3.Distance(transform.position, spawnPos);
@@ -231,13 +233,30 @@ public class MeleeEnemy : EnemyManager
                 }
                 break;
             case MoveState.TRACK:
+                //플레이어 추적
+                {
+                    //2.플레이어를 쫓아감
+                    print("2");
+                    //findRange범위에서 Target 방향으로
+                    Vector3 _direction = target.transform.position - transform.position;
+                    _direction.Normalize();
+                    _direction.y = 0;
+
+                    transform.rotation = Quaternion.LookRotation(_direction);
+                    controller.Move(_direction * speed * Time.deltaTime);
+
+
+                    if (_distance < attackRange)
+                    {
+                        //print("attack Player!");
+                        state = MeleeState.ATTACK;
+                    }
+                }
                 break;
             case MoveState.RETURN:
-
+                //spawn지점으로 리턴
                 {
                     print("3");
-                    print("집으로 돌아가자");
-
                     Vector3 _return = spawnPos - transform.position;
                     float _here2Spawn = _return.magnitude;
                     Vector3 _returnDirection = _return.normalized;
@@ -247,9 +266,6 @@ public class MeleeEnemy : EnemyManager
                     transform.rotation = Quaternion.LookRotation(_returnDirection);
 
                     controller.Move(_returnDirection * speed * Time.deltaTime);
-                    print("집으로 가는중?");
-
-                    // isReturn = true;
 
                     if (_here2Spawn <= 1.0f)
                     {
@@ -257,103 +273,15 @@ public class MeleeEnemy : EnemyManager
                         state = MeleeState.IDLE;
                         isObserve = true;
 
-                        // isReturn = false;
                     }
 
                 }
 
                 break;
-            default:
-                break;
         }
-        //if (isObserve)
-        //{
-        //    print("1");
-        //    //print("감시중");
-
-        //    //1. 주변을 돌아다님
-        //    if (_distance < findRange) //플레이어가 안에 들어왔을때
-        //    {
-        //        isObserve = false;
-        //    }
-        //    controller.Move(transform.forward * (speed * 0.5f) * Time.deltaTime);
-
-        //    float _center2here = Vector3.Distance(transform.position, spawnPos);
-
-        //    if (isDelay == false)
-        //    {
-        //        if (_center2here > observeRange)
-        //        {
-        //            isRangeOver = true;
-        //            thinkCoolTime = 5;
-
-        //            state = MeleeState.IDLE;
-        //        }
-
-        //    }
-        //}
-        //else
-        //{
-        //    //3.집으로 돌아가기(isobserve ==false; , isRangeOver ==false)
-        //    if (_distance > findRange)
-        //    {
-        //        print("3");
-        //        print("집으로 돌아가자");
-        //        Vector3 _return = spawnPos - transform.position;
-        //        float _here2Spawn = _return.magnitude;
-        //        Vector3 _returnDirection = _return.normalized;
-
-        //        _returnDirection.y = 0;
-
-        //        transform.rotation = Quaternion.LookRotation(_returnDirection);
-        //        controller.Move(_returnDirection * speed * Time.deltaTime);
-        //        print("집으로 가는중?");
-
-        //        isReturn = true;
-
-        //        if (_here2Spawn <= 1.0f)
-        //        {
-        //            print("집이닿");
-        //            state = MeleeState.IDLE;
-        //            isObserve = true;
-
-        //            isReturn = false;
-        //        }
-
-        //        //// currentPos = transform.position;
-        //        //state = MeleeState.IDLE;
-        //        //isObserve = true;
-        //    }
-        //    else if (!isReturn)
-        //    {
-        //        //2.플레이어를 쫓아감
-        //        print("2");
-        //        //findRange범위에서 Target 방향으로
-        //        Vector3 _direction = target.transform.position - transform.position;
-        //        _direction.Normalize();
-        //        _direction.y = 0;
-        //        transform.rotation = Quaternion.LookRotation(_direction);
-        //        controller.Move(_direction * speed * Time.deltaTime);
-
-        //        print("!isObserve = false;");
-
-
-        //        if (_distance < attackRange)
-        //        {
-        //            //print("attack Player!");
-        //            state = MeleeState.ATTACK;
-        //        }
-
-        //    }
-
-
-        //}
-
     }
     IEnumerator PatternBasic()
     {
-        print("start");
-
         BasicAttack _attack = BasicAttack.FindObjectOfType<BasicAttack>();
 
         isAttackActive = true;
@@ -366,6 +294,7 @@ public class MeleeEnemy : EnemyManager
 
         isAttackActive = false;
     }
+
     public override void Attack()
     {
         float _distance = Vector3.Distance(transform.position, target.transform.position);
