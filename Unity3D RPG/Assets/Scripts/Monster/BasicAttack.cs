@@ -37,7 +37,7 @@ public class BasicAttack : MonoBehaviour
         print("기다려 때린다?");
 
         player.GetDamage(1);
-        print(player.Hp);
+        print(player.hp);
 
 
     }
