@@ -12,6 +12,11 @@ public abstract class EnemyManager : MonoBehaviour
     protected int hp;
     protected bool isDead;
     protected float gravity;
+
+    
+    protected Animator EnemyAnim;
+    protected string animName = "";
+
     #endregion
 
     public Transform pivotCenter;
@@ -40,12 +45,16 @@ public abstract class EnemyManager : MonoBehaviour
     protected bool isObserve = true;
     protected bool isRangeOver = false;
     protected bool isDelay = false;
+
+    
     #endregion
 
     protected virtual void Awake()
     {
         controller = GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        EnemyAnim = GetComponent<Animator>();
+
         hp = maxHp;
     }
 
@@ -87,4 +96,11 @@ public abstract class EnemyManager : MonoBehaviour
         return new Vector3(_ranX, 0, _ranZ);
     }
 
+    public void ChangeAniation(string newAnimation)
+    {
+        if (animName == newAnimation) return;
+
+        EnemyAnim.Play(newAnimation);
+        animName = newAnimation;
+    }
 }

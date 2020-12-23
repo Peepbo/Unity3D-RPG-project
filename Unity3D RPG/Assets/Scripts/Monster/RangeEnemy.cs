@@ -28,6 +28,7 @@ public class RangeEnemy : EnemyManager
     float atkTime = 0;
     bool oneShot = false;
 
+
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +39,7 @@ public class RangeEnemy : EnemyManager
     private void Start()
     {
         spawnPos = transform.position;
+       
     }
     protected override void Update()
     {
