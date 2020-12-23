@@ -11,25 +11,22 @@ using UnityEngine.Audio;
     public AudioClip clip;
 }
 
+enum PlayerName { BGM,AMB}
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField]
     private AudioMixer mixer;
     protected SoundManager() { }
     private Dictionary<string, AudioClip> soundBank = new Dictionary<string, AudioClip>();
-    private AudioSource bgmPlayer;
-    private AudioSource ambPlayer;
+    private AudioSource[] player;
     public SoundInfo[] soundData;
     bool isSFXMute = false;
-    //bool isBGMMute = false;
     bool isMasterMute = false;
-    //float BGMVolume = 0f;
-    //float SFXVolume = 0f;
-    //float masterVolume = 0f;
+    
     private void Start()
     {
         SoundBankInit();
-        PlayerInit();
+        player = GetComponents<AudioSource>();
     }
 
     private void SoundBankInit()
@@ -40,32 +37,21 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    private void PlayerInit()
-    {
-        bgmPlayer = gameObject.AddComponent<AudioSource>();
-        ambPlayer = gameObject.AddComponent<AudioSource>();
-
-
-        ambPlayer.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
-        ambPlayer.playOnAwake = false;
-        ambPlayer.loop = true;
-        bgmPlayer.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
-        bgmPlayer.playOnAwake = false;
-        bgmPlayer.loop = true;
-        bgmPlayer.volume = 0.5f;
-    }
-
     public void SFXPlay(string clipName, Vector3 position)
     {
-        
         GameObject _speaker = ObjectPool.SharedInstance.GetPooledObject("Sound");
         _speaker.SetActive(true);
         _speaker.transform.position = position;
-        AudioSource _audioSource = _speaker.AddComponent<AudioSource>();
+        AudioSource _audioSource;
+        if (_speaker.GetComponent<AudioSource>() != null) _audioSource = _speaker.GetComponent<AudioSource>(); 
+        else _audioSource = _speaker.AddComponent<AudioSource>();
+
         _audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         _audioSource.playOnAwake = false;
         _audioSource.clip = soundBank[clipName];
         _audioSource.spatialBlend = 0.7f;
+        _audioSource.minDistance = 5f;
+        _audioSource.maxDistance = 10f;
         if (isSFXMute)
         {
             _audioSource.mute = true;
@@ -79,62 +65,41 @@ public class SoundManager : Singleton<SoundManager>
 
     public void AMBPlay(string clipName, float volume = 0.5f)
     {
-        ambPlayer.clip = soundBank[clipName];
-        ambPlayer.volume = volume;
-        ambPlayer.Play();
+        player[(int)PlayerName.AMB].clip = soundBank[clipName];
+        player[(int)PlayerName.AMB].volume = volume;
+        player[(int)PlayerName.AMB].Play();
 
     }
     //앰비사운드도 만들어서 넣기
 
     public void BGMPlay(string clipName)
     {
-        bgmPlayer.clip = soundBank[clipName];
-        bgmPlayer.Play();
+        player[(int)PlayerName.BGM].clip = soundBank[clipName];
+        player[(int)PlayerName.BGM].Play();
     }
-    public void SFXVolumeMixer(float volume)
+    public void SFXVolumeFader(float volume)
     {
-         //   SFXVolume = volume;
-            mixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20); 
+        mixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20); 
     }
-    public void BGMVolumeMixer(float volume)
+    public void BGMVolumeFader(float volume)
     {
-           // BGMVolume = volume;
-            mixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20); // logScale 사용 유니티 볼륨값이
+        mixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20); // logScale 사용 유니티 볼륨값이
     }
 
-    public void MasterVolume(float volume)
+    public void MasterVolumeFader(float volume)
     {
-        //masterVolume = volume;
         mixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
     }
     public void SFXMuteSwitch()
     {
-        if (!isSFXMute)
-        {
-           // mixer.SetFloat("SFXVolume", Mathf.Log10(0.0001f) * 20);
-            isSFXMute = true;
-        }
-        else
-        {
-           // mixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolume) * 20);
-            isSFXMute = false;
-        }
+        if (!isSFXMute)            isSFXMute = true;
+        else            isSFXMute = false;
         
     }
     public void BGMMuteSwitch()
     {
-        if (!bgmPlayer.mute)
-        {
-            //  mixer.SetFloat("MasterVolume", Mathf.Log10(0.0001f) * 20);
-            bgmPlayer.mute = true;
-            //isBGMMute = true;
-        }
-        else
-        {
-           // mixer.SetFloat("MasterVolume", Mathf.Log10(BGMVolume) * 20);
-            //isBGMMute = false;
-            bgmPlayer.mute = false;
-        }
+        if (!player[(int)PlayerName.BGM].mute)            player[(int)PlayerName.BGM].mute = true;
+        else            player[(int)PlayerName.BGM].mute = false;
     }
 
     public void MasterMuteSwitch()
@@ -151,4 +116,17 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+    public IEnumerator FadeOut()
+    {
+        player[(int)PlayerName.BGM].volume -= 0.01f;
+        yield return new WaitForSeconds(0.1f);
+        if (player[(int)PlayerName.BGM].volume > 0.0001f)
+            StartCoroutine(FadeOut());
+        else
+            player[(int)PlayerName.BGM].volume = 0.0001f;
+
+    }   
+    
+        
 }
+
