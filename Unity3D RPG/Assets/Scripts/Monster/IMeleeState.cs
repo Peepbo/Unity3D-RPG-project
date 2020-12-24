@@ -7,6 +7,6 @@ public interface IMeleeState
     void Idle();
     void Move();
     void Attack();
-    void Damaged();
+    void Damaged(int value);
     void Die();
 }
