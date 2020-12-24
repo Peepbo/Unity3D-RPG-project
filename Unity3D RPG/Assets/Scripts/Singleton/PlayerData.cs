@@ -42,28 +42,28 @@ public class PlayerData : Singleton<PlayerData>
     {
         //Debug.Log(CSVData.Instance.playerRootLoad.Count);
 
-        ItemInfo _item = null;
-        for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
-        {
-            if (i % 2 == 0)
-                _item = CSVData.Instance.find(CSVData.Instance.playerRootLoad[i]);
-            else
-            {
-                if (_item.id != 4) _item.count = 1;
-                else _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
+        //ItemInfo _item = null;
+        //for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
+        //{
+        //    if (i % 2 == 0)
+        //        _item = CSVData.Instance.find(CSVData.Instance.playerRootLoad[i]);
+        //    else
+        //    {
+        //        if (_item.id != 4) _item.count = 1;
+        //        else _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
 
-                myItem.Add(_item);
-            }
-        }
+        //        myItem.Add(_item);
+        //    }
+        //}
        
-        List<string> list = CSVData.Instance.playerAbilityLoad;
+        //List<string> list = CSVData.Instance.playerAbilityLoad;
 
-        for(int i = 0; i < list.Count; i++)
-        {
-            info[i / 4, i % 4] = int.Parse(list[i]);
-        }
+        //for(int i = 0; i < list.Count; i++)
+        //{
+        //    info[i / 4, i % 4] = int.Parse(list[i]);
+        //}
 
-        myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
+        //myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
     }
 
     public void SaveData()

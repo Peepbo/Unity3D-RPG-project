@@ -11,7 +11,7 @@ public class DataManager : MonoBehaviour
     {
         PlayerData.Instance.LoadData();
         //statData.ListUpdate();
-        chestData.GetData();
+        //chestData.GetData();
 
         Debug.Log("data roading end");
     }

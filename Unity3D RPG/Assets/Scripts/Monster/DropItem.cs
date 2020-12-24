@@ -45,19 +45,19 @@ public class DropItem : MonoBehaviour
 
         //OldNecklace,OldArmour,OldSword
 
-        string[] data = items.Split(new char[] { ',' });
+        //string[] data = items.Split(new char[] { ',' });
 
-        //0,1,2
+        ////0,1,2
 
-        int ranNum = Random.Range(0, 3);
+        //int ranNum = Random.Range(0, 3);
 
 
 
-        string _prefName = CSVData.Instance.find(data[ranNum]).prefabName;
+        //string _prefName = CSVData.Instance.find(data[ranNum]).prefabName;
 
-        string path = "Assets/Prefabs/" + _prefName + ".prefab";
+        //string path = "Assets/Prefabs/" + _prefName + ".prefab";
 
-        Debug.Log(path);
+        //Debug.Log(path);
 
         //GameObject obj = (GameObject)AssetDatabase.LoadAssetAtPath(path, typeof(GameObject));
         //Instantiate(obj, transform.position, Quaternion.identity);
