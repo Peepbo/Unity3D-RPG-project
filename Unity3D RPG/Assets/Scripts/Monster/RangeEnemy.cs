@@ -6,7 +6,7 @@ public enum RangeState
 {
     IDLE, RUN, ATTACK, DAMAGED, DIE
 };
-enum AttackState
+enum AttackStateR
 {
     GAUGING, ATTACK, REST
 }
@@ -18,7 +18,7 @@ enum R_MoveState
 public class RangeEnemy : EnemyManager
 {
     RangeState state;
-    AttackState atkState;
+    AttackStateR atkState;
     R_MoveState moveState;
 
     Transform firePoint;
@@ -261,18 +261,18 @@ public class RangeEnemy : EnemyManager
     {
         //something = true;
 
-        atkState = AttackState.GAUGING;
+        atkState = AttackStateR.GAUGING;
         yield return new WaitForSeconds(2.0f);
-        atkState = AttackState.ATTACK;
+        atkState = AttackStateR.ATTACK;
         yield return new WaitForSeconds(0.5f);
-        atkState = AttackState.REST;
+        atkState = AttackStateR.REST;
         yield return new WaitForSeconds(1.0f);
 
         float _distance = (target.transform.position - transform.position).magnitude;
 
         if (_distance > attackRange)
         {
-            atkState = AttackState.GAUGING;
+            atkState = AttackStateR.GAUGING;
             state = RangeState.RUN;
         }
 
@@ -303,9 +303,9 @@ public class RangeEnemy : EnemyManager
 
         atkTime += Time.deltaTime;
 
-        if (atkTime < 2f) atkState = AttackState.GAUGING;
-        else if (atkTime < 2.5f) atkState = AttackState.ATTACK;
-        else if (atkTime < 3.5f) atkState = AttackState.REST;
+        if (atkTime < 2f) atkState = AttackStateR.GAUGING;
+        else if (atkTime < 2.5f) atkState = AttackStateR.ATTACK;
+        else if (atkTime < 3.5f) atkState = AttackStateR.REST;
 
         else //time >= 3.5
         {
@@ -313,7 +313,7 @@ public class RangeEnemy : EnemyManager
             //상대가 나갔는지 안나갔는지 상태 변환
             if (_distance > attackRange)
             {
-                atkState = AttackState.GAUGING;
+                atkState = AttackStateR.GAUGING;
                 state = RangeState.RUN;
             }
 
@@ -321,7 +321,7 @@ public class RangeEnemy : EnemyManager
 
         switch (atkState)
         {
-            case AttackState.GAUGING:
+            case AttackStateR.GAUGING:
                 //1.플레이어 노려보기
                 {
 
@@ -335,7 +335,7 @@ public class RangeEnemy : EnemyManager
 
                 }
                 break;
-            case AttackState.ATTACK:
+            case AttackStateR.ATTACK:
                 //2.공격
                 {
                     if (!oneShot)
@@ -353,7 +353,7 @@ public class RangeEnemy : EnemyManager
                     }
                 }
                 break;
-            case AttackState.REST:
+            case AttackStateR.REST:
                 //3.휴식
                 {
 
