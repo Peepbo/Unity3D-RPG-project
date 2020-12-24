@@ -151,7 +151,7 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public IEnumerator FadeOut(AudioSource player)
+    public IEnumerator FadeOut(AudioSource player ,bool isStop = false)
     {
         
         player.volume -= 0.01f;
@@ -161,7 +161,8 @@ public class SoundManager : Singleton<SoundManager>
         else
         {
             player.volume = 0.0001f;
-            player.Stop();
+            if(isStop)
+                player.Stop();
         }
 
     }
