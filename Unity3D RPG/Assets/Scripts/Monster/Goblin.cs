@@ -2,39 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : EnemyMgr, IMeleeState
+public class Goblin : MonoBehaviour
 {
+    private MoveAble moveable;
+    private AttackAble attackAble;
 
-    private void Awake()
+    public Goblin (MoveAble move, AttackAble attack)
+    {
+        this.moveable = move;
+        this.attackAble = attack;
+    }
+    // Start is called before the first frame update
+    void Start()
     {
         
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        
+        moveable.move();
+        attackAble.attack();
     }
-
-    public void Idle()
-    {
-        
-    }
-    public void Move()
-    {
-
-    }
-    public void Attack()
-    {
-
-    }
-    public void Damaged(int value)
-    {
-
-    }
-    public void Die()
-    {
-
-    }
-
- 
 }
