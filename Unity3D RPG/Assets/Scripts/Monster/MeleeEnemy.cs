@@ -9,7 +9,7 @@ enum MeleeState
 enum M_MoveState
 {
     OBSERVE, TRACK, RETURN
-}
+};
 public class MeleeEnemy : EnemyManager
 {
     MeleeState state;

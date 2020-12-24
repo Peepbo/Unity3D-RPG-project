@@ -7,14 +7,29 @@ public class PlayerData : Singleton<PlayerData>
     protected PlayerData() { }
 
     public List<ItemInfo> myItem = new List<ItemInfo>();
+    //public List<ItemInfo> EquipmentItem = new List<ItemInfo>();
+    //public Dictionary<int, int> myItem = new Dictionary<int, int>();
+
     public int myCurrency;
 
     public int[,] info = new int[4, 4]
     { { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 }, { 0,0,0,0 } };
 
-    public void SaveChest(ItemInfo item)
+    public void SaveChest(int itemNumber)
     {
-        myItem.Add(item);
+        ItemInfo _item = CSVData.Instance.find(itemNumber);
+        //없으면?
+        if (myItem.Contains(_item) == false) myItem.Add(_item);
+        //if (myItem.ContainsKey(itemNumber) == false) myItem[itemNumber] = 1;
+
+        //있으면?
+        else
+        {
+            int _index = myItem.IndexOf(_item);
+            myItem[_index].count++;
+        }
+        //else myItem[itemNumber] += 1;
+
         SaveData();
     }
 
@@ -25,7 +40,7 @@ public class PlayerData : Singleton<PlayerData>
         int _statNumber = -1;
 
         string[] _arr = { "atk", "def", "spc", "abl" };
-        for (int i = 0; i < _arr.Length; i++ )
+        for (int i = 0; i < _arr.Length; i++)
         {
             if (statName == _arr[i]) _statNumber = i;
         }
@@ -40,7 +55,29 @@ public class PlayerData : Singleton<PlayerData>
 
     public void LoadData()
     {
-        //Debug.Log(CSVData.Instance.playerRootLoad.Count);
+        ItemInfo _item = null;
+
+        int _itemNumber = 0;
+        for (int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
+        {
+            if (i % 2 == 0)
+            {
+                //아이템 번호
+                _itemNumber = int.Parse(CSVData.Instance.playerRootLoad[i]);
+
+                _item = CSVData.Instance.find(_itemNumber);
+            }
+
+            else
+            {
+                _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
+                myItem.Add(_item);
+                
+                //장비든 전리품이든 중복 아이템이 있을 수 있으니
+                //나중에 ui에 표시할 때 장비는 갯수만큼 한칸한칸에 보여주고
+                //전리품은 한칸에 갯수를 표시하는 식으로 연동한다.
+            }
+        }
 
         //ItemInfo _item = null;
         //for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
@@ -55,7 +92,7 @@ public class PlayerData : Singleton<PlayerData>
         //        myItem.Add(_item);
         //    }
         //}
-       
+
         //List<string> list = CSVData.Instance.playerAbilityLoad;
 
         //for(int i = 0; i < list.Count; i++)
@@ -63,21 +100,21 @@ public class PlayerData : Singleton<PlayerData>
         //    info[i / 4, i % 4] = int.Parse(list[i]);
         //}
 
-        //myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
+        myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
     }
 
     public void SaveData()
     {
         List<string> _ability = new List<string>();
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-            for(int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++)
             {
                 _ability.Add(info[i, j].ToString());
             }
         }
 
-        CSVData.Instance.PlayerSave(myCurrency, "OldSword", "OldArmour", "OldNeck",
+        CSVData.Instance.PlayerSave(myCurrency, "0", "33", "44",
             myItem, _ability, "Resources/playerStateDB.csv");
     }
 }
