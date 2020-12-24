@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-partial class Player : MonoBehaviour
+public partial class Player : MonoBehaviour
 {
     PlayerController playerC;
     private MainPlayer playerInput;
@@ -29,7 +29,6 @@ partial class Player : MonoBehaviour
         GetInput();
         Turn();
         ChangeState();
-        PlayerUiUpdate();
         PlayerStatUpdate();
     }
 }
