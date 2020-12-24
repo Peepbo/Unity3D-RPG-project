@@ -10,9 +10,13 @@ public class ChestManager : MonoBehaviour
 
     private void Awake()
     {
-        gmData = new GameObject[32];
-        for (int i = 0; i < 32; i++)
-            gmData[i] = slots.transform.Find("slot" + i).gameObject;
+        gmData = new GameObject[16];
+        for (int i = 0; i < 16; i++)
+        {
+            //string _name = "slot(" + i + ")";
+            //Debug.Log(name);
+            gmData[i] = slots.transform.Find("slot (" + i + ")").gameObject;
+        }
     }
 
     public void GetData()
