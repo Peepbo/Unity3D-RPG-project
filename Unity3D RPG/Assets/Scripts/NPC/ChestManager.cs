@@ -8,14 +8,33 @@ public class ChestManager : MonoBehaviour
     public GameObject slots;
     public GameObject[] gmData;
 
-    private void Awake()
+    //장비관련
+    public List<ItemInfo> equipList = new List<ItemInfo>();
+
+    //전리품관련
+    public List<ItemInfo> rootList = new List<ItemInfo>();
+
+    public void MakeData()
     {
         gmData = new GameObject[16];
         for (int i = 0; i < 16; i++)
         {
-            //string _name = "slot(" + i + ")";
-            //Debug.Log(name);
             gmData[i] = slots.transform.Find("slot (" + i + ")").gameObject;
+        }
+    }
+
+    public void ItemUpdate()
+    {
+        //equipList + rootList
+        for (int i = 0; i < PlayerData.Instance.myItem.Count; i++)
+        {
+            ItemInfo _item = PlayerData.Instance.myItem[i];
+
+            //4가 아니면?
+            if (_item.kindID != 4) equipList.Add(_item);
+
+            //4면?
+            else rootList.Add(_item);
         }
     }
 
@@ -26,7 +45,11 @@ public class ChestManager : MonoBehaviour
         {
             if (num == PlayerData.Instance.myItem.Count) break;
 
-            data.GetComponentInChildren<Text>().text = PlayerData.Instance.myItem[num].itemName;
+            //data.GetComponent<Image>().color = Color.red;
+            
+            //Debug.Log(data.name);
+            //Debug.Log(PlayerData.Instance.myItem[num].itemName);
+
             num++;
         }
     }

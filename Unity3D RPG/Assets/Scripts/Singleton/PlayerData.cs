@@ -59,42 +59,29 @@ public class PlayerData : Singleton<PlayerData>
 
         int _itemNumber = 0;
 
-        //Debug.Log(CSVData.Instance.playerAbilityLoad[0]);
+        for (int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
+        {
+            //0,2,4,6.. (아이템 고유 넘버)
 
-        //Debug.Log(CSVData.Instance.playerRootLoad.Count);
+            if (i % 2 == 0)
+            {
+                //아이템 번호
+                _itemNumber = int.Parse(CSVData.Instance.playerRootLoad[i]);
 
-        Debug.Log (CSVData.Instance.find(1).itemName);
+                _item = CSVData.Instance.find(_itemNumber);
+            }
 
-        //for (int i = 0; i < 12; i++)
-        //{
-        //    //Debug.Log(CSVData.Instance.playerRootLoad[i]);
+            else
+            {
+                _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
+                myItem.Add(_item);
 
-        //    if (i % 2 == 0)
-        //    {
-        //        //아이템 번호
-        //        //Debug.Log(CSVData.Instance.playerRootLoad[i]);
-
-        //        int _number = int.Parse(CSVData.Instance.playerRootLoad[i]);
-
-        //        Debug.Log(_number);
-
-        //        //Debug.Log(_itemNumber);
-
-        //        _item = CSVData.Instance.find(_itemNumber);
-        //    }
-
-        //    else
-        //    {
-        //        //_item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
-        //        //myItem.Add(_item);
-
-        //        //장비든 전리품이든 중복 아이템이 있을 수 있으니
-        //        //나중에 ui에 표시할 때 장비는 갯수만큼 한칸한칸에 보여주고
-        //        //전리품은 한칸에 갯수를 표시하는 식으로 연동한다.
-        //    }
-        //}
-
-        //Debug.Log(myItem.Count);
+                //Debug.Log(_item.itemName);
+                //장비든 전리품이든 중복 아이템이 있을 수 있으니
+                //나중에 ui에 표시할 때 장비는 갯수만큼 한칸한칸에 보여주고
+                //전리품은 한칸에 갯수를 표시하는 식으로 연동한다.
+            }
+        }
 
         //ItemInfo _item = null;
         //for(int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)

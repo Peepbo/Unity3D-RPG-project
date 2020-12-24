@@ -5841,7 +5841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 98, y: -98}
+  m_AnchoredPosition: {x: 94, y: -98}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1761175221
@@ -9476,22 +9476,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2748775891722300613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748775891722300616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c354a4dc4abcc4fa6ae4f50f2fd73c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: 
-  popUp: {fileID: 2748775891312790433}
-  uiBarrier: {fileID: 2748775893299447051}
-  cm: {fileID: 2748775891722300614}
 --- !u!114 &2748775891722300614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9534,8 +9518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2748775891722300615}
-  - component: {fileID: 8653989962530358531}
-  - component: {fileID: 2748775891722300613}
+  - component: {fileID: 2748775891722300617}
   - component: {fileID: 2748775891722300614}
   m_Layer: 5
   m_Name: NpcManager
@@ -9544,6 +9527,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2748775891722300617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2748775891722300616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78cf452d48e11b41aa8bd69839c6482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chestData: {fileID: 2748775891722300614}
 --- !u!222 &2748775891756131436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14691,16 +14687,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f057e150f9aab634ca0fa2b81418da01, type: 3}
---- !u!114 &8653989962530358531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2748775891722300616}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f78cf452d48e11b41aa8bd69839c6482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chestData: {fileID: 2748775891722300614}
