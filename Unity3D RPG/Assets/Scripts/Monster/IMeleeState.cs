@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMeleeState 
-{
+public interface IMeleeState
+{ 
     void Idle();
     void Move();
     void Attack();
     void Damaged();
-
     void Die();
 }
