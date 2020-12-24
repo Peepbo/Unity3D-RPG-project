@@ -1,0 +1,795 @@
+fileFormatVersion: 2
+guid: 7fec430887d724867a2483827db438a9
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Slime:Brains
+    100004: Slime:Eye
+    100006: Slime:Eye_Reflect
+    100008: Slime:Slime
+    100010: Slime:Veins
+    100012: slime_brain_bone
+    100014: slime_eye_bone
+    100016: slime_eye_region
+    100018: slime_rig_drag
+    100020: slime_rig_l_lid
+    100022: slime_rig_root
+    100024: slime_rig_top
+    100026: slime_rig_u_lid
+    400000: //RootNode
+    400002: Slime:Brains
+    400004: Slime:Eye
+    400006: Slime:Eye_Reflect
+    400008: Slime:Slime
+    400010: Slime:Veins
+    400012: slime_brain_bone
+    400014: slime_eye_bone
+    400016: slime_eye_region
+    400018: slime_rig_drag
+    400020: slime_rig_l_lid
+    400022: slime_rig_root
+    400024: slime_rig_top
+    400026: slime_rig_u_lid
+    4300000: Slime:Eye_Reflect
+    4300002: Slime:Eye
+    4300004: Slime:Slime
+    4300006: Slime:Brains
+    4300008: Slime:Veins
+    7400000: Start Walk
+    7400002: Walk Cycle
+    7400004: Backwalk
+    7400006: Dodge
+    7400008: Been Hit
+    7400010: Die
+    7400012: Resurrect
+    7400014: Idle Cycle
+    7400016: Idle Look
+    7400018: Cannonball Attack
+    7400020: Spit Attack
+    7400022: Stab Attack
+    9500000: //RootNode
+    13700000: Slime:Brains
+    13700002: Slime:Eye
+    13700004: Slime:Eye_Reflect
+    13700006: Slime:Slime
+    13700008: Slime:Veins
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: slime_pallette
+    second: {fileID: 2100000, guid: 30df9b9048e544f6c9ac512b50ee606a, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Start Walk
+      takeName: Start Walk
+      firstFrame: 1
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk Cycle
+      takeName: Walk Cycle
+      firstFrame: 60
+      lastFrame: 157
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Backwalk
+      takeName: Backwalk
+      firstFrame: 194
+      lastFrame: 238
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dodge
+      takeName: Dodge
+      firstFrame: 244
+      lastFrame: 288
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 244
+    - serializedVersion: 16
+      name: Been Hit
+      takeName: Been Hit
+      firstFrame: 301
+      lastFrame: 330
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 301
+    - serializedVersion: 16
+      name: Die
+      takeName: Die
+      firstFrame: 342
+      lastFrame: 465
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 342
+    - serializedVersion: 16
+      name: Resurrect
+      takeName: Resurrect
+      firstFrame: 482
+      lastFrame: 591
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 482
+    - serializedVersion: 16
+      name: Idle Cycle
+      takeName: Idle Cycle
+      firstFrame: 606
+      lastFrame: 673
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle Look
+      takeName: Idle Look
+      firstFrame: 680
+      lastFrame: 786
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 680
+    - serializedVersion: 16
+      name: Cannonball Attack
+      takeName: Cannonball Attack
+      firstFrame: 795
+      lastFrame: 897
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 795
+    - serializedVersion: 16
+      name: Spit Attack
+      takeName: Spit Attack
+      firstFrame: 899
+      lastFrame: 952
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 899
+    - serializedVersion: 16
+      name: Stab Attack
+      takeName: Stab Attack
+      firstFrame: 963
+      lastFrame: 1030
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Slime:Brains
+        weight: 1
+      - path: Slime:Eye
+        weight: 1
+      - path: Slime:Slime
+        weight: 1
+      - path: Slime:Veins
+        weight: 1
+      - path: slime_rig_root
+        weight: 1
+      - path: slime_rig_root/slime_brain_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_eye_bone
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_l_lid
+        weight: 1
+      - path: slime_rig_root/slime_eye_region/slime_rig_u_lid
+        weight: 1
+      - path: slime_rig_root/slime_rig_drag
+        weight: 1
+      - path: slime_rig_root/slime_rig_top
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 963
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.099999994
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: slime_rig_root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
