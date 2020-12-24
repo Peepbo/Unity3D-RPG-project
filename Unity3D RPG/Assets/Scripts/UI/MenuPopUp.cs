@@ -8,10 +8,6 @@ public class MenuPopUp : MonoBehaviour
     public GameObject menuIcon;
     public GameObject achievementPanel;
     public GameObject settingPanel;
-
-    public GameObject shopIcon;
-    public GameObject shopPanel;
-
     public GameObject quitPanel;
 
     // Start is called before the first frame update
@@ -40,7 +36,6 @@ public class MenuPopUp : MonoBehaviour
 
         menuPanel.SetActive(true);
         menuIcon.SetActive(false);
-        shopIcon.SetActive(false);
     }
 
     public void MenuClose()
@@ -49,7 +44,6 @@ public class MenuPopUp : MonoBehaviour
 
         menuPanel.SetActive(false);
         menuIcon.SetActive(true);
-        shopIcon.SetActive(true);
     }
 
     public void AchievementPop()
@@ -67,20 +61,6 @@ public class MenuPopUp : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void ShopPop()
-    {
-        shopPanel.SetActive(true);
-        shopIcon.SetActive(false);
-        menuIcon.SetActive(false);
-    }
-
-    public void ShopClose()
-    {
-        shopPanel.SetActive(false);
-        shopIcon.SetActive(true);
-        menuIcon.SetActive(true);
     }
 
     public void Continue()
