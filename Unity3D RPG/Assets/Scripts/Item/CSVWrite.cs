@@ -14,7 +14,7 @@ namespace CSVWrite
             string _abilityStr="";
             for(int i=0; i<storage.Count; i++)
             {
-                _storageStr += storage[i].itemName + ','+ storage[i].count;
+                _storageStr += storage[i].id + ','+ storage[i].count;
                 if (i != storage.Count - 1)
                     _storageStr += ',';
             }
