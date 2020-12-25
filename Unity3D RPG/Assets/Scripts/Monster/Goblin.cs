@@ -1,27 +1,99 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : MonoBehaviour
+public class Goblin : EnemyMgr
 {
-    private MoveAble moveable;
-    private AttackAble attackAble;
+    private SmashDown smash;
+    private FollowTarget follow;
+    private ReturnMove returnToHome;
 
-    public Goblin (MoveAble move, AttackAble attack)
+    private Vector3 startPos;
+
+    [Range(3, 7)]
+    public float observeRange;
+    protected override void Awake()
     {
-        this.moveable = move;
-        this.attackAble = attack;
+        base.Awake();
+        startPos = transform.position;
     }
-    // Start is called before the first frame update
     void Start()
     {
-        
+        //Goblin Move pattern
+        follow = gameObject.AddComponent<FollowTarget>();
+        returnToHome = gameObject.AddComponent<ReturnMove>();
+
+        //Goblin Attack skill
+        smash = gameObject.AddComponent<SmashDown>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        moveable.move();
-        attackAble.attack();
+        float _distance = Vector3.Distance(transform.position, target.transform.position);
+        float _homeDistance = Vector3.Distance(startPos, transform.position);
+
+        if (!returnToHome.getIsReturn())
+        {
+            if (_distance < findRange)
+            {
+                followTarget();
+
+            }
+            else
+            {
+                //observe move and idle   
+            }
+        }
+
+        else
+        {
+            if (_homeDistance < 1.0f)
+            {
+                returnToHome.setIsReturn(false);
+            }
+            else
+            {
+                ReturnToStart();
+            }
+
+        }
+
+
+        //setAttackType(smash);
+        //Attack();
+    }
+
+    private void setIdleState()
+    {
+
+    }
+
+    public void followTarget()
+    {
+        setMoveType(follow);
+        follow.setVariable(controller, target, speed);
+        Move();
+
+    }
+
+    public void ReturnToStart()
+    {
+        setMoveType(returnToHome);
+        returnToHome.setIsReturn(true);
+        returnToHome.initVariable(controller, startPos, speed);
+        Move();
+
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, findRange);
+
+
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(startPos, 5f);
+
     }
 }
