@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
 
     private void Awake()
     {
+        //SceneUIFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/LoadingUI.prefab", typeof(GameObject));
         DontDestroyOnLoad(gameObject);
         SceneUI = Instantiate(SceneUIFactory);
         DontDestroyOnLoad(SceneUI);
@@ -28,7 +30,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
     void Start()
     {
         canvasGroup = SceneUI.GetComponent<CanvasGroup>();
-        progressBar = SceneUI.GetComponentsInChildren<Image>()[1];
+        progressBar = SceneUI.GetComponentsInChildren<Image>()[2];
     }
 
     public void LoadScene(string sceneName)
