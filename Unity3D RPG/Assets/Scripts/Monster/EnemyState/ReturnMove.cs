@@ -31,7 +31,10 @@ public class ReturnMove : MonoBehaviour, MoveAble
         Vector3 _direction = _return.normalized;
 
         _direction.y = 0;
+
+        if(transform.position!= spawnPos)
         transform.rotation = Quaternion.LookRotation(_direction); 
+
         controller.Move(_direction * speed * Time.deltaTime);
 
     }

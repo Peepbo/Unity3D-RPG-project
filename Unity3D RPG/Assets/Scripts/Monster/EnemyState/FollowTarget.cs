@@ -16,16 +16,15 @@ public class FollowTarget : MonoBehaviour, MoveAble
     }
     public void move()
     {
-        
+
         Vector3 _transform2Target = target.transform.position - transform.position;
         Vector3 _direction = _transform2Target.normalized;
-       // float _distance = _transform2Target.magnitude;
+        // float _distance = _transform2Target.magnitude;
 
         _direction.y = 0;
         transform.rotation = Quaternion.LookRotation(_direction);
 
         controller.Move(_direction * speed * Time.deltaTime);
-        Debug.Log("쫓아간다");
 
     }
 }

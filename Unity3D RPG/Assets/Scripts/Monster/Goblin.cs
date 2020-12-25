@@ -33,28 +33,19 @@ public class Goblin : EnemyMgr
         float _distance = Vector3.Distance(transform.position, target.transform.position);
         float _homeDistance = Vector3.Distance(startPos, transform.position);
 
-        if (!returnToHome.getIsReturn())
-        {
-            if (_distance < findRange)
-            {
-                followTarget();
 
-            }
-            else
-            {
-                //observe move and idle   
-            }
+        if (_distance < findRange && !returnToHome.getIsReturn())
+        {
+            followTarget();
         }
 
         else
         {
-            if (_homeDistance < 1.0f)
+            ReturnToStart();
+
+            if (_homeDistance < 0.5f)
             {
                 returnToHome.setIsReturn(false);
-            }
-            else
-            {
-                ReturnToStart();
             }
 
         }
