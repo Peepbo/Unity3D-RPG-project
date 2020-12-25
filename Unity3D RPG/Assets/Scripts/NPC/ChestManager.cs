@@ -23,8 +23,11 @@ public class ChestManager : MonoBehaviour
         }
     }
 
+    //equipList와 rootList의 정보를 playerData의 myItem과 연동한다.
     public void ItemUpdate()
     {
+        equipList.Clear();
+        rootList.Clear();
         //equipList + rootList
         for (int i = 0; i < PlayerData.Instance.myItem.Count; i++)
         {
@@ -38,14 +41,18 @@ public class ChestManager : MonoBehaviour
         }
     }
 
+    //추후에 소지장비 이미지와 연동하기위해 사용
     public void GetData()
     {
         int num = 0;
         foreach (GameObject data in gmData)
         {
-            if (num == PlayerData.Instance.myItem.Count) break;
-
-            //data.GetComponent<Image>().color = Color.red;
+            if (num == PlayerData.Instance.myItem.Count)
+            {
+                data.GetComponent<Image>().color = Color.white;
+                continue;
+            }
+            data.GetComponent<Image>().color = Color.red;
             
             //Debug.Log(data.name);
             //Debug.Log(PlayerData.Instance.myItem[num].itemName);
@@ -56,8 +63,13 @@ public class ChestManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.L)) PlayerData.Instance.LoadData();
+        //if(Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    PlayerData.Instance.SaveChest(0);
+        //    ItemUpdate();
+        //    GetData();
 
-        //if (Input.GetKeyDown(KeyCode.Z)) GetData();
+        //    Debug.Log("saveChest");
+        //}
     }
 }
