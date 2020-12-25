@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaceAttack : MonoBehaviour, AttackAble
+public class MaceAttack : MonoBehaviour, IAttackAble
 {
     public void attack()
     {

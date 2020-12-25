@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowTarget : MonoBehaviour, MoveAble
+public class FollowTarget : MonoBehaviour, IMoveAble
 {
     CharacterController controller;
     GameObject target;
     float speed;
 
-    public void setVariable(CharacterController cc, GameObject destination, float followSpeed)
+    public void initVariable(CharacterController cc, GameObject destination, float followSpeed)
     {
         this.controller = cc;
         this.target = destination;

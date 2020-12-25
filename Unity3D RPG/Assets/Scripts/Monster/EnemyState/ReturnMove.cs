@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReturnMove : MonoBehaviour, MoveAble
+public class ReturnMove : MonoBehaviour, IMoveAble
 {
     CharacterController controller;
     Vector3 spawnPos;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmashDown : MonoBehaviour,AttackAble
+public class SmashDown : MonoBehaviour,IAttackAble
 {
     public void attack()
     {

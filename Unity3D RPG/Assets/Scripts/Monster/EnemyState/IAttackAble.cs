@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface AttackAble 
+public interface IAttackAble 
 {
     void attack();
 }

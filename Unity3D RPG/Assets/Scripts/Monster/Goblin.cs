@@ -21,6 +21,7 @@ public class Goblin : EnemyMgr
     void Start()
     {
         //Goblin Move pattern
+       
         follow = gameObject.AddComponent<FollowTarget>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
@@ -63,7 +64,7 @@ public class Goblin : EnemyMgr
     public void followTarget()
     {
         setMoveType(follow);
-        follow.setVariable(controller, target, speed);
+        follow.initVariable(controller, target, speed);
         Move();
 
     }
@@ -80,7 +81,6 @@ public class Goblin : EnemyMgr
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, findRange);
-
 
 
         Gizmos.color = Color.blue;

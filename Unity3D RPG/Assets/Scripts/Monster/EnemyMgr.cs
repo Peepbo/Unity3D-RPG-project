@@ -8,8 +8,8 @@ public abstract class EnemyMgr :MonoBehaviour
     protected GameObject target;
     
 
-    private MoveAble moveType;
-    private AttackAble attackType;
+    private IMoveAble moveType;
+    private IAttackAble attackType;
 
     [Range(5,10)]
     public float findRange;
@@ -35,12 +35,12 @@ public abstract class EnemyMgr :MonoBehaviour
         attackType.attack();
     }
 
-    public void setMoveType(MoveAble newMoveType)
+    public void setMoveType(IMoveAble newMoveType)
     {
         this.moveType = newMoveType;
     }
 
-    public void setAttackType(AttackAble newAttackType)
+    public void setAttackType(IAttackAble newAttackType)
     {
         this.attackType = newAttackType;
     }
