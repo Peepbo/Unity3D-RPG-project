@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+
+public class LoadingSceneController : Singleton<LoadingSceneController>
+{
+    protected LoadingSceneController() { }
+
+    [SerializeField]
+    GameObject SceneUIFactory;
+    GameObject SceneUI;
+    CanvasGroup canvasGroup;
+    Image progressBar;
+    string loadSceneName;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        SceneUI = Instantiate(SceneUIFactory);
+        DontDestroyOnLoad(SceneUI);
+        Debug.Log("Awake");
+    }
+
+    void Start()
+    {
+        canvasGroup = SceneUI.GetComponent<CanvasGroup>();
+        progressBar = SceneUI.GetComponentsInChildren<Image>()[1];
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        Debug.Log("Load");
+        SceneUI.SetActive(true);
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        loadSceneName = sceneName;
+        StartCoroutine(LoadSceneProcess());
+    }
+
+    private IEnumerator LoadSceneProcess()
+    {
+        progressBar.fillAmount = 0f;
+        yield return StartCoroutine(Fade(true));
+
+        AsyncOperation _op = SceneManager.LoadSceneAsync(loadSceneName);
+        _op.allowSceneActivation = false; 
+
+        float _timer = 0f;
+        while(!_op.isDone)
+        {
+            yield return null;
+
+            if( _op.progress <0.9f)
+            {
+                progressBar.fillAmount = _op.progress;
+            }
+            else
+            {
+                _timer += Time.unscaledDeltaTime;
+                progressBar.fillAmount = Mathf.Lerp(0.9f, 1.0f, _timer);
+
+                if(progressBar.fillAmount >=1f)
+                {
+                    _op.allowSceneActivation = true;
+                    yield break;
+                }
+            }
+        }
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if(arg0.name == loadSceneName)
+        {
+            StartCoroutine(Fade(false));
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+    }
+    private IEnumerator Fade(bool isFadeIn)
+    {
+        float _timer = 0f;
+        while(_timer>=1f)
+        {
+            yield return null;
+            _timer += Time.unscaledDeltaTime;
+            canvasGroup.alpha = isFadeIn ? Mathf.Lerp(0f, 1f, _timer) : Mathf.Lerp(1f, 0f, _timer);
+        }
+
+        if (!isFadeIn)
+        {
+
+            SceneUI.SetActive(false);
+        }
+    }
+}
