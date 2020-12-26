@@ -63,4 +63,6 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
         isTouch = false;
         _Joystick.localPosition = Vector3.zero;
     }
+
+    
 }

@@ -16,7 +16,7 @@ public partial class Player : MonoBehaviour
     void Start()
     {
         StateStart();
-
+        AnimStart();
 
     }
 

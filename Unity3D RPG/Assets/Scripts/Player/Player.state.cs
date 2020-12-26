@@ -10,7 +10,8 @@ using UnityEngine.UI;
 
 partial class Player
 {
-    PlayerController moveScript;
+   
+   
     public bool isDash;
     bool    isCombo;
     int     comboCount;
@@ -33,11 +34,12 @@ partial class Player
 
     void StateStart()
     {
-        moveScript = GetComponent<PlayerController>();
+        
+        
     }
     void StateUpdate()
     {
-        
+        animator.SetFloat("Value", playerC.distance);
     }
    
 
@@ -49,32 +51,37 @@ partial class Player
         switch (state)
         {
             case PlayerState.IDLE:
-
                 // state = State.ATK;
                 //state = State.HIT
                 FightEnd();
+                
 
                 Vector2 _movementInput = playerC.value;
                 if(_movementInput != Vector2.zero)
                 {
                     state = PlayerState.MOVE;
+                    //ChangeAnimation("Walk");
                 }
 
                 if( isAtk)
                 {
                     state = PlayerState.ATK;
+                    
                 }
 
 
                 break;
             case PlayerState.MOVE:
-                if(playerC.value == Vector2.zero)
+                if (playerC.distance == 0f)
                 {
+                   
                     state = PlayerState.IDLE;
                 }
+               
 
                 if (isAtk)
                 {
+                    
                     state = PlayerState.ATK;
                 }
                 break;
@@ -139,23 +146,26 @@ partial class Player
     IEnumerator DashMove()
     {
         float startTime = Time.time;
-        
+        dashTime = animator.GetCurrentAnimatorStateInfo(0).length;
         while (Time.time < startTime + dashTime)
         {
-            moveScript.controller.Move(moveScript.child.forward * dashSpeed * Time.deltaTime);
+            playerC.controller.Move(playerC.child.forward * dashSpeed * Time.deltaTime);
            
             yield return null;
         }
        
-        Debug.Log("change Idle");
         state = PlayerState.IDLE;
         isDash = false;
+        animator.SetBool("isRolling", false);
+
     }
     public void PlayerDash()
     {
-        
-        if( stamina> 30)
+
+        if (stamina > 30 && isDash == false)
         {
+            animator.SetTrigger("Rolling");
+            animator.SetBool("isRolling",true);
             stamina -= 30;
             if(stamina < 0)
             {
