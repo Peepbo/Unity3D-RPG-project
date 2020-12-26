@@ -4,31 +4,84 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using UnityEditor;
+
 
 partial class ChestManager
 {
     //추후에 소지장비 이미지와 연동하기위해 사용
     public void GetData()
     {
+        for(int i = 1; i < 5; i++)
+        {
+            //1. 아이템을 가지고 있지 않을 때
+            if (PlayerData.Instance.myEquipment[i] == -1)
+                eqData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+            
+            else
+            {
+                eqData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(i);
+
+                //착용한 장비
+                int _itemNumber = PlayerData.Instance.myEquipment[i];
+
+                ItemInfo _item = CSVData.Instance.find(_itemNumber);
+
+                if(_item.grade == "normal")
+                    eqData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[0];
+                else
+                    eqData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
+            }
+        }
+
+        //rightBg
         int num = 0;
+
         foreach (GameObject data in gmData)
         {
             if (num == equipList.Count)
             {
-                data.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+                data.transform.GetChild(0).GetComponent<Image>().color = Color.clear;
                 data.GetComponent<Button>().enabled = false;
                 continue;
             }
 
-            data.transform.GetChild(0).GetComponent<Image>().color = Color.green;
+            data.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(equipList[num].kindID);
+
+            if (equipList[num].grade == "normal")
+                data.transform.GetChild(0).GetComponent<Image>().color = color[0];
+            else
+                data.transform.GetChild(0).GetComponent<Image>().color = color[1];
 
             if (!data.GetComponent<Button>().enabled)
                 data.GetComponent<Button>().enabled = true;
 
             num++;
         }
+    }
+
+    Sprite GetPath(int kind)
+    {
+        string _imgName = "";
+
+        switch (kind)
+        {
+            case 1://무기
+                _imgName = "sword";
+                break;
+            case 2://갑옷
+                _imgName = "chest";
+                break;
+            case 3://장신구
+                _imgName = "amulet";
+                break;
+        }
+
+        _imgName += ".png";
+
+        return (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Images/" + _imgName, typeof(Sprite));
     }
 
     //아이템 정보 출력

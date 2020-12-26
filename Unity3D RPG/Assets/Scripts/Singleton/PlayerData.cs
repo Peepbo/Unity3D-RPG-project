@@ -11,10 +11,10 @@ public class PlayerData : Singleton<PlayerData>
 
     //내가 착용한 아이템(아이템 넘버로 저장함)
     // {더미, 무기, 갑옷, 악세사리}  
-    public int[] myEquipment = { 123, -1, -1, -1 };
+    public int[] myEquipment = { 123, -1, -1, -1, -1 };
     //0으로 초기화 안 한 이유는 아이템 넘버가 0부터 존재해서..
 
-    //내가 가지고 있
+    //내가 가지고 있는 화폐
     public int myCurrency;
 
     public void SaveChest(int itemNumber)

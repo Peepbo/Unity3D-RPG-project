@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public partial class ChestManager : MonoBehaviour
 {
+    Color[] color = {
+        new Color(1,1,1,1), // normal
+        new Color(117f / 255, 1, 105f / 255, 1), // rare
+    };
+
+    //장착 장비
+    public GameObject equips;
+    public GameObject[] eqData;
+
+    //소유 장비
     public GameObject slots;
     public GameObject[] gmData;
 
@@ -20,10 +31,19 @@ public partial class ChestManager : MonoBehaviour
 
     public void MakeData()
     {
+        //left
+        eqData = new GameObject[4];
+
+        for(int i = 0; i < 4; i++)
+        {
+            eqData[i] = equips.transform.GetChild(i).gameObject;
+        }
+
+        //right
         gmData = new GameObject[16];
         for (int i = 0; i < 16; i++)
         {
-            gmData[i] = slots.transform.Find("slot (" + i + ")").gameObject;
+            gmData[i] = slots.transform.GetChild(i).gameObject;
         }
     }
 
