@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 value;
     public Vector3 value3;
+    public float distance;
 
     private Transform cameraMain;
     public Transform child;
@@ -51,6 +52,10 @@ public class PlayerController : MonoBehaviour
         }
         Vector2 _movementInput = playerInput.PlayerMain.Move.ReadValue<Vector2>();
         value = _movementInput;
+        
+        Vector3 _dis = new Vector3(_movementInput.x, 0f, _movementInput.y);
+        distance = Vector3.Magnitude(_dis);
+
         Vector3 _move = (cameraMain.forward * _movementInput.y + cameraMain.right * _movementInput.x);
         _move.y = 0f;
         value3 = _move;
@@ -62,10 +67,7 @@ public class PlayerController : MonoBehaviour
 
         }
         
-       
-
-        
-            playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
+         playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
          controller.Move(playerVelocity * Time.deltaTime); // 중력적용
     
 
