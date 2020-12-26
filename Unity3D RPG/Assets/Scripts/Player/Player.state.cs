@@ -156,8 +156,7 @@ partial class Player
        
         state = PlayerState.IDLE;
         isDash = false;
-        animator.SetBool("isRolling", false);
-
+        
     }
     public void PlayerDash()
     {
@@ -165,7 +164,6 @@ partial class Player
         if (stamina > 30 && isDash == false)
         {
             animator.SetTrigger("Rolling");
-            animator.SetBool("isRolling",true);
             stamina -= 30;
             if(stamina < 0)
             {

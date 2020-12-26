@@ -3,34 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChestManager : MonoBehaviour
+
+public partial class ChestManager : MonoBehaviour
 {
+    Color[] color = {
+        new Color(1,1,1,1), // normal
+        new Color(117f / 255, 1, 105f / 255, 1), // rare
+    };
+
+    //장착 장비
+    public GameObject equips;
+    public GameObject[] eqData;
+
+    //소유 장비
     public GameObject slots;
     public GameObject[] gmData;
 
-    private void Awake()
-    {
-        gmData = new GameObject[32];
-        for (int i = 0; i < 32; i++)
-            gmData[i] = slots.transform.Find("slot" + i).gameObject;
-    }
+    //장비관련
+    public List<ItemInfo> equipList = new List<ItemInfo>();
 
-    public void GetData()
+    //전리품관련
+    public List<ItemInfo> rootList = new List<ItemInfo>();
+
+    //정보 저장용
+    public GameObject popInfo; 
+    int selectNumber;
+
+    public void MakeData()
     {
-        int num = 0;
-        foreach (GameObject data in gmData)
+        //left
+        eqData = new GameObject[4];
+
+        for(int i = 0; i < 4; i++)
         {
-            if (num == PlayerData.Instance.myItem.Count) break;
+            eqData[i] = equips.transform.GetChild(i).gameObject;
+        }
 
-            data.GetComponentInChildren<Text>().text = PlayerData.Instance.myItem[num].itemName;
-            num++;
+        //right
+        gmData = new GameObject[16];
+        for (int i = 0; i < 16; i++)
+        {
+            gmData[i] = slots.transform.GetChild(i).gameObject;
         }
     }
 
-    private void Update()
+    //equipList와 rootList의 정보를 playerData의 myItem과 연동한다.
+    public void ItemUpdate()
     {
-        //if (Input.GetKeyDown(KeyCode.L)) PlayerData.Instance.LoadData();
+        equipList.Clear();
+        rootList.Clear();
 
-        //if (Input.GetKeyDown(KeyCode.Z)) GetData();
+        //equipList + rootList
+        for (int i = 0; i < PlayerData.Instance.myItem.Count; i++)
+        {
+            ItemInfo _item = PlayerData.Instance.myItem[i];
+
+            //4가 아니면?
+            if (_item.kindID != 4) equipList.Add(_item);
+
+            //4면?
+            else rootList.Add(_item);
+        }
     }
 }

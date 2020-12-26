@@ -243,17 +243,17 @@ GameObject:
   - component: {fileID: 5308526662832620343}
   - component: {fileID: 9004361559125019013}
   - component: {fileID: 1481051046588625929}
-  - component: {fileID: 2692577599290808384}
-  - component: {fileID: 8473643314931547855}
-  - component: {fileID: 506806858120089130}
   - component: {fileID: 50046781}
+  - component: {fileID: 1937132623}
+  - component: {fileID: 807255386332905919}
+  - component: {fileID: 6130023685373796119}
   m_Layer: 0
   m_Name: Melee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &506806857385467983
 Transform:
   m_ObjectHideFlags: 0
@@ -350,58 +350,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2692577599290808384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 835668531912915487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9c47f37e137d3046bd8660628aafc96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pivotCenter: {fileID: 506806856984780412}
-  radar: {fileID: 506806856607327498}
-  maxHp: 10
-  def: 1
-  speed: 1
-  findRange: 13.1
-  attackRange: 5
-  thinkCoolTime: 2
-  observeRange: 5
-  action: 0
-  stay: 0
---- !u!114 &8473643314931547855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 835668531912915487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca4b68b8d152ac4cbaf712f686fc346, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angle: 30
-  radius: 5
---- !u!114 &506806858120089130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 835668531912915487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3f4c63e5a89c6745bb40314e8f58569, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BakedApple: {fileID: 7884476209299313834, guid: ae404a11c4d84a64c93bb4304561fbe1,
-    type: 3}
-  items: OldNecklace,OldArmour,OldSword
 --- !u!95 &50046781
 Animator:
   serializedVersion: 3
@@ -421,6 +369,57 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1937132623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9c47f37e137d3046bd8660628aafc96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pivotCenter: {fileID: 0}
+  radar: {fileID: 0}
+  maxHp: 10
+  def: 1
+  speed: 1
+  findRange: 0
+  attackRange: 0
+  thinkCoolTime: 10
+  observeRange: 5
+  action: 0
+  stay: 0
+--- !u!114 &807255386332905919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f4c63e5a89c6745bb40314e8f58569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BakedApple: {fileID: 0}
+  items: 
+--- !u!114 &6130023685373796119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835668531912915487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca4b68b8d152ac4cbaf712f686fc346, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 30
+  radius: 5
 --- !u!1 &9011955504191210655
 GameObject:
   m_ObjectHideFlags: 0
