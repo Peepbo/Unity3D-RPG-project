@@ -8,7 +8,6 @@ public partial class Player : MonoBehaviour
     private MainPlayer playerInput;
     private void Awake()
     {
-
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
     }
