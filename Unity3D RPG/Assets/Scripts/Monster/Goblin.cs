@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Goblin : EnemyMgr
 {
-    private SmashDown smash;
+    private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
+    private SmashDown smash;
 
     private Vector3 startPos;
 
@@ -21,7 +22,7 @@ public class Goblin : EnemyMgr
     void Start()
     {
         //Goblin Move pattern
-       
+        observe = gameObject.AddComponent<ObservingMove>();
         follow = gameObject.AddComponent<FollowTarget>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
@@ -32,23 +33,22 @@ public class Goblin : EnemyMgr
     void Update()
     {
         float _distance = Vector3.Distance(transform.position, target.transform.position);
-        float _homeDistance = Vector3.Distance(startPos, transform.position);
-
-
-        if (_distance < findRange && !returnToHome.getIsReturn())
+      
+        if (observe.getIsObserve())
         {
-            followTarget();
-        }
+            if (_distance < findRange)
+            {
+                followTarget();
+            }
+            else
+            {
+                Observe();
+            }
 
+        }
         else
         {
             ReturnToStart();
-
-            if (_homeDistance < 0.5f)
-            {
-                returnToHome.setIsReturn(false);
-            }
-
         }
 
 
@@ -58,11 +58,22 @@ public class Goblin : EnemyMgr
 
     private void setIdleState()
     {
+        Debug.Log("Idle 상태");
+    }
 
+    public void Observe()
+    {
+        Vector3 _RNDDirection = GetRandomDirection();
+        setMoveType(observe);
+        observe.initVariable(controller, startPos, _RNDDirection, speed * 0.5f, observeRange);
+        Move();
     }
 
     public void followTarget()
     {
+        //타겟 따라갈때는 observe false
+        observe.setIsObserve(false);
+
         setMoveType(follow);
         follow.initVariable(controller, target, speed);
         Move();
@@ -71,17 +82,24 @@ public class Goblin : EnemyMgr
 
     public void ReturnToStart()
     {
+        float _homeDistance = Vector3.Distance(startPos, transform.position);
+        
         setMoveType(returnToHome);
         returnToHome.setIsReturn(true);
         returnToHome.initVariable(controller, startPos, speed);
         Move();
+
+        if (_homeDistance < 0.1f)
+        {
+            returnToHome.setIsReturn(false);
+            observe.setIsObserve(true);
+        }
 
     }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, findRange);
-
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(startPos, 5f);

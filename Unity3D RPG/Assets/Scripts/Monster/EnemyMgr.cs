@@ -7,11 +7,10 @@ public abstract class EnemyMgr :MonoBehaviour
     protected CharacterController controller;
     protected GameObject target;
     
-
     private IMoveAble moveType;
     private IAttackAble attackType;
 
-    [Range(5,10)]
+    [Range(5,15)]
     public float findRange;
     [Range(1,5)]
     public float speed;
@@ -19,10 +18,13 @@ public abstract class EnemyMgr :MonoBehaviour
     private int hp;
     public int maxHp;
 
+    bool isDead;
+
     protected virtual void Awake()
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        isDead = false;
     }
 
     public void Move()
@@ -43,6 +45,13 @@ public abstract class EnemyMgr :MonoBehaviour
     public void setAttackType(IAttackAble newAttackType)
     {
         this.attackType = newAttackType;
+    }
+
+    public Vector3 GetRandomDirection()
+    {
+        float _ranX = Random.Range(-1f, 1f);
+        float _ranZ = Random.Range(-1f, 1f);
+        return new Vector3(_ranX, 0, _ranZ);
     }
 
     //// Start is called before the first frame update
@@ -85,12 +94,7 @@ public abstract class EnemyMgr :MonoBehaviour
     //}
 
 
-    //public Vector3 GetRandomDirection()
-    //{
-    //    float _ranX = Random.Range(-1f, 1f);
-    //    float _ranZ = Random.Range(-1f, 1f);
-    //    return new Vector3(_ranX, 0, _ranZ);
-    //}
+
 
     //public void ChangeAniation(string newAnimation)
     //{
