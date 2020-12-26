@@ -33,12 +33,12 @@ public class Goblin : EnemyMgr
     void Update()
     {
         float _distance = Vector3.Distance(transform.position, target.transform.position);
-      
+
         if (observe.getIsObserve())
         {
             if (_distance < findRange)
             {
-                followTarget();
+                observe.setIsObserve(false);
             }
             else
             {
@@ -47,8 +47,17 @@ public class Goblin : EnemyMgr
 
         }
         else
+
         {
-            ReturnToStart();
+            if (_distance < findRange && !returnToHome.getIsReturn())
+            {
+                FollowTarget();
+            }
+            else
+            {
+
+                ReturnToStart();
+            }
         }
 
 
@@ -69,7 +78,7 @@ public class Goblin : EnemyMgr
         Move();
     }
 
-    public void followTarget()
+    public void FollowTarget()
     {
         //타겟 따라갈때는 observe false
         observe.setIsObserve(false);
@@ -83,13 +92,13 @@ public class Goblin : EnemyMgr
     public void ReturnToStart()
     {
         float _homeDistance = Vector3.Distance(startPos, transform.position);
-        
+
         setMoveType(returnToHome);
         returnToHome.setIsReturn(true);
         returnToHome.initVariable(controller, startPos, speed);
         Move();
 
-        if (_homeDistance < 0.1f)
+        if (_homeDistance <= 0.1f)
         {
             returnToHome.setIsReturn(false);
             observe.setIsObserve(true);
