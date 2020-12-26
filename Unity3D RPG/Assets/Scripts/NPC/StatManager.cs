@@ -3,46 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class StatInfo
+{
+    public bool isFirst;
+
+    public int myId;
+    public int priorId;
+
+    //public string description;
+}
+
 public class StatManager : MonoBehaviour
 {
-    //string str;
-    //public GameObject popUp;
-    //public GameObject uiBarrier;
+    public List<StatInfo> characteristic = new List<StatInfo>();
 
-    //public Text popName;
+    private void Awake()
+    {
+        //전투
+        StatInfo _info = null;
 
-    //public TextLink[] tl;
-    //public Text currencyText;
+        for(int i = 0; i < 35; i++)
+        {
+            _info.myId = i;
 
-    //public void SaveData(string statData)
-    //{
-    //    str = statData;
-    //    popName.text = statData;
+            if (i == 0 || i == 10 || i == 17 || i == 26 || i == 29 || i == 31)
+                _info.isFirst = true;
+            else 
+                _info.isFirst = false;
 
-    //    PopSetting(true);
-    //}
+            characteristic.Add(_info);
+        }
 
-    //public void PopSetting(bool value)
-    //{
-    //    popUp.SetActive(value);
-    //    uiBarrier.SetActive(value);
-    //}
+        for(int i = 0; i < 10; i++)
+        {
+            if (characteristic[i].isFirst) continue;
 
-    //public void ButtonAction()
-    //{
-    //    string[] _result = str.Split(new char[] { ',' }); // _result = {"atk","0"} <- "atk,0"
-    //    PlayerData.Instance.ChangeStat(_result[0], int.Parse(_result[1]));
-    //    ListUpdate();
-    //    PlayerData.Instance.SaveData();
-    //}
+            if (i == 1 || i == 4 || i == 7) characteristic[i].priorId = 0;
 
-    //public void ListUpdate()
-    //{
-    //    for(int i = 0; i < tl.Length; i++)
-    //    {
-    //        tl[i].GetData();
-    //    }
-    //}
+            else characteristic[i].priorId = i - 1;
+        }
+
+        for(int i = 10; i < 17; i++)
+        {
+            if (characteristic[i].isFirst) continue;
+
+            if (i == 11 || i == 14) characteristic[i].priorId = 10;
+
+            else characteristic[i].priorId = i - 1;
+        }
+
+        for(int i = 17; i < 26; i++)
+        {
+            if (characteristic[i].isFirst) continue;
+
+            if (i == 18 || i == 21) characteristic[i].priorId = 17;
+
+            else if (i < 24 || i == 25) characteristic[i].priorId = i - 1;
+
+            else if (i == 24) characteristic[i].priorId = 22;
+        }
+
+        for(int i = 26; i < 35; i++)
+        {
+            if (characteristic[i].isFirst) continue;
+
+            if (i <= 28 || i == 30 || i > 31) characteristic[i].priorId = i - 1;
+        }
+    }
 
     //private void Update()
     //{
