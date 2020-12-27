@@ -6,7 +6,8 @@ public abstract class EnemyMgr :MonoBehaviour
 {
     protected CharacterController controller;
     protected GameObject target;
-    
+    protected Animator anim;
+
     private IMoveAble moveType;
     private IAttackAble attackType;
 
@@ -26,6 +27,7 @@ public abstract class EnemyMgr :MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        anim = gameObject.GetComponent<Animator>();
         isDead = false;
     }
 

@@ -34,6 +34,8 @@ public class Goblin : EnemyMgr, IDamagedState
 
         //Goblin Attack skill
         smash = gameObject.AddComponent<SmashDown>();
+
+        anim.SetInteger("state", 0);
     }
 
     void Update()
@@ -43,12 +45,23 @@ public class Goblin : EnemyMgr, IDamagedState
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
 
 
+        if (observe.getAction() == 0)
+        {
+            anim.SetInteger("state", 0);
+        }
+        else if (observe.getAction() == 1)
+        {
+            anim.SetInteger("state", 1);
+        }
+
         if (observe.getIsObserve())
         {
             if (_isFind)
             {
                 observe.setIsObserve(false);
+                
             }
+
             else
             {
                 Observe();
@@ -58,18 +71,20 @@ public class Goblin : EnemyMgr, IDamagedState
         else
 
         {
+
             if (_isFind && !returnToHome.getIsReturn())
             {
 
                 if (_distance < attackRange)
                 {
+                    anim.SetInteger("state", 2);
                     AttackTarget();
                 }
                 else
                 {
+                    anim.SetInteger("state", 1);
                     FollowTarget();
                 }
-
 
             }
             else
@@ -78,13 +93,25 @@ public class Goblin : EnemyMgr, IDamagedState
             }
         }
 
-
         //setAttackType(smash);
         //Attack();
     }
 
     private void setIdleState()
     {
+        bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
+
+        if (observe.getIsRangeOver())
+        {
+            anim.SetInteger("state", 0);
+        }
+
+        
+        if (_isFind)
+        {
+            anim.SetInteger("state", 1);
+        }
+      
         //Debug.Log("Idle 상태");
     }
 
@@ -94,6 +121,10 @@ public class Goblin : EnemyMgr, IDamagedState
         setMoveType(observe);
         observe.initVariable(controller, startPos, _RNDDirection, speed * 0.5f, observeRange);
         Move();
+
+        if (observe.getAction() == 0) setIdleState();
+
+
     }
 
     public void FollowTarget()
@@ -104,7 +135,6 @@ public class Goblin : EnemyMgr, IDamagedState
         setMoveType(follow);
         follow.initVariable(controller, target, speed);
         Move();
-
     }
 
     public void ReturnToStart()
@@ -121,15 +151,15 @@ public class Goblin : EnemyMgr, IDamagedState
             returnToHome.setIsReturn(false);
             observe.setIsObserve(true);
         }
-
     }
 
     public void AttackTarget()
     {
         //print("goblin tries attack");
-       
+
         setAttackType(smash);
         smash.attack();
+
     }
 
     public void Damaged()
