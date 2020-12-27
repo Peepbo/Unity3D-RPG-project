@@ -77,6 +77,9 @@ partial class ChestManager
             case 3://장신구
                 _imgName = "amulet";
                 break;
+            case 4://전리품
+                _imgName = "gem";
+                break;
         }
 
         _imgName += ".png";

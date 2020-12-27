@@ -12,6 +12,8 @@ public class DataManager : MonoBehaviour
         PlayerData.Instance.LoadData();
         chestData.MakeData();
         chestData.ItemUpdate();
+        chestData.OwnLoots();
+        chestData.GetLootsData();
 
         chestData.GetData();
     }

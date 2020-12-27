@@ -19,6 +19,10 @@ public partial class ChestManager : MonoBehaviour
     public GameObject slots;
     public GameObject[] gmData;
 
+    //전리품
+    public GameObject loots;
+    public GameObject[] lootsData;
+
     //장비관련
     public List<ItemInfo> equipList = new List<ItemInfo>();
 
@@ -63,6 +67,16 @@ public partial class ChestManager : MonoBehaviour
 
             //4면?
             else rootList.Add(_item);
+        }
+    }
+
+    public void OwnLoots()
+    {
+        lootsData = new GameObject[15];
+
+        for (int i = 0; i < 15; i++)
+        {
+            lootsData[i] = loots.transform.GetChild(i).gameObject;
         }
     }
 }
