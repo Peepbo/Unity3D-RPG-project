@@ -98,7 +98,7 @@ public class ObservingMove : MonoBehaviour, IMoveAble
         else
         {
             //observeRange에 닿으면 어느 방향으로 갈지 체크해서 그 방향으로 가도록 해주기
-            Debug.Log("범위를 벗어남");
+           // Debug.Log("범위를 벗어남");
             isRangeOver = true;
 
             if (time < 0)
