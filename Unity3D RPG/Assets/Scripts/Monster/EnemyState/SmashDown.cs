@@ -8,5 +8,4 @@ public class SmashDown : MonoBehaviour,IAttackAble
     {
         Debug.Log("내려찍기");
     }
-
 }

@@ -88,14 +88,14 @@ public class ViewingAngle : MonoBehaviour
         //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, radius);
 
 
-        if (isFind)
-        {
-            Handles.color = Color.blue;
-        }
-        else Handles.color = Color.green;
+        //if (isFind)
+        //{
+        //    Handles.color = Color.blue;
+        //}
+        //else Handles.color = Color.green;
 
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, findRadius);
-        Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, findRadius);
+        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, findRadius);
+        //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, findRadius);
 
         //if (isAttackable)
         //{
