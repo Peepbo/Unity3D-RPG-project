@@ -12,6 +12,8 @@ public abstract class EnemyMgr :MonoBehaviour
 
     [Range(5,15)]
     public float findRange;
+    [Range(1, 3)]
+    public float attackRange;
     [Range(1,5)]
     public float speed;
 
