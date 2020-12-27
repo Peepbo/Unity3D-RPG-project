@@ -1,29 +1,35 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : EnemyMgr
+public class Goblin : EnemyMgr, IDamagedState
 {
     private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
-    private SmashDown smash;
 
+    private SmashDown smash;
+    private ViewingAngle viewAngle;
     private Vector3 startPos;
 
     [Range(3, 7)]
     public float observeRange;
+    [Range(0, 180)]
+    public float angle;
+
+
     protected override void Awake()
     {
         base.Awake();
         startPos = transform.position;
+        viewAngle = GetComponent<ViewingAngle>();
     }
     void Start()
     {
         //Goblin Move pattern
         observe = gameObject.AddComponent<ObservingMove>();
         follow = gameObject.AddComponent<FollowTarget>();
+        viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
         //Goblin Attack skill
@@ -34,9 +40,12 @@ public class Goblin : EnemyMgr
     {
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
+        bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
+
+
         if (observe.getIsObserve())
         {
-            if (_distance < findRange)
+            if (_isFind)
             {
                 observe.setIsObserve(false);
             }
@@ -49,13 +58,22 @@ public class Goblin : EnemyMgr
         else
 
         {
-            if (_distance < findRange && !returnToHome.getIsReturn())
+            if (_isFind && !returnToHome.getIsReturn())
             {
-                FollowTarget();
+
+                if (_distance < attackRange)
+                {
+                    AttackTarget();
+                }
+                else
+                {
+                    FollowTarget();
+                }
+
+
             }
             else
             {
-
                 ReturnToStart();
             }
         }
@@ -67,7 +85,7 @@ public class Goblin : EnemyMgr
 
     private void setIdleState()
     {
-        Debug.Log("Idle 상태");
+        //Debug.Log("Idle 상태");
     }
 
     public void Observe()
@@ -105,13 +123,27 @@ public class Goblin : EnemyMgr
         }
 
     }
+
+    public void AttackTarget()
+    {
+        //print("goblin tries attack");
+       
+        setAttackType(smash);
+        smash.attack();
+    }
+
+    public void Damaged()
+    {
+        //print("goblin Damaged");
+
+    }
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, findRange);
-
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(startPos, 5f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
 }

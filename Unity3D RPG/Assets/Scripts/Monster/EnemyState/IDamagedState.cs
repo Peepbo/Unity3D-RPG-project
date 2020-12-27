@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IState
+public interface IDamagedState 
 {
-    void Enter();
-    void Update();
-    void Exit();
-
+    void Damaged(); 
 }
