@@ -18,6 +18,7 @@ public class DataManager : MonoBehaviour
 
         chestData.GetData();
 
+        statData.ResetStat();
         statData.GetData();
     }
 }

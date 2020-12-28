@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class PlayerData : Singleton<PlayerData>
 {
@@ -15,13 +16,7 @@ public class PlayerData : Singleton<PlayerData>
     //0으로 초기화 안 한 이유는 아이템 넘버가 0부터 존재해서..
 
     //내 특성
-    public int[] myAbility = { 0,0,0,0,0,
-                               0,0,0,0,0,
-                               0,0,0,0,0,
-                               0,0,0,0,0,
-                               0,0,0,0,0,
-                               0,0,0,0,0,
-                               0,0,0,0,0};
+    public int[] myAbility = new int[35];
 
     //내가 가지고 있는 화폐
     public int myCurrency;
@@ -72,17 +67,13 @@ public class PlayerData : Singleton<PlayerData>
             {
                 //아이템 번호
                 _itemNumber = int.Parse(CSVData.Instance.playerRootLoad[i]);
-                Debug.Log(_itemNumber);
 
                 _item = CSVData.Instance.find(_itemNumber);
             }
 
             else
             {
-
                 _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
-
-                Debug.Log(_item.count);
 
                 myItem.Add(_item);
 
@@ -96,6 +87,8 @@ public class PlayerData : Singleton<PlayerData>
         for (int i = 0; i < CSVData.Instance.playerAbilityLoad.Count; i++)
         {
             myAbility[i] = int.Parse(CSVData.Instance.playerAbilityLoad[i]);
+
+            //Debug.Log(myAbility[i]);
         }
     }
 
@@ -118,8 +111,11 @@ public class PlayerData : Singleton<PlayerData>
 
         List<string> _ability = new List<string>();
 
+        Debug.Log(myAbility[0].ToString());
         for (int i = 0; i < 35; i++)
+        {
             _ability.Add(myAbility[i].ToString());
+        }
 
         CSVData.Instance.PlayerSave(myCurrency, _equip, _storage, _ability, "Resources/playerStateDB.csv");
     }
