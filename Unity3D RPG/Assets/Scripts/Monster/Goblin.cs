@@ -40,6 +40,12 @@ public class Goblin : EnemyMgr, IDamagedState
 
     void Update()
     {
+        Vector3 _transfrom = transform.position;
+        if (!controller.isGrounded)
+        {
+            _transfrom.y += gravity * Time.deltaTime;
+        }
+
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
@@ -59,9 +65,8 @@ public class Goblin : EnemyMgr, IDamagedState
             if (_isFind)
             {
                 observe.setIsObserve(false);
-                
-            }
 
+            }
             else
             {
                 Observe();
@@ -69,7 +74,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
         }
         else
-
         {
 
             if (_isFind && !returnToHome.getIsReturn())
@@ -89,6 +93,7 @@ public class Goblin : EnemyMgr, IDamagedState
             }
             else
             {
+                anim.SetInteger("state", 1);
                 ReturnToStart();
             }
         }
@@ -106,12 +111,12 @@ public class Goblin : EnemyMgr, IDamagedState
             anim.SetInteger("state", 0);
         }
 
-        
+
         if (_isFind)
         {
             anim.SetInteger("state", 1);
         }
-      
+
         //Debug.Log("Idle 상태");
     }
 
