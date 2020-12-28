@@ -79,7 +79,7 @@ public class ObservingMove : MonoBehaviour, IMoveAble
             if (time < 0)
             {
                 action = Random.Range(0, 2);
-                time = Random.Range(1f, 4f);
+                time = Random.Range(2f, 5f);
 
                 if (action == 1)
                 {
@@ -99,36 +99,33 @@ public class ObservingMove : MonoBehaviour, IMoveAble
         {
             //observeRange에 닿으면 어느 방향으로 갈지 체크해서 그 방향으로 가도록 해주기
            // Debug.Log("범위를 벗어남");
-            isRangeOver = true;
 
-            if (time < 0)
+            //isRangeOver = true;
+
+            time = 3f;
+
+            float[] _angle = { 0, 60, 120, 180, 240, 300 };
+            // List<float> _angle = new List<float>(new float[] {0,60,120,180,240,300 });
+            // list로 받아서 계산하는방법???? ->물어보기
+
+            List<float> _newDirection = new List<float>();
+
+
+            for (int i = 0; i < 6; i++)
             {
-                time = 3f;
+                pivotCenter.rotation = Quaternion.Euler(pivotCenter.rotation.x, _angle[i], pivotCenter.rotation.z);
 
-                float[] _angle = { 0, 60, 120, 180, 240, 300 };
-                // List<float> _angle = new List<float>(new float[] {0,60,120,180,240,300 });
-                // list로 받아서 계산하는방법???? ->물어보기
-
-                List<float> _newDirection = new List<float>();
-
-
-                for (int i = 0; i < 6; i++)
+                if (Vector3.Distance(radar.position, spawnPos) < observeRange)
                 {
-                    pivotCenter.rotation = Quaternion.Euler(pivotCenter.rotation.x, _angle[i], pivotCenter.rotation.z);
+                    _newDirection.Add(_angle[i]);
 
-                    if (Vector3.Distance(radar.position, spawnPos) < observeRange)
-                    {
-                        _newDirection.Add(_angle[i]);
-
-                    }
                 }
-
-                int _index = Random.Range(0, _newDirection.Count);
-                transform.rotation = Quaternion.Euler(0, _newDirection[_index], 0);
-
-                isRangeOver = false;
-
             }
+
+            int _index = Random.Range(0, _newDirection.Count);
+            transform.rotation = Quaternion.Euler(0, _newDirection[_index], 0);
+
+            isRangeOver = false;
         }
 
 

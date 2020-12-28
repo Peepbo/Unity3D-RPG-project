@@ -22,7 +22,6 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         base.Awake();
         startPos = transform.position;
-        viewAngle = GetComponent<ViewingAngle>();
     }
     void Start()
     {
@@ -51,6 +50,7 @@ public class Goblin : EnemyMgr, IDamagedState
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
 
 
+        //animation idle or run
         if (observe.getAction() == 0)
         {
             anim.SetInteger("state", 0);
@@ -60,8 +60,11 @@ public class Goblin : EnemyMgr, IDamagedState
             anim.SetInteger("state", 1);
         }
 
+
+        //Observe range 안에 있을 때
         if (observe.getIsObserve())
         {
+            //타겟을 찾으면
             if (_isFind)
             {
                 observe.setIsObserve(false);
@@ -69,34 +72,41 @@ public class Goblin : EnemyMgr, IDamagedState
             }
             else
             {
+                //타겟을 못찾으면 제자리에서 observe
                 Observe();
             }
 
         }
+        //Observe range 안에 없을 때
         else
         {
-
-            if (_isFind && !returnToHome.getIsReturn())
+            //player가 공격 범위에 들어오면
+            if (_distance < attackRange)
             {
-
-                if (_distance < attackRange)
-                {
-                    anim.SetInteger("state", 2);
-                    AttackTarget();
-                }
-                else
-                {
-                    anim.SetInteger("state", 1);
-                    FollowTarget();
-                }
-
+                anim.SetInteger("state", 2);
+                AttackTarget();
             }
+            //player가 공격 범위에 없으면
             else
             {
-                anim.SetInteger("state", 1);
-                ReturnToStart();
+                if (_isFind && !returnToHome.getIsReturn())
+                {
+
+                    anim.SetInteger("state", 1);
+                    FollowTarget();
+
+
+                }
+
+                else if(_isFind == false || returnToHome.getIsReturn() == true)
+                {
+                    anim.SetInteger("state", 1);
+                    ReturnToStart();
+                }
             }
+
         }
+
 
         //setAttackType(smash);
         //Attack();
@@ -129,13 +139,15 @@ public class Goblin : EnemyMgr, IDamagedState
 
         if (observe.getAction() == 0) setIdleState();
 
-
     }
 
     public void FollowTarget()
     {
         //타겟 따라갈때는 observe false
         observe.setIsObserve(false);
+
+        //controller의 speed를 animation velocity 값에 넣어준다.
+        anim.SetFloat("velocity", controller.velocity.magnitude);
 
         setMoveType(follow);
         follow.initVariable(controller, target, speed);
@@ -155,6 +167,9 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             returnToHome.setIsReturn(false);
             observe.setIsObserve(true);
+
+            //controller의 speed를 velocity의 값에 넣어준다.
+            anim.SetFloat("velocity", controller.velocity.magnitude);
         }
     }
 
