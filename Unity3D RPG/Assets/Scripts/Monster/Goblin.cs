@@ -17,6 +17,7 @@ public class Goblin : EnemyMgr, IDamagedState
     [Range(0, 180)]
     public float angle;
 
+    Coroutine combatIdle;
 
     protected override void Awake()
     {
@@ -93,15 +94,21 @@ public class Goblin : EnemyMgr, IDamagedState
                 {
 
                     anim.SetInteger("state", 1);
-                    FollowTarget();
 
-
+                    if (anim.GetBool("isRest") == false)
+                    {
+                        FollowTarget();
+                    }
                 }
 
                 else if(_isFind == false || returnToHome.getIsReturn() == true)
                 {
                     anim.SetInteger("state", 1);
-                    ReturnToStart();
+
+                    if (anim.GetBool("isRest") == false)
+                    {
+                        ReturnToStart();
+                    }
                 }
             }
 
@@ -179,7 +186,30 @@ public class Goblin : EnemyMgr, IDamagedState
 
         setAttackType(smash);
         smash.attack();
+    }
 
+    public void GetRest()
+    {
+        StartCoroutine(AttackRoutine());
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        //rest를 키고
+        anim.SetBool("isRest", true);
+        yield return new WaitForSeconds(1.5f);
+
+        Vector3 _direction = target.transform.position - transform.position;
+        _direction.Normalize();
+        _direction.y = 0;
+
+        //transform.LookAt(_direction);
+
+        transform.forward = (_direction);
+
+        yield return new WaitForSeconds(1.5f);
+        //rest를 끈다
+        anim.SetBool("isRest", false);
     }
 
     public void Damaged()
