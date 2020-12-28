@@ -17,7 +17,7 @@ public class Goblin : EnemyMgr, IDamagedState
     [Range(0, 180)]
     public float angle;
 
-    Coroutine combatIdle;
+    public GameObject weapon;
 
     protected override void Awake()
     {
@@ -33,7 +33,8 @@ public class Goblin : EnemyMgr, IDamagedState
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
         //Goblin Attack skill
-        smash = gameObject.AddComponent<SmashDown>();
+
+        weapon.GetComponent<AxColision>().SetDamage(damage);
 
         anim.SetInteger("state", 0);
     }
@@ -182,11 +183,18 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void AttackTarget()
     {
-        //print("goblin tries attack");
-
-        setAttackType(smash);
-        smash.attack();
+        
     }
+
+    public void ActiveMeshCol()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = true;
+    }
+    public void DeActiveMeshCol()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = false;
+    }
+
 
     public void GetRest()
     {

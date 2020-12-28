@@ -4,39 +4,46 @@ using UnityEngine;
 
 public class SmashDown : MonoBehaviour,IAttackAble
 {
-    public BoxCollider collider;
+    GameObject weapon;
+    AxColision axCol;
+    MeshCollider meshCol;
+    Animator anim;
+
     public bool isAttack;
-    public void initVariable(BoxCollider col)
+    //int damage;
+    public void initVariable(GameObject weaponType, Animator animType)
     {
-        collider = col;
-    }
+        weapon = weaponType;
+        anim = animType;
 
-    //public void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.tag == "Player")
-    //    {
-    //        //isAttack = true;
-    //        //is damaged
-    //        other.gameObject.GetComponent<Player>().GetDamage(1);
-    //    }
-    //}
-
-    public void initVariable(Animator anim)
-    {
-       
+        meshCol = weapon.GetComponent<MeshCollider>();
+        axCol = weapon.GetComponent<AxColision>();
     }
 
     public void attack()
     {
-        //박스 콜라이더를 키고
-        //collider.enabled = true;
+        float _per = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
 
-        //체크
-        //if(collider.tri) 
-        //if(isAttack) other.gameObject.GetComponent<Player>().GetDamage(1);
+        //meshCol.
 
-        //끄고 
-        //collider.enabled = false;
-        Debug.Log("내려찍기");
+        if (isAttack)
+        {
+            if (_per > 0.5f && _per < 0.55f)
+            {
+                meshCol.enabled = true;
+            }
+
+            else if(_per > 0.75f)
+            {
+                meshCol.enabled = false;
+            }
+
+
+        }
+
+        else if(_per < 0.1f)
+        {
+            isAttack = true;
+        }
     }
 }
