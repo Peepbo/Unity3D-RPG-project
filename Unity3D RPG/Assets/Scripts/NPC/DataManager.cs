@@ -5,6 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public ChestManager chestData;
+    public StatManager statData;
     // Start is called before the first frame update
 
     private void Start()
@@ -12,9 +13,11 @@ public class DataManager : MonoBehaviour
         PlayerData.Instance.LoadData();
         chestData.MakeData();
         chestData.ItemUpdate();
-        chestData.OwnLoots();
-        chestData.GetLootsData();
+        //chestData.OwnLoots();
+        //chestData.GetLootsData();
 
         chestData.GetData();
+
+        statData.GetData();
     }
 }
