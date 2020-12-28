@@ -92,16 +92,12 @@ public partial class StatManager : MonoBehaviour
     {
         for(int i = 0; i < 35; i++)
         {
+            //myAbility
             if (PlayerData.Instance.myAbility[i] == 1) characteristic[i].isLearn = true;
             else characteristic[i].isLearn = false;
         }
 
-        for (saveId = 0; saveId < 35; saveId++)
-        {
-            SetCharacteristic();
-        }
-
-        saveId = 0;
+        ChangeColor();
     }
 
     private void Awake()
