@@ -5,9 +5,11 @@ using UnityEngine;
 public partial class Player : MonoBehaviour
 {
     PlayerController playerC;
+    ComboAtk comboAtk;
     private MainPlayer playerInput;
     private void Awake()
     {
+        comboAtk = GetComponentInChildren<ComboAtk>();
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
     }
@@ -22,11 +24,11 @@ public partial class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        StateUpdate();
         Move();
         GetInput();
         Turn();
+
+        StateUpdate();
         ChangeState();
         PlayerStatUpdate();
     }

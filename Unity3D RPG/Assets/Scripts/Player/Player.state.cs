@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 partial class Player
 {
-   
-   
+
+
+    
     public bool isDash;
     bool    isCombo;
     int     comboCount;
@@ -19,6 +14,7 @@ partial class Player
     bool    isCri;
     bool    isFight;                //전투중이냐
     int     fightTimer;
+
     public enum PlayerState
     {
         IDLE,
@@ -55,10 +51,8 @@ partial class Player
                 //state = State.HIT
                 FightEnd();
                 
-
-                Vector2 _movementInput = playerC.value;
-                if(_movementInput != Vector2.zero)
-                {
+                if(playerC.distance> 0.05f)
+                { 
                     state = PlayerState.MOVE;
                     //ChangeAnimation("Walk");
                 }
@@ -72,7 +66,7 @@ partial class Player
 
                 break;
             case PlayerState.MOVE:
-                if (playerC.distance == 0f)
+                if (playerC.distance <= 0.05f)
                 {
                    
                     state = PlayerState.IDLE;
@@ -146,14 +140,15 @@ partial class Player
     IEnumerator DashMove()
     {
         float startTime = Time.time;
-        dashTime = animator.GetCurrentAnimatorStateInfo(0).length;
+        dashTime = 0.755f; 
+        
+        //while (Time.time < startTime + dashTime)
         while (Time.time < startTime + dashTime)
         {
             playerC.controller.Move(playerC.child.forward * dashSpeed * Time.deltaTime);
            
             yield return null;
         }
-       
         state = PlayerState.IDLE;
         isDash = false;
         
@@ -171,11 +166,11 @@ partial class Player
             }
             isDash = true;
             state = PlayerState.EVASION;
+            comboAtk.ComboReset();
             StartCoroutine(DashMove());
         }
     }
 
-
-   
+    
 }
 

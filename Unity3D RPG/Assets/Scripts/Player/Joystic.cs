@@ -24,6 +24,7 @@ public class Joystic : MonoBehaviour, IPointerDownHandler,IPointerUpHandler,IDra
     // Update is called once per frame
     void Update()
     {
+        
         if(isTouch)
         {
             player.transform.position += movePosition;

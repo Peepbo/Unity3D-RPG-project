@@ -25,15 +25,23 @@ public class ViewingAngle : MonoBehaviour
     //if target is in the viewing angle, return true;  
     public bool FoundTarget(GameObject newTarget, float findRange, float checkAngle)
     {
+       
         target = newTarget;
         findRadius = findRange;
         angle = checkAngle;
 
+        Vector3 _transform = transform.position;
+        Vector3 _targetTran = newTarget.transform.position;
+
+        _targetTran.y= 0;
+        _transform.y = 0;
+       
+
         //Mathf.Deg2Rad : Degree to radius , (PI *2)/360과 같음
         cosValue = Mathf.Cos(Mathf.Deg2Rad * angle / 2);
 
-        Vector3 _range = target.transform.position - transform.position;
-
+        // Vector3 _range = target.transform.position - transform.position;
+        Vector3 _range = _targetTran - _transform;
 
         if (_range.magnitude < findRadius)
         {
@@ -90,9 +98,9 @@ public class ViewingAngle : MonoBehaviour
 
         if (isFind)
         {
-            Handles.color = Color.blue;
+            Handles.color = Color.red;
         }
-        else Handles.color = Color.green;
+        else Handles.color = Color.yellow;
 
         Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, findRadius);
         Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, findRadius);

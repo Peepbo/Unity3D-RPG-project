@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyMgr :MonoBehaviour
+public abstract class EnemyMgr : MonoBehaviour
 {
     protected CharacterController controller;
     protected GameObject target;
-    
+    protected Animator anim;
+    protected float gravity = -9.81f;
+
     private IMoveAble moveType;
     private IAttackAble attackType;
 
-    [Range(5,15)]
+    [Range(5, 15)]
     public float findRange;
     [Range(1, 3)]
     public float attackRange;
-    [Range(1,5)]
+    [Range(1, 5)]
     public float speed;
 
     private int hp;
@@ -26,6 +28,7 @@ public abstract class EnemyMgr :MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        anim = gameObject.GetComponent<Animator>();
         isDead = false;
     }
 
