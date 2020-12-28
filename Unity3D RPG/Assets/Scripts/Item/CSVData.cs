@@ -65,16 +65,13 @@ public class CSVData : Singleton<CSVData>
         dictionaryData = _itemTable.TableToDictionary<int, ItemInfo>();
 
         Debug.Log("SucceededLoad");
-        //for(int i=0; i<playerRootData.Count;i++)
-        //Debug.Log(playerRootData[i]);
-        //Debug.Log(dictionaryData["OldSword"].itemName);
 
         System.GC.Collect();
     }
-    public void PlayerSave(int money, string weaponEquip, string armourEquip, string acceEquip, 
+    public void PlayerSave(int money, List<int> equip, 
                                  List<ItemInfo> storage, List<string> ability, string filePath)
     {
-        CSVWrite.Write.PlayerSave(money, weaponEquip, armourEquip, acceEquip, storage, ability, "Assets/" + filePath);
+        CSVWrite.Write.PlayerSave(money, equip, storage, ability, "Assets/" + filePath);
     }
 
     

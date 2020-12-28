@@ -7,9 +7,8 @@ namespace CSVWrite
 {
     public static class Write
     {
-       public static void PlayerSave(int money, string weaponEquip, string armourEquip, string acceEquip, List<ItemInfo> storage, List<string> ability, string filePath)
+        public static void PlayerSave(int money,List<int> equip, List<ItemInfo> storage, List<string> ability, string filePath)
         {
-            string _money = money.ToString();
             string _storageStr="";
             string _abilityStr="";
             for(int i=0; i<storage.Count; i++)
@@ -29,12 +28,11 @@ namespace CSVWrite
             
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@filePath,false))
             {
-                
-                file.WriteLine(_money + ',' + weaponEquip + ',' + armourEquip + ','+ acceEquip);
-                file.WriteLine(_storageStr);
+                file.Write(money.ToString());
+                for(int i=0; i<equip.Count; i++)             { file.Write("," + equip[i].ToString()); }
+                file.WriteLine('\n'+_storageStr);
                 file.Write(_abilityStr);
             }
         }
-        
     }
 }
