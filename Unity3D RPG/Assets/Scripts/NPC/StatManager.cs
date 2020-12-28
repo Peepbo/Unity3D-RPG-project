@@ -88,6 +88,18 @@ public partial class StatManager : MonoBehaviour
         }
     }
 
+    public void GetData()
+    {
+        for(int i = 0; i < 35; i++)
+        {
+            //myAbility
+            if (PlayerData.Instance.myAbility[i] == 1) characteristic[i].isLearn = true;
+            else characteristic[i].isLearn = false;
+        }
+
+        ChangeColor();
+    }
+
     private void Awake()
     {
         eMenu = MENU.ATTACK;
@@ -157,6 +169,8 @@ public partial class StatManager : MonoBehaviour
         if(characteristic[saveId].isFirst)
         {
             characteristic[saveId].isLearn = true;
+
+            PlayerData.Instance.SaveAbility(characteristic);
         }
 
         //선행 스킬이 있을 때
@@ -172,6 +186,8 @@ public partial class StatManager : MonoBehaviour
             }
 
             characteristic[saveId].isLearn = true;
+
+            PlayerData.Instance.SaveAbility(characteristic);
         }
 
         //Debug.Log(id + "를 찍었습니다");
