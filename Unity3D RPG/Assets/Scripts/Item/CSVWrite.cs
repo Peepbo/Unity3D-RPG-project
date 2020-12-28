@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 
 namespace CSVWrite
@@ -33,6 +34,7 @@ namespace CSVWrite
                 file.WriteLine('\n'+_storageStr);
                 file.Write(_abilityStr);
             }
+            AssetDatabase.ImportAsset(@filePath);
         }
     }
 }
