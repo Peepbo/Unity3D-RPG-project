@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ComboAtk : MonoBehaviour
 {
+    Button atkButton;
+    Button criButton;
     public Animator animator;
     public Player player;
     bool isCombo;
@@ -11,8 +14,15 @@ public class ComboAtk : MonoBehaviour
     bool isCriAtk;
     
     int comboStep;
-    
-    
+    private void Awake()
+    {
+        atkButton = GameObject.Find("AtkButton").GetComponent<Button>();
+        criButton = GameObject.Find("CriAtkButton").GetComponent<Button>();
+        //atkButton.onClick.AddListener(Attack);
+        criButton.onClick.AddListener(CriAttack);
+        atkButton.onClick.AddListener(delegate { Attack(); });
+    }
+   
     public void Attack() 
     {
         if (player.isDash == false)
