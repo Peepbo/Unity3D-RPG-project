@@ -32,6 +32,7 @@ public class ItemInfo
     public string descript;
     public float dropRate;
     public string prefabName;
+    public string iconPath;
 }
 
 public class CSVData : Singleton<CSVData>
