@@ -12,15 +12,16 @@ public partial class Player : MonoBehaviour
         comboAtk = GetComponentInChildren<ComboAtk>();
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
+        StateAwake();
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        StateStart();
         AnimStart();
 
     }
-
+   
     // Update is called once per frame
     void Update()
     {
@@ -28,8 +29,7 @@ public partial class Player : MonoBehaviour
         GetInput();
         Turn();
 
-        StateUpdate();
-        ChangeState();
+        PlayerStateUpdate();
         PlayerStatUpdate();
     }
 }

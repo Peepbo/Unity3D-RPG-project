@@ -25,13 +25,24 @@ public class ComboAtk : MonoBehaviour
    
     public void Attack() 
     {
+       
         if (player.isDash == false)
         {
-            if (comboStep == 0)
+            player.isFight = true;
+            if (comboStep == 0 )
             {
-                animator.Play("Atk1");
-                comboStep = 1;
-                return;
+                if (player.stamina >= 30)
+                {
+                    player.staminaDown(30);
+                    animator.Play("Atk1");
+                    comboStep = 1;
+                    return;
+                }
+                else
+                {
+                    player.isFight = false;
+                    player.isCri = false;
+                }
             }
             if (comboStep != 0)
             {
@@ -47,19 +58,28 @@ public class ComboAtk : MonoBehaviour
 
     public void CriAttack()
     {
+        
+        player.isFight = true;
+        player.isCri = true;
         if (player.isDash == false)
         {
             if (comboStep == 0)
             {
-                
-                animator.Play("Atk1"); //크리공격시작
-                animator.speed = 0.7f;
-                comboStep = 100;
-                return;
+                if ( player.stamina >= 50)
+                {
+                    player.staminaDown(50);
+                    animator.Play("Atk3"); //크리공격시작
+                    comboStep = 100;
+                    return;
+                }
+                else
+                {
+                    player.isFight = false;
+                    player.isCri = false;
+                }
             }
             if (comboStep != 0)
             {
-
                 if (isCriAtk)
                 {
                     isCriAtk = false;
@@ -78,24 +98,19 @@ public class ComboAtk : MonoBehaviour
     {
         if (comboStep == 2)
         {
-            animator.Play("Atk2");
+            ComboAnimation(30, "Atk2");
         }
         if (comboStep == 3)
         {
-            animator.Play("Atk3");
+            ComboAnimation(30, "Atk4");
         }
-        if (comboStep == 110)
+        if (comboStep >=110)
         {
-            animator.Play("Atk2");
-            animator.speed = 0.7f; 
-        }
-        if (comboStep == 120)
-        {
-            animator.Play("CriAtkFinal");
+            ComboAnimation(50, "CriAtkFinal");
         }
         if (comboStep >10 && comboStep < 100)
         {
-            animator.Play("Atk4");
+            ComboAnimation(50, "CriAtkFinal");
         }
     }
 
@@ -104,6 +119,22 @@ public class ComboAtk : MonoBehaviour
         isCombo = false;
         isCriAtk = false;
         comboStep = 0;
-        animator.speed = 1f;
+        player.isFight = false;
+        player.isCri = false;
+    }
+
+
+    void ComboAnimation(int value, string name)
+    {
+        if(player.stamina>= value)
+        {
+            player.staminaDown(value);
+            animator.Play(name);
+        }
+        else
+        {
+            player.isFight = false;
+            player.isCri = false;
+        }
     }
 }

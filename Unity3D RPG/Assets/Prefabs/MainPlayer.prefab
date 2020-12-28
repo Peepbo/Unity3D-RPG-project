@@ -308,8 +308,8 @@ MonoBehaviour:
   playerName: 
   maxHp: 100
   hp: 100
-  maxStamina: 100
-  stamina: 100
+  maxStamina: 300
+  stamina: 300
   def: 0
   power: 0
   dashTime: 0.25
@@ -317,6 +317,8 @@ MonoBehaviour:
   guardStamina: 0
   condition: 0
   isDash: 0
+  isCri: 0
+  isFight: 0
   state: 0
 --- !u!1001 &8929950405260475763
 PrefabInstance:
@@ -386,6 +388,21 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 922927285}
+    - target: {fileID: 6251810726445065269, guid: a96b63f27d072234bbc3d7818166e4eb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251810726445065269, guid: a96b63f27d072234bbc3d7818166e4eb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251810726445065269, guid: a96b63f27d072234bbc3d7818166e4eb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
 --- !u!4 &8934469252503190769 stripped

@@ -62,12 +62,16 @@ public class PlayerController : MonoBehaviour
             _move.y = 0f;
             value3 = _move;
 
-        
-            controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
-            child.LookAt(child.position+ _move);
+
+            if (player.isFight == false)
+            {
+
+                controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
+                child.LookAt(child.position + _move);
+            }
         }
 
-         playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
-         controller.Move(playerVelocity * Time.deltaTime); // 중력적용
+        playerVelocity.y += gravityValue * Time.deltaTime; //중력적용
+        controller.Move(playerVelocity * Time.deltaTime); // 중력적용
     }
 }
