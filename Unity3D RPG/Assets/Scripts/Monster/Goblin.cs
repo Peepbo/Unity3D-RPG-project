@@ -9,6 +9,7 @@ public class Goblin : EnemyMgr, IDamagedState
     private ReturnMove returnToHome;
     private ViewingAngle viewAngle;
     private Vector3 startPos;
+    private Vector3 ranDirection;
 
     [Range(3, 7)]
     public float observeRange;
@@ -21,6 +22,7 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         base.Awake();
         startPos = transform.position;
+        ranDirection = GetRandomDirection();
     }
     void Start()
     {
@@ -32,7 +34,10 @@ public class Goblin : EnemyMgr, IDamagedState
 
         //Goblin Attack skill
 
-        weapon.GetComponent<AxColision>().SetDamage(damage);
+        weapon.GetComponent<AxColision>().SetDamage(atkPower);
+        observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
+        follow.initVariable(controller, target, speed);
+        returnToHome.initVariable(controller, startPos, speed);
 
         anim.SetInteger("state", 0);
     }
@@ -84,7 +89,7 @@ public class Goblin : EnemyMgr, IDamagedState
             if (_distance < attackRange)
             {
                 anim.SetInteger("state", 2);
-                AttackTarget();
+                
             }
             //player가 공격 범위에 없으면
             else
@@ -136,9 +141,9 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void Observe()
     {
-        Vector3 _RNDDirection = GetRandomDirection();
+        ranDirection = GetRandomDirection();
         setMoveType(observe);
-        observe.initVariable(controller, startPos, _RNDDirection, speed * 0.5f, observeRange);
+
         Move();
 
         if (observe.getAction() == 0) setIdleState();
@@ -154,7 +159,6 @@ public class Goblin : EnemyMgr, IDamagedState
         anim.SetFloat("velocity", controller.velocity.magnitude);
 
         setMoveType(follow);
-        follow.initVariable(controller, target, speed);
         Move();
     }
 
@@ -164,7 +168,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         setMoveType(returnToHome);
         returnToHome.setIsReturn(true);
-        returnToHome.initVariable(controller, startPos, speed);
+        
         Move();
 
         if (_homeDistance <= 0.1f)
@@ -177,10 +181,6 @@ public class Goblin : EnemyMgr, IDamagedState
         }
     }
 
-    public void AttackTarget()
-    {
-        
-    }
 
     public void ActiveMeshCol()
     {
@@ -199,7 +199,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
     IEnumerator AttackRoutine()
     {
-        //rest를 키고
+        //rest를 켜고
         anim.SetBool("isRest", true);
         yield return new WaitForSeconds(1.5f);
 
@@ -216,11 +216,12 @@ public class Goblin : EnemyMgr, IDamagedState
         anim.SetBool("isRest", false);
     }
 
-    public void Damaged()
+    public void Damaged(int value)
     {
-        //print("goblin Damaged");
+        print("Goblin에 " + value + "만큼 데미지를 입힘");
 
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamagedState 
 {
-    void Damaged(); 
+    void Damaged(int value); 
 }

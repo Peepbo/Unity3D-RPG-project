@@ -7,9 +7,12 @@ public class ObservingMove : MonoBehaviour, IMoveAble
     CharacterController controller;
     Vector3 spawnPos;
     Vector3 randomDirection;
+
+    float gravity = -9.81f;
+
     public Transform pivotCenter;
     public Transform radar;
-
+   
     public float speed;
     public float observeRange;
     public float time;
@@ -55,6 +58,14 @@ public class ObservingMove : MonoBehaviour, IMoveAble
 
     public void move()
     {
+        //Vector3 _transform = transform.position;
+        //if (!controller.isGrounded)
+        //{
+        //    _transform.y += gravity * Time.deltaTime;
+          
+        //}
+
+
         if (!isObserve) return;
 
         time -= Time.deltaTime;
@@ -100,7 +111,6 @@ public class ObservingMove : MonoBehaviour, IMoveAble
             //observeRange에 닿으면 어느 방향으로 갈지 체크해서 그 방향으로 가도록 해주기
            // Debug.Log("범위를 벗어남");
 
-            //isRangeOver = true;
 
             time = 3f;
 
