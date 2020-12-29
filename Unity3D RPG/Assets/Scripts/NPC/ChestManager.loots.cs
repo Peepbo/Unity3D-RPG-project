@@ -10,26 +10,24 @@ using UnityEditor;
 
 partial class ChestManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public GameObject infoPanel;
+    public GameObject sellPanel;
 
-    }
+    public Slider mySlider;
+    public Text curCount;
+    public Text maxCount;
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public Text sellingPrice;
+    public Text playerMoney;
 
     public void GetLootsData()
     {
         int num = 0;
 
-        for (int i = 1; i < 16; i++)
+        for (int i = 1; i < 17; i++)
         {
 
-            if (num == rootList.Count)
+            if (num == lootList.Count)
             {
                 lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear; // 표시 X
                 popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
@@ -40,7 +38,7 @@ partial class ChestManager
             {
                 lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(4);
 
-                int _itemNumber = rootList[i - 1].id;
+                int _itemNumber = lootList[i - 1].id;
 
                 ItemInfo _item = CSVData.Instance.find(_itemNumber);
 
@@ -49,10 +47,60 @@ partial class ChestManager
                 else
                     lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
 
-                popInfo.transform.GetChild(i-1).GetChild(1).GetComponent<Text>().text =rootList[i-1].count.ToString();
+                popInfo.transform.GetChild(i-1).GetChild(1).GetComponent<Text>().text =lootList[i-1].count.ToString();
                 
             }
             num++;
         }
+    }
+
+    public void ChangeLootsInfo(int selectedLootNum)
+    {
+        if (selectedLootNum >= lootList.Count) return;
+
+        selectNumber = selectedLootNum;
+
+        List<string> lootInfo = new List<string>();
+
+        lootInfo.Add(lootList[selectedLootNum].itemName);
+        lootInfo.Add("가격 : " + lootList[selectedLootNum].price);
+        lootInfo.Add("소지량 : " + lootList[selectedLootNum].count);
+
+        //sell info의 정보 업데이트
+        int _max = lootList[selectedLootNum].count;
+
+        mySlider.maxValue = _max;
+        maxCount.text = _max.ToString();
+
+        for (int i = 0; i < lootInfo.Count; i++)
+        {
+            infoPanel.transform.GetChild(i).GetComponent<Text>().text = lootInfo[i];
+        }
+
+        infoPanel.SetActive(true);
+    }
+
+    public void SellItem()
+    {
+        PlayerData.Instance.myCurrency += lootList[selectNumber].price * (int)mySlider.value;
+        //삭제
+        lootList[selectNumber].count -= (int)mySlider.value;
+
+        if (lootList[selectNumber].count == 0) lootList.RemoveAt(selectNumber);
+        else mySlider.maxValue = lootList[selectNumber].count;
+
+        GetLootsData();
+
+        //저장
+        PlayerData.Instance.SaveData();
+    }
+
+    public void RootUpdate()
+    {
+        curCount.text = ((int)mySlider.value).ToString();
+
+        sellingPrice.text = ((int)mySlider.value * lootList[selectNumber].price).ToString();
+
+        playerMoney.text = PlayerData.Instance.myCurrency.ToString();
     }
 }
