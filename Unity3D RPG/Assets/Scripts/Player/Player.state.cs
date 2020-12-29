@@ -1,18 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 partial class Player
 {
-
-
+    Button gaurdButton;
+    
     
     public bool isDash;
     bool    isCombo;
     int     comboCount;
     bool    isAtk;
-    bool    isCri;
-    bool    isFight;                //전투중이냐
+    public bool    isCri;
+    public bool    isFight;                //전투중이냐
     int     fightTimer;
 
     public enum PlayerState
@@ -26,16 +27,15 @@ partial class Player
         GUARD,
         DIE
     }
-    
 
-    void StateStart()
+    void StateAwake()
     {
-        
-        
+        gaurdButton = GameObject.Find("AtkButton").GetComponent<Button>();
     }
-    void StateUpdate()
+    void PlayerStateUpdate()
     {
         animator.SetFloat("Value", playerC.distance);
+        ChangeState();
     }
    
 
@@ -47,58 +47,41 @@ partial class Player
         switch (state)
         {
             case PlayerState.IDLE:
-                // state = State.ATK;
-                //state = State.HIT
-                FightEnd();
-                
                 if(playerC.distance> 0.05f)
                 { 
                     state = PlayerState.MOVE;
-                    //ChangeAnimation("Walk");
                 }
-
-                if( isAtk)
+                if( isFight)
                 {
                     state = PlayerState.ATK;
-                    
                 }
-
-
                 break;
             case PlayerState.MOVE:
                 if (playerC.distance <= 0.05f)
                 {
-                   
                     state = PlayerState.IDLE;
                 }
-               
-
-                if (isAtk)
+                if (isFight)
                 {
-                    
                     state = PlayerState.ATK;
                 }
                 break;
 
             case PlayerState.ATK:
-
-                if (!isAtk)
+                if (!isFight)
                 {
                     state = PlayerState.IDLE;
                 }
-
                 break;
             case PlayerState.CRIATK:
-                //state = State.IDLE
-                //state = State.HIT
-                //state = State.EVASION
                 break;
             case PlayerState.HIT:
-                //state = State.IDLE
                 break;
             case PlayerState.EVASION:
                 break;
             case PlayerState.GUARD:
+
+
                 break;
             case PlayerState.DIE:
                 break;
@@ -106,57 +89,39 @@ partial class Player
                 break;
         }
     }
-    void FightStart()
+    
+    public void staminaDown(int value)
     {
-        fightTimer = 0;
-        isFight = true;
-    }
-    void FightEnd()
-    { //전투중인지 검사
-        if (isFight)
+        if(stamina >= value)
         {
-            fightTimer++;
-            if (fightTimer > 100)
+            stamina -= value;
+            if(stamina < 0)
             {
-                fightTimer = 0;
-                isFight = false;
+                stamina = 0;
             }
         }
-
+        
     }
-    public void PlayerAtkStart()
-    {
-        isAtk = true;
-    }
-    public void PlayerAtkEnd()
-    {
-
-    }
-    public void PlayerCriticalAtk()
-    {
-
-    }
-  
+    
     IEnumerator DashMove()
     {
         float startTime = Time.time;
-        dashTime = 0.755f; 
-        
+        dashTime = 0.755f;
+        Vector3 _dashValue = playerC.value3;
+        playerC.child.LookAt(playerC.child.position + _dashValue);
         //while (Time.time < startTime + dashTime)
         while (Time.time < startTime + dashTime)
         {
+            
             playerC.controller.Move(playerC.child.forward * dashSpeed * Time.deltaTime);
-           
             yield return null;
         }
         state = PlayerState.IDLE;
         isDash = false;
-        
     }
     public void PlayerDash()
     {
-
-        if (stamina > 30 && isDash == false)
+        if (stamina > 30 && isDash == false && isCri == false)
         {
             animator.SetTrigger("Rolling");
             stamina -= 30;
@@ -165,12 +130,17 @@ partial class Player
                 stamina = 0;
             }
             isDash = true;
+            isFight = false;
+            
             state = PlayerState.EVASION;
             comboAtk.ComboReset();
             StartCoroutine(DashMove());
         }
     }
 
-    
+    public void PlayerGaurd()
+    {
+        
+    }
 }
 

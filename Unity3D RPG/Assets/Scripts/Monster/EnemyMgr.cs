@@ -8,6 +8,7 @@ public abstract class EnemyMgr : MonoBehaviour
     protected GameObject target;
     protected Animator anim;
     protected float gravity = -9.81f;
+    public int damage;
 
     private IMoveAble moveType;
     private IAttackAble attackType;

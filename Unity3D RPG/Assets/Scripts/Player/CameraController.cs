@@ -24,10 +24,6 @@ public class CameraController : MonoBehaviour
        
         Camera.main.transform.position = transform.position + Quaternion.AngleAxis(cameraAngleX,Vector3.up)* new Vector3(0, 3, -4);
         Camera.main.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 2f - Camera.main.transform.position, Vector3.up);
-
     }
-
-   
-
 }
 
