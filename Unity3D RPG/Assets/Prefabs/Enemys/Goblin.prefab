@@ -127,7 +127,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655707702591849128}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
   m_Controller: {fileID: 9100000, guid: d4a13fc4b402ff046b5da0b2bdbfaf57, type: 2}
   m_CullingMode: 0
@@ -150,11 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f664b5c32cbf14a9b2bc5be9e54791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
-  findRange: 10
-  attackRange: 3
   speed: 3
-  maxHp: 0
+  findRange: 10
+  attackRange: 2
+  atkPower: 3
+  maxHp: 1
   observeRange: 5
   angle: 90
   weapon: {fileID: 2117436711700834559}
@@ -282,6 +282,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &795112572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117436710059337859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880ac5fbcd26b9540bf8252e43252395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2117436711677475503
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Goblin_Warrior_Female
       objectReference: {fileID: 0}
+    - target: {fileID: 165754, guid: 9a6b87430c6b2684aa9c1d4616d38a60, type: 3}
+      propertyPath: m_TagString
+      value: Animation
+      objectReference: {fileID: 0}
     - target: {fileID: 182590, guid: 9a6b87430c6b2684aa9c1d4616d38a60, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -603,6 +619,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a6b87430c6b2684aa9c1d4616d38a60, type: 3}
+--- !u!1 &2117436710059337859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 165754, guid: 9a6b87430c6b2684aa9c1d4616d38a60,
+    type: 3}
+  m_PrefabInstance: {fileID: 2117436710059503609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2117436710059079517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 432292, guid: 9a6b87430c6b2684aa9c1d4616d38a60,

@@ -12,6 +12,8 @@ public abstract class EnemyMgr : MonoBehaviour
     protected Animator anim;
     protected float gravity = -9.81f;
 
+    protected bool isDamaged;
+    protected bool isDead;
 
     [Range(1, 5)]
     public float speed;
@@ -24,13 +26,19 @@ public abstract class EnemyMgr : MonoBehaviour
     private int hp;
     public int maxHp;
 
-    bool isDead;
+
 
     protected virtual void Awake()
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
-        anim = gameObject.GetComponent<Animator>();
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).tag == "Animation")
+                anim = transform.GetChild(i).GetComponent<Animator>();
+        }
+
         isDead = false;
     }
 

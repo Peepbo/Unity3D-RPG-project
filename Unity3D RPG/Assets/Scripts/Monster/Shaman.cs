@@ -15,7 +15,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
     private Transform firePos;
 
-    public GameObject flamePrefab;
+
     [Range(1, 5)]
     public float observeRange;
     [Range(30, 180)]
@@ -39,9 +39,9 @@ public class Shaman : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         flame = gameObject.AddComponent<FlameBall>();
 
-
+       
         observe.initVariable(controller, startPos, ranDirection, speed, observeRange);
-        flame.init(target, flamePrefab, firePos, skillSpawn);
+        flame.init(target, firePos, skillSpawn);
     }
 
     void Update()

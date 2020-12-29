@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2171380843559020960
 Transform:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347180348202103792}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
   m_Controller: {fileID: 9100000, guid: d4a13fc4b402ff046b5da0b2bdbfaf57, type: 2}
   m_CullingMode: 0
@@ -150,11 +150,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f664b5c32cbf14a9b2bc5be9e54791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  speed: 3
   findRange: 10
   attackRange: 2
-  speed: 3
-  maxHp: 0
+  atkPower: 10
+  maxHp: 1
   observeRange: 5
   angle: 90
   weapon: {fileID: 7681984312012923756}
@@ -745,9 +745,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2745745941746090904}
   - component: {fileID: 2745745941752999326}
+  - component: {fileID: 1399433219}
   m_Layer: 0
   m_Name: GoblinMale
-  m_TagString: Untagged
+  m_TagString: Animation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -793,7 +794,7 @@ Animator:
   m_GameObject: {fileID: 2745745941745669934}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: b5328ad58dcf27a4e98e7f5c31c28fce, type: 2}
+  m_Controller: {fileID: 9100000, guid: d4a13fc4b402ff046b5da0b2bdbfaf57, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -802,6 +803,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1399433219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2745745941745669934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880ac5fbcd26b9540bf8252e43252395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2745745941745672060
 GameObject:
   m_ObjectHideFlags: 0

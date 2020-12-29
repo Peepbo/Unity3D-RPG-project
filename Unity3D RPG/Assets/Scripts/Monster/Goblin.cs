@@ -16,6 +16,8 @@ public class Goblin : EnemyMgr, IDamagedState
     [Range(0, 180)]
     public float angle;
 
+    int hp;
+
     public GameObject weapon;
 
     protected override void Awake()
@@ -23,6 +25,8 @@ public class Goblin : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
         ranDirection = GetRandomDirection();
+
+        hp = maxHp;
     }
     void Start()
     {
@@ -54,6 +58,13 @@ public class Goblin : EnemyMgr, IDamagedState
 
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
 
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Damaged(atkPower);
+        }
+
+        if (isDamaged || isDead) return;
 
         //animation idle or run
         if (observe.getAction() == 0)
@@ -89,7 +100,7 @@ public class Goblin : EnemyMgr, IDamagedState
             if (_distance < attackRange)
             {
                 anim.SetInteger("state", 2);
-                
+
             }
             //player가 공격 범위에 없으면
             else
@@ -105,7 +116,7 @@ public class Goblin : EnemyMgr, IDamagedState
                     }
                 }
 
-                else if(_isFind == false || returnToHome.getIsReturn() == true)
+                else if (_isFind == false || returnToHome.getIsReturn() == true)
                 {
                     anim.SetInteger("state", 1);
 
@@ -117,8 +128,7 @@ public class Goblin : EnemyMgr, IDamagedState
             }
 
         }
-        //setAttackType(smash);
-        //Attack();
+
     }
 
     private void setIdleState()
@@ -168,7 +178,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         setMoveType(returnToHome);
         returnToHome.setIsReturn(true);
-        
+
         Move();
 
         if (_homeDistance <= 0.1f)
@@ -216,9 +226,31 @@ public class Goblin : EnemyMgr, IDamagedState
         anim.SetBool("isRest", false);
     }
 
+    IEnumerator GetDamage()
+    {
+        isDamaged = true;
+
+        yield return new WaitForSeconds(.7f);
+
+        isDamaged = false;
+    }
     public void Damaged(int value)
     {
+        if (isDamaged || isDead) return;
         print("Goblin에 " + value + "만큼 데미지를 입힘");
+
+        hp -= value;
+
+        if(hp<=0)
+        {
+            hp = 0;
+            isDead = true;
+            anim.SetTrigger("Die");
+        }
+        anim.SetTrigger("isDamage");
+
+        StartCoroutine(GetDamage());
+
 
     }
 

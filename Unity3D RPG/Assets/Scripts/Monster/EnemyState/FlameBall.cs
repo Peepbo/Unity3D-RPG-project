@@ -5,18 +5,17 @@ using UnityEngine;
 public class FlameBall : MonoBehaviour, IAttackAble
 {
     GameObject target;
-    GameObject firePrefab;
     Transform firePos;
 
     float time = 0.0f;
     float spawn;
 
-    public void init(GameObject newTarget,GameObject prefab, Transform fire, float spawnTime)
+    public void init(GameObject newTarget, Transform fire, float spawnTime)
     {
         target = newTarget;
         spawn = spawnTime;
         firePos = fire;
-        firePrefab = prefab;
+       
     }
     public void attack()
     {
@@ -29,15 +28,15 @@ public class FlameBall : MonoBehaviour, IAttackAble
 
         if (time > spawn)
         {
-            //firePrefab = ObjectPool.SharedInstance.GetPooledObject("FireBall");
-
             time = 0.0f;
-            firePrefab.transform.position = firePos.position;
-            firePrefab.transform.rotation = firePos.rotation;
-            firePrefab.SetActive(true);
 
+
+            var _firePrefab = ObjectPool.SharedInstance.GetPooledObject("EnemySkill");
+
+
+            _firePrefab.transform.position = firePos.position;
+            _firePrefab.transform.rotation = firePos.rotation;
+            _firePrefab.SetActive(true);
         }
-
-
     }
 }
