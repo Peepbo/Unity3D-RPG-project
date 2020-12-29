@@ -10,13 +10,14 @@ public class Goblin : EnemyMgr, IDamagedState
     private ViewingAngle viewAngle;
     private Vector3 startPos;
     private Vector3 ranDirection;
+    
+    private int hp;
 
     [Range(3, 7)]
     public float observeRange;
     [Range(0, 180)]
     public float angle;
-
-    int hp;
+    
 
     public GameObject weapon;
 
@@ -59,10 +60,10 @@ public class Goblin : EnemyMgr, IDamagedState
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
 
 
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Damaged(atkPower);
-        }
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    Damaged(atkPower);
+        //}
 
         if (isDamaged || isDead) return;
 

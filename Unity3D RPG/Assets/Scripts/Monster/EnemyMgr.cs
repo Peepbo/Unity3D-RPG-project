@@ -23,7 +23,7 @@ public abstract class EnemyMgr : MonoBehaviour
     public float attackRange;
     public int atkPower;
 
-    private int hp;
+
     public int maxHp;
 
 
