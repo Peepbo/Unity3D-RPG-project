@@ -13,12 +13,12 @@ public class DataManager : MonoBehaviour
         PlayerData.Instance.LoadData();
         chestData.MakeData();
         chestData.ItemUpdate();
-        //chestData.OwnLoots();
-        //chestData.GetLootsData();
+        chestData.OwnLoots();
+        chestData.GetLootsData();
 
         chestData.GetData();
 
-        statData.ResetStat();
-        statData.GetData();
+        //statData.ResetStat();
+        //statData.GetData();
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectPoolItem
 {
+    public int objectIndex;
+
     public int amountToPool;
     public GameObject objectToPool;
     public bool shouldExpand;
@@ -39,6 +41,9 @@ public class ObjectPool : MonoBehaviour
             for (int i = 0; i < item.amountToPool; i++)
             {
                 GameObject _obj = Instantiate(item.objectToPool);
+
+                if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
+
                 _obj.transform.parent = transform;
                 _obj.SetActive(false);
                 pooledObjects.Add(_obj);
@@ -55,7 +60,7 @@ public class ObjectPool : MonoBehaviour
         //}
     }
 
-    public GameObject GetPooledObject(string tag)
+    public GameObject GetPooledObject(string tag, int index = 0)
     {
         //풀에 존재하는 오브젝트 만큼 for문을 돈다
         for (int i = 0; i < pooledObjects.Count; i++)
@@ -65,6 +70,11 @@ public class ObjectPool : MonoBehaviour
             if (pooledObjects[i].activeInHierarchy == false &&
                 pooledObjects[i].tag == tag)
             {
+                if(index != 0)
+                {
+                    if (pooledObjects[i].GetComponent<ObjectIndex>().index != index) 
+                        continue;
+                }
 
                 //그 오브젝트를 return
                 return pooledObjects[i];
@@ -88,6 +98,9 @@ public class ObjectPool : MonoBehaviour
                 {
                     //생성 후
                     GameObject _obj = Instantiate(item.objectToPool);
+
+                    if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
+
                     _obj.SetActive(false);
                     pooledObjects.Add(_obj);
 

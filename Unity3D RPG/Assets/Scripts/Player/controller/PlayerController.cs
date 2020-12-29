@@ -63,11 +63,12 @@ public class PlayerController : MonoBehaviour
             value3 = _move;
 
 
-            if (player.isFight == false)
+            if (player.isFight == false && player.isGuard == false)
             {
 
                 controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
                 child.LookAt(child.position + _move);
+                //child.rotation = Quaternion.Lerp(child.rotation, Quaternion.LookRotation(child.position + _move), 1000f * Time.deltaTime);
             }
         }
 

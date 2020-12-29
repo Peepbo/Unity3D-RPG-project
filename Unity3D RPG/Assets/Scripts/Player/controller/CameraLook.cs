@@ -10,6 +10,7 @@ public class CameraLook : MonoBehaviour
     private float lookSpeed = 1;
     private CinemachineFreeLook cinemachine;
     private MainPlayer playerInput;
+    public TouchBoard touchBoard;
 
     private void Awake()
     {
@@ -25,14 +26,17 @@ public class CameraLook : MonoBehaviour
         playerInput.Disable();
     }
     // Start is called before the first frame update
- 
 
+    private void FixedUpdate()
+    {
+        cinemachine.m_XAxis.Value += touchBoard.TouchDist.x * 20f * lookSpeed * Time.deltaTime;
+        cinemachine.m_YAxis.Value += -touchBoard.TouchDist.y * lookSpeed * Time.deltaTime/30 ;
+    }
     // Update is called once per frame
     void Update()
     {
-        Vector2 _delta = playerInput.PlayerMain.Look.ReadValue<Vector2>();
-        cinemachine.m_XAxis.Value += _delta.x * 200* lookSpeed * Time.deltaTime;
-        cinemachine.m_YAxis.Value += -_delta.y * lookSpeed * Time.deltaTime;
+        //Vector2 _delta = playerInput.PlayerMain.Look.ReadValue<Vector2>();
+        
     }
 
 }

@@ -28,7 +28,7 @@ public class PlayerData : Singleton<PlayerData>
         //없으면 ?
         if (myItem.Contains(_item) == false) myItem.Add(_item);
         //if (myItem.ContainsKey(itemNumber) == false) myItem[itemNumber] = 1;
-
+        
         //있으면?
         else
         {
@@ -90,6 +90,8 @@ public class PlayerData : Singleton<PlayerData>
 
             //Debug.Log(myAbility[i]);
         }
+
+        myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
     }
 
     public void SaveData()
@@ -104,7 +106,16 @@ public class PlayerData : Singleton<PlayerData>
         for (int i = 0; i < myItem.Count; i++)
         {
             ItemInfo _item = CSVData.Instance.find(myItem[i].id);
-            _item.count = myItem[myItem.IndexOf(_item)].count;
+
+            int _itemCount = myItem[myItem.IndexOf(_item)].count;
+
+            if (_itemCount == 0)
+            {
+                myItem.RemoveAt(myItem.IndexOf(_item));
+                continue;
+            }
+
+            _item.count = _itemCount;
 
             _storage.Add(_item);
         }

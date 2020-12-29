@@ -27,7 +27,7 @@ public partial class ChestManager : MonoBehaviour
     public List<ItemInfo> equipList = new List<ItemInfo>();
 
     //전리품관련
-    public List<ItemInfo> rootList = new List<ItemInfo>();
+    public List<ItemInfo> lootList = new List<ItemInfo>();
 
     //정보 저장용
     public GameObject popInfo; 
@@ -55,7 +55,7 @@ public partial class ChestManager : MonoBehaviour
     public void ItemUpdate()
     {
         equipList.Clear();
-        rootList.Clear();
+        lootList.Clear();
 
         //equipList + rootList
         for (int i = 0; i < PlayerData.Instance.myItem.Count; i++)
@@ -66,17 +66,22 @@ public partial class ChestManager : MonoBehaviour
             if (_item.kindID != 4) equipList.Add(_item);
 
             //4면?
-            else rootList.Add(_item);
+            else lootList.Add(_item);
         }
     }
 
     public void OwnLoots()
     {
-        lootsData = new GameObject[15];
+        lootsData = new GameObject[16];
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 16; i++)
         {
             lootsData[i] = loots.transform.GetChild(i).gameObject;
         }
+    }
+
+    public void Update()
+    {
+        RootUpdate();
     }
 }
