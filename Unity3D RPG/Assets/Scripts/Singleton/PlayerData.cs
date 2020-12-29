@@ -28,7 +28,7 @@ public class PlayerData : Singleton<PlayerData>
         //없으면 ?
         if (myItem.Contains(_item) == false) myItem.Add(_item);
         //if (myItem.ContainsKey(itemNumber) == false) myItem[itemNumber] = 1;
-
+        
         //있으면?
         else
         {

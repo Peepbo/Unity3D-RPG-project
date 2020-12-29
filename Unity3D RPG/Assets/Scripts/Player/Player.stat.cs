@@ -9,9 +9,11 @@ partial class Player
 {
     public enum PlayerCondition
     {
+        NONECONDITION,
         FIRECONDITION,
         POISONCONDITION,
-        BLOODCONDITION
+        BLOODCONDITION,
+        STURNCONDITION
     }
     
     public string           playerName;         //  플레이어 이름
@@ -21,12 +23,15 @@ partial class Player
     
     public int              maxStamina = 100;   //  최대 스태미나(최대기력)
     public int              stamina = 100;      //  스태미나(기력)
-    int                     staminaTime =0;        //  스태미나 충전시간
+    int                     staminaTime =0;     //  스태미나 충전시간
     
     public float            def;                //  방어력
     public float            power;              //  공격력
+
+    public int              dashValue;          //  플레이어 회피시 스태미너 소모량
     public float            dashTime;           //  플레이어 회피시간
     public float            dashSpeed;          //  플레이어 회피속도
+
     public float            guardStamina;       //  가드시 소모되는 스태미나(1데미지당 10스태미나)
     public PlayerCondition  condition;          //  플레이어 상태이상
 
@@ -55,33 +60,31 @@ partial class Player
     }
     public void StaminaReload() // 스태미나 자동 충전
     {
-        if(stamina<maxStamina)
+        if(isGuard == false)
         {
-            staminaTime++;
-            if(isFight)
+            if(stamina<maxStamina)
             {
-
-                if( staminaTime > 12)
+                staminaTime++;
+                if(isFight)
                 {
-                    staminaTime = 0;
-                    stamina++;
+                    if( staminaTime > 12)
+                    {
+                        staminaTime = 0;
+                        stamina++;
+                    }
                 }
-            }
-            else
-            {
-                if (staminaTime > 6)
+                else
                 {
-                    staminaTime = 0;
-                    stamina++;
+                    if (staminaTime > 6)
+                    {
+                        staminaTime = 0;
+                        stamina++;
+                    }
                 }
             }
         }
     }
 
-    public void PlayerDie()
-    {
-
-    }
-
+    
     
 }

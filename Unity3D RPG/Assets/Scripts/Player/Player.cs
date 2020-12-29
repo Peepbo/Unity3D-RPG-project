@@ -5,8 +5,11 @@ using UnityEngine;
 public partial class Player : MonoBehaviour
 {
     PlayerController playerC;
-    ComboAtk comboAtk;
+    public ComboAtk comboAtk;
     private MainPlayer playerInput;
+
+   
+
     private void Awake()
     {
         comboAtk = GetComponentInChildren<ComboAtk>();
@@ -31,5 +34,14 @@ public partial class Player : MonoBehaviour
 
         PlayerStateUpdate();
         PlayerStatUpdate();
+
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            hp -= 50;
+            if(hp<=0 )
+            {
+                PlayerDie();
+            }
+        }
     }
 }

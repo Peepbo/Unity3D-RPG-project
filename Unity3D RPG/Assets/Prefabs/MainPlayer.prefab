@@ -304,6 +304,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546c31cdff900384fa3600598c2ac09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  comboAtk: {fileID: 0}
   speed: 0
   playerName: 
   maxHp: 100
@@ -312,11 +314,13 @@ MonoBehaviour:
   stamina: 300
   def: 0
   power: 0
+  dashValue: 40
   dashTime: 0.25
   dashSpeed: 10
   guardStamina: 0
   condition: 0
   isDash: 0
+  isGuard: 0
   isCri: 0
   isFight: 0
   state: 0
@@ -337,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1472239225985696, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4524380348334466, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
       propertyPath: m_LocalPosition.x
