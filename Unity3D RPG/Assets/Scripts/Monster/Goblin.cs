@@ -7,8 +7,6 @@ public class Goblin : EnemyMgr, IDamagedState
     private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
-
-    private SmashDown smash;
     private ViewingAngle viewAngle;
     private Vector3 startPos;
 
@@ -114,8 +112,6 @@ public class Goblin : EnemyMgr, IDamagedState
             }
 
         }
-
-
         //setAttackType(smash);
         //Attack();
     }
