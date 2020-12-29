@@ -2,22 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-//enum ArmourKind
-//{
-//    N,R
-//}
+enum ArmourKind
+{
+    N, R
+}
 [System.Serializable]
 public struct ArmourBaseID
 {
     public int normal;
     public int rare;
 }
+[System.Serializable]
+public struct ArmourMaxLevel
+{
+    public int normal;
+    public int rare;
+    
+}
 partial class SmathManager
 {
-    List<ItemInfo> armourList = new List<ItemInfo>();
+    //List<ItemInfo> armourList = new List<ItemInfo>();
+    Dictionary<ArmourKind, ItemInfo> armourList = new Dictionary<ArmourKind, ItemInfo>();
     const int maxArmour = 2;
-    ArmourBaseID baseArmourID;
+    public ArmourBaseID baseArmourID;
+    public ArmourMaxLevel armourMaxLevel;
+    TextMeshProUGUI[] armourListText;
 
     public void OnArmourButton()
     {
@@ -28,15 +40,13 @@ partial class SmathManager
 
     private void ArmourListSetActive()
     {
-        if (!itemList[0].activeSelf)
+        for (int i = 0; i < maxArmour; i++)
         {
-            for (int i = 0; i < maxArmour; i++)
-            {
-                itemList[i].SetActive(true);
-                ArmourListSetting();
-            }
+            itemList[i].SetActive(true);
+            if (!itemList[i].GetComponent<Button>().interactable) ListDisable(i);
+            ArmourListSetting(i);
         }
-        else
+        if (itemList[maxArmour].activeSelf)
         {
             for (int i = maxArmour; i < maxAcc; i++)
             {
@@ -45,30 +55,65 @@ partial class SmathManager
         }
     }
 
-    private void ArmourListSetting()
+    private void ArmourListSetting(int num)
     {
-        throw new NotImplementedException();
-    }
+        armourListText = itemList[num].GetComponentsInChildren<TextMeshProUGUI>();
+        ArmourKind _temp = (ArmourKind)num;
+        ItemInfo _item = armourList[_temp];
+        armourListText[0].text = _item.skillIncrease + "티어 " + _item.itemName;
+        armourListText[1].text = _item.kind;
+        armourListText[2].text = _item.grade;
+        
+        switch (_temp)
+        {
+            case ArmourKind.N:
+                if (_item.skillIncrease == armourMaxLevel.normal) ListDisable(num);
+                break;
+            case ArmourKind.R:
+                if (_item.skillIncrease == armourMaxLevel.rare) ListDisable(num);
+                break;
+            
 
+        }
+    }
+  
     private void ArmourListInsert(int id)
     {
-        //ItemInfo _temp = CSVData.Instance.find(id);
-        //ItemInfo _itemDB = CSVData.Instance.find(id + 1);
-        //bool _isMax = false;
-        //if (_temp.kind != _itemDB.kind) { _itemDB = _temp; }
-        //
-        //
-        //if (_itemDB.grade == normal)
-        //{
-        //    if (_isMax) { ListDisable(WeaponKind.HAND_N); }
-        //    weaponList.Add(WeaponKind.HAND_N, _itemDB);
-        //}
-        //else
-        //{
-        //    if (_isMax) { ListDisable(WeaponKind.HAND_R); }
-        //    weaponList.Add(WeaponKind.HAND_R, _itemDB);
-        //}
-        
+        ItemInfo _temp = CSVData.Instance.find(id);
+        ItemInfo _itemDB = CSVData.Instance.find(id + 1);
+        if (_temp.grade != _itemDB.grade) { _itemDB = _temp; }
+
+
+        if (_itemDB.grade == normal)
+        {
+            armourList.Add(ArmourKind.N, _itemDB);
+        }
+        else
+        {
+            armourList.Add(ArmourKind.R, _itemDB);
+        }
+
+    }
+
+    private void ArmourListSerch()
+    {
+        for (int i = 0; i < maxArmour; i++)
+        {
+            ArmourKind _temp = (ArmourKind)i;
+            if (armourList.ContainsKey(_temp) == false)
+            {
+                switch (_temp)
+                {
+                    case ArmourKind.N:
+                        armourList.Add(_temp, CSVData.Instance.find(baseArmourID.normal));
+                        break;
+                    case ArmourKind.R:
+                        armourList.Add(_temp, CSVData.Instance.find(baseArmourID.rare));
+                        break;
+                }
+            }
+
+        }
     }
 
 }

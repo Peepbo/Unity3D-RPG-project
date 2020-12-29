@@ -25,6 +25,8 @@ public partial class SmathManager : MonoBehaviour
         itemListGroup = transform.Find("ItemList/ScrollRect/ListGroup").gameObject;
         ListMake();
         WeaponListSerch();
+        ArmourListSerch();
+        AccListSerch();
         
     }
 
@@ -49,22 +51,22 @@ public partial class SmathManager : MonoBehaviour
         int[] _playerItemDB = PlayerData.Instance.myEquipment;
 
         WeaponListInsert(_playerItemDB[1]);
-
-        armourList.Add(CSVData.Instance.find(PlayerData.Instance.myEquipment[2]));
-        accList.Add(CSVData.Instance.find(PlayerData.Instance.myEquipment[3]));
+        ArmourListInsert(_playerItemDB[2]);
+        AccListInsert(_playerItemDB[3]);
         for (int i = 0; i < _itemDB.Count; i++)
         {
             if (_itemDB[i].kindID == 1) { WeaponListInsert(_itemDB[i].id); }
-            else if (_itemDB[i].kindID == 2) { armourList.Add(_itemDB[i]); }
-            else if (_itemDB[i].kindID == 3) { accList.Add(_itemDB[i]); }
+            else if (_itemDB[i].kindID == 2) { ArmourListInsert(_itemDB[i].id); }
+            else if (_itemDB[i].kindID == 3) { Debug.Log(_itemDB[i].id); AccListInsert(_itemDB[i].id); }
         }
     }
-    // Update is called once per frame
-    void Update()
+
+    private void ListDisable(int kind)
     {
-        
+        itemList[kind].GetComponent<Button>().interactable = (itemList[kind].GetComponent<Button>().interactable )? false:true;
     }
 
-    
-    
+
+
+
 }
