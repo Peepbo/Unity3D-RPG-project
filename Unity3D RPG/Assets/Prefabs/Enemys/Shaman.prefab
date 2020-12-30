@@ -154,6 +154,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &740751230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7191652310755252289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 880ac5fbcd26b9540bf8252e43252395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: 1
 --- !u!1 &8070745341243258853
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +262,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8070745341243258853}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -288,7 +301,7 @@ MonoBehaviour:
   findRange: 10
   attackRange: 3
   atkPower: 0
-  maxHp: 10
+  maxHp: 20
   observeRange: 5
   angle: 90
   skillSpawn: 5
@@ -453,6 +466,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ba715c8d9a34e14bb6d76444f4c25fc, type: 3}
+--- !u!1 &7191652310755252289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 194332, guid: 6ba715c8d9a34e14bb6d76444f4c25fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 7191652310755176285}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7191652310755027755 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 410742, guid: 6ba715c8d9a34e14bb6d76444f4c25fc,

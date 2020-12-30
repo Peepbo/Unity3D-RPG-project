@@ -10,14 +10,14 @@ public class Goblin : EnemyMgr, IDamagedState
     private ViewingAngle viewAngle;
     private Vector3 startPos;
     private Vector3 ranDirection;
-    
+
     private int hp;
 
     [Range(3, 7)]
     public float observeRange;
     [Range(0, 180)]
     public float angle;
-    
+
 
     public GameObject weapon;
 
@@ -37,9 +37,10 @@ public class Goblin : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
-        //Goblin Attack skill
+
 
         weapon.GetComponent<AxColision>().SetDamage(atkPower);
+
         observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
         follow.initVariable(controller, target, speed);
         returnToHome.initVariable(controller, startPos, speed);
@@ -49,11 +50,11 @@ public class Goblin : EnemyMgr, IDamagedState
 
     void Update()
     {
-        Vector3 _transfrom = transform.position;
-        if (!controller.isGrounded)
-        {
-            _transfrom.y += gravity * Time.deltaTime;
-        }
+        //Vector3 _transfrom = transform.position;
+        //if (!controller.isGrounded)
+        //{
+        //    _transfrom.y += gravity * Time.deltaTime;
+        //}
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
@@ -65,70 +66,78 @@ public class Goblin : EnemyMgr, IDamagedState
         //    Damaged(atkPower);
         //}
 
-        if (isDamaged || isDead) return;
+        if (isDead) Die();
 
-        //animation idle or run
-        if (observe.getAction() == 0)
-        {
-            anim.SetInteger("state", 0);
-        }
-        else if (observe.getAction() == 1)
-        {
-            anim.SetInteger("state", 1);
-        }
-
-
-        //Observe range 안에 있을 때
-        if (observe.getIsObserve())
-        {
-            //타겟을 찾으면
-            if (_isFind)
-            {
-                observe.setIsObserve(false);
-
-            }
-            else
-            {
-                //타겟을 못찾으면 제자리에서 observe
-                Observe();
-            }
-
-        }
-        //Observe range 안에 없을 때
         else
         {
-            //player가 공격 범위에 들어오면
-            if (_distance < attackRange)
+            if (isDamaged) return;
+
+            //animation idle or run
+            if (observe.getAction() == 0)
             {
-                anim.SetInteger("state", 2);
+                anim.SetInteger("state", 0);
+            }
+            else if (observe.getAction() == 1)
+            {
+                anim.SetInteger("state", 1);
+            }
+
+
+            //Observe range 안에 있을 때
+            if (observe.getIsObserve())
+            {
+                //타겟을 찾으면
+                if (_isFind)
+                {
+                    observe.setIsObserve(false);
+
+                }
+                else
+                {
+                    //타겟을 못찾으면 제자리에서 observe
+                    Observe();
+                }
 
             }
-            //player가 공격 범위에 없으면
+            //Observe range 안에 없을 때
             else
             {
-                if (_isFind && !returnToHome.getIsReturn())
+                //player가 공격 범위에 들어오면
+                if (_distance < attackRange)
                 {
+                    anim.SetInteger("state", 2);
 
-                    anim.SetInteger("state", 1);
-
-                    if (anim.GetBool("isRest") == false)
+                }
+                //player가 공격 범위에 없으면
+                else
+                {
+                    if (_isFind && !returnToHome.getIsReturn())
                     {
-                        FollowTarget();
+
+                        anim.SetInteger("state", 1);
+
+                        if (anim.GetBool("isRest") == false)
+                        {
+                            FollowTarget();
+                        }
+                    }
+
+                    else if (_isFind == false || returnToHome.getIsReturn() == true)
+                    {
+                        anim.SetInteger("state", 1);
+
+                        if (anim.GetBool("isRest") == false)
+                        {
+                            ReturnToStart();
+                        }
                     }
                 }
 
-                else if (_isFind == false || returnToHome.getIsReturn() == true)
-                {
-                    anim.SetInteger("state", 1);
-
-                    if (anim.GetBool("isRest") == false)
-                    {
-                        ReturnToStart();
-                    }
-                }
             }
 
         }
+
+
 
     }
 
@@ -238,22 +247,40 @@ public class Goblin : EnemyMgr, IDamagedState
     public void Damaged(int value)
     {
         if (isDamaged || isDead) return;
-        print("Goblin에 " + value + "만큼 데미지를 입힘");
 
         hp -= value;
 
-        if(hp<=0)
+        if (hp <= 0)
         {
+
             hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
+            controller.enabled = false;
+
+            if (disappearTime > 3f)
+            {
+                gameObject.SetActive(false);
+            }
+
         }
         anim.SetTrigger("isDamage");
 
         StartCoroutine(GetDamage());
 
+    }
+
+    public override void Die()
+    {
+        disappearTime += Time.deltaTime;
+        if (disappearTime > 5f)
+        {
+            //아이템 떨어트리기
+            gameObject.SetActive(false);
+        }
 
     }
+
 
     private void OnDrawGizmos()
     {
