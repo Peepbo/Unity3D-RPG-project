@@ -89,7 +89,9 @@ partial class ChestManager
         if (lootList[selectNumber].count == 0) lootList.RemoveAt(selectNumber);
         else mySlider.maxValue = lootList[selectNumber].count;
 
-        GetLootsData();
+        mySlider.value = 1;
+
+        GetLootsData(); // 이건 잘 됨
 
         //저장
         PlayerData.Instance.SaveData();
@@ -97,9 +99,18 @@ partial class ChestManager
 
     public void RootUpdate()
     {
-        curCount.text = ((int)mySlider.value).ToString();
+        if(selectNumber >= lootList.Count)
+        {
+            curCount.text = "";
+            sellingPrice.text = "";
+        }
 
-        sellingPrice.text = ((int)mySlider.value * lootList[selectNumber].price).ToString();
+        else
+        {
+            curCount.text = ((int)mySlider.value).ToString();
+            sellingPrice.text = ((int)mySlider.value * lootList[selectNumber].price).ToString();
+        }
+
 
         playerMoney.text = PlayerData.Instance.myCurrency.ToString();
     }
