@@ -118,7 +118,9 @@ partial class ChestManager
         //_info에 저장된 개 수 만큼 for문 반복
         for (int i = 0; i < _info.Count; i++)
         {
-            popInfo.transform.GetChild(i).GetComponent<Text>().text = _info[i];
+            Debug.Log(popInfo0.transform.GetChild(i).name);
+
+            popInfo0.transform.GetChild(i).GetComponent<Text>().text = _info[i];
         }
     }
 
@@ -154,7 +156,7 @@ partial class ChestManager
         }
 
         //팝업을 끈다.
-        popInfo.SetActive(false);
+        popInfo0.SetActive(false);
 
         //보유한 장비 리스트를 업데이트한다.
         GetData();

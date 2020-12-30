@@ -55,6 +55,7 @@ public class TalkNpc : MonoBehaviour
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), equipPanel);
 
                     //action1
+                    ResetAndAddListener(childObj[1].GetComponent<Button>(), chestPanel);
 
                     break;
                 case NPC.TRAINER://3가지
