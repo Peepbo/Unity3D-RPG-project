@@ -19,7 +19,7 @@ public class StartScene : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("gameScene");
+        LoadingSceneController.Instance.LoadScene("gameScene 1");
     }
 
     public void QuitGame()

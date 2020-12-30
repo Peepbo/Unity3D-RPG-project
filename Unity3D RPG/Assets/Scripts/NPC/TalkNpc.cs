@@ -12,7 +12,7 @@ public class TalkNpc : MonoBehaviour
         TRAINER,
         SMITH
     }
-
+    public NPC npcName;
     public GameObject talkPanel;
 
     [Header("CHEST")]
@@ -25,8 +25,6 @@ public class TalkNpc : MonoBehaviour
 
     [Header("SMITH")]
     public GameObject smithPanel;
-
-    public NPC npcName;
 
     private void OnTriggerEnter(Collider other)
     {
