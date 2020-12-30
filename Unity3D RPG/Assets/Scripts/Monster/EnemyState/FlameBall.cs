@@ -24,12 +24,12 @@ public class FlameBall : MonoBehaviour, IAttackAble
         Vector3 _direction = (target.transform.position - transform.position).normalized;
         _direction.y = 0;
 
-        transform.rotation = Quaternion.LookRotation(_direction);
+        
 
         if (time > spawn)
         {
             time = 0.0f;
-
+            transform.rotation = Quaternion.LookRotation(_direction);
 
             var _firePrefab = ObjectPool.SharedInstance.GetPooledObject("EnemySkill");
 
@@ -37,6 +37,7 @@ public class FlameBall : MonoBehaviour, IAttackAble
             _firePrefab.transform.position = firePos.position;
             _firePrefab.transform.rotation = firePos.rotation;
             _firePrefab.SetActive(true);
+            transform.rotation = Quaternion.LookRotation(_direction);
         }
     }
 }

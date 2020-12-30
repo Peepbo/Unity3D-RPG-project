@@ -11,6 +11,7 @@ public class Shaman : EnemyMgr, IDamagedState
     private ViewingAngle viewAngle;
     private FlameBall flame;
 
+    private int hp;
     private bool isDetected;
 
     private Transform firePos;
@@ -31,6 +32,9 @@ public class Shaman : EnemyMgr, IDamagedState
         firePos = transform.Find("FirePos");
 
         ranDirection = GetRandomDirection();
+        hp = maxHp;
+
+        anim.SetInteger("state", 0);
     }
 
     void Start()
@@ -39,7 +43,7 @@ public class Shaman : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         flame = gameObject.AddComponent<FlameBall>();
 
-       
+
         observe.initVariable(controller, startPos, ranDirection, speed, observeRange);
         flame.init(target, firePos, skillSpawn);
     }
@@ -47,14 +51,19 @@ public class Shaman : EnemyMgr, IDamagedState
     void Update()
     {
         isDetected = viewAngle.FoundTarget(target, findRange, angle);
+        if (Input.GetKeyDown(KeyCode.L)) Damaged(3);
+
+        if (anim.GetBool("isDamage")) return;
 
         if (observe.getAction() == 0)
         {
             //idle 모션
+            anim.SetInteger("state", 0);
         }
         else
         {
             //run모션
+            anim.SetInteger("state", 1);
         }
 
 
@@ -68,7 +77,6 @@ public class Shaman : EnemyMgr, IDamagedState
                 {
                     Idle();
                 }
-
 
             }
             else
@@ -90,10 +98,18 @@ public class Shaman : EnemyMgr, IDamagedState
         if (observe.getIsRangeOver())
         {
             //idle 모션
+            anim.SetInteger("state", 0);
         }
         else
         {
             //run모션
+            if (observe.getAction() == 0)
+            {
+                anim.SetInteger("state", 0);
+            }
+            else
+
+                anim.SetInteger("state", 1);
         }
     }
     public void Observe()
@@ -107,12 +123,26 @@ public class Shaman : EnemyMgr, IDamagedState
 
     public void Detected()
     {
+        anim.SetInteger("state", 2);
         setAttackType(flame);
         flame.attack();
         if (!isDetected) observe.setIsObserve(true);
     }
     public void Damaged(int value)
     {
+       
+        if (anim.GetBool("isDamage")|| isDamaged || isDead) return;
+        anim.SetBool("isDamage", true);
+
+        
+        
+   
+        if (hp <= 0)
+        {
+            hp = 0;
+            isDead = true;
+            anim.SetTrigger("die");
+        }
         print("Shaman에 " + value + "만큼 데미지를 입힘");
     }
 
