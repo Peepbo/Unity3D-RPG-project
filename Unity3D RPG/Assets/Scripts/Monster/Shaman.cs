@@ -9,7 +9,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
     private ObservingMove observe;
     private ViewingAngle viewAngle;
-    private FlameBall flame;
+
 
     private int hp;
     private bool isDetected;
@@ -23,7 +23,6 @@ public class Shaman : EnemyMgr, IDamagedState
     public float angle;
     [Range(1, 5)]
     public float skillSpawn;
-
 
     protected override void Awake()
     {
@@ -41,109 +40,110 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
-        flame = gameObject.AddComponent<FlameBall>();
-
 
         observe.initVariable(controller, startPos, ranDirection, speed, observeRange);
-        flame.init(target, firePos, skillSpawn);
     }
 
     void Update()
     {
-        isDetected = viewAngle.FoundTarget(target, findRange, angle);
-        if (Input.GetKeyDown(KeyCode.L)) Damaged(3);
-
-        if (anim.GetBool("isDamage")) return;
-
-        if (observe.getAction() == 0)
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            //idle 모션
-            anim.SetInteger("state", 0);
+            Damaged(3);
         }
+        if (isDamaged || isDead) return;
+
+        if (!isDetected)
+        {
+
+            Observe();
+        }
+
         else
         {
-            //run모션
-            anim.SetInteger("state", 1);
-        }
+            anim.SetInteger("state", 2);
 
-
-        if (observe.getIsObserve())
-        {
-            if (!isDetected)
-            {
-                Observe();
-
-                if (observe.getIsRangeOver())
-                {
-                    Idle();
-                }
-
-            }
-            else
-            {
-                observe.setIsObserve(false);
-            }
-
-        }
-        else
-        {
-            Detected();
+            Fire();
         }
 
     }
 
-    public void Idle()
-    {
-        ranDirection = GetRandomDirection();
-        if (observe.getIsRangeOver())
-        {
-            //idle 모션
-            anim.SetInteger("state", 0);
-        }
-        else
-        {
-            //run모션
-            if (observe.getAction() == 0)
-            {
-                anim.SetInteger("state", 0);
-            }
-            else
-
-                anim.SetInteger("state", 1);
-        }
-    }
     public void Observe()
     {
         setMoveType(observe);
         observe.setIsObserve(true);
         observe.move();
 
-        if (observe.getAction() == 0 || observe.getIsRangeOver()) Idle();
+        int _action = observe.getAction();
+        anim.SetInteger("state", _action);
+
+        isDetected = viewAngle.FoundTarget(target, findRange, angle);
+
+        //만약 isDetected가 true가 되면? <before : observe> -> atk
     }
 
-    public void Detected()
+    public void Fire()
     {
-        anim.SetInteger("state", 2);
-        setAttackType(flame);
-        flame.attack();
-        if (!isDetected) observe.setIsObserve(true);
+        if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.85f)
+        {
+            //플레이어가 부채꼴 안에 있는지 검사를 한다. (공격 모션 거의 끝남)
+            isDetected = viewAngle.FoundTarget(target, findRange, angle);
+
+            //만약 isDetected가 false가 되면? <before : atk상태> -> observe
+            if (isDetected == false)
+            {
+                int _action = observe.getAction();
+                anim.SetInteger("state", _action);
+            }
+        }
+
     }
+
+    IEnumerator GetDamage()
+    {
+        isDamaged = true;
+
+        yield return new WaitForSeconds(1.0f);
+
+        isDamaged = false;
+    }
+
     public void Damaged(int value)
     {
-       
-        if (anim.GetBool("isDamage")|| isDamaged || isDead) return;
-        anim.SetBool("isDamage", true);
+
+        if (isDamaged || isDead) return;
 
         
-        
-   
+        anim.SetTrigger("damage");
+
+
         if (hp <= 0)
         {
             hp = 0;
             isDead = true;
             anim.SetTrigger("die");
+            controller.enabled = false;
         }
-        print("Shaman에 " + value + "만큼 데미지를 입힘");
+
+        StartCoroutine(GetDamage());
+    }
+
+    public void Flame()
+    {
+        var _firePrefab = ObjectPool.SharedInstance.GetPooledObject("EnemySkill");
+
+        _firePrefab.transform.position = firePos.position;
+        _firePrefab.transform.rotation = firePos.rotation;
+        _firePrefab.SetActive(true);
+    }
+
+    public override void Die()
+    {
+        disappearTime += Time.deltaTime;
+        if(disappearTime>5f)
+        {
+            //아이템 떨어트리기
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDrawGizmos()

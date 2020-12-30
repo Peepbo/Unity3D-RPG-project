@@ -58,13 +58,6 @@ public class ObservingMove : MonoBehaviour, IMoveAble
 
     public void move()
     {
-        //Vector3 _transform = transform.position;
-        //if (!controller.isGrounded)
-        //{
-        //    _transform.y += gravity * Time.deltaTime;
-          
-        //}
-
 
         if (!isObserve) return;
 
