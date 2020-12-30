@@ -51,11 +51,25 @@ partial class Player
     }
     public void GetDamage(int damage)
     {
-        hp -= damage;
-        if(hp < 0)
+        if(isGuard)
         {
-            hp = 0;
-            PlayerDie();
+            stamina -= 40;
+            if(stamina <= 0)
+            {
+                stamina = 0;
+            }
+            animator.Play("ShieldBlock");
+            animator.SetBool("isGuardHit", true);
+            //animator.SetTrigger("GuardHit");
+        }
+        else
+        {
+            hp -= damage;
+            if(hp < 0)
+            {
+                hp = 0;
+                PlayerDie();
+            }
         }
     }
     public void StaminaReload() // 스태미나 자동 충전
@@ -84,7 +98,4 @@ partial class Player
             }
         }
     }
-
-    
-    
 }

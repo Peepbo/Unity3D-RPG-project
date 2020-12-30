@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ComboAtk : MonoBehaviour
 {
+    public WeaponCollider oneHandCol1;
     Button atkButton;
     Button criButton;
     public Animator animator;
@@ -18,11 +19,26 @@ public class ComboAtk : MonoBehaviour
     {
         atkButton = GameObject.Find("AtkButton").GetComponent<Button>();
         criButton = GameObject.Find("CriAtkButton").GetComponent<Button>();
-        //atkButton.onClick.AddListener(Attack);
+        atkButton.onClick.AddListener(Attack);
         criButton.onClick.AddListener(CriAttack);
-        atkButton.onClick.AddListener(delegate { Attack(); });
+        //atkButton.onClick.AddListener(delegate { Attack(); });
     }
-   
+    
+    public void ColiderOn()
+    {
+        oneHandCol1.meshCollider.enabled = true;
+    }
+    public void ColiderOff()
+    {
+        oneHandCol1.meshCollider.enabled = false;
+
+    }
+
+    public void GuardHitEnd()
+    {
+        player.animator.SetBool("isGuardHit", false);
+    }
+    
     public void Attack() 
     {
        
@@ -58,7 +74,6 @@ public class ComboAtk : MonoBehaviour
 
     public void CriAttack()
     {
-        
         player.isFight = true;
         player.isCri = true;
         if (player.isDash == false)
@@ -92,10 +107,13 @@ public class ComboAtk : MonoBehaviour
     {
         isCombo = true;
         isCriAtk = true;
+        ColiderOn();
+
     }
 
     public void Combo()
     {
+        ColiderOff();
         if (comboStep == 2)
         {
             ComboAnimation(30, "Atk2");
@@ -121,6 +139,7 @@ public class ComboAtk : MonoBehaviour
         comboStep = 0;
         player.isFight = false;
         player.isCri = false;
+        ColiderOff();
     }
 
 

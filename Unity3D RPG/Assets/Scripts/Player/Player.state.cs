@@ -134,13 +134,6 @@ partial class Player
         }
     }
 
-    public void PlayerGuard()
-    {
-        
-    }
-
-
-
 
 
     public void PlayerDie()
