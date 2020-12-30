@@ -47,8 +47,8 @@ partial class ChestManager
                 else
                     lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
 
-                popInfo.transform.GetChild(i-1).GetChild(1).GetComponent<Text>().text =lootList[i-1].count.ToString();
-                
+                popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
+
             }
             num++;
         }
