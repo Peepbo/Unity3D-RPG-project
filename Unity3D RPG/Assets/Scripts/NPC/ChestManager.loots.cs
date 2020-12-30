@@ -26,11 +26,10 @@ partial class ChestManager
 
         for (int i = 1; i < 17; i++)
         {
-
             if (num == lootList.Count)
             {
                 lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear; // 표시 X
-                popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
+                popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
                 continue;
             }
 
@@ -47,7 +46,7 @@ partial class ChestManager
                 else
                     lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
 
-                popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
+                popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
 
             }
             num++;

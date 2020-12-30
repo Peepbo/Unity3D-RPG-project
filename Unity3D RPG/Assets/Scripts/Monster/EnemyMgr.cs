@@ -14,6 +14,8 @@ public abstract class EnemyMgr : MonoBehaviour
 
     protected bool isDamaged;
     protected bool isDead;
+    protected float disappearTime;
+
 
     [Range(1, 5)]
     public float speed;
@@ -23,9 +25,7 @@ public abstract class EnemyMgr : MonoBehaviour
     public float attackRange;
     public int atkPower;
 
-
     public int maxHp;
-
 
 
     protected virtual void Awake()
@@ -62,6 +62,8 @@ public abstract class EnemyMgr : MonoBehaviour
         this.attackType = newAttackType;
     }
 
+    public abstract void Die();
+   
     public Vector3 GetRandomDirection()
     {
         float _ranX = Random.Range(-1f, 1f);

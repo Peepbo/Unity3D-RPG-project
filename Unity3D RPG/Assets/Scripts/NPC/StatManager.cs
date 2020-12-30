@@ -26,6 +26,7 @@ public partial class StatManager : MonoBehaviour
 {
     public List<StatInfo> characteristic = new List<StatInfo>();
     public Image[] menuImg;
+    public Text money;
     MENU eMenu;
 
     int saveId;
@@ -193,5 +194,10 @@ public partial class StatManager : MonoBehaviour
         //Debug.Log(id + "를 찍었습니다");
 
         ChangeColor();
+    }
+
+    public void Update()
+    {
+        money.text = PlayerData.Instance.myCurrency.ToString();
     }
 }
