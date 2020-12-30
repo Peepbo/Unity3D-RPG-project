@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
     private Transform cameraMain;
     public Transform child;
 
+
+    private float angularVelocity = 0f;
+    float angle;
+
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -63,11 +67,36 @@ public class PlayerController : MonoBehaviour
             value3 = _move;
 
 
-            if (player.isFight == false)
+            if (player.isFight == false && player.isGuard == false)
             {
+                if(_move != Vector3.zero)
+                {
+                    ////child.LookAt(child.position + _move);
+                    float a = Mathf.Atan2(_move.x, _move.z) * Mathf.Rad2Deg;
+                    angle = Mathf.SmoothDampAngle(child.eulerAngles.y, a, ref angularVelocity, 0.08f);
+                    child.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
-                child.LookAt(child.position + _move);
+                    controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
+                }
+
+                //실패작들
+                //Vector3 G = child.position - _move;
+                //float a = Mathf.SmoothDampAngle(child.eulerAngles.x,G.x , ref angularVelocity, 0.3f);
+                //float b = Mathf.SmoothDampAngle(child.eulerAngles.y,G.y , ref angularVelocity, 0.3f);
+                //float c = Mathf.SmoothDampAngle(child.eulerAngles.z,G.z , ref angularVelocity, 0.3f);
+                //child.localEulerAngles = new Vector3(a, b, c) ;
+                
+                //var zAngle : float = Mathf.SmoothDampAngle(transform.localEulerAngles.z, _rollTowards, zVelocity, smooth * Time.deltaTime);
+                //var targetRot = Quaternion.LookRotation(child.position + _move);
+                //var delta = Quaternion.Angle(child.rotation, targetRot);
+                //if (delta > 0f)
+                //{
+
+                //    var t = Mathf.SmoothDampAngle(delta, 0f, ref angularVelocity, 0.1f);
+                //    t = 1 / delta;
+                //    child.rotation = Quaternion.Slerp(transform.rotation, targetRot, t);
+                //}
+                //child.rotation = Quaternion.Lerp(child.rotation, Quaternion.LookRotation(child.position + _move), 1000f * Time.deltaTime);
             }
         }
 

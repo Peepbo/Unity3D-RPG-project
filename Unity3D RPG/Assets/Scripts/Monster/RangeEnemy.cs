@@ -283,7 +283,6 @@ public class RangeEnemy : EnemyManager
     {
         //fire 
 
-
         //float _dis = Vector3.Distance(target.transform.position, transform.position);
 
         ////del
@@ -376,7 +375,6 @@ public class RangeEnemy : EnemyManager
 
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(spawnPos, observeRange);
-
 
     }
 }

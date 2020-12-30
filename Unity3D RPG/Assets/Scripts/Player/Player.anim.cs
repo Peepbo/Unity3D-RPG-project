@@ -7,7 +7,7 @@ using UnityEngine;
 
 partial class Player
 {
-    private Animator animator;
+    public Animator animator;
 
     // animation name 애니메이션 이름 넣고 여기에 이름추가
     const string stateIdle = "Idle";

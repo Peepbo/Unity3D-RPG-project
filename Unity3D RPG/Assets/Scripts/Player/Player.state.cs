@@ -5,17 +5,14 @@ using UnityEngine.UI;
 
 partial class Player
 {
-    Button gaurdButton;
+    bool           isDie;                  //죽었냐
+    public bool    isDash;                 //대쉬했냐
+    bool           isAtk;
+    public bool    isGuard;                // 가드중이냐
+    public bool    isCri;                  // 강공격중이냐
+    public bool    isFight;                // 전투중이냐
+    int            fightTimer;
     
-    
-    public bool isDash;
-    bool    isCombo;
-    int     comboCount;
-    bool    isAtk;
-    public bool    isCri;
-    public bool    isFight;                //전투중이냐
-    int     fightTimer;
-
     public enum PlayerState
     {
         IDLE,
@@ -30,7 +27,6 @@ partial class Player
 
     void StateAwake()
     {
-        gaurdButton = GameObject.Find("AtkButton").GetComponent<Button>();
     }
     void PlayerStateUpdate()
     {
@@ -121,10 +117,10 @@ partial class Player
     }
     public void PlayerDash()
     {
-        if (stamina > 30 && isDash == false && isCri == false)
+        if (stamina > dashValue && isDash == false && isCri == false)
         {
             animator.SetTrigger("Rolling");
-            stamina -= 30;
+            stamina -= dashValue;
             if(stamina < 0)
             {
                 stamina = 0;
@@ -138,9 +134,24 @@ partial class Player
         }
     }
 
-    public void PlayerGaurd()
+    public void PlayerGuard()
     {
         
     }
+
+
+
+
+
+    public void PlayerDie()
+    {
+        isDie = true;
+
+
+        comboAtk.animator.SetTrigger("Die");
+
+    }
+
+
 }
 
