@@ -35,6 +35,8 @@ partial class Player
     public float            guardStamina;       //  가드시 소모되는 스태미나(1데미지당 10스태미나)
     public PlayerCondition  condition;          //  플레이어 상태이상
 
+    public float            atkSpeed = 5;           //  공격 속도
+
 
     void PlayerStatUpdate()
     {
