@@ -29,8 +29,8 @@ public class CameraLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        cinemachine.m_XAxis.Value += touchBoard.TouchDist.x * 20f * lookSpeed * Time.deltaTime;
-        cinemachine.m_YAxis.Value += -touchBoard.TouchDist.y * lookSpeed * Time.deltaTime/30 ;
+        cinemachine.m_XAxis.Value += touchBoard.TouchDist.x * 15f * lookSpeed * Time.deltaTime;
+        cinemachine.m_YAxis.Value += -touchBoard.TouchDist.y * lookSpeed * Time.deltaTime/20 ;
     }
     // Update is called once per frame
     void Update()

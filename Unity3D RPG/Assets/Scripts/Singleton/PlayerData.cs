@@ -21,7 +21,10 @@ public class PlayerData : Singleton<PlayerData>
     //내가 가지고 있는 화폐
     public int myCurrency;
 
-    public int 
+    //내 성장 수치
+    public int myStature;
+
+    public int myPotion;
 
     public void SaveChest(int itemNumber)
     {
