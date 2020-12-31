@@ -17,7 +17,7 @@ public class TouchBoard : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     // Use this for initialization
     void Start()
     {
-
+        Input.multiTouchEnabled = true;
     }
 
     // Update is called once per frame
