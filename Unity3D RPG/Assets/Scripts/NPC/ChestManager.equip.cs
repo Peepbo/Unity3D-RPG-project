@@ -25,10 +25,6 @@ partial class ChestManager
                 int _itemNumber = PlayerData.Instance.myEquipment[i];
 
                 eqData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
-
-                //착용한 장비
-
-                ItemInfo _item = CSVData.Instance.find(_itemNumber);
             }
         }
 
