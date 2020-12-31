@@ -41,7 +41,6 @@ public class ComboAtk : MonoBehaviour
     
     public void Attack() 
     {
-       
         if (player.isDash == false)
         {
             player.isFight = true;
@@ -67,7 +66,6 @@ public class ComboAtk : MonoBehaviour
                     isCombo = false;
                     comboStep += 1;
                 }
-                
             }
         }
     }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour
-{   
+{
+
+    public GameObject effect;
     [SerializeField]
     private Player player;
     public MeshCollider meshCollider;
@@ -29,6 +31,7 @@ public class WeaponCollider : MonoBehaviour
         {
             meshCollider.enabled = false;
             other.GetComponent<IDamagedState>().Damaged(10);
+            Instantiate(effect, other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), transform.rotation);
             Debug.Log("충돌했다");
         }
     }

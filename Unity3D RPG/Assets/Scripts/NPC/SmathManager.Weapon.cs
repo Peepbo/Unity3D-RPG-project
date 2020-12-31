@@ -115,8 +115,10 @@ partial class SmathManager
     }
     private void WeaponListSetActive()
     {
+
         for (int i = 0; i < maxWeapon; i++)
         {
+            itemList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             itemList[i].SetActive(true);
             if (!itemList[i].GetComponent<Button>().interactable) ListDisable(i);
 
