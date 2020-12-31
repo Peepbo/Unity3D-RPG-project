@@ -10,7 +10,6 @@ public class SFB_CameraRotate_v2 : MonoBehaviour {
 
 	public float mouseSpeed = -3f;
 	private Vector2 lastMousePosition;
-	private float mouseX = 0f;
 	
 	// Update is called once per frame
 	void Update () {
@@ -19,36 +18,23 @@ public class SFB_CameraRotate_v2 : MonoBehaviour {
 			transform.RotateAround(target.position + new Vector3(0, 1, 0), Vector3.up,
 				speed * Time.deltaTime); // Rotate around the point
 		}
-		else
-		{
-			if (Input.GetMouseButtonDown(1))
-			{
-				lastMousePosition = Input.mousePosition;
-			}
-			else if (Input.GetMouseButton(1))
-			{
-				mouseX = lastMousePosition.x - Input.mousePosition.x;
-				//transform.RotateAround(target.position + new Vector3(0, 1, 0), Vector3.up, mouseSpeed * (lastMousePosition.x - Input.mousePosition.x) * Time.deltaTime);
-				lastMousePosition = Input.mousePosition;
-			}
-		}
 
 		transform.LookAt (target.position + new Vector3 (0, targetOffset, 0));									// Look at the position we want
 	}
 
 	private void FixedUpdate()
 	{
-		/*if (Input.GetMouseButtonDown(1))
+		if (Input.GetMouseButtonDown(1))
 		{
 			lastMousePosition = Input.mousePosition;
 		}
-		else if (Input.GetMouseButton(1))
-		{
-			transform.RotateAround(target.position + new Vector3(0, 1, 0), Vector3.up, mouseSpeed * (lastMousePosition.x - Input.mousePosition.x) * Time.deltaTime);
-			lastMousePosition = Input.mousePosition;
-		}*/
+
 		if (Input.GetMouseButton(1))
-			transform.RotateAround(target.position + new Vector3(0, 1, 0), Vector3.up, mouseSpeed * mouseX * Time.deltaTime);
+		{
+			transform.RotateAround(target.position + new Vector3(0, 1, 0), Vector3.up,
+				mouseSpeed * (lastMousePosition.x - Input.mousePosition.x) * Time.deltaTime);
+			lastMousePosition = Input.mousePosition;
+		}
 	}
 
 	/// <summary>

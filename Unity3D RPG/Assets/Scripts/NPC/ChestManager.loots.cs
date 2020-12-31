@@ -35,16 +35,11 @@ partial class ChestManager
 
             else
             {
-                lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(4);
-
                 int _itemNumber = lootList[i - 1].id;
 
-                ItemInfo _item = CSVData.Instance.find(_itemNumber);
+                lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
 
-                if (_item.grade == "normal")
-                    lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[0];
-                else
-                    lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
+                ItemInfo _item = CSVData.Instance.find(_itemNumber);
 
                 popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
 

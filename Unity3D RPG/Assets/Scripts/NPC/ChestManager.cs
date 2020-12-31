@@ -81,6 +81,12 @@ public partial class ChestManager : MonoBehaviour
         }
     }
 
+
+    Sprite GetPath(int id)
+    {
+        return Resources.Load<Sprite>(CSVData.Instance.find(id).iconPath);
+    }
+
     public void Update()
     {
         RootUpdate();
