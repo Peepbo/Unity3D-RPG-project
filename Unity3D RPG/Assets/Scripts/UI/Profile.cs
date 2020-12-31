@@ -18,10 +18,13 @@ public class Profile : MonoBehaviour
         GetReinforce();
     }
 
-    public void GetPlayerStats()
+    public void Start()
     {
         player = Player.FindObjectOfType<Player>();
+    }
 
+    public void GetPlayerStats()
+    {
         popStats.transform.GetChild(0).GetComponent<Text>().text = 
             "체력 : " + player.maxHp.ToString() + " / " + player.hp.ToString();
         popStats.transform.GetChild(1).GetComponent<Text>().text = 
@@ -38,8 +41,6 @@ public class Profile : MonoBehaviour
 
     public void GetReinforce()
     {
-        player = Player.FindObjectOfType<Player>();
-
         int myHp = player.maxHp / 100;
         int myStamina = player.maxStamina / 100;
 

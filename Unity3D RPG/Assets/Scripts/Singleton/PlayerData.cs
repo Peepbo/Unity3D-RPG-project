@@ -21,6 +21,8 @@ public class PlayerData : Singleton<PlayerData>
     //내가 가지고 있는 화폐
     public int myCurrency;
 
+    public int 
+
     public void SaveChest(int itemNumber)
     {
         ItemInfo _item = CSVData.Instance.find(itemNumber);

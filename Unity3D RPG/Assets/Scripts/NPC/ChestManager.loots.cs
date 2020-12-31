@@ -111,7 +111,6 @@ partial class ChestManager
             sellingPrice.text = ((int)mySlider.value * lootList[selectNumber].price).ToString();
         }
 
-
         playerMoney.text = PlayerData.Instance.myCurrency.ToString();
     }
 }
