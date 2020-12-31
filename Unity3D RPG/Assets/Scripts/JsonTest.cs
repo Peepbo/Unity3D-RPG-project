@@ -97,7 +97,22 @@ public class JsonTest : Singleton<JsonTest>
             , format);
     }
 
-    public JsonData Load()
+    
+    public JsonData jsonData 
+    { 
+        get 
+        {
+            string Jsonstring = File.ReadAllText(Application.dataPath
+            + "/Resources/PlayerData.json");
+            byte[] bytes = System.Convert.FromBase64String(Jsonstring);
+            string reformat = System.Text.Encoding.UTF8.GetString(bytes);
+            JsonData _data = JsonMapper.ToObject(reformat);
+
+            return _data; 
+        } 
+    }
+
+    public void Load()
     {
         //Debug.Log("불러오기");
 
@@ -111,15 +126,7 @@ public class JsonTest : Singleton<JsonTest>
         //}
         //Debug.Log(int.Parse(_data["Money"].ToString()));
 
-        string Jsonstring = File.ReadAllText(Application.dataPath
-            + "/Resources/PlayerData.json");
-        byte[] bytes = System.Convert.FromBase64String(Jsonstring);
-        string reformat = System.Text.Encoding.UTF8.GetString(bytes);
-
-        JsonData _data = JsonMapper.ToObject(reformat);
-
-        return _data; //불러오기 버튼 눌렀을 때 안되는 이유는 void가 아니라 리턴이 포함된 함수이기때문에 안됌. 
-        //따라서 1~5까지 숫자 눌렀을때만 정상작동될수밖에 없는 구조.
+        
     }
 
     public int LoadCurrency()
@@ -131,7 +138,7 @@ public class JsonTest : Singleton<JsonTest>
         //JsonData _data = JsonMapper.ToObject(Jsonstring);
         
 
-        return int.Parse(Load()["Money"].ToString());
+        return int.Parse(jsonData["Money"].ToString());
     }
 
     public int LoadStaturePoint()
@@ -142,7 +149,7 @@ public class JsonTest : Singleton<JsonTest>
         //    + "/Resources/PlayerData.json");
         //JsonData _data = JsonMapper.ToObject(Jsonstring);
 
-        return int.Parse(Load()["StaturePoint"].ToString());
+        return int.Parse(jsonData["StaturePoint"].ToString());
     }
 
     public List<int> LoadEquip()
@@ -155,9 +162,9 @@ public class JsonTest : Singleton<JsonTest>
 
         List<int> _output = new List<int>();
 
-        for (int i = 0; i < Load()["Equip"].Count; i++)
+        for (int i = 0; i < jsonData["Equip"].Count; i++)
         {
-            _output.Add(int.Parse(Load()["Equip"][i].ToString()));
+            _output.Add(int.Parse(jsonData["Equip"][i].ToString()));
         }
 
         return _output;
@@ -173,11 +180,11 @@ public class JsonTest : Singleton<JsonTest>
 
         List<SubItem> _output = new List<SubItem>();
 
-        for (int i = 0; i < Load()["Item"].Count; i++)
+        for (int i = 0; i < jsonData["Item"].Count; i++)
         {
             _output.Add(new SubItem(
-                int.Parse(Load()["Item"][i][0].ToString()),
-                int.Parse(Load()["Item"][i][1].ToString())
+                int.Parse(jsonData["Item"][i][0].ToString()),
+                int.Parse(jsonData["Item"][i][1].ToString())
                 ));
         }
 
@@ -202,9 +209,9 @@ public class JsonTest : Singleton<JsonTest>
 
         List<int> _output = new List<int>();
 
-        for (int i = 0; i < Load()["Characteristic"].Count; i++)
+        for (int i = 0; i < jsonData["Characteristic"].Count; i++)
         {
-            _output.Add(int.Parse(Load()["Characteristic"][i].ToString()));
+            _output.Add(int.Parse(jsonData["Characteristic"][i].ToString()));
         }
 
         return _output;
