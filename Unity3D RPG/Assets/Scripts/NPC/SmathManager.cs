@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.UI;
 using TMPro;
 
@@ -20,7 +19,7 @@ public partial class SmathManager : MonoBehaviour
     GameObject makeButton;
     ItemInfo curruntInfo = new ItemInfo();
     Image infoImage;
-    GameObject itemMakeListFactory;
+    public GameObject itemMakeListFactory;
     GameObject itemListGroup;
     public GameObject resultPanel;
     List<GameObject> itemList = new List<GameObject>();
@@ -60,7 +59,7 @@ public partial class SmathManager : MonoBehaviour
         moneyText = transform.Find("Coin").GetComponentInChildren<TextMeshProUGUI>();
         moneyText.text = PlayerData.Instance.myCurrency.ToString();
         //itemList
-        itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
+        //itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
         itemListGroup = transform.Find("ItemList/ScrollRect/ListGroup").gameObject;
         //itemInfo
         infoImage = transform.Find("ItemInfo/ItemIconBG/ItemIcon").GetComponent<Image>();
@@ -90,7 +89,6 @@ public partial class SmathManager : MonoBehaviour
         if (_playerItemDB[2] != -1)
         {
             ArmourListInsert(_playerItemDB[2]);
-
             LootListInsert(CSVData.Instance.find(_playerItemDB[2]));
         }
         if(_playerItemDB[3] != -1) AccListInsert(_playerItemDB[3]);
