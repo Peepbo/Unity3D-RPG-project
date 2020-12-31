@@ -22,17 +22,9 @@ partial class ChestManager
             
             else
             {
-                eqData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(i);
-
-                //착용한 장비
                 int _itemNumber = PlayerData.Instance.myEquipment[i];
 
-                ItemInfo _item = CSVData.Instance.find(_itemNumber);
-
-                if(_item.grade == "normal")
-                    eqData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[0];
-                else
-                    eqData[i - 1].transform.GetChild(0).GetComponent<Image>().color = color[1];
+                eqData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
             }
         }
 
@@ -60,31 +52,6 @@ partial class ChestManager
 
             num++;
         }
-    }
-
-    Sprite GetPath(int kind)
-    {
-        string _imgName = "";
-
-        switch (kind)
-        {
-            case 1://무기
-                _imgName = "sword";
-                break;
-            case 2://갑옷
-                _imgName = "chest";
-                break;
-            case 3://장신구
-                _imgName = "amulet";
-                break;
-            case 4://전리품
-                _imgName = "gem";
-                break;
-        }
-
-        _imgName += ".png";
-
-        return (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Images/" + _imgName, typeof(Sprite));
     }
 
     //아이템 정보 출력
@@ -118,7 +85,9 @@ partial class ChestManager
         //_info에 저장된 개 수 만큼 for문 반복
         for (int i = 0; i < _info.Count; i++)
         {
-            popInfo.transform.GetChild(i).GetComponent<Text>().text = _info[i];
+            Debug.Log(popInfo0.transform.GetChild(i).name);
+
+            popInfo0.transform.GetChild(i).GetComponent<Text>().text = _info[i];
         }
     }
 
@@ -154,7 +123,7 @@ partial class ChestManager
         }
 
         //팝업을 끈다.
-        popInfo.SetActive(false);
+        popInfo0.SetActive(false);
 
         //보유한 장비 리스트를 업데이트한다.
         GetData();

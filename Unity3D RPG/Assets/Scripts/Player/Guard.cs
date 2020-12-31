@@ -28,6 +28,10 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         else
         {
             player.comboAtk.animator.SetBool("isGuard", false);
+            if(player.comboAtk.animator.GetBool("isGuardHit") == false)
+            {
+                player.isGuard = false;
+            }
 
         }
     }
@@ -47,6 +51,6 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
         player.state = Player.PlayerState.IDLE;
         isPress = false;
-        player.isGuard= false;
+        
     }
 }

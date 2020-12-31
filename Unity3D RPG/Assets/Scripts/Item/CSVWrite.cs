@@ -34,7 +34,9 @@ namespace CSVWrite
                 file.WriteLine('\n'+_storageStr);
                 file.Write(_abilityStr);
             }
-            AssetDatabase.ImportAsset(@filePath);
+
+            Resources.Load(filePath);
+            //AssetDatabase.ImportAsset(@filePath);
         }
     }
 }

@@ -30,7 +30,8 @@ public partial class ChestManager : MonoBehaviour
     public List<ItemInfo> lootList = new List<ItemInfo>();
 
     //정보 저장용
-    public GameObject popInfo; 
+    public GameObject popInfo0; 
+    public GameObject popInfo1; 
     int selectNumber;
 
     public void MakeData()
@@ -78,6 +79,12 @@ public partial class ChestManager : MonoBehaviour
         {
             lootsData[i] = loots.transform.GetChild(i).gameObject;
         }
+    }
+
+
+    Sprite GetPath(int id)
+    {
+        return Resources.Load<Sprite>(CSVData.Instance.find(id).iconPath);
     }
 
     public void Update()

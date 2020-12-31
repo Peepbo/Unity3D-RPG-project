@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-//using System;
 
 [System.Serializable]
 public struct WeaponBaseID
@@ -37,6 +36,7 @@ partial class SmathManager
     const string hand = "한손검";
     const string twoHand = "대검";
     const string dagger = "단검";
+    bool isWeapon =false;
     
     public WeaponBaseID baseWeaponID;
     public WeaponMaxLevel weaponMaxLevel;
@@ -44,6 +44,9 @@ partial class SmathManager
 
     public void OnWeaponButton()
     {
+        isWeapon = true;
+        isArmour = false;
+        isAcc = false;
         WeaponListSetActive();
     }
     private void WeaponListSerch()
@@ -56,23 +59,23 @@ partial class SmathManager
                 switch (_temp)
                 {
                     case WeaponKind.HAND_N:
-                             weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_N));
-                             break;
+                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_N));
+                        break;
                     case WeaponKind.HAND_R:
-                            weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_R));
-                             break;
-                    case WeaponKind.THAND_N:
-                             weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_N));
-                            break;
+                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_R));
+                        break;
+                    case WeaponKind.THAND_N:                     
+                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_N));
+                        break;
                     case WeaponKind.THAND_R:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_R));
-                         break;
+                        break;
                     case WeaponKind.DAGGER_N:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Dagger_N));
-                         break;
+                        break;
                     case WeaponKind.DAGGER_R:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Dagger_R));
-                          break;
+                        break;
                 }
             }
            
@@ -112,11 +115,17 @@ partial class SmathManager
     }
     private void WeaponListSetActive()
     {
+
         for (int i = 0; i < maxWeapon; i++)
         {
+            itemList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             itemList[i].SetActive(true);
             if (!itemList[i].GetComponent<Button>().interactable) ListDisable(i);
+
             WeaponListSetting(i);
+
+            int _i = i;// i는 계속 변하지만 _i는 한번생성되고 사라진다. 즉 1회용으로 이벤트에 넣어주기위해 사용 (이벤트에 레퍼런스타입으로 매개변수가 전달됌)
+            itemList[i].GetComponent<Button>().onClick.AddListener(delegate { OnWeaponClick(_i); });
         }
        
         if (itemList[maxWeapon].activeSelf)
@@ -127,9 +136,20 @@ partial class SmathManager
             }
         }
     }
+
+    private void OnWeaponClick(int num)
+    {
+        if (!isWeapon) return;
+
+        curruntInfo = weaponList[(WeaponKind)num];
+        
+        MaterialTextSetting();
+    }
+
+   
+
     private void WeaponListInsert(int id)
     {
-        
         ItemInfo _temp = CSVData.Instance.find(id);
         ItemInfo _itemDB =  CSVData.Instance.find(id+1);
         if (_temp.grade != _itemDB.grade) { _itemDB = _temp; }
@@ -162,7 +182,6 @@ partial class SmathManager
                     weaponList.Add(WeaponKind.DAGGER_R, _itemDB); 
                 }
                 break;
-
         }
     }
    

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,13 +11,22 @@ partial class SmathManager
     TextMeshProUGUI[] accListText;
     const int maxAcc = 35;
     const int startNum = 44;
+    bool isAcc = false;
     public void OnAccButton()
     {
+        isWeapon = false;
+        isArmour = false;
+        isAcc = true;
+
         for (int i = 0; i < maxAcc; i++)
         {
+            itemList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             itemList[i].SetActive(true);
             if (!itemList[i].GetComponent<Button>().interactable) ListDisable(i);
             AccListSetting(i);
+
+            int _i = i;
+            itemList[i].GetComponent<Button>().onClick.AddListener(delegate { OnAccClick(_i); });
         }
     }
 
@@ -51,5 +59,14 @@ partial class SmathManager
         }
 
     }
-    
+
+    private void OnAccClick(int num)
+    {
+        if (!isAcc) return;
+
+        curruntInfo = accList[num];
+
+        MaterialTextSetting();
+    }
+
 }

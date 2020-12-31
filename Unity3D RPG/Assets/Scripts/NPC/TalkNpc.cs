@@ -20,7 +20,7 @@ public class TalkNpc : MonoBehaviour
     public GameObject chestPanel;
 
     [Header("TRAINER")]
-    public GameObject GrowthPanel;
+    public GameObject growthPanel;
     public GameObject characteristicPanel;
 
     [Header("SMITH")]
@@ -55,6 +55,7 @@ public class TalkNpc : MonoBehaviour
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), equipPanel);
 
                     //action1
+                    ResetAndAddListener(childObj[1].GetComponent<Button>(), chestPanel);
 
                     break;
                 case NPC.TRAINER://3가지
@@ -90,12 +91,12 @@ public class TalkNpc : MonoBehaviour
     {
         btn.onClick.RemoveAllListeners();
 
-        UnityAction action = () =>
+        UnityAction _action = () =>
         {
             openPanel.SetActive(true);
             talkPanel.SetActive(false);
         };
 
-        btn.onClick.AddListener(action);
+        btn.onClick.AddListener(_action);
     }
 }

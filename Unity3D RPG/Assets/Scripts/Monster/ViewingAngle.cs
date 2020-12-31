@@ -85,34 +85,34 @@ public class ViewingAngle : MonoBehaviour
         //}
         return isCol;
     }
-    private void OnDrawGizmos()
-    {
-        //if (isCol)
-        //    Handles.color = Color.red;
-        //else
-        //    Handles.color = Color.yellow;
+    //private void OnDrawGizmos()
+    //{
+    //    //if (isCol)
+    //    //    Handles.color = Color.red;
+    //    //else
+    //    //    Handles.color = Color.yellow;
 
-        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, radius);
-        //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, radius);
+    //    //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, radius);
+    //    //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, radius);
 
 
-        if (isFind)
-        {
-            Handles.color = Color.red;
-        }
-        else Handles.color = Color.yellow;
+    //    if (isFind)
+    //    {
+    //        Handles.color = Color.red;
+    //    }
+    //    else Handles.color = Color.yellow;
 
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, findRadius);
-        Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, findRadius);
+    //    Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, findRadius);
+    //    Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, findRadius);
 
-        //if (isAttackable)
-        //{
-        //    Handles.color = Color.red;
-        //}
-        //else Handles.color = Color.yellow;
+    //    //if (isAttackable)
+    //    //{
+    //    //    Handles.color = Color.red;
+    //    //}
+    //    //else Handles.color = Color.yellow;
 
-        //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, attackRadius);
-        //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, attackRadius);
+    //    //Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, attackRadius);
+    //    //Handles.DrawSolidArc(transform.position, Vector3.down, transform.forward, angle / 2, attackRadius);
 
-    }
+    //}
 }

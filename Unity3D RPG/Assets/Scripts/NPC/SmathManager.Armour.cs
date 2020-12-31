@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,9 +29,12 @@ partial class SmathManager
     public ArmourBaseID baseArmourID;
     public ArmourMaxLevel armourMaxLevel;
     TextMeshProUGUI[] armourListText;
-
+    bool isArmour = false;
     public void OnArmourButton()
     {
+        isWeapon = false;
+        isArmour = true;
+        isAcc = false;
         ArmourListSetActive();
         
         
@@ -42,9 +44,14 @@ partial class SmathManager
     {
         for (int i = 0; i < maxArmour; i++)
         {
+            itemList[i].GetComponent<Button>().onClick.RemoveAllListeners();
             itemList[i].SetActive(true);
             if (!itemList[i].GetComponent<Button>().interactable) ListDisable(i);
+            
             ArmourListSetting(i);
+
+            int _i = i;
+            itemList[i].GetComponent<Button>().onClick.AddListener(delegate { OnArmourClick(_i); });
         }
         if (itemList[maxArmour].activeSelf)
         {
@@ -114,6 +121,16 @@ partial class SmathManager
             }
 
         }
+    }
+
+
+    private void OnArmourClick(int num)
+    {
+        if (!isArmour) return;
+
+        curruntInfo = armourList[(ArmourKind)num];
+
+        MaterialTextSetting();
     }
 
 }
