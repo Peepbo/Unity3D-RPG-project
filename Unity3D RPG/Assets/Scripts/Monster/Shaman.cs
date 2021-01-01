@@ -19,7 +19,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
     [Range(1, 5)]
     public float observeRange;
-    [Range(30, 180)]
+    [Range(30, 360)]
     public float angle;
     [Range(1, 5)]
     public float skillSpawn;
