@@ -40,13 +40,13 @@ public class JsonTest : Singleton<JsonTest>
 {
     protected JsonTest() { }
 
-    public CharacterInfo character;
+    //public CharacterInfo character;
 
     private void Start()
     {
-        character = new CharacterInfo(0, 8, new int[] { -1, -1, -1, -1 },
-            new List<SubItem> { new SubItem(1, 2), new SubItem(1, 2) },
-            new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        //character = new CharacterInfo(0, 8, new int[] { -1, -1, -1, -1 },
+        //    new List<SubItem> { new SubItem(1, 2), new SubItem(1, 2) },
+        //    new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
     }
 
     private void Update()
@@ -78,13 +78,30 @@ public class JsonTest : Singleton<JsonTest>
 
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            character.Money += 50;
-            Save();
+
+
+            PlayerData.Instance.myCurrency += 50;
+            Debug.Log("내 소지금" + PlayerData.Instance.myCurrency);
+
+            PlayerData.Instance.SaveData();
         }
     }
 
-    public void Save()
+    public void Save(int money, int point, int[] equip, int[] charac, List<SubItem> item)
     {
+        //public CharacterInfo(int money, int point, int[] equip, List<SubItem> item, int[] charac)
+        //{
+        //    Money = money;
+        //    StaturePoint = point;
+        //    Equip = equip;
+        //    Item = item;
+        //    Characteristic = charac;
+        //}
+
+        CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
+        //character = new CharacterInfo(0, 8, new int[] { -1, -1, -1, -1 },
+        //new List<SubItem> { new SubItem(1, 2), new SubItem(1, 2) },
+        //    new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
         //File.Delete(Application.dataPath + "/Resources/PlayerData.json");
 
         Debug.Log("저장하기");

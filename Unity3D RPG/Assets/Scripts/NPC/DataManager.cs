@@ -10,7 +10,11 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerData.Instance.LoadData();
+        PlayerData.Instance.LoadData_v2();
+
+        Debug.Log(PlayerData.Instance.myCurrency);
+
+        //PlayerData.Instance.LoadData();
         chestData.MakeData();
         chestData.ItemUpdate();
         chestData.OwnLoots();
@@ -19,6 +23,6 @@ public class DataManager : MonoBehaviour
         chestData.GetData();
 
         //statData.ResetStat();
-        //statData.GetData();
+        statData.GetData();
     }
 }

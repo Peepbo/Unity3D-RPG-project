@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class PlayerData : Singleton<PlayerData>
+public partial class PlayerData : Singleton<PlayerData>
 {
     protected PlayerData() { }
 
@@ -26,36 +26,51 @@ public class PlayerData : Singleton<PlayerData>
 
     public int myPotion;
 
-    public void SaveChest(int itemNumber)
+    public void LoadData_v2()
     {
-        ItemInfo _item = CSVData.Instance.find(itemNumber);
+        //화폐
+        myCurrency = JsonTest.Instance.LoadCurrency();
 
-        //없으면 ?
-        if (myItem.Contains(_item) == false) myItem.Add(_item);
-        //if (myItem.ContainsKey(itemNumber) == false) myItem[itemNumber] = 1;
-        
-        //있으면?
-        else
+        //Debug.Log("화폐 로드 완료 : " + myCurrency);
+
+        //성장
+        myStature = JsonTest.Instance.LoadStaturePoint();
+
+        //Debug.Log("성장 로드 완료 : " + myStature);
+
+        //장비
+        List<int> _equip = new List<int>(JsonTest.Instance.LoadEquip());
+        for (int i = 0; i < _equip.Count; i++)
         {
-            int _index = myItem.IndexOf(_item);
-            myItem[_index].count++;
-        }
-        //else myItem[itemNumber] += 1;
-
-        //SaveData();
-    }
-
-    public void SaveAbility(List<StatInfo> list)
-    {
-        for(int i = 0; i < 35; i ++)
-        {
-            if (list[i].isLearn) 
-                myAbility[i] = 1;
-            else 
-                myAbility[i] = 0;
+            myEquipment[i + 1] = _equip[i];
+            //Debug.Log(myEquipment[i + 1]);
         }
 
-        SaveData();
+        //Debug.Log("장비 로드 완료");
+
+        //특성
+        List<int> _ability = new List<int>(JsonTest.Instance.LoadCharacteristic());
+        for (int i = 0; i < _ability.Count; i++)
+        {
+            myAbility[i] = _ability[i];
+            //Debug.Log(myAbility[i]);
+        }
+
+        //Debug.Log("스텟 로드 완료");
+
+        //아이템
+        List<SubItem> _item = new List<SubItem>(JsonTest.Instance.LoadItem());
+        for(int i = 0; i < _item.Count; i++)
+        {
+            ItemInfo _Info = CSVData.Instance.find(_item[i].Id);
+            _Info.count = _item[i].Number;
+
+            myItem.Add(_Info);
+
+            //Debug.Log(_Info.id);
+        }
+
+        Debug.Log("플레이어 데이터 연동 완료");
     }
 
     public void LoadData()
@@ -101,38 +116,50 @@ public class PlayerData : Singleton<PlayerData>
 
     public void SaveData()
     {
-        List<int> _equip = new List<int>();
-
-        for(int i = 1; i < 4; i++)
-            _equip.Add(myEquipment[i]);
-
-        List<ItemInfo> _storage = new List<ItemInfo>();
-
-        for (int i = 0; i < myItem.Count; i++)
+        List<SubItem> _subItem = new List<SubItem>();
+        for(int i = 0; i < myItem.Count; i++)
         {
-            ItemInfo _item = CSVData.Instance.find(myItem[i].id);
-
-            int _itemCount = myItem[myItem.IndexOf(_item)].count;
-
-            if (_itemCount == 0)
-            {
-                myItem.RemoveAt(myItem.IndexOf(_item));
-                continue;
-            }
-
-            _item.count = _itemCount;
-
-            _storage.Add(_item);
+            SubItem _sub = new SubItem(myItem[i].id, myItem[i].count);
+            _subItem.Add(_sub);
         }
 
-        List<string> _ability = new List<string>();
+        int[] _equip = new int[4];
+        for (int i = 0; i < 4; i++)
+            _equip[i] = myEquipment[i + 1];
 
-        Debug.Log(myAbility[0].ToString());
-        for (int i = 0; i < 35; i++)
-        {
-            _ability.Add(myAbility[i].ToString());
-        }
+        JsonTest.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem);
+        //List<int> _equip = new List<int>();
 
-        CSVData.Instance.PlayerSave(myCurrency, _equip, _storage, _ability, "Resources/playerStateDB.csv");
+        //for(int i = 1; i < 4; i++)
+        //    _equip.Add(myEquipment[i]);
+
+        //List<ItemInfo> _storage = new List<ItemInfo>();
+
+        //for (int i = 0; i < myItem.Count; i++)
+        //{
+        //    ItemInfo _item = CSVData.Instance.find(myItem[i].id);
+
+        //    int _itemCount = myItem[myItem.IndexOf(_item)].count;
+
+        //    if (_itemCount == 0)
+        //    {
+        //        myItem.RemoveAt(myItem.IndexOf(_item));
+        //        continue;
+        //    }
+
+        //    _item.count = _itemCount;
+
+        //    _storage.Add(_item);
+        //}
+
+        //List<string> _ability = new List<string>();
+
+        //Debug.Log(myAbility[0].ToString());
+        //for (int i = 0; i < 35; i++)
+        //{
+        //    _ability.Add(myAbility[i].ToString());
+        //}
+
+        //CSVData.Instance.PlayerSave(myCurrency, _equip, _storage, _ability, "Resources/playerStateDB.csv");
     }
 }
