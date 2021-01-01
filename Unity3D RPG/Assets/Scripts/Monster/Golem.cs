@@ -202,7 +202,8 @@ public class Golem : EnemyMgr, IDamagedState
     }
     public override void Die()
     {
-
+        //DissolveEft eft = GetComponent<DissolveEft>();
+        //eft.SetValue(0);
     }
 
     private void OnDrawGizmos()
