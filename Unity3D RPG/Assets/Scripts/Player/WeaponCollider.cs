@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponCollider : MonoBehaviour
 {
 
-    public GameObject effect;
+    public GameObject[] effect;
     [SerializeField]
     private Player player;
     public MeshCollider meshCollider;
@@ -23,15 +23,14 @@ public class WeaponCollider : MonoBehaviour
 
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
         {
             meshCollider.enabled = false;
             other.GetComponent<IDamagedState>().Damaged(10);
-            Instantiate(effect, other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), transform.rotation);
+            Instantiate(effect[0], other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), transform.rotation);
+            Instantiate(effect[1], other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), transform.rotation);
             Debug.Log("충돌했다");
         }
     }
