@@ -67,6 +67,7 @@ public partial class PlayerData : Singleton<PlayerData>
 
             myItem.Add(_Info);
 
+            Debug.Log(_Info.itemName);
             //Debug.Log(_Info.id);
         }
 

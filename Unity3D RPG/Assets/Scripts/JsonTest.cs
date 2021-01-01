@@ -23,7 +23,7 @@ public class CharacterInfo
     public int Money;                                               // 돈
     public int StaturePoint;                                        // 성장 포인트
     public int[] Equip = new int[4];                                // 착용 장비
-    public List<SubItem> Item = new List<SubItem>();                        // 소지 아이템
+    public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
     public int[] Characteristic = new int[35];                      // 특성
 
     public CharacterInfo(int money, int point, int[] equip, List<SubItem> item, int[] charac)
@@ -40,51 +40,60 @@ public class JsonTest : Singleton<JsonTest>
 {
     protected JsonTest() { }
 
-    //public CharacterInfo character;
-
     private void Start()
     {
-        //character = new CharacterInfo(0, 8, new int[] { -1, -1, -1, -1 },
-        //    new List<SubItem> { new SubItem(1, 2), new SubItem(1, 2) },
-        //    new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+        if(File.Exists(Application.dataPath + "/Resources/PlayerData.json") == false)
+        {
+            Save(0, 0, new int[] { 1, 33, -1, -1 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new List<SubItem> {  });
+        }
+
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Debug.Log(LoadCurrency());
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    Debug.Log(LoadCurrency());
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Debug.Log(LoadStaturePoint());
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    Debug.Log(LoadStaturePoint());
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Debug.Log(LoadEquip());
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    Debug.Log(LoadEquip());
+        //}
 
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Debug.Log(LoadItem());
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    //PlayerData.Instance.myEquipment = new int[] { 777, 1, 33, -1, -1 };
+        //    //Debug.Log(LoadItem());
 
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Debug.Log(LoadCharacteristic());
-        }
+        //    PlayerData.Instance.SaveChest(2);
+        //    PlayerData.Instance.SaveChest(3);
+        //    PlayerData.Instance.SaveChest(4);
 
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
+        //    PlayerData.Instance.SaveData();
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Alpha5))
+        //{
+        //    Debug.Log(LoadCharacteristic());
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Y))
+        //{
 
 
-            PlayerData.Instance.myCurrency += 50;
-            Debug.Log("내 소지금" + PlayerData.Instance.myCurrency);
+        //    PlayerData.Instance.myCurrency += 50;
+        //    Debug.Log("내 소지금" + PlayerData.Instance.myCurrency);
 
-            PlayerData.Instance.SaveData();
-        }
+        //    PlayerData.Instance.SaveData();
+        //}
     }
 
     public void Save(int money, int point, int[] equip, int[] charac, List<SubItem> item)

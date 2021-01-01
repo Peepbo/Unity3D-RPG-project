@@ -7,6 +7,8 @@ partial class PlayerData
 {
     public void SaveChest(int itemNumber)
     {
+        //print(myItem.Count);
+
         ItemInfo _item = CSVData.Instance.find(itemNumber);
 
         //없으면 ?
@@ -18,10 +20,14 @@ partial class PlayerData
         {
             int _index = myItem.IndexOf(_item);
             myItem[_index].count++;
+
+            print(myItem[_index].count);
         }
         //else myItem[itemNumber] += 1;
 
-        //SaveData();
+        //print(myItem.Count);
+
+        SaveData();
     }
 
     public void SaveAbility(List<StatInfo> list)
