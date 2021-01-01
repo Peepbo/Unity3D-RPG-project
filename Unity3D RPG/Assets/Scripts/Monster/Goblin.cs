@@ -244,6 +244,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         isDamaged = false;
     }
+
     public void Damaged(int value)
     {
         if (isDamaged || isDead) return;
@@ -277,6 +278,8 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             //아이템 떨어트리기
             gameObject.SetActive(false);
+            StopCoroutine(GetDamage());
+            StopCoroutine(AttackRoutine());
         }
 
     }
