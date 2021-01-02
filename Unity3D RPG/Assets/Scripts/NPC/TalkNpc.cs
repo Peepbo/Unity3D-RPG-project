@@ -14,6 +14,7 @@ public class TalkNpc : MonoBehaviour
     }
     public NPC npcName;
     public GameObject talkPanel;
+    public Animator anim;
 
     [Header("CHEST")]
     public GameObject equipPanel;
@@ -30,6 +31,11 @@ public class TalkNpc : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            Debug.Log(npcName);
+            if (npcName != NPC.CHEST) anim.SetTrigger("Talk");
+
+            else anim.SetBool("Talk", true);
+
             talkPanel.SetActive(true);
 
             GameObject btn2 = talkPanel.transform.GetChild(0).gameObject;
@@ -84,6 +90,14 @@ public class TalkNpc : MonoBehaviour
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), smithPanel);
                     break;
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.tag == "Player" && npcName == NPC.CHEST)
+        {
+            anim.SetBool("Talk", false);
         }
     }
 
