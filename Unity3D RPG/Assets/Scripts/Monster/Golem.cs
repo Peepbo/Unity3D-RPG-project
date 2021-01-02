@@ -37,7 +37,7 @@ public class Golem : EnemyMgr, IDamagedState
         returnTohome.initVariable(controller, spawnPos, walkSpeed);
 
         returnTohome.setIsReturn(false);
-
+        anim.SetInteger("state", 0);
     }
     private void Update()
     {
@@ -68,6 +68,7 @@ public class Golem : EnemyMgr, IDamagedState
 
             if (findCount == 0)
             {
+                anim.SetBool("IsRush", true);
                 //Debug.Log("거리 : " + _distance);
                 //Debug.Log("공격 범위 : " + attackRange);
 
@@ -96,11 +97,13 @@ public class Golem : EnemyMgr, IDamagedState
                     //공격 범위에서 공격
                     if (_distance < attackRange)
                     {
+                        anim.SetInteger("state", 2);
                         AttackTarget();
                     }
                     //공격 범위 전까지 따라감
                     else
                     {
+                        anim.SetInteger("state", 1);
                         FollowTarget();
                     }
 
@@ -123,6 +126,7 @@ public class Golem : EnemyMgr, IDamagedState
 
     public void rushAttack()
     {
+        //anim.SetBool("IsRush", true);
         float _distance = (transform.position - spawnPos).magnitude;
 
         if (_distance < 20f)
@@ -139,17 +143,23 @@ public class Golem : EnemyMgr, IDamagedState
                     findCount = 1;
 
                     _hit.transform.GetComponent<Player>().GetDamage(atkPower);
+
+                    anim.SetBool("IsRush", false);
                 }
 
                 else if (_hit.transform.tag == "Object")
                 {
                     findCount = 1;
+
+                    anim.SetBool("IsRush", false);
                 }
             }
         }
         else
         {
             findCount = 1;
+
+            anim.SetBool("IsRush", false);
         }
 
     }
@@ -157,7 +167,7 @@ public class Golem : EnemyMgr, IDamagedState
     public void Idle()
     {
         //집 앞에서 가만히 있는다.
-        Debug.Log("집이닿");
+        anim.SetInteger("state", 0);
 
 
     }
@@ -172,6 +182,7 @@ public class Golem : EnemyMgr, IDamagedState
 
     public void ReturnHome()
     {
+        anim.SetInteger("state", 1);
         float _homeDistance = (spawnPos - transform.position).magnitude;
         setMoveType(returnTohome);
         returnTohome.move();
@@ -179,6 +190,7 @@ public class Golem : EnemyMgr, IDamagedState
         if (_homeDistance < 0.5f)
         {
             returnTohome.setIsReturn(false);
+            anim.SetInteger("state", 0);
         }
 
     }
