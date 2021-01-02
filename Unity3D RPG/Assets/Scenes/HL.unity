@@ -942,59 +942,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 172957959203777736, guid: c1ae720d60aedb4439b79fa227538f2d,
-        type: 3}
-      propertyPath: dashSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5042325360888793458, guid: c1ae720d60aedb4439b79fa227538f2d,
-        type: 3}
-      propertyPath: showShapes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5042325360888793458, guid: c1ae720d60aedb4439b79fa227538f2d,
-        type: 3}
-      propertyPath: showPresets
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5042325360888793458, guid: c1ae720d60aedb4439b79fa227538f2d,
-        type: 3}
-      propertyPath: showScripting
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1ae720d60aedb4439b79fa227538f2d, type: 3}
---- !u!1 &172957958093577137 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 172957959203777731, guid: c1ae720d60aedb4439b79fa227538f2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 172957958093577136}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &172957958093577138 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5042325360971421231, guid: c1ae720d60aedb4439b79fa227538f2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 172957958093577136}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &172957958093577139 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 5042325360971421229, guid: c1ae720d60aedb4439b79fa227538f2d,
-    type: 3}
-  m_PrefabInstance: {fileID: 172957958093577136}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &172957958093577140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172957958093577137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89bf08203aebcb49b84dc988a34e908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthRenderers:
-  - {fileID: 172957958093577139}
-  - {fileID: 172957958093577138}
-  dissolveSpeed: 2

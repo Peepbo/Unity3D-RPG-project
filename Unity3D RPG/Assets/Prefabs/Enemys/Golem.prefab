@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 172957959203777736}
   - component: {fileID: 172957959203777737}
   - component: {fileID: 172957959203777738}
+  - component: {fileID: 172957958093577140}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Enemy
@@ -100,7 +101,7 @@ MonoBehaviour:
   attackRange: 3
   atkPower: 2
   maxHp: 10
-  dashSpeed: 20
+  dashSpeed: 10
 --- !u!143 &172957959203777737
 CharacterController:
   m_ObjectHideFlags: 0
@@ -138,6 +139,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &172957958093577140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172957959203777731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b89bf08203aebcb49b84dc988a34e908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthRenderers:
+  - {fileID: 5042325360971421229}
+  - {fileID: 5042325360971421231}
+  dissolveSpeed: 2
 --- !u!1001 &172957959180427269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,6 +227,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5160993694230492712, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2a4f93620ded2014d9ce87040b42e796, type: 2}
+    - target: {fileID: 5160993694230492714, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 449ddb4780250ff449e79889d4ffcc0c, type: 2}
     - target: {fileID: 5160993694234593512, guid: 8b5ce15162f0d4a539e49c131c5734f2,
         type: 3}
       propertyPath: m_Controller
@@ -220,11 +247,38 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5160993694349715831, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+        type: 3}
+      propertyPath: showPresets
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160993694349715831, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+        type: 3}
+      propertyPath: showShapes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160993694349715831, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+        type: 3}
+      propertyPath: showScripting
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b5ce15162f0d4a539e49c131c5734f2, type: 3}
 --- !u!4 &5042325360968075129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5160993694227408764, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 172957959180427269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5042325360971421229 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5160993694230492712, guid: 8b5ce15162f0d4a539e49c131c5734f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 172957959180427269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &5042325360971421231 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5160993694230492714, guid: 8b5ce15162f0d4a539e49c131c5734f2,
     type: 3}
   m_PrefabInstance: {fileID: 172957959180427269}
   m_PrefabAsset: {fileID: 0}
