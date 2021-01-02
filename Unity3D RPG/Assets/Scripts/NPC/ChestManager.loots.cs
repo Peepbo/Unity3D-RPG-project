@@ -38,9 +38,6 @@ partial class ChestManager
                 int _itemNumber = lootList[i - 1].id;
 
                 lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
-
-                ItemInfo _item = CSVData.Instance.find(_itemNumber);
-
                 popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
 
             }
