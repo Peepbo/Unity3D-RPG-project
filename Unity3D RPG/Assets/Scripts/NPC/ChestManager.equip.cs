@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
@@ -40,12 +39,7 @@ partial class ChestManager
                 continue;
             }
 
-            data.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(equipList[num].kindID);
-
-            if (equipList[num].grade == "normal")
-                data.transform.GetChild(0).GetComponent<Image>().color = color[0];
-            else
-                data.transform.GetChild(0).GetComponent<Image>().color = color[1];
+            data.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(equipList[num].id);
 
             if (!data.GetComponent<Button>().enabled)
                 data.GetComponent<Button>().enabled = true;
@@ -85,7 +79,7 @@ partial class ChestManager
         //_info에 저장된 개 수 만큼 for문 반복
         for (int i = 0; i < _info.Count; i++)
         {
-            Debug.Log(popInfo0.transform.GetChild(i).name);
+            //Debug.Log(popInfo0.transform.GetChild(i).name);
 
             popInfo0.transform.GetChild(i).GetComponent<Text>().text = _info[i];
         }

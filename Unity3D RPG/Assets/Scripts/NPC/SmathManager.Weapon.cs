@@ -30,7 +30,7 @@ enum WeaponKind
 }
 partial class SmathManager
 {
-    const int maxWeapon = 6;
+    const int maxWeapon = 4;
     TextMeshProUGUI[] weaponListText;
     Dictionary<WeaponKind,ItemInfo> weaponList = new Dictionary<WeaponKind,ItemInfo>();
     const string hand = "한손검";

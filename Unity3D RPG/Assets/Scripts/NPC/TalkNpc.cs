@@ -79,9 +79,9 @@ public class TalkNpc : MonoBehaviour
                     btn3.SetActive(false);
 
                     childObj[0] = btn2.transform.GetChild(0).gameObject;
-
-                    childObj[0].GetComponent<Text>().text = "장비 제작";
-
+                    
+                    childObj[0].GetComponentInChildren<Text>().text = "장비 제작";
+                    ResetAndAddListener(childObj[0].GetComponent<Button>(), smithPanel);
                     break;
             }
         }

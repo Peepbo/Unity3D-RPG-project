@@ -144,7 +144,5 @@ partial class Player
         comboAtk.animator.SetTrigger("Die");
 
     }
-
-
 }
 

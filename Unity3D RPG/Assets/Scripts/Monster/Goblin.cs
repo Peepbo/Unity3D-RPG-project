@@ -15,7 +15,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
     [Range(3, 7)]
     public float observeRange;
-    [Range(0, 180)]
+    [Range(10, 360)]
     public float angle;
 
 
@@ -83,7 +83,7 @@ public class Goblin : EnemyMgr, IDamagedState
             }
 
 
-            //Observe range 안에 있을 때
+            //Observe 상태일 때
             if (observe.getIsObserve())
             {
                 //타겟을 찾으면
@@ -99,7 +99,7 @@ public class Goblin : EnemyMgr, IDamagedState
                 }
 
             }
-            //Observe range 안에 없을 때
+            //Observe 상태가 아닐 때
             else
             {
                 //player가 공격 범위에 들어오면
@@ -244,6 +244,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         isDamaged = false;
     }
+
     public void Damaged(int value)
     {
         if (isDamaged || isDead) return;
@@ -277,6 +278,8 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             //아이템 떨어트리기
             gameObject.SetActive(false);
+            StopCoroutine(GetDamage());
+            StopCoroutine(AttackRoutine());
         }
 
     }
