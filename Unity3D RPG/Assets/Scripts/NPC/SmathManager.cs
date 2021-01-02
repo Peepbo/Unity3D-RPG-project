@@ -137,8 +137,8 @@ public partial class SmathManager : MonoBehaviour
             materialText[i].text = "";
             if (i < materialMaxCount/2)
                 isHasMaterial[i] = false;
-            materialCount = 0;
         }
+        materialCount = 0;
 
         if ((materialText[0].text = curruntInfo.ingredient1) != "")
         { MaterialText(materialText[1], LootFind(curruntInfo.ingredient1), curruntInfo.ingredientCount1.ToString()); }
