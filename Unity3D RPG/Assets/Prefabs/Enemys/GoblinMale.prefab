@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 983756614664175078}
   - component: {fileID: 1813474528603844306}
   - component: {fileID: 1813474528529976010}
+  - component: {fileID: -1324745572845981226}
   m_Layer: 0
   m_Name: GoblinMale
   m_TagString: Enemy
@@ -156,6 +157,28 @@ MonoBehaviour:
   observeRange: 5
   angle: 210
   weapon: {fileID: 7681984312012923756}
+--- !u!195 &-1324745572845981226
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347180348202103792}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2171380841808287636
 GameObject:
   m_ObjectHideFlags: 0
@@ -5032,15 +5055,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f690084620501f84b873643c709f83ac, type: 3}
---- !u!1 &7681984312012923756 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7985867327651434641, guid: f690084620501f84b873643c709f83ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 308606533953434621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7681984312012675180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7985867327651130257, guid: f690084620501f84b873643c709f83ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 308606533953434621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7681984312012923756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7985867327651434641, guid: f690084620501f84b873643c709f83ac,
     type: 3}
   m_PrefabInstance: {fileID: 308606533953434621}
   m_PrefabAsset: {fileID: 0}

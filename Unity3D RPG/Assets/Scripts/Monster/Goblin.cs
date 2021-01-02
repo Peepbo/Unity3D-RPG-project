@@ -37,13 +37,15 @@ public class Goblin : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
-
+        //AI.stoppingDistance = attackRange;
 
         weapon.GetComponent<AxColision>().SetDamage(atkPower);
 
         observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
         follow.initVariable(controller, target, speed);
+        //follow.initVariable(AI, target, speed);
         returnToHome.initVariable(controller, startPos, speed);
+        //returnToHome.initVariable(AI, startPos, speed);
 
         anim.SetInteger("state", 0);
     }
@@ -60,16 +62,13 @@ public class Goblin : EnemyMgr, IDamagedState
 
         bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
 
-
-        //if (Input.GetKeyDown(KeyCode.L))
-        //{
-        //    Damaged(atkPower);
-        //}
+    
 
         if (isDead) Die();
 
         else
         {
+           
             if (isDamaged) return;
 
             //animation idle or run
@@ -89,6 +88,7 @@ public class Goblin : EnemyMgr, IDamagedState
                 //타겟을 찾으면
                 if (_isFind)
                 {
+
                     observe.setIsObserve(false);
 
                 }
@@ -105,6 +105,7 @@ public class Goblin : EnemyMgr, IDamagedState
                 //player가 공격 범위에 들어오면
                 if (_distance < attackRange)
                 {
+                   
                     anim.SetInteger("state", 2);
 
                 }
@@ -128,6 +129,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
                         if (anim.GetBool("isRest") == false)
                         {
+                           // AI.stoppingDistance = 0.5f;
                             ReturnToStart();
                         }
                     }
@@ -191,7 +193,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         Move();
 
-        if (_homeDistance <= 0.1f)
+        if (_homeDistance <= 0.5f)
         {
             returnToHome.setIsReturn(false);
             observe.setIsObserve(true);

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class EnemyMgr : MonoBehaviour
 {
     private IMoveAble moveType;
     private IAttackAble attackType;
-
+    protected NavMeshAgent AI;
     protected CharacterController controller;
     protected GameObject target;
     protected Animator anim;
@@ -38,6 +39,7 @@ public abstract class EnemyMgr : MonoBehaviour
             if (transform.GetChild(i).tag == "Animation")
                 anim = transform.GetChild(i).GetComponent<Animator>();
         }
+        AI = gameObject.GetComponent<NavMeshAgent>();
 
         isDead = false;
     }
