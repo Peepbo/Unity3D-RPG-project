@@ -10,7 +10,7 @@ public partial class SmathManager : MonoBehaviour
     const string normal = "normal";
     const string make = "제작하기 ";
     const int materialMaxCount = 8;
-    bool[] isHasMaterial = new bool[4];
+    bool[] isHasMaterial = new bool[materialMaxCount/2];
     int materialCount;
     public float makePercent =0.9f;
     TextMeshProUGUI moneyText;
@@ -132,12 +132,13 @@ public partial class SmathManager : MonoBehaviour
         makeButton.GetComponentInChildren<TextMeshProUGUI>().text = make + curruntInfo.price.ToString();
 
 
-        for (int i = 0; i < materialMaxCount; i++) { 
+        for (int i = 0; i < materialMaxCount; i++) 
+        { 
             materialText[i].text = "";
-            if (i < 4)
+            if (i < materialMaxCount/2)
                 isHasMaterial[i] = false;
             materialCount = 0;
-                }
+        }
 
         if ((materialText[0].text = curruntInfo.ingredient1) != "")
         { MaterialText(materialText[1], LootFind(curruntInfo.ingredient1), curruntInfo.ingredientCount1.ToString()); }
