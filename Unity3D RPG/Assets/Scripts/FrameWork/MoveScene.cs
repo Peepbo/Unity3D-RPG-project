@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class MoveScene : MonoBehaviour
 {
+    public bool isTrigger = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (isTrigger)
         {
-            LoadingSceneController.Instance.LoadScene("gameScene 2");
+            if (other.tag == "Player")
+            {
+                LoadingSceneController.Instance.LoadScene("Dungeon 1");
+            }
         }
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        LoadingSceneController.Instance.LoadScene(sceneName);
     }
 }
