@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.AI;
 
 public class Golem : EnemyMgr, IDamagedState
 {
@@ -17,8 +17,6 @@ public class Golem : EnemyMgr, IDamagedState
     private Vector3 findTargetDir;
     private FollowTarget follow;
     private ReturnMove returnTohome;
-
-
 
     protected override void Awake()
     {
@@ -51,8 +49,6 @@ public class Golem : EnemyMgr, IDamagedState
             //집에 있다가 타겟을 찾으면
             if (_distance < findRange)
             {
-                Debug.Log("찾았다!");
-
                 findTargetDir = (target.transform.position - spawnPos).normalized;
                 isStay = false;
             }
@@ -69,26 +65,20 @@ public class Golem : EnemyMgr, IDamagedState
             if (findCount == 0)
             {
                 anim.SetBool("IsRush", true);
-                //Debug.Log("거리 : " + _distance);
-                //Debug.Log("공격 범위 : " + attackRange);
-
-                //if (_distance < findRange)
-                //{
-
-                //}
                 rushAttack();
 
-                //플레이어에 닿으면 setfindCount1 , damage넣기 
-
-                //if (_distance < 1.4f)
+                //NavMeshHit hit;
+                //if (!AI.Raycast(target.transform.position, out hit))
                 //{
-                //    Debug.Log(_distance + ", " + attackRange);
-                //    findCount = 1;
+                //    findTargetDir = (target.transform.position - spawnPos).normalized;
+                //    anim.SetBool("IsRush", true);
+                //    rushAttack();
                 //}
 
             }
             else
             {
+                Debug.Log("1");
 
                 //집에 없을 때 타겟을 찾으면
                 if (_distance < findRange && !returnTohome.getIsReturn())
@@ -129,8 +119,10 @@ public class Golem : EnemyMgr, IDamagedState
         //anim.SetBool("IsRush", true);
         float _distance = (transform.position - spawnPos).magnitude;
 
+
         if (_distance < 20f)
         {
+            //  AI.Move(findTargetDir * dashSpeed* Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(findTargetDir);
             controller.Move(findTargetDir * dashSpeed * Time.deltaTime);
 
@@ -138,7 +130,7 @@ public class Golem : EnemyMgr, IDamagedState
             RaycastHit _hit;
             if (Physics.Raycast(transform.position, transform.forward, out _hit, 1.5f))
             {
-                if(_hit.transform.tag == "Player")
+                if (_hit.transform.tag == "Player")
                 {
                     findCount = 1;
 
@@ -202,7 +194,7 @@ public class Golem : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
-        if (isDead) return;
+        if (isDamaged || isDead) return;
 
         hp -= value;
 
