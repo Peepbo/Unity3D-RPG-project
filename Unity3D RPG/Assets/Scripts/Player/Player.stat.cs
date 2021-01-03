@@ -22,11 +22,15 @@ partial class Player
     
     public int              maxStamina = 100;   //  최대 스태미나(최대기력)
     public int              stamina = 100;      //  스태미나(기력)
-    float                     staminaTime =0f;     //  스태미나 충전시간
+    float                   staminaTime =0f;     //  스태미나 충전시간
     
     public float            def;                //  방어력
-    public float            power;              //  공격력
+    public float            increasedDef;       //  방어력 증가치
 
+    public float            power;              //  공격력
+    public float            increasedAtk= 0;    //  공격력 증가치
+    public float            realAtk;            //  최종 공격력
+    
     public int              dashValue;          //  플레이어 회피시 스태미너 소모량
     public float            dashTime;           //  플레이어 회피시간
     public float            dashSpeed;          //  플레이어 회피속도
@@ -34,13 +38,61 @@ partial class Player
     public float            guardStamina;       //  가드시 소모되는 스태미나(1데미지당 10스태미나)
     public PlayerCondition  condition;          //  플레이어 상태이상
 
-    public float            atkSpeed = 5;           //  공격 속도
+    public float            atkSpeed = 1;       //  공격 속도
 
+    public int              weaponKind;         //  무기 종류 0 = 한손검 1 = 두손검
+
+    public AnimatorOverrideController overrideController1H;
+    public AnimatorOverrideController overrideController2H;
+
+
+    ItemInfo weapon = new ItemInfo();
+    ItemInfo armor = new ItemInfo();
+    ItemInfo accessory = new ItemInfo();
+    ItemInfo bossItem = new ItemInfo();
 
     void PlayerStatUpdate()
     {
         StaminaReload();
     }
+    
+    public void EquipStat()
+    {
+        if(weapon != PlayerData.Instance.EquipWeapon())
+        {
+            weapon = PlayerData.Instance.EquipWeapon();
+            if (weapon.kind == "한손검")
+            {
+                weaponKind = 0;
+                animator.runtimeAnimatorController = overrideController1H;
+
+            }
+            else if (weapon.kind == "대검")
+            {
+                weaponKind = 1;
+                animator.runtimeAnimatorController = overrideController2H;
+
+            }
+            increasedAtk = weapon.atk;
+            atkSpeed = weapon.atkSpeed;
+        }
+        if (armor != PlayerData.Instance.EquipArmor())
+        {
+            armor = PlayerData.Instance.EquipArmor();
+            increasedDef = armor.def;
+        }
+        if (accessory != PlayerData.Instance.EquipAccessory())
+        {
+            accessory = PlayerData.Instance.EquipAccessory();
+        }
+        if(bossItem != PlayerData.Instance.EquipBossItem())
+        {
+            bossItem = PlayerData.Instance.EquipBossItem();
+        }
+    }
+    
+
+    
     public void GetHp(int value)
     {
         hp += value;
@@ -48,8 +100,8 @@ partial class Player
         {
             hp = maxHp;
         }
-
     }
+
     public void GetDamage(int damage)
     {
         if(isGuard)
@@ -82,10 +134,10 @@ partial class Player
                 staminaTime+= Time.deltaTime;
                 if(isFight)
                 {
-                    if( staminaTime > 12*Time.deltaTime)
+                    if( staminaTime > 6*Time.deltaTime)
                     {
                         staminaTime = 0;
-                        stamina++;
+                        stamina+=maxStamina/200;
                     }
                 }
                 else
@@ -93,7 +145,7 @@ partial class Player
                     if (staminaTime > 6 * Time.deltaTime)
                     {
                         staminaTime = 0;
-                        stamina++;
+                        stamina+= maxStamina/100;
                     }
                 }
             }

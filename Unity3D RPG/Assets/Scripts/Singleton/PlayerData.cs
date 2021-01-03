@@ -12,10 +12,11 @@ public partial class PlayerData : Singleton<PlayerData>
 
     //내가 착용한 아이템(아이템 넘버로 저장함)
     // {더미, 무기, 갑옷, 악세사리}  
-    public int[] myEquipment = { 123, -1, -1, -1, -1 };
+    public int[] myEquipment = { 123, -1, -1, -1, -1 }; // 1. 무기 2. 방어구 3. 악세사리 4.보스스킬?
     //0으로 초기화 안 한 이유는 아이템 넘버가 0부터 존재해서..
 
     //내 특성
+
     public int[] myAbility = new int[35];
 
     //내가 가지고 있는 화폐
@@ -25,6 +26,57 @@ public partial class PlayerData : Singleton<PlayerData>
     public int myStature;
 
     public int myPotion;
+
+    public ItemInfo myWeapon = new ItemInfo();
+    public ItemInfo myArmor = new ItemInfo();
+    public ItemInfo myAccessory = new ItemInfo();
+    public ItemInfo myBossItem = new ItemInfo();
+    public int currentWeapon = -1;
+    public int currentArmor = -1;
+    public int currentAccessory = -1;
+    public int currentBossItem = -1;
+
+    public ItemInfo EquipWeapon()
+    {
+
+        if (myEquipment[1] >= 0 && currentWeapon != myEquipment[1])
+        {
+            currentWeapon = myEquipment[1];
+            myWeapon = CSVData.Instance.find(myEquipment[1]);
+        }
+        return myWeapon;
+    }
+    public ItemInfo EquipArmor()
+    {
+
+        if (myEquipment[2] >= 0 && currentArmor != myEquipment[2])
+        {
+            currentArmor = myEquipment[2];
+            myArmor = CSVData.Instance.find(myEquipment[2]);
+        }
+        return myArmor;
+    }
+    public ItemInfo EquipAccessory()
+    {
+
+        if (myEquipment[3] >= 0 && currentAccessory != myEquipment[3])
+        {
+            currentAccessory = myEquipment[3];
+            myAccessory = CSVData.Instance.find(myEquipment[3]);
+        }
+        return myAccessory;
+    }
+    public ItemInfo EquipBossItem()
+    {
+
+        if (myEquipment[4] >= 0 && currentBossItem != myEquipment[4])
+        {
+            currentBossItem = myEquipment[4];
+            myBossItem = CSVData.Instance.find(myEquipment[4]);
+        }
+        return myBossItem;
+    }
+
 
     public void LoadData_v2()
     {
@@ -77,7 +129,7 @@ public partial class PlayerData : Singleton<PlayerData>
     public void LoadData()
     {
         ItemInfo _item = null;
-
+      
         int _itemNumber = 0;
 
         for (int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
@@ -131,6 +183,7 @@ public partial class PlayerData : Singleton<PlayerData>
         JsonTest.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem);
         //List<int> _equip = new List<int>();
 
+        
         //for(int i = 1; i < 4; i++)
         //    _equip.Add(myEquipment[i]);
 
