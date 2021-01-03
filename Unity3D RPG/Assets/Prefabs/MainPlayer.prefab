@@ -312,14 +312,22 @@ MonoBehaviour:
   hp: 100
   maxStamina: 300
   stamina: 300
-  def: 0
-  power: 0
+  def: 10
+  increasedDef: 0
+  power: 10
+  increasedAtk: 0
+  realAtk: 0
   dashValue: 40
   dashTime: 0.25
   dashSpeed: 10
   guardStamina: 0
   condition: 0
-  atkSpeed: 5
+  atkSpeed: 1
+  weaponKind: 0
+  overrideController1H: {fileID: 22100000, guid: cf23f29ece07aae4bb115b3e5c1aed74,
+    type: 2}
+  overrideController2H: {fileID: 22100000, guid: 99eaf6f6f303bae49bdfba2cbc2cae47,
+    type: 2}
   isDash: 0
   isGuard: 0
   isCri: 0
@@ -336,6 +344,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WeaponTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828093489133307292, guid: d2aa57d178998654c95ed30b09023672,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4828093489133307295, guid: d2aa57d178998654c95ed30b09023672,
         type: 3}

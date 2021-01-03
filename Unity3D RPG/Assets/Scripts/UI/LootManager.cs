@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LootManager : MonoBehaviour
 {
-    public GameObject lootButton;
-    public GameObject lootPanel;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +16,4 @@ public class LootManager : MonoBehaviour
         
     }
 
-    public void openLoot()
-    {
-        lootPanel.SetActive(true);
-    }
-
-    public void closeLoot()
-    {
-        lootPanel.SetActive(false);
-    }
 }

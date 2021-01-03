@@ -9,6 +9,7 @@ public class ComboAtk : MonoBehaviour
     Button atkButton;
     Button criButton;
     public Animator animator;
+    public Animator[] animators;
     public Player player;
     bool isCombo;
     bool isCriCombo;
@@ -154,4 +155,6 @@ public class ComboAtk : MonoBehaviour
             player.isCri = false;
         }
     }
+
+
 }
