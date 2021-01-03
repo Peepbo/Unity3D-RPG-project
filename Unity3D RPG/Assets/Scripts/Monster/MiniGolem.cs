@@ -60,23 +60,21 @@ public class MiniGolem : EnemyMgr, IDamagedState
                 {
 
                     findDistance = (spawnPos - transform.position).magnitude;
-                  
-                    
+
+
                     if (findDistance < 20f)
                     {
                         AI.Move(directionToTarget * dashSpeed * Time.deltaTime);
 
                     }
+                   // else if()
                     else
                     {
                         findCount = 1;
                     }
 
                 }
-                else
-                {
-                    findCount = 1;
-                }    
+               
             }
             else
             {
