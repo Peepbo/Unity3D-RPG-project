@@ -7,13 +7,15 @@ public class AnimationEvent : MonoBehaviour
     public enum MONSTER
     {
         GOBLIN,
-        SHAMAN
+        SHAMAN,
+        GOLEM
     }
 
     public MONSTER monster;
 
     Goblin goblin;
     Shaman shaman;
+    MiniGolem golem;
 
     private void Start()
     {
@@ -25,9 +27,13 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.SHAMAN:
                 shaman = gameObject.GetComponentInParent<Shaman>();
                 break;
+            case MONSTER.GOLEM:
+                golem = gameObject.GetComponentInParent<MiniGolem>();
+                break;
         }
     }
 
+    #region Goblin
     public void GetRest()
     {
         goblin.GetRest();
@@ -42,9 +48,20 @@ public class AnimationEvent : MonoBehaviour
     {
         goblin.DeActiveMeshCol();
     }
+    #endregion
 
+    #region Shaman
     public void Flame()
     {
         shaman.Flame();
     }
+    #endregion
+
+    #region Golem
+    public void GetRandomNum()
+    {
+        golem.GetRandomNum();
+    }
+    #endregion
+
 }
