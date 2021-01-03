@@ -45,7 +45,6 @@ public class MiniGolem : EnemyMgr, IDamagedState
         Vector3 _temp = directionToTarget;
         _temp.y = 0;
 
-        
 
         RaycastHit _rayHit;
 
@@ -60,8 +59,7 @@ public class MiniGolem : EnemyMgr, IDamagedState
 
                 //Vector3 _myPos = transform.position;
                 //_myPos.y = 0;
-
-
+              
                 if (Physics.Raycast(transform.position, _temp, out _rayHit, findRange))
                 {
                     //집에 있음
@@ -158,7 +156,7 @@ public class MiniGolem : EnemyMgr, IDamagedState
 
                 if (isReturn)
                 {
-                    Debug.LogError(Vector3.Distance(spawnPos, transform.position));
+                 //   Debug.LogError(Vector3.Distance(spawnPos, transform.position));
 
                     if (Vector3.Distance(spawnPos, transform.position) < 0.5f)
                     {
