@@ -59,6 +59,7 @@ public class TalkNpc : MonoBehaviour
                     childObj[0].transform.GetChild(0).GetComponent<Text>().text = "장비 착용";
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "아이템 확인";
 
+
                     //addListener
 
                     //action0
