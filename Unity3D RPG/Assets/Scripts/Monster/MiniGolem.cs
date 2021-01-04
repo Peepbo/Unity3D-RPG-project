@@ -52,47 +52,20 @@ public class MiniGolem : EnemyMgr, IDamagedState
         Vector3 _temp = directionToTarget;
         _temp.y = 0;
 
-
         RaycastHit _rayHit;
-        NavMeshHit _navHit;
 
-        //Debug.DrawRay()
+        Debug.DrawRay(transform.position, _temp * findRange, Color.red);
 
-
-        //character controller로 변경하기(돌진만)
-
+      
         if (isStay)
         {
             anim.SetInteger("state", 0);
-            Debug.DrawRay(transform.position, _temp * findRange, Color.red);
 
             if (distanceBtwTarget < findRange)
             {
-                if(AI.Raycast(target.transform.position, out _navHit) == false) // 장애물이 없을때!
-                {
-                    anim.SetBool("IsRush", true);
-
-                    findDirection = (target.transform.position - transform.position).normalized;
-                    isStay = false;
-
-                    if (AI.Raycast(findDirection * 20f, out _navHit))
-                    {
-                        rushDes = findDirection * _navHit.distance;
-                    }
-                    else rushDes = findDirection * 20f;
-                }
-
-                //if (Physics.Raycast(transform.position, _temp, out _rayHit, findRange))
-                //{
-                //    //집에 있음
-                //    if (_rayHit.transform.tag == "Player")
-                //    {
-                //        anim.SetBool("IsRush",true);
-                //        findDirection = (target.transform.position - transform.position).normalized;
-                //        isStay = false;
-                //    }
-
-                //}
+                //멀써야될까요???
+                findDirection = (target.transform.position - transform.position).normalized;
+                isStay = false;
             }
         }
 
@@ -103,26 +76,18 @@ public class MiniGolem : EnemyMgr, IDamagedState
                 //처음 플레이어를 발견했을 때
                 findDistance = (spawnPos - transform.position).magnitude;
 
-
-
-                if (findDistance < 20f)
+                if (findDistance < findRange)
                 {
                     Debug.Log("돌격!");
-                    AI.speed = dashSpeed;
 
-                    AI.stoppingDistance = 0;
-
-                    
-                    AI.SetDestination(rushDes);
-
+                    findDirection.y = 0;
+                    transform.rotation = Quaternion.LookRotation(findDirection);
+                    controller.SimpleMove(findDirection * dashSpeed);
 
                     if (view.FoundTarget(target, 1.5f, 35f))
                     {
-                        Debug.Log(target.transform.tag);
-                        //데미지
-                        AI.velocity = Vector3.zero;
-                        AI.stoppingDistance = 1;
-                        AI.isStopped = true;
+                        //Debug.Log(target.transform.tag);
+
                         findCount = 1;
 
                         anim.SetBool("IsRush", false);
@@ -132,9 +97,8 @@ public class MiniGolem : EnemyMgr, IDamagedState
                     {
                         if (_rayHit.transform.tag == "Object")
                         {
-                            AI.velocity = Vector3.zero;
-                            AI.stoppingDistance = 1;
-                            AI.isStopped = true;
+                            Debug.Log("벽");
+
                             findCount = 1;
 
                             anim.SetBool("IsRush", false);
@@ -145,10 +109,8 @@ public class MiniGolem : EnemyMgr, IDamagedState
 
                 else
                 {
-                    AI.stoppingDistance = 1;
-                    Debug.Log("멈춰!");
+                    //Debug.Log("멈춰!");
 
-                    AI.velocity = Vector3.zero;
                     findCount = 1;
 
                     anim.SetBool("IsRush", false);
@@ -220,8 +182,6 @@ public class MiniGolem : EnemyMgr, IDamagedState
     public override void Die()
     {
 
-
-
     }
 
     private void OnDrawGizmos()
@@ -240,24 +200,39 @@ public class MiniGolem : EnemyMgr, IDamagedState
     {
         //rest를 켜고
         anim.SetBool("IsRest", true);
-        yield return new WaitForSeconds(1.5f);
-
         //Vector3 _direction = target.transform.position - transform.position;
         //_direction.Normalize();
         //_direction.y = 0;
-
+        
         ////transform.LookAt(_direction);
 
         //transform.forward = (_direction);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
+
+
         //rest를 끈다
         anim.SetBool("IsRest", false);
+        AI.updateRotation = true;
     }
 
     public void GetRest()
     {
         StartCoroutine(AttackRoutine());
+    }
+
+
+    public void ChageRotation()
+    {
+        AI.updateRotation = false;
+        directionToTarget.y = 0;
+        transform.rotation = Quaternion.LookRotation(directionToTarget);
+    }
+
+    IEnumerator RotateTransform()
+    {
+        
+        yield return new WaitForSeconds(2f);
     }
     #endregion
 }
