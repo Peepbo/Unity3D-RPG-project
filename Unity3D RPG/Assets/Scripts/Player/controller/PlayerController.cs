@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
             value3 = _move;
 
 
-            if (player.isFight == false && player.isGuard == false)
+            if (player.isFight == false && player.isGuard == false/*&& UiManager.Instance.PanelOpen == false*/)
             {
                 if(_move != Vector3.zero)
                 {
