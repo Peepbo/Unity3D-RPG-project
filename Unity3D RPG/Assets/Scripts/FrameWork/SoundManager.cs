@@ -178,6 +178,6 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     IEnumerator ObjectPoolReturn(float time, GameObject gameObject)
-    { yield return new WaitForSeconds(time); gameObject.SetActive(false); }
+    {yield return new WaitForSecondsRealtime(time); gameObject.SetActive(false); }
 }
 
