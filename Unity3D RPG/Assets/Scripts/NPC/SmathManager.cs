@@ -273,5 +273,10 @@ public partial class SmathManager : MonoBehaviour
                 { PlayerData.Instance.myEquipment[k] = -1; }
             }
         }
+
+        if(_isSave)
+        {
+            //여기에 추가해주세요.
+        }
     }
 }
