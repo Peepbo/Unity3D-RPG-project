@@ -32,6 +32,7 @@ public class Golem : EnemyMgr, IDamagedState
     private void Start()
     {
         follow = gameObject.AddComponent<FollowTarget>();
+        follow.Init(controller, AI, target, speed,attackRange);
         back = gameObject.AddComponent<ReturnMove>();
         spawnPos = transform.position;
     }
@@ -55,8 +56,7 @@ public class Golem : EnemyMgr, IDamagedState
             {
                 if (distance < findRange)
                 {
-                    AI.stoppingDistance = attackRange;
-                    AI.SetDestination(target.transform.position);
+                    Follow();
                     
                 }
                 else if (distance < attackRange)
@@ -84,7 +84,12 @@ public class Golem : EnemyMgr, IDamagedState
         }
 
     }
-
+    
+    public void Follow()
+    {
+        setMoveType(follow);
+        follow.move();
+    }
     public void Damaged(int value)
     {
         hp -= value;
