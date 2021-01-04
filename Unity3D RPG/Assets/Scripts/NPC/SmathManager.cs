@@ -274,6 +274,7 @@ public partial class SmathManager : MonoBehaviour
         if(_isSave)
         {
             //여기에 추가해주세요.
+            PlayerData.Instance.player.EquipStat();
         }
     }
 }
