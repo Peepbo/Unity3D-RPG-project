@@ -38,6 +38,10 @@ public class TalkNpc : MonoBehaviour
 
             talkPanel.SetActive(true);
 
+            //01/04
+            UiManager.Instance.PanelOpen = true;
+            //
+
             GameObject btn2 = talkPanel.transform.GetChild(0).gameObject;
             GameObject btn3 = talkPanel.transform.GetChild(1).gameObject;
 
@@ -109,6 +113,7 @@ public class TalkNpc : MonoBehaviour
         {
             openPanel.SetActive(true);
             talkPanel.SetActive(false);
+            UiManager.Instance.PanelOpen = false;
         };
 
         btn.onClick.AddListener(_action);
