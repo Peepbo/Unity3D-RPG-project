@@ -34,9 +34,19 @@ public class AnimationEvent : MonoBehaviour
     }
 
     #region Goblin
-    public void GetRest()
+    public void GetRest(MONSTER mon)
     {
-        goblin.GetRest();
+        switch (mon)
+        {
+            case MONSTER.GOBLIN:
+                goblin.GetRest();
+                break;
+            case MONSTER.SHAMAN:
+                break;
+            case MONSTER.GOLEM:
+                golem.GetRest();
+                break;
+        }
     }
 
     public void ActiveMeshCol()
@@ -61,6 +71,10 @@ public class AnimationEvent : MonoBehaviour
     public void GetRandomNum()
     {
         golem.GetRandomNum();
+    }
+    public void ChageRotation()
+    {
+        golem.ChageRotation();
     }
     #endregion
 
