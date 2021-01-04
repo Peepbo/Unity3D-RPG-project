@@ -27,6 +27,8 @@ public partial class PlayerData : Singleton<PlayerData>
 
     public int myPotion;
 
+    public Player player;
+
     public ItemInfo myWeapon = new ItemInfo();
     public ItemInfo myArmor = new ItemInfo();
     public ItemInfo myAccessory = new ItemInfo();

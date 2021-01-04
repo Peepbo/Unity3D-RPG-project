@@ -59,7 +59,7 @@ partial class Player
     void PlayerStatUpdate()
     {
         StaminaReload();
-        EquipStat();
+        //EquipStat();
     }
     
     public void EquipStat()
@@ -79,6 +79,7 @@ partial class Player
                 shieldPrefabs[weapon.id].SetActive(true);
                 currentWeapon = weaponPrefabs[weapon.id];
                 currentShield = shieldPrefabs[weapon.id];
+                
             }
             else if (weapon.kind == "대검")
             {
@@ -89,6 +90,7 @@ partial class Player
                 weaponPrefabs[weapon.id].SetActive(true);
                 currentWeapon = weaponPrefabs[weapon.id];
             }
+            comboAtk.currentCollider = currentWeapon.GetComponent<WeaponCollider>();
             increasedAtk = weapon.atk;
             atkSpeed = weapon.atkSpeed;
         }
