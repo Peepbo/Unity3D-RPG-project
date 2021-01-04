@@ -16,7 +16,7 @@ partial class Player
     }
     
     public string           playerName;         //  플레이어 이름
-    [HideInInspector]
+    
     public int              maxHp = 100;        //  최대체력
     public int              hp = 100;           //  현제체력
     
@@ -40,6 +40,7 @@ partial class Player
 
     public float            atkSpeed = 1;       //  공격 속도
 
+    [HideInInspector]
     public int              weaponKind;         //  무기 종류 0 = 한손검 1 = 두손검
 
     public AnimatorOverrideController overrideController1H;
@@ -50,28 +51,43 @@ partial class Player
     ItemInfo armor = new ItemInfo();
     ItemInfo accessory = new ItemInfo();
     ItemInfo bossItem = new ItemInfo();
+    public GameObject currentWeapon;
+    public GameObject currentShield;
+    public GameObject[] weaponPrefabs = new GameObject[21];
+    public GameObject[] shieldPrefabs = new GameObject[11];
 
     void PlayerStatUpdate()
     {
         StaminaReload();
+        EquipStat();
     }
     
     public void EquipStat()
     {
+        
         if(weapon != PlayerData.Instance.EquipWeapon())
         {
             weapon = PlayerData.Instance.EquipWeapon();
             if (weapon.kind == "한손검")
             {
+
                 weaponKind = 0;
                 animator.runtimeAnimatorController = overrideController1H;
-
+                currentWeapon.SetActive(false);
+                currentShield.SetActive(false);
+                weaponPrefabs[weapon.id].SetActive(true);
+                shieldPrefabs[weapon.id].SetActive(true);
+                currentWeapon = weaponPrefabs[weapon.id];
+                currentShield = shieldPrefabs[weapon.id];
             }
             else if (weapon.kind == "대검")
             {
                 weaponKind = 1;
                 animator.runtimeAnimatorController = overrideController2H;
-
+                currentWeapon.SetActive(false);
+                currentShield.SetActive(false);
+                weaponPrefabs[weapon.id].SetActive(true);
+                currentWeapon = weaponPrefabs[weapon.id];
             }
             increasedAtk = weapon.atk;
             atkSpeed = weapon.atkSpeed;

@@ -9,7 +9,6 @@ public class ComboAtk : MonoBehaviour
     Button atkButton;
     Button criButton;
     public Animator animator;
-    public Animator[] animators;
     public Player player;
     bool isCombo;
     bool isCriCombo;
@@ -27,11 +26,11 @@ public class ComboAtk : MonoBehaviour
     
     public void ColiderOn()
     {
-        oneHandCol1.meshCollider.enabled = true;
+        //oneHandCol1.meshCollider.enabled = true;
     }
     public void ColiderOff()
     {
-        oneHandCol1.meshCollider.enabled = false;
+        //oneHandCol1.meshCollider.enabled = false;
 
     }
 

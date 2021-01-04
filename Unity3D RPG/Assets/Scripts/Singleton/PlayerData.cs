@@ -95,7 +95,7 @@ public partial class PlayerData : Singleton<PlayerData>
         for (int i = 0; i < _equip.Count; i++)
         {
             myEquipment[i + 1] = _equip[i];
-            //Debug.Log(myEquipment[i + 1]);
+            Debug.Log(myEquipment[1]);
         }
 
         //Debug.Log("장비 로드 완료");
