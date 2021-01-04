@@ -16,6 +16,7 @@ public partial class SmathManager : MonoBehaviour
     TextMeshProUGUI moneyText;
     TextMeshProUGUI infoText;
     TextMeshProUGUI[] materialText;
+    TextMeshProUGUI percentText;
     GameObject makeButton;
     ItemInfo curruntInfo = new ItemInfo();
     Image infoImage;
@@ -66,6 +67,9 @@ public partial class SmathManager : MonoBehaviour
         infoText = transform.Find("ItemInfo/InfoText").GetComponent<TextMeshProUGUI>();
         materialText = transform.Find("ItemInfo/Material").GetComponentsInChildren<TextMeshProUGUI>();
         makeButton = transform.Find("ItemInfo/MakeButton").gameObject;
+        percentText = transform.Find("ItemInfo/PercentText").GetComponent<TextMeshProUGUI>();
+        percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
+        percentText.color = Color.blue;
     }
 
     private void PlayerItemListInit()
