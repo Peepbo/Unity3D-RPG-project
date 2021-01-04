@@ -12,10 +12,11 @@ public partial class SmathManager : MonoBehaviour
     const int materialMaxCount = 8;
     bool[] isHasMaterial = new bool[materialMaxCount/2];
     int materialCount;
-    public float makePercent =0.9f;
+    const int makePercent =9;
     TextMeshProUGUI moneyText;
     TextMeshProUGUI infoText;
     TextMeshProUGUI[] materialText;
+    TextMeshProUGUI percentText;
     GameObject makeButton;
     ItemInfo curruntInfo = new ItemInfo();
     Image infoImage;
@@ -38,10 +39,7 @@ public partial class SmathManager : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(PlayerData.Instance.myEquipment[1]);
-        }
+     
     }
 
     private void ListMake()
@@ -66,6 +64,9 @@ public partial class SmathManager : MonoBehaviour
         infoText = transform.Find("ItemInfo/InfoText").GetComponent<TextMeshProUGUI>();
         materialText = transform.Find("ItemInfo/Material").GetComponentsInChildren<TextMeshProUGUI>();
         makeButton = transform.Find("ItemInfo/MakeButton").gameObject;
+        percentText = transform.Find("ItemInfo/PercentText").GetComponent<TextMeshProUGUI>();
+        percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
+        percentText.color = Color.blue;
     }
 
     private void PlayerItemListInit()
@@ -177,7 +178,7 @@ public partial class SmathManager : MonoBehaviour
         GameObject _success = resultPanel.transform.Find("ResultRect/Success").gameObject;
         GameObject _fail = resultPanel.transform.Find("ResultRect/Fail").gameObject;
         
-        if (Random.Range(0f,1f) <=makePercent) // 강화성공
+        if (Random.Range(0,10) <makePercent) // 강화성공
         {
             _success.SetActive(true);
             _fail.SetActive(false);
@@ -268,6 +269,12 @@ public partial class SmathManager : MonoBehaviour
                 else
                 { PlayerData.Instance.myEquipment[k] = -1; }
             }
+        }
+
+        if(_isSave)
+        {
+            //여기에 추가해주세요.
+            PlayerData.Instance.player.EquipStat();
         }
     }
 }

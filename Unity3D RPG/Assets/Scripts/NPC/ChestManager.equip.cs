@@ -113,6 +113,8 @@ partial class ChestManager
 
             PlayerData.Instance.myEquipment[_kindId] = _item.id;
 
+            PlayerData.Instance.player.EquipStat();
+
             equipList[selectNumber] = CSVData.Instance.find(_saveItem);
         }
 

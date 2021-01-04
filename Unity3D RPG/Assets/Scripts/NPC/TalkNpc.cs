@@ -38,6 +38,10 @@ public class TalkNpc : MonoBehaviour
 
             talkPanel.SetActive(true);
 
+            //01/04
+            UiManager.Instance.PanelOpen = true;
+            //
+
             GameObject btn2 = talkPanel.transform.GetChild(0).gameObject;
             GameObject btn3 = talkPanel.transform.GetChild(1).gameObject;
 
@@ -54,6 +58,7 @@ public class TalkNpc : MonoBehaviour
 
                     childObj[0].transform.GetChild(0).GetComponent<Text>().text = "장비 착용";
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "아이템 확인";
+
 
                     //addListener
 
@@ -75,6 +80,7 @@ public class TalkNpc : MonoBehaviour
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
 
                     //action0
+                    ResetAndAddListener(childObj[0].GetComponent<Button>(), growthPanel);
 
                     //action1
                     ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
@@ -109,6 +115,7 @@ public class TalkNpc : MonoBehaviour
         {
             openPanel.SetActive(true);
             talkPanel.SetActive(false);
+            UiManager.Instance.PanelOpen = false;
         };
 
         btn.onClick.AddListener(_action);

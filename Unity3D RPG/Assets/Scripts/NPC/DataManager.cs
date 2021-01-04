@@ -12,9 +12,10 @@ public class DataManager : MonoBehaviour
     {
         PlayerData.Instance.LoadData_v2();
 
-        Debug.Log(PlayerData.Instance.myCurrency);
+        PlayerData.Instance.player = GameObject.FindWithTag("Player").GetComponent<Player>();
 
-        //PlayerData.Instance.LoadData();
+        //Debug.Log(PlayerData.Instance.myCurrency);
+
         chestData.MakeData();
         chestData.ItemUpdate();
         chestData.OwnLoots();

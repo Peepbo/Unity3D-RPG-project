@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class ComboAtk : MonoBehaviour
 {
-    public WeaponCollider oneHandCol1;
+    public WeaponCollider currentCollider; 
     Button atkButton;
     Button criButton;
     public Animator animator;
-    public Animator[] animators;
     public Player player;
     bool isCombo;
     bool isCriCombo;
@@ -27,11 +26,11 @@ public class ComboAtk : MonoBehaviour
     
     public void ColiderOn()
     {
-        oneHandCol1.meshCollider.enabled = true;
+        currentCollider.meshCollider.enabled = true;
     }
     public void ColiderOff()
     {
-        oneHandCol1.meshCollider.enabled = false;
+        currentCollider.meshCollider.enabled = false;
 
     }
 
