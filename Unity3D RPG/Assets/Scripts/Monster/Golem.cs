@@ -13,9 +13,10 @@ public class Golem : EnemyMgr, IDamagedState
     Vector3 direction;
     Vector3 spawnPos;
     float distance;
+    bool isStay = true;
 
-    bool isStay;
-    bool isReturn;
+    int findCount;
+    float destroyCount;
 
     #region
     int hp;
@@ -28,81 +29,216 @@ public class Golem : EnemyMgr, IDamagedState
     protected override void Awake()
     {
         base.Awake();
+        spawnPos = transform.position;
+
     }
     private void Start()
     {
+        findCount = 0;
+        hp = maxHp;
         follow = gameObject.AddComponent<FollowTarget>();
-        follow.Init(controller, AI, target, speed,attackRange);
         back = gameObject.AddComponent<ReturnMove>();
-        spawnPos = transform.position;
+
+        follow.Init(AI, target, speed, attackRange);
+        back.init(AI, spawnPos, speed);
+
+        anim.SetInteger("state", 0);
     }
+
     private void Update()
     {
         direction = (target.transform.position - transform.position).normalized;
         distance = Vector3.Distance(target.transform.position, transform.position);
 
+        RaycastHit _hit;
+        direction.y = 0;
+        Debug.DrawRay(transform.position, direction * findRange, Color.red);
+
+        if (isDead)
+        {
+            Die();
+            return;
+        }
 
         if (isStay)
         {
+            anim.SetInteger("state", 0);
             if (distance < findRange)
             {
-                isStay = false;
+                if (Physics.Raycast(transform.position, direction, out _hit, findRange))
+                {
+                    if (_hit.transform.tag == "Player")
+                    {
+                        AI.isStopped = false;
+                        findCount = 1;
+                        isStay = false;
+                    }
+                    else
+                    {
+                        anim.SetInteger("state", 0);
+                        AI.isStopped = true;
+                    }
+
+                }
             }
         }
 
         else
         {
-            if (!isReturn)
+            if (!back.getIsReturn() && findCount == 1)
             {
                 if (distance < findRange)
                 {
-                    Follow();
-                    
+
+
+                    if (AI.isStopped == false)
+                    {
+                        anim.SetInteger("state", 1);
+                        Follow();
+                    }
+
+                    if (distance <= attackRange)
+                    {
+                        anim.SetInteger("state", 2);
+
+
+                        Debug.Log("플레이어를 공격중");
+                        //AttackTarget();
+                    }
+                    //if (Physics.Raycast(transform.position, direction, out _hit, findRange))
+                    //{
+                    //    if (_hit.transform.tag == "Player")
+                    //    {
+                    //        Debug.Log("Player");
+                    //        anim.SetInteger("state", 1);
+                    //        Follow();
+
+                    //    }
+
+                    //    else Debug.Log("못찾겠다..");
+
+                    //    //1. 못찾을때 집에간다
+
+                    //    //2. 여기에 raycast를 안쓴다
+                    //}
+
+
+                    //공격이 끝나고 휴식이 끝나면 AI.isStopped = false;
+
                 }
-                else if (distance < attackRange)
+
+
+                else if (distance > findRange)
                 {
-                    AI.velocity = Vector3.zero;
-                 
+                    anim.SetInteger("state", 1);
+                    back.setIsReturn(true);
                 }
-                else if (distance > findRange) isReturn = true;
-                
+
             }
 
-            if (isReturn)
+            if (back.getIsReturn())
             {
-                AI.stoppingDistance = 0;
-                AI.SetDestination(spawnPos);
-                
+                Back();
 
-                if (Vector3.Distance(spawnPos, transform.position) < 1f)
+                if (Vector3.Distance(spawnPos, transform.position) < 0.5f)
                 {
-                    isReturn = false;
+                    anim.SetInteger("state", 0);
+                    back.setIsReturn(false);
                     isStay = true;
-                    AI.velocity = Vector3.zero;
+                    AI.isStopped = true;
+                    findCount = 0;
                 }
             }
         }
 
     }
-    
+
     public void Follow()
     {
+        AI.isStopped = false;
         setMoveType(follow);
         follow.move();
     }
+
+    public void Back()
+    {
+        //AI.isStopped = false;
+        if (anim.GetBool("IsRest") == false)
+        {
+            setMoveType(back);
+            back.move();
+        }
+    }
+
+    IEnumerator AttackCycle()
+    {
+        AI.isStopped = true;
+        AI.updateRotation = false;
+        yield return new WaitForSeconds(1.3f);
+
+        transform.rotation = Quaternion.LookRotation(direction);
+        anim.SetBool("IsRest", true);
+        anim.SetInteger("state", 0);
+        yield return new WaitForSeconds(1.5f);
+        anim.SetBool("IsRest", false);
+        AI.isStopped = false;
+        AI.updateRotation = true;
+    }
+
+    public void AttackTarget()
+    {
+        Debug.Log("startCoru");
+        StartCoroutine(AttackCycle());
+    }
+
+    IEnumerator GetDamage()
+    {
+        anim.SetTrigger("Damaged");
+
+        AI.isStopped = true;
+        isDamaged = true;
+
+        yield return new WaitForSeconds(1f);
+
+        AI.isStopped = false;
+        isDamaged = false;
+    }
+
     public void Damaged(int value)
     {
+        if (isDamaged || isDead ) return;
+
         hp -= value;
-        if (hp <= 0)
+
+        if (hp > 0) StartCoroutine(GetDamage());
+
+        else
         {
             hp = 0;
             isDead = true;
+            anim.SetTrigger("Die");
         }
 
     }
 
     public override void Die()
     {
+        destroyCount += Time.deltaTime;
+
+        if (destroyCount > 3.0f)
+        {
+            gameObject.GetComponent<DissolveEft>().SetValue(0);
+        }
+
+        if (destroyCount > 7.0f)
+        {
+            Debug.Log("gone");
+            gameObject.SetActive(false);
+        }
+
+        StopAllCoroutines();
+        AI.enabled = false;
+        controller.enabled = false;
 
     }
 
@@ -118,4 +254,12 @@ public class Golem : EnemyMgr, IDamagedState
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
+
+
+    #region Animation event functions
+
+
+    #endregion
+
+
 }

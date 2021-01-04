@@ -15,7 +15,7 @@ public class AnimationEvent : MonoBehaviour
 
     Goblin goblin;
     Shaman shaman;
-    MiniGolem golem;
+    Golem golem;
 
     private void Start()
     {
@@ -28,7 +28,7 @@ public class AnimationEvent : MonoBehaviour
                 shaman = gameObject.GetComponentInParent<Shaman>();
                 break;
             case MONSTER.GOLEM:
-                golem = gameObject.GetComponentInParent<MiniGolem>();
+                golem = gameObject.GetComponentInParent<Golem>();
                 break;
         }
     }
@@ -44,7 +44,6 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.SHAMAN:
                 break;
             case MONSTER.GOLEM:
-                golem.GetRest();
                 break;
         }
     }
@@ -68,14 +67,18 @@ public class AnimationEvent : MonoBehaviour
     #endregion
 
     #region Golem
-    public void GetRandomNum()
+    public void AttackCycle()
     {
-        golem.GetRandomNum();
+        golem.AttackTarget();
     }
-    public void ChageRotation()
-    {
-        golem.ChageRotation();
-    }
+    //public void GetRandomNum()
+    //{
+    //    golem.GetRandomNum();
+    //}
+    //public void ChageRotation()
+    //{
+    //    golem.ChageRotation();
+    //}
     #endregion
 
 }
