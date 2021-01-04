@@ -8,9 +8,9 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEditor;
 
-public class LootManager : Singleton<LootManager>
+public partial class LootManager : Singleton<LootManager>
 {
-    protected LootManager () { }
+    protected LootManager() { }
 
     public GameObject poccketPanel;
     pocketData pd = new pocketData();
@@ -44,7 +44,7 @@ public class LootManager : Singleton<LootManager>
     {
         for (int i = 0; i < pd.pocketItem.Count; i++)
         {
-            for(int j = 0; j < pd.pocketItem[i].count; j++)
+            for (int j = 0; j < pd.pocketItem[i].count; j++)
             {
                 PlayerData.Instance.SaveChest(pd.pocketItem[i].id);
             }
@@ -54,17 +54,5 @@ public class LootManager : Singleton<LootManager>
 
         pd.pocketItem.Clear();
         pd.pocketMoney = 0;
-    }
-
-    public void ShowPocketData()
-    {
-        int num = 0;
-
-        for (int i = 1; i < 11; i++)
-        {
-            if (num == pd.myPocketItem.count)
-            {
-            }
-        }
     }
 }
