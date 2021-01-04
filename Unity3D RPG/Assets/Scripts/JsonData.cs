@@ -36,9 +36,9 @@ public class CharacterInfo
     }
 }
 
-public class JsonTest : Singleton<JsonTest>
+public class JsonData : Singleton<JsonData>
 {
-    protected JsonTest() { }
+    protected JsonData() { }
 
     private void Start()
     {
@@ -115,7 +115,7 @@ public class JsonTest : Singleton<JsonTest>
 
         Debug.Log("저장하기");
 
-        JsonData ItemJson = JsonMapper.ToJson(character);
+        LitJson.JsonData ItemJson = JsonMapper.ToJson(character);
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ItemJson.ToString());
         string format = System.Convert.ToBase64String(bytes);
         File.WriteAllText(Application.dataPath
@@ -124,7 +124,7 @@ public class JsonTest : Singleton<JsonTest>
     }
 
     
-    public JsonData jsonData 
+    public LitJson.JsonData jsonData 
     { 
         get 
         {
@@ -132,7 +132,7 @@ public class JsonTest : Singleton<JsonTest>
             + "/Resources/PlayerData.json");
             byte[] bytes = System.Convert.FromBase64String(Jsonstring);
             string reformat = System.Text.Encoding.UTF8.GetString(bytes);
-            JsonData _data = JsonMapper.ToObject(reformat);
+            LitJson.JsonData _data = JsonMapper.ToObject(reformat);
 
             return _data; 
         } 

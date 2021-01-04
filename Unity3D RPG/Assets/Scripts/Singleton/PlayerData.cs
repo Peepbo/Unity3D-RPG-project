@@ -83,17 +83,17 @@ public partial class PlayerData : Singleton<PlayerData>
     public void LoadData_v2()
     {
         //화폐
-        myCurrency = JsonTest.Instance.LoadCurrency();
+        myCurrency = JsonData.Instance.LoadCurrency();
 
         //Debug.Log("화폐 로드 완료 : " + myCurrency);
 
         //성장
-        myStature = JsonTest.Instance.LoadStaturePoint();
+        myStature = JsonData.Instance.LoadStaturePoint();
 
         //Debug.Log("성장 로드 완료 : " + myStature);
 
         //장비
-        List<int> _equip = new List<int>(JsonTest.Instance.LoadEquip());
+        List<int> _equip = new List<int>(JsonData.Instance.LoadEquip());
         for (int i = 0; i < _equip.Count; i++)
         {
             myEquipment[i + 1] = _equip[i];
@@ -102,7 +102,7 @@ public partial class PlayerData : Singleton<PlayerData>
         //Debug.Log("장비 로드 완료");
 
         //특성
-        List<int> _ability = new List<int>(JsonTest.Instance.LoadCharacteristic());
+        List<int> _ability = new List<int>(JsonData.Instance.LoadCharacteristic());
         for (int i = 0; i < _ability.Count; i++)
         {
             myAbility[i] = _ability[i];
@@ -112,7 +112,7 @@ public partial class PlayerData : Singleton<PlayerData>
         //Debug.Log("스텟 로드 완료");
 
         //아이템
-        List<SubItem> _item = new List<SubItem>(JsonTest.Instance.LoadItem());
+        List<SubItem> _item = new List<SubItem>(JsonData.Instance.LoadItem());
         for(int i = 0; i < _item.Count; i++)
         {
             ItemInfo _Info = CSVData.Instance.find(_item[i].Id);
@@ -127,46 +127,46 @@ public partial class PlayerData : Singleton<PlayerData>
         Debug.Log("플레이어 데이터 연동 완료");
     }
 
-    public void LoadData()
-    {
-        ItemInfo _item = null;
+    //public void LoadData()
+    //{
+    //    ItemInfo _item = null;
       
-        int _itemNumber = 0;
+    //    int _itemNumber = 0;
 
-        for (int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
-        {
-            //0,2,4,6.. (아이템 고유 넘버)
+    //    for (int i = 0; i < CSVData.Instance.playerRootLoad.Count; i++)
+    //    {
+    //        //0,2,4,6.. (아이템 고유 넘버)
 
-            if (i % 2 == 0)
-            {
-                //아이템 번호
-                _itemNumber = int.Parse(CSVData.Instance.playerRootLoad[i]);
+    //        if (i % 2 == 0)
+    //        {
+    //            //아이템 번호
+    //            _itemNumber = int.Parse(CSVData.Instance.playerRootLoad[i]);
 
-                _item = CSVData.Instance.find(_itemNumber);
-            }
+    //            _item = CSVData.Instance.find(_itemNumber);
+    //        }
 
-            else
-            {
-                _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
+    //        else
+    //        {
+    //            _item.count = int.Parse(CSVData.Instance.playerRootLoad[i]);
 
-                myItem.Add(_item);
+    //            myItem.Add(_item);
 
-                //Debug.Log(_item.itemName);
-                //장비든 전리품이든 중복 아이템이 있을 수 있으니
-                //나중에 ui에 표시할 때 장비는 갯수만큼 한칸한칸에 보여주고
-                //전리품은 한칸에 갯수를 표시하는 식으로 연동한다.
-            }
-        }
+    //            //Debug.Log(_item.itemName);
+    //            //장비든 전리품이든 중복 아이템이 있을 수 있으니
+    //            //나중에 ui에 표시할 때 장비는 갯수만큼 한칸한칸에 보여주고
+    //            //전리품은 한칸에 갯수를 표시하는 식으로 연동한다.
+    //        }
+    //    }
 
-        for (int i = 0; i < CSVData.Instance.playerAbilityLoad.Count; i++)
-        {
-            myAbility[i] = int.Parse(CSVData.Instance.playerAbilityLoad[i]);
+    //    for (int i = 0; i < CSVData.Instance.playerAbilityLoad.Count; i++)
+    //    {
+    //        myAbility[i] = int.Parse(CSVData.Instance.playerAbilityLoad[i]);
 
-            //Debug.Log(myAbility[i]);
-        }
+    //        //Debug.Log(myAbility[i]);
+    //    }
 
-        myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
-    }
+    //    myCurrency = int.Parse(CSVData.Instance.playerItemLoad[0]);
+    //}
 
     public void SaveData()
     {
@@ -181,7 +181,7 @@ public partial class PlayerData : Singleton<PlayerData>
         for (int i = 0; i < 4; i++)
             _equip[i] = myEquipment[i + 1];
 
-        JsonTest.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem);
+        JsonData.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem);
         //List<int> _equip = new List<int>();
 
         
