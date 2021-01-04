@@ -44,7 +44,7 @@ public class JsonTest : Singleton<JsonTest>
     {
         if(File.Exists(Application.dataPath + "/Resources/PlayerData.json") == false)
         {
-            Save(0, 0, new int[] { 1, 33, -1, -1 },
+            Save(0, 0, new int[] { 0, 33, -1, -1 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 new List<SubItem> {  });
         }
