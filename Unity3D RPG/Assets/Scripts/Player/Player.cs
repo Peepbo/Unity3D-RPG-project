@@ -37,11 +37,7 @@ public partial class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.O))
         {
-            hp -= 50;
-            if(hp<=0 )
-            {
-                PlayerDie();
-            }
+            PlayerData.Instance.SaveChest(13);  
         }
     }
 }
