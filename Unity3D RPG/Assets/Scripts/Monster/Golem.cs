@@ -7,24 +7,25 @@ using UnityEngine.AI;
 public class Golem : EnemyMgr, IDamagedState
 {
 
-    FollowTarget follow;
-    ReturnMove back;
+    private FollowTarget follow;
+    private ReturnMove back;
 
-    Vector3 direction;
-    Vector3 spawnPos;
-    float distance;
-    bool isStay = true;
+    private Vector3 direction;
+    private Vector3 spawnPos;
+    private float distance;
+    private bool isStay = true;
 
-    int findCount;
-    float destroyCount;
+    private int findCount;
+    private float destroyCount;
 
-    #region
-    int hp;
-    int atk=45;
-    float def=10.0f;
-    int gold;
 
+    #region stat
+    private int hp;
+    private int atk = 45;
+    private float def =10.0f;
+    private int gold;
     #endregion
+
 
     protected override void Awake()
     {
@@ -162,11 +163,11 @@ public class Golem : EnemyMgr, IDamagedState
 
     public void Back()
     {
-        //AI.isStopped = false;
         if (anim.GetBool("IsRest") == false)
         {
             setMoveType(back);
             back.move();
+          
         }
     }
 
@@ -208,7 +209,7 @@ public class Golem : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead ) return;
 
-        hp -= value;
+        hp -= (int)(value * (1.0f-def/100));
 
         if (hp > 0) StartCoroutine(GetDamage());
 
@@ -230,7 +231,7 @@ public class Golem : EnemyMgr, IDamagedState
             gameObject.GetComponent<DissolveEft>().SetValue(0);
         }
 
-        if (destroyCount > 7.0f)
+        if (destroyCount > 6.0f)
         {
             Debug.Log("gone");
             gameObject.SetActive(false);

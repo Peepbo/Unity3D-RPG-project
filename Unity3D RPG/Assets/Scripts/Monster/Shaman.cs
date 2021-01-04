@@ -12,9 +12,14 @@ public class Shaman : EnemyMgr, IDamagedState
     private ViewingAngle viewAngle;
 
 
+    #region stat
     private int hp;
-    private bool isDetected;
+    private int atk;
+    private float def;
+    private int gold;
+    #endregion
 
+    private bool isDetected;
     private Transform firePos;
 
 
@@ -110,7 +115,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
         if (isDamaged || isDead) return;
 
-        hp -= value;
+        hp -= (int)(value * (1.0f - def / 100));
         anim.SetTrigger("damage");
 
         if (hp <= 0)

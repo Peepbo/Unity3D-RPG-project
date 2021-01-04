@@ -11,7 +11,12 @@ public class Goblin : EnemyMgr, IDamagedState
     private Vector3 startPos;
     private Vector3 ranDirection;
 
+    #region stat
     private int hp;
+    private int atk =25;
+    private float def=5.0f;
+    private int gold;
+    #endregion
 
     [Range(3, 7)]
     public float observeRange;
@@ -37,16 +42,14 @@ public class Goblin : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
-        //AI.stoppingDistance = attackRange;
-
         weapon.GetComponent<AxColision>().SetDamage(atkPower);
-
+        
+        
         observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
-        follow.initVariable(controller, target, speed);
-        //follow.initVariable(AI, target, speed);
-        returnToHome.initVariable(controller, startPos, speed);
-        //returnToHome.initVariable(AI, startPos, speed);
 
+        follow.Init(AI, target, speed, attackRange);
+        returnToHome.init(AI, startPos, speed);
+  
         anim.SetInteger("state", 0);
     }
 
@@ -138,8 +141,6 @@ public class Goblin : EnemyMgr, IDamagedState
             }
 
         }
-
-
 
     }
 
@@ -251,7 +252,7 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead) return;
 
-        hp -= value;
+        hp -= (int)(value * (1.0f - def / 100));
 
         if (hp <= 0)
         {
@@ -280,10 +281,17 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             //아이템 떨어트리기
             gameObject.SetActive(false);
-            StopCoroutine(GetDamage());
-            StopCoroutine(AttackRoutine());
+            StopAllCoroutines();
         }
 
+    }
+
+
+    public void DropMoney(int maxGold,int minGold,Transform money,string name) 
+    {
+        gold = Random.Range(maxGold, minGold);
+        
+        
     }
 
 
