@@ -1,10 +1,11 @@
-﻿using CSVReader;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Text;
+using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine.UI;
-
-[CSVReader.Data("achievement")]
+using UnityEngine;
+using UnityEditor;
 
 public enum ACHIEVE_STATE
 {
@@ -27,35 +28,17 @@ public class Achievements : MonoBehaviour
 {
     public AchieveData[] data = new AchieveData[7];
 
+    void Update()
+    {
+
+    }
+
     public void Content(int order)
     {
         if(data[order].state == ACHIEVE_STATE.ACHIEVE)
         {
-            //아이템을 얻는다
-            PlayerData.Instance.myCurrency += data[order].reward;
-            //
-
-            data[order].state = ACHIEVE_STATE.DONE;
+            PlayerData.Instance.myCurrency += data[order].reward; // 아이템을 얻는다
+            data[order].state = ACHIEVE_STATE.DONE;               // 업적 상태를 바꿔준다
         }
     }
-
-    private void Update()
-    {
-    }
-}
-
-public class AchieveDataReader
-{
-    Dictionary<string, AchieveData> contentsData;
-    List<string> achieveName = new List<string>();
-    List<string> achieveContents = new List<string>();
-    List<string> achieveReward = new List<string>();
-
-    public List<string> achieveNameLoad { get { return achieveNameLoad; } }
-    public List<string> achieveContentsLoad { get { return achieveContentsLoad; } }
-    public List<string> achieveRewardLoad { get { return achieveRewardLoad; } }
-    public AchieveData find(string key) { return contentsData[key]; }
-
-    Table achieveTable = CSVReader.Reader.ReadCSVToTable("AchievementDB");
-
 }
