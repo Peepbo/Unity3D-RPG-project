@@ -7,11 +7,20 @@ public class FollowTarget : MonoBehaviour, IMoveAble
 {
     CharacterController controller;
     GameObject target;
-    float speed;
     NavMeshAgent nav;
+    float speed;
+    float stopDis;
 
     public void setSpeed(float newSpeed) { speed = newSpeed; }
 
+    public void Init(CharacterController cc,NavMeshAgent ai,GameObject destination,float walkSpeed ,float stopRange)
+    {
+        this.controller = cc;
+        this.nav = ai;
+        this.target = destination;
+        this.speed = walkSpeed;
+        this.stopDis = stopRange;
+    }
     public void initVariable(CharacterController cc, GameObject destination)
     {
         this.controller = cc;
@@ -32,16 +41,18 @@ public class FollowTarget : MonoBehaviour, IMoveAble
 
     public void move()
     {
+        //nav.stoppingDistance = stopDis;
+        //nav.SetDestination(target.transform.position);
+
 
         Vector3 _transform2Target = target.transform.position - transform.position;
         Vector3 _direction = _transform2Target.normalized;
-        float _distance = _transform2Target.magnitude;
+        //float _distance = _transform2Target.magnitude;
 
         _direction.y = 0;
         transform.rotation = Quaternion.LookRotation(_direction);
         controller.Move(_direction * speed * Time.deltaTime);
 
-        //nav.speed = speed;
-        //nav.SetDestination(target.transform.position);
+
     }
 }

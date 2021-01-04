@@ -10,6 +10,7 @@ public class DataManager : MonoBehaviour
 
     private void Start()
     {
+        JsonData.Instance.CheckJsonData();
         PlayerData.Instance.LoadData_v2();
 
         PlayerData.Instance.player = GameObject.FindWithTag("Player").GetComponent<Player>();
