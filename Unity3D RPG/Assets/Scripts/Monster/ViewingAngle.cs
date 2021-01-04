@@ -17,7 +17,6 @@ public class ViewingAngle : MonoBehaviour
     bool isCol;
 
     bool isFind = false;
-    bool isAttackable = false;
     Vector3 direction;
 
     public float getviewAngleValue() {return angle; }
