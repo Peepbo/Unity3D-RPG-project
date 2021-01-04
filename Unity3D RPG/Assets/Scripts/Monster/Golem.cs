@@ -20,8 +20,8 @@ public class Golem : EnemyMgr, IDamagedState
 
     #region
     int hp;
-    int atk;
-    float def;
+    int atk=45;
+    float def=10.0f;
     int gold;
 
     #endregion
