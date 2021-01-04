@@ -46,10 +46,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Damaged(3);
-        }
+      
         if (isDamaged || isDead) return;
 
         if (!isDetected)
@@ -112,9 +109,8 @@ public class Shaman : EnemyMgr, IDamagedState
 
         if (isDamaged || isDead) return;
 
-        
+        hp -= value;
         anim.SetTrigger("damage");
-
 
         if (hp <= 0)
         {

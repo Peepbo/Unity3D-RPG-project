@@ -46,130 +46,142 @@ public class MiniGolem : EnemyMgr, IDamagedState
 
     void Update()
     {
-        distanceBtwTarget = (target.transform.position - transform.position).magnitude;
-        directionToTarget = (target.transform.position - transform.position).normalized;
 
-        Vector3 _temp = directionToTarget;
-        _temp.y = 0;
-
-        RaycastHit _rayHit;
-
-        Debug.DrawRay(transform.position, _temp * findRange, Color.red);
-
-      
-        if (isStay)
-        {
-            anim.SetInteger("state", 0);
-
-            if (distanceBtwTarget < findRange)
-            {
-                //멀써야될까요???
-                findDirection = (target.transform.position - transform.position).normalized;
-                isStay = false;
-            }
-        }
-
+        if (isDead) Die();
         else
         {
-            if (findCount == 0)
+            distanceBtwTarget = (target.transform.position - transform.position).magnitude;
+            directionToTarget = (target.transform.position - transform.position).normalized;
+
+
+            if (isStay)
             {
-                //처음 플레이어를 발견했을 때
-                findDistance = (spawnPos - transform.position).magnitude;
+                anim.SetInteger("state", 0);
 
-                if (findDistance < findRange)
+                if (distanceBtwTarget < findRange)
                 {
-                    Debug.Log("돌격!");
+                    findDirection = (target.transform.position - transform.position).normalized;
+                    isStay = false;
+                }
+            }
 
-                    findDirection.y = 0;
-                    transform.rotation = Quaternion.LookRotation(findDirection);
-                    controller.SimpleMove(findDirection * dashSpeed);
+            else
+            {
+                if (findCount == 0)
+                {
+                    //처음 플레이어를 발견했을 때
+                    findDistance = (spawnPos - transform.position).magnitude;
 
-                    if (view.FoundTarget(target, 1.5f, 35f))
+                    if (findDistance < findRange)
                     {
-                        //Debug.Log(target.transform.tag);
+                        Debug.Log("돌격!");
+                        Rush();
+                    }
 
+                    else
+                    {
                         findCount = 1;
 
                         anim.SetBool("IsRush", false);
-                    }
-
-                    else if (Physics.Raycast(transform.position, transform.forward, out _rayHit, 2f))
-                    {
-                        if (_rayHit.transform.tag == "Object")
-                        {
-                            Debug.Log("벽");
-
-                            findCount = 1;
-
-                            anim.SetBool("IsRush", false);
-                        }
                     }
 
                 }
 
                 else
                 {
-                    //Debug.Log("멈춰!");
+                   
+                    if (isReturn == false)
+                    {
+                        if (distanceBtwTarget < attackRange)
+                        {
 
-                    findCount = 1;
+                            anim.SetInteger("state", 2);
+                            AI.isStopped = true;
 
-                    anim.SetBool("IsRush", false);
+                        }
+                        else
+                        {
+                            FollowTarget();
+                        }
+                    }
+
+
+                    if (!isReturn && distanceBtwTarget > findRange)
+                    {
+
+                        Back();
+                    }
+
+                    if (isReturn)
+                    {
+                       
+                        if (Vector3.Distance(spawnPos, transform.position) < 1f)
+                        {
+                            //Debug.Log("집 도착");
+                            anim.SetInteger("state", 0);
+                            isReturn = false;
+                            isStay = true;
+                        }
+                    }
+
                 }
-
-
-
             }
-            else
+        }
+
+
+    }
+
+    public void Rush()
+    {
+        Vector3 _temp = directionToTarget;
+        _temp.y = 0;
+        RaycastHit _rayHit;
+
+        Debug.DrawRay(transform.position, _temp * findRange, Color.red);
+
+        findDirection.y = 0;
+        transform.rotation = Quaternion.LookRotation(findDirection);
+        controller.SimpleMove(findDirection * dashSpeed);
+
+        if (view.FoundTarget(target, 1.5f, 35f))
+        {
+
+            findCount = 1;
+
+            anim.SetBool("IsRush", false);
+        }
+
+        else if (Physics.Raycast(transform.position, transform.forward, out _rayHit, 2f))
+        {
+            if (_rayHit.transform.tag == "Object")
             {
-                if (isReturn == false)
-                {
-                    if (distanceBtwTarget < attackRange)
-                    {
-                        anim.SetInteger("state", 2);
-                        AI.isStopped = true;
+                findCount = 1;
 
-                        Debug.Log("target을 attack중");
-                        //attack
-                    }
-                    else
-                    {
-                        anim.SetInteger("state", 1);
-                        AI.isStopped = false;
-                        //Debug.Log("target으로 가는 중");
-
-                        AI.speed = walkSpeed;
-                        AI.SetDestination(target.transform.position);
-                    }
-                }
-
-
-                if (!isReturn && distanceBtwTarget > findRange)
-                {
-                    anim.SetInteger("state", 1);
-                    isReturn = true;
-                    AI.SetDestination(spawnPos);
-                    //return
-                    //Debug.Log("집으로 return중");
-                }
-
-                if (isReturn)
-                {
-                    //Debug.LogError(Vector3.Distance(spawnPos, transform.position));
-
-                    if (Vector3.Distance(spawnPos, transform.position) < 1f)
-                    {
-                        //Debug.Log("집 도착");
-                        anim.SetInteger("state", 0);
-                        isReturn = false;
-                        isStay = true;
-                    }
-                }
+                anim.SetBool("IsRush", false);
             }
         }
     }
 
+    public void FollowTarget()
+    {
+        anim.SetInteger("state", 1);
+        AI.isStopped = false;
+
+        AI.speed = walkSpeed;
+        AI.SetDestination(target.transform.position);
+
+    }
+
+    public void Back()
+    {
+        anim.SetInteger("state", 1);
+        isReturn = true;
+        AI.SetDestination(spawnPos);
+    }
+
     public void Damaged(int value)
     {
+        if (isDamaged || isDead) return;
         hp -= value;
         if (hp <= 0)
         {
@@ -200,16 +212,8 @@ public class MiniGolem : EnemyMgr, IDamagedState
     {
         //rest를 켜고
         anim.SetBool("IsRest", true);
-        //Vector3 _direction = target.transform.position - transform.position;
-        //_direction.Normalize();
-        //_direction.y = 0;
-        
-        ////transform.LookAt(_direction);
-
-        //transform.forward = (_direction);
 
         yield return new WaitForSeconds(1f);
-
 
         //rest를 끈다
         anim.SetBool("IsRest", false);
@@ -231,7 +235,7 @@ public class MiniGolem : EnemyMgr, IDamagedState
 
     IEnumerator RotateTransform()
     {
-        
+
         yield return new WaitForSeconds(2f);
     }
     #endregion
