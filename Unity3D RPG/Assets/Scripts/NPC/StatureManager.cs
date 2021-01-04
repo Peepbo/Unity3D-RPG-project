@@ -32,6 +32,9 @@ public class StatureManager : MonoBehaviour
     {
         hpImg = hpSlots.GetComponentsInChildren<Image>();
         steminaImg = steminaSlots.GetComponentsInChildren<Image>();
+
+        hpLevel = PlayerData.Instance.hpLv;
+        steminaLevel = PlayerData.Instance.stmLv;
     }
 
     private void Update()
@@ -41,20 +44,37 @@ public class StatureManager : MonoBehaviour
             money.text = PlayerData.Instance.myCurrency.ToString();
             myLevel.text = "성장 단계 : " + (hpLevel + steminaLevel).ToString();
 
+            int _pay;
+
             for (int i = 0; i < 2; i++)
-                paymentAmount[i].text = (1000 + (hpLevel + steminaLevel) * 1000).ToString() + "G";
+            {
+                _pay = 1000 + (hpLevel + steminaLevel) * 1000;
+
+                paymentAmount[i].text = _pay.ToString() + "G";
+
+                if (PlayerData.Instance.myCurrency < _pay)
+                    paymentAmount[i].color = Color.red;
+                else
+                    paymentAmount[i].color = Color.white;
+            }
         }
     }
 
     public void Enhancement(int num)
     {
+        if (paymentAmount[0].color == Color.red) return;
+
         switch ((STAT)num)
         {
             case STAT.HP:
                 hpLevel++;
+
+                PlayerData.Instance.hpLv = hpLevel;
                 break;
             case STAT.STEMINA:
                 steminaLevel++;
+
+                PlayerData.Instance.stmLv = steminaLevel;
                 break;
         }
 

@@ -80,6 +80,7 @@ public class TalkNpc : MonoBehaviour
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
 
                     //action0
+                    ResetAndAddListener(childObj[0].GetComponent<Button>(), growthPanel);
 
                     //action1
                     ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
