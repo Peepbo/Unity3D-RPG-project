@@ -12,7 +12,7 @@ public partial class SmathManager : MonoBehaviour
     const int materialMaxCount = 8;
     bool[] isHasMaterial = new bool[materialMaxCount/2];
     int materialCount;
-    public float makePercent =0.9f;
+    const int makePercent =9;
     TextMeshProUGUI moneyText;
     TextMeshProUGUI infoText;
     TextMeshProUGUI[] materialText;
@@ -177,7 +177,7 @@ public partial class SmathManager : MonoBehaviour
         GameObject _success = resultPanel.transform.Find("ResultRect/Success").gameObject;
         GameObject _fail = resultPanel.transform.Find("ResultRect/Fail").gameObject;
         
-        if (Random.Range(0f,1f) <=makePercent) // 강화성공
+        if (Random.Range(0,10) <makePercent) // 강화성공
         {
             _success.SetActive(true);
             _fail.SetActive(false);
