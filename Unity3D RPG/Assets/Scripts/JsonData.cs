@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using LitJson;
 
 using System.IO;
+using System;
 
 public class SubItem
 {
@@ -39,88 +41,46 @@ public class CharacterInfo
 public class JsonData : Singleton<JsonData>
 {
     protected JsonData() { }
-
-    private void Start()
+    public string path;
+    const string fileName = "PlayerData.json";
+   
+    private void Awake()
     {
-        if(File.Exists(Application.dataPath + "/Resources/PlayerData.json") == false)
-        {
-            Save(0, 0, new int[] { 0, 33, -1, -1 },
-                new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                new List<SubItem> {  });
-        }
-
+        path = PathNameSetup(fileName);
     }
 
-    private void Update()
+    public void CheckJsonData()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    Debug.Log(LoadCurrency());
-        //}
+        if (File.Exists(path) == false)
+        {
+            Save(100, 0, new int[] { 0, 33, -1, -1 },
+                new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                new List<SubItem> { });
+        }
+    }
 
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    Debug.Log(LoadStaturePoint());
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    Debug.Log(LoadEquip());
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha4))
-        //{
-        //    //PlayerData.Instance.myEquipment = new int[] { 777, 1, 33, -1, -1 };
-        //    //Debug.Log(LoadItem());
-
-        //    PlayerData.Instance.SaveChest(2);
-        //    PlayerData.Instance.SaveChest(3);
-        //    PlayerData.Instance.SaveChest(4);
-
-        //    PlayerData.Instance.SaveData();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha5))
-        //{
-        //    Debug.Log(LoadCharacteristic());
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Y))
-        //{
-
-
-        //    PlayerData.Instance.myCurrency += 50;
-        //    Debug.Log("내 소지금" + PlayerData.Instance.myCurrency);
-
-        //    PlayerData.Instance.SaveData();
-        //}
+    public string PathNameSetup(string fileName)
+    {
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            string _path = Application.persistentDataPath;
+            return Path.Combine(_path, fileName);
+        }
+        else
+        {
+            string _path = Application.dataPath;
+            return Path.Combine(_path, "Resources", fileName);
+        }
     }
 
     public void Save(int money, int point, int[] equip, int[] charac, List<SubItem> item)
     {
-        //public CharacterInfo(int money, int point, int[] equip, List<SubItem> item, int[] charac)
-        //{
-        //    Money = money;
-        //    StaturePoint = point;
-        //    Equip = equip;
-        //    Item = item;
-        //    Characteristic = charac;
-        //}
-
         CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
-        //character = new CharacterInfo(0, 8, new int[] { -1, -1, -1, -1 },
-        //new List<SubItem> { new SubItem(1, 2), new SubItem(1, 2) },
-        //    new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-        //File.Delete(Application.dataPath + "/Resources/PlayerData.json");
-
-        Debug.Log("저장하기");
 
         LitJson.JsonData ItemJson = JsonMapper.ToJson(character);
         byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ItemJson.ToString());
         string format = System.Convert.ToBase64String(bytes);
-        File.WriteAllText(Application.dataPath
-            + "/Resources/PlayerData.json"
-            , format);
+        File.WriteAllText(path, format);
     }
 
     
@@ -128,64 +88,28 @@ public class JsonData : Singleton<JsonData>
     { 
         get 
         {
-            string Jsonstring = File.ReadAllText(Application.dataPath
-            + "/Resources/PlayerData.json");
+            string Jsonstring = File.ReadAllText(path);
             byte[] bytes = System.Convert.FromBase64String(Jsonstring);
             string reformat = System.Text.Encoding.UTF8.GetString(bytes);
             LitJson.JsonData _data = JsonMapper.ToObject(reformat);
 
-            return _data; 
+            return _data;
         } 
     }
 
-    public void Load()
-    {
-        //Debug.Log("불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-
-        //for (int i = 0; i < _data["Equip"].Count; i++)
-        //{
-        //    Debug.Log(_data["Equip"][i].ToString());
-        //}
-        //Debug.Log(int.Parse(_data["Money"].ToString()));
-
-        
-    }
 
     public int LoadCurrency()
     {
-        Debug.Log("소지금 불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-        
-
         return int.Parse(jsonData["Money"].ToString());
     }
 
     public int LoadStaturePoint()
     {
-        Debug.Log("성장 포인트 불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-
         return int.Parse(jsonData["StaturePoint"].ToString());
     }
 
     public List<int> LoadEquip()
     {
-        Debug.Log("장비 불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-
         List<int> _output = new List<int>();
 
         for (int i = 0; i < jsonData["Equip"].Count; i++)
@@ -198,12 +122,6 @@ public class JsonData : Singleton<JsonData>
 
     public List<SubItem> LoadItem()
     {
-        Debug.Log("소지품 불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-
         List<SubItem> _output = new List<SubItem>();
 
         for (int i = 0; i < jsonData["Item"].Count; i++)
@@ -213,26 +131,11 @@ public class JsonData : Singleton<JsonData>
                 int.Parse(jsonData["Item"][i][1].ToString())
                 ));
         }
-
-        //Debug.Log(_output.Count);
-
-        //for(int i = 0; i < _output.Count; i++)
-        //{
-        //    Debug.Log(_output[i].Id);
-        //    Debug.Log(_output[i].Number);
-        //}
-
         return _output;
     }
 
     public List<int> LoadCharacteristic()
     {
-        Debug.Log("특성 불러오기");
-
-        //string Jsonstring = File.ReadAllText(Application.dataPath
-        //    + "/Resources/PlayerData.json");
-        //JsonData _data = JsonMapper.ToObject(Jsonstring);
-
         List<int> _output = new List<int>();
 
         for (int i = 0; i < jsonData["Characteristic"].Count; i++)
