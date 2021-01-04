@@ -39,10 +39,7 @@ public partial class SmathManager : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(PlayerData.Instance.myEquipment[1]);
-        }
+     
     }
 
     private void ListMake()
