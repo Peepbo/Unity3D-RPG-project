@@ -178,10 +178,8 @@ GameObject:
   - component: {fileID: 8070745341243258849}
   - component: {fileID: 8070745341243258848}
   - component: {fileID: 8070745341243258851}
-  - component: {fileID: 8070745341243258850}
   - component: {fileID: 1660114855106571737}
   - component: {fileID: 172844045658117084}
-  - component: {fileID: 4495333568502433568}
   - component: {fileID: -792000441814505288}
   m_Layer: 0
   m_Name: Shaman
@@ -189,7 +187,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8070745341243258849
 Transform:
   m_ObjectHideFlags: 0
@@ -254,20 +252,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &8070745341243258850
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8070745341243258853}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &1660114855106571737
 CharacterController:
   m_ObjectHideFlags: 0
@@ -306,25 +290,6 @@ MonoBehaviour:
   observeRange: 5
   angle: 210
   skillSpawn: 5
---- !u!95 &4495333568502433568
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8070745341243258853}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!195 &-792000441814505288
 NavMeshAgent:
   m_ObjectHideFlags: 0
