@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class ReturnMove : MonoBehaviour, IMoveAble
 {
     NavMeshAgent nav;
-    CharacterController controller;
+    //CharacterController controller;
     Vector3 spawnPos;
     float speed;
     bool isReturn;
@@ -18,12 +18,7 @@ public class ReturnMove : MonoBehaviour, IMoveAble
         this.speed = walkSpeed;
 
     }
-    public void initVariable(CharacterController cc, Vector3 spawnPosition, float followSpeed)
-    {
-        this.controller = cc;
-        this.spawnPos = spawnPosition;
-        this.speed = followSpeed;
-    }
+
     public bool getIsReturn()
     {
         return isReturn;
@@ -41,16 +36,5 @@ public class ReturnMove : MonoBehaviour, IMoveAble
         nav.stoppingDistance = 0f;
         nav.SetDestination(spawnPos);
        
-        //Vector3 _return = spawnPos - transform.position;
-        //Vector3 _direction = _return.normalized;
-
-        //_direction.y = 0;
-
-        //if (transform.position != spawnPos)
-        //    transform.rotation = Quaternion.LookRotation(_direction);
-
-        //controller.Move(_direction * speed * Time.deltaTime);
-
-
     }
 }

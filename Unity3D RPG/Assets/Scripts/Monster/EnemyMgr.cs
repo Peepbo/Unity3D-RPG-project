@@ -24,6 +24,7 @@ public abstract class EnemyMgr : MonoBehaviour
     public float findRange;
     [Range(1, 3)]
     public float attackRange;
+
     public int atkPower;
 
     public int maxHp;

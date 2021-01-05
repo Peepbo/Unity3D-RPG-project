@@ -30,13 +30,13 @@ public class Golem : EnemyMgr, IDamagedState
     protected override void Awake()
     {
         base.Awake();
+        findCount = 0;
+        hp = maxHp;
         spawnPos = transform.position;
 
     }
     private void Start()
     {
-        findCount = 0;
-        hp = maxHp;
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
@@ -106,26 +106,6 @@ public class Golem : EnemyMgr, IDamagedState
                         Debug.Log("플레이어를 공격중");
                         //AttackTarget();
                     }
-                    //if (Physics.Raycast(transform.position, direction, out _hit, findRange))
-                    //{
-                    //    if (_hit.transform.tag == "Player")
-                    //    {
-                    //        Debug.Log("Player");
-                    //        anim.SetInteger("state", 1);
-                    //        Follow();
-
-                    //    }
-
-                    //    else Debug.Log("못찾겠다..");
-
-                    //    //1. 못찾을때 집에간다
-
-                    //    //2. 여기에 raycast를 안쓴다
-                    //}
-
-
-                    //공격이 끝나고 휴식이 끝나면 AI.isStopped = false;
-
                 }
 
 
@@ -180,6 +160,7 @@ public class Golem : EnemyMgr, IDamagedState
         transform.rotation = Quaternion.LookRotation(direction);
         anim.SetBool("IsRest", true);
         anim.SetInteger("state", 0);
+
         yield return new WaitForSeconds(1.5f);
         anim.SetBool("IsRest", false);
         AI.isStopped = false;
