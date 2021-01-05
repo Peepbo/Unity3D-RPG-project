@@ -77,16 +77,25 @@ public class Goblin : EnemyMgr, IDamagedState
         isFind = viewAngle.FoundTarget(target, findRange, angle);
 
 
+        if (isDead)
+        {
+            Die();
+            return;
+        }
 
         if (isObserve)
         {
-            anim.SetInteger("state", 0);
+            if (!isFind)
+            {
+                anim.SetInteger("state", 0);
+                // setIdleState();
+            }
 
-            if (isFind)
+            else
             {
                 if (Physics.Raycast(transform.position, direction, out _hit, findRange))
                 {
-                   // Debug.Log(_hit.transform.name);
+                    // Debug.Log(_hit.transform.name);
 
                     if (_hit.transform.tag == "Player")
                     {
@@ -110,10 +119,10 @@ public class Goblin : EnemyMgr, IDamagedState
                 {
                     FollowTarget();
 
-                    if(_distance<=attackRange)
+                    if (_distance <= attackRange)
                     {
 
-                        anim.SetInteger("state",2);
+                        anim.SetInteger("state", 2);
                     }
                 }
                 else
@@ -214,13 +223,13 @@ public class Goblin : EnemyMgr, IDamagedState
 
         if (observe.getIsRangeOver())
         {
-            //anim.SetInteger("state", 0);
+            anim.SetInteger("state", 0);
         }
 
 
         if (_isFind)
         {
-            //anim.SetInteger("state", 1);
+            anim.SetInteger("state", 1);
         }
 
         //Debug.Log("Idle 상태");
@@ -253,23 +262,34 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         float _homeDistance = Vector3.Distance(startPos, transform.position);
 
-        setMoveType(returnToHome);
-        Move();
-
-        if (_homeDistance <= 0.5f)
+        if (!isDamaged)
         {
-            findCount = 0;
-            returnToHome.setIsReturn(false);
-            AI.isStopped = true;
-            isObserve = true;
-            //observe.setIsObserve(true);
+            setMoveType(returnToHome);
+            Move();
 
-            //controller의 speed를 velocity의 값에 넣어준다.
-            anim.SetFloat("velocity", controller.velocity.magnitude);
+            if (_homeDistance <= 0.5f)
+            {
+                findCount = 0;
+                returnToHome.setIsReturn(false);
+                AI.isStopped = true;
+                isObserve = true;
+                //observe.setIsObserve(true);
+
+                //controller의 speed를 velocity의 값에 넣어준다.;
+                anim.SetInteger("state", 0);
+                anim.SetFloat("velocity", controller.velocity.magnitude);
+            }
+
         }
+
+        else
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+            returnToHome.setIsReturn(false);
+
+        }
+
     }
-
-
     public void ActiveMeshCol()
     {
         weapon.GetComponent<MeshCollider>().enabled = true;
@@ -288,8 +308,8 @@ public class Goblin : EnemyMgr, IDamagedState
     IEnumerator AttackRoutine()
     {
         //rest를 켜고
-        AI.isStopped = true;
         anim.SetBool("isRest", true);
+        AI.isStopped = true;
         yield return new WaitForSeconds(1.5f);
 
         Vector3 _direction = target.transform.position - transform.position;
@@ -302,17 +322,19 @@ public class Goblin : EnemyMgr, IDamagedState
 
         yield return new WaitForSeconds(1.5f);
         //rest를 끈다
-        AI.isStopped = false;
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
+        AI.isStopped = false;
     }
 
     IEnumerator GetDamage()
     {
         isDamaged = true;
+        AI.isStopped = true;
 
         yield return new WaitForSeconds(.7f);
 
+        AI.isStopped = false;
         isDamaged = false;
     }
 
@@ -320,25 +342,25 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead) return;
 
-        hp -= (int)(value * (1.0f - def / 100));
-
-        if (hp <= 0)
+        if (hp > 0)
         {
-
+            hp -= (int)(value * (1.0f - def / 100));
+            StartCoroutine(GetDamage());
+        }
+        else
+        {
             hp = 0;
             isDead = true;
-            //anim.SetTrigger("Die");
-            controller.enabled = false;
+            anim.SetTrigger("Die");
 
-            if (disappearTime > 3f)
-            {
-                gameObject.SetActive(false);
-            }
+            controller.enabled = false;
+            AI.enabled = false;
+            StopAllCoroutines();
+            
 
         }
-       // anim.SetTrigger("isDamage");
+        anim.SetTrigger("isDamage");
 
-        StartCoroutine(GetDamage());
 
     }
 
@@ -352,7 +374,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         }
         AI.isStopped = true;
-        StopAllCoroutines();
+
     }
 
 

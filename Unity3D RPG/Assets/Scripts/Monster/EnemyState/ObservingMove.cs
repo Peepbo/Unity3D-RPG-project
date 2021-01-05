@@ -8,8 +8,6 @@ public class ObservingMove : MonoBehaviour, IMoveAble
     Vector3 spawnPos;
     Vector3 randomDirection;
 
-    float gravity = -9.81f;
-
     public Transform pivotCenter;
     public Transform radar;
    
