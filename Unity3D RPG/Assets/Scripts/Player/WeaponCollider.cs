@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour
 {
-
+    public GameObject particle;
     public GameObject[] effect;
     [SerializeField]
     private Player player;
@@ -14,7 +14,6 @@ public class WeaponCollider : MonoBehaviour
     void Start()
     {
         meshCollider = GetComponent<MeshCollider>();
-        
     }
 
     // Update is called once per frame

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ComboAtk : MonoBehaviour
 {
-    public WeaponCollider currentCollider; 
+    public WeaponCollider currentCollider;
+    GameObject particle;
     Button atkButton;
     Button criButton;
     public Animator animator;
@@ -27,11 +28,12 @@ public class ComboAtk : MonoBehaviour
     public void ColiderOn()
     {
         currentCollider.meshCollider.enabled = true;
+        currentCollider.particle.SetActive(true);
+
     }
     public void ColiderOff()
     {
         currentCollider.meshCollider.enabled = false;
-
     }
 
     public void GuardHitEnd()
@@ -106,7 +108,7 @@ public class ComboAtk : MonoBehaviour
         isCombo = true;
         isCriAtk = true;
         ColiderOn();
-
+        currentCollider.particle.SetActive(true);
     }
 
     public void Combo()
@@ -128,6 +130,7 @@ public class ComboAtk : MonoBehaviour
         {
             ComboAnimation(50, "CriAtkFinal");
         }
+        currentCollider.particle.SetActive(false);
     }
 
     public void ComboReset()
@@ -138,6 +141,7 @@ public class ComboAtk : MonoBehaviour
         player.isFight = false;
         player.isCri = false;
         ColiderOff();
+        currentCollider.particle.SetActive(false);
     }
 
 

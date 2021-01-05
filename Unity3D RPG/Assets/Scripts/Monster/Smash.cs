@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Smash : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    GameObject target;
+    int atk=45;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        target = GameObject.FindWithTag("Player");
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag=="Player")
+        {
+            target.transform.GetComponent<Player>().GetDamage(atk);
+        }
+            
     }
 }
