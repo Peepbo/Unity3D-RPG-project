@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DungeonQuest : Singleton<DungeonQuest>
 {
@@ -18,6 +19,8 @@ public class DungeonQuest : Singleton<DungeonQuest>
 
     public int ClearNumber { get { return correctNumber; } }
 
+    public TextMeshProUGUI text;
+
     private void Start() 
     { 
         //quest = (QUEST)Random.Range(0, 2);
@@ -26,10 +29,17 @@ public class DungeonQuest : Singleton<DungeonQuest>
             correctNumber = Random.Range(0, 4);
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.U)) Clear();
+    }
+
     public void Clear() 
     { 
         isClear = true;
 
         transform.GetChild(0).gameObject.SetActive(true);
+
+        text.text = "던전 클리어!";
     }
 }
