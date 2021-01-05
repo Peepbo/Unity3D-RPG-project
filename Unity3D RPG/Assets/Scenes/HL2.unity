@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -259,12 +259,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &93871244 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1557919345, guid: 4015dd586aea4944e9415a2c37ad1398,
-    type: 3}
-  m_PrefabInstance: {fileID: 907534746}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &294705344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8649580758588816808, guid: f057e150f9aab634ca0fa2b81418da01,
@@ -418,7 +412,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404127514}
-  m_LocalRotation: {x: 0.17577803, y: -0.00006665509, z: 0.000011901812, w: 0.98442984}
+  m_LocalRotation: {x: 0.17577803, y: -0.0000666551, z: 0.000011901814, w: 0.98442984}
   m_LocalPosition: {x: 3.62, y: 3.72, z: -10.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1079,7 +1073,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834186309}
-  m_LocalRotation: {x: 0.17577803, y: -0.00006665508, z: 0.000011901812, w: 0.98442984}
+  m_LocalRotation: {x: 0.17577803, y: -0.000066655084, z: 0.000011901812, w: 0.98442984}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1224,11 +1218,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2117436710506412946, guid: 4015dd586aea4944e9415a2c37ad1398,
-        type: 3}
-      propertyPath: weapon
-      value: 
-      objectReference: {fileID: 93871244}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4015dd586aea4944e9415a2c37ad1398, type: 3}
 --- !u!224 &919323964 stripped
