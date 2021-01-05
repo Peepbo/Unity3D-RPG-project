@@ -15,10 +15,10 @@ public class TimeManager : Singleton<TimeManager>
         Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
 
 
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            DoSlowmotion();
-        }
+        //if(Input.GetKeyDown(KeyCode.T))
+        //{
+        //    DoSlowmotion();
+        //}
         //if (Input.GetKeyDown(KeyCode.T))
         //{
         //    Debug.Log("t");
