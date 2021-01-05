@@ -5,6 +5,12 @@ using UnityEngine;
 public class DungeonChest : MonoBehaviour, IDamagedState
 {
     public int index;
+    Animator anim;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     public void Damaged(int value)
     {
@@ -21,6 +27,6 @@ public class DungeonChest : MonoBehaviour, IDamagedState
 
         else Debug.Log("아이템 획득!");
 
-        gameObject.SetActive(false);
+        anim.SetTrigger("Open");
     }
 }
