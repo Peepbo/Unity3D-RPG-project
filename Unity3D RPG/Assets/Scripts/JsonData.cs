@@ -19,6 +19,22 @@ public class SubItem
     }
 }
 
+public class Achieve
+{
+    public int Id;
+    public int Level;
+    public int State;
+    public int Number;
+
+    public Achieve(int id, int level, int state, int number)
+    {
+        Id = id;
+        Level = level;
+        State = state;
+        Number = number;
+    }
+}
+
 [System.Serializable]
 public class CharacterInfo
 {
@@ -43,10 +59,15 @@ public class JsonData : Singleton<JsonData>
     protected JsonData() { }
     public string path;
     const string fileName = "PlayerData.json";
+
+    public string achievePath;
+    const string fileName2 = "AchievementData.json";
    
     private void Awake()
     {
         path = PathNameSetup(fileName);
+
+        achievePath = PathNameSetup(fileName2);
     }
 
     public void CheckJsonData()
@@ -56,6 +77,17 @@ public class JsonData : Singleton<JsonData>
             Save(100, 0, new int[] { 0, 33, -1, -1 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 new List<SubItem> { });
+        }
+
+        if( File.Exists(achievePath) == false)
+        {
+            List<Achieve> _list = new List<Achieve>();
+            for(int i = 0; i < 8; i++)
+            {
+                _list.Add(new Achieve(i, 1, 0, 0));
+            }
+
+            AchieveSave(_list);
         }
     }
 
@@ -83,6 +115,18 @@ public class JsonData : Singleton<JsonData>
         File.WriteAllText(path, format);
     }
 
+    public void AchieveSave(List<Achieve> achieve)
+    {
+        //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
+        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
+
+        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
+
+        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(achieve.ToString());
+        //string format = System.Convert.ToBase64String(bytes);
+        File.WriteAllText(achievePath, JsonMapper.ToJson(achieve));
+    }
+
     
     public LitJson.JsonData jsonData 
     { 
@@ -95,6 +139,40 @@ public class JsonData : Singleton<JsonData>
 
             return _data;
         } 
+    }
+
+    public LitJson.JsonData AchieveJsonData
+    {
+        get
+        {
+            string Jsonstring = File.ReadAllText(achievePath);
+            //byte[] bytes = System.Convert.FromBase64String(Jsonstring);
+            //string reformat = System.Text.Encoding.UTF8.GetString(bytes);
+            LitJson.JsonData _data = JsonMapper.ToObject(Jsonstring);
+
+            return _data;
+        }
+    }
+
+    public List<Achieve> LoadAchieve()
+    {
+        List<Achieve> _output = new List<Achieve>();
+
+        for(int i = 0; i < AchieveJsonData.Count; i++)
+        {
+            _output.Add(new Achieve(int.Parse(AchieveJsonData[i]["Id"].ToString()),
+                                    int.Parse(AchieveJsonData[i]["Level"].ToString()),
+                                    int.Parse(AchieveJsonData[i]["State"].ToString()),
+                                    int.Parse(AchieveJsonData[i]["Number"].ToString())));
+
+        }
+        /*
+    public int Id;
+    public int Level;
+    public int State;
+    public int Number;
+         */
+        return _output;
     }
 
 
