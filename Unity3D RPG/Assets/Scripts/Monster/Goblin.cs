@@ -8,19 +8,28 @@ public class Goblin : EnemyMgr, IDamagedState
     private FollowTarget follow;
     private ReturnMove returnToHome;
     private ViewingAngle viewAngle;
+
     private Vector3 startPos;
+    private Vector3 direction;
     private Vector3 ranDirection;
 
     #region stat
     private int hp;
-    private int atk =25;
-    private float def=5.0f;
+    private int atk = 25;
+    private float def = 5.0f;
     private int gold;
     #endregion
 
+    private int findCount;
+    private bool isFind;
+
+    //temp
+    bool isObserve = true;
+
+
     [Range(3, 7)]
     public float observeRange;
-    [Range(10, 360)]
+    [Range(90, 300)]
     public float angle;
 
 
@@ -33,6 +42,7 @@ public class Goblin : EnemyMgr, IDamagedState
         ranDirection = GetRandomDirection();
 
         hp = maxHp;
+        findCount = 0;
     }
     void Start()
     {
@@ -43,104 +53,158 @@ public class Goblin : EnemyMgr, IDamagedState
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
         weapon.GetComponent<AxColision>().SetDamage(atkPower);
-        
-        
-        observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
 
+
+        observe.initVariable(controller, startPos, ranDirection, speed * 0.5f, observeRange);
         follow.Init(AI, target, speed, attackRange);
         returnToHome.init(AI, startPos, speed);
-  
+
         anim.SetInteger("state", 0);
     }
 
     void Update()
     {
-        //Vector3 _transfrom = transform.position;
-        //if (!controller.isGrounded)
-        //{
-        //    _transfrom.y += gravity * Time.deltaTime;
-        //}
+        direction = (target.transform.position - transform.position).normalized;
+        direction.y = 0;
+
+
+        RaycastHit _hit;
+
+        Debug.DrawRay(transform.position, direction * findRange, Color.blue);
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
-        bool _isFind = viewAngle.FoundTarget(target, findRange, angle);
+        isFind = viewAngle.FoundTarget(target, findRange, angle);
 
-    
 
-        if (isDead) Die();
 
+        if (isObserve)
+        {
+            anim.SetInteger("state", 0);
+
+            if (isFind)
+            {
+                if (Physics.Raycast(transform.position, direction, out _hit, findRange))
+                {
+                   // Debug.Log(_hit.transform.name);
+
+                    if (_hit.transform.tag == "Player")
+                    {
+                        anim.SetInteger("state", 1);
+                        findCount = 1;
+                        AI.isStopped = false;
+                        isObserve = false;
+                    }
+                    else
+                    {
+                        AI.isStopped = true;
+                    }
+                }
+            }
+        }
         else
         {
-           
-            if (isDamaged) return;
-
-            //animation idle or run
-            if (observe.getAction() == 0)
+            if (!returnToHome.getIsReturn() && findCount == 1)
             {
-                anim.SetInteger("state", 0);
-            }
-            else if (observe.getAction() == 1)
-            {
-                anim.SetInteger("state", 1);
-            }
-
-
-            //Observe 상태일 때
-            if (observe.getIsObserve())
-            {
-                //타겟을 찾으면
-                if (_isFind)
+                if (isFind)
                 {
+                    FollowTarget();
 
-                    observe.setIsObserve(false);
+                    if(_distance<=attackRange)
+                    {
 
+                        anim.SetInteger("state",2);
+                    }
                 }
                 else
                 {
-                    //타겟을 못찾으면 제자리에서 observe
-                    Observe();
+                    returnToHome.setIsReturn(true);
                 }
-
             }
-            //Observe 상태가 아닐 때
-            else
+
+            if (returnToHome.getIsReturn())
             {
-                //player가 공격 범위에 들어오면
-                if (_distance < attackRange)
-                {
-                   
-                    anim.SetInteger("state", 2);
-
-                }
-                //player가 공격 범위에 없으면
-                else
-                {
-                    if (_isFind && !returnToHome.getIsReturn())
-                    {
-
-                        anim.SetInteger("state", 1);
-
-                        if (anim.GetBool("isRest") == false)
-                        {
-                            FollowTarget();
-                        }
-                    }
-
-                    else if (_isFind == false || returnToHome.getIsReturn() == true)
-                    {
-                        anim.SetInteger("state", 1);
-
-                        if (anim.GetBool("isRest") == false)
-                        {
-                           // AI.stoppingDistance = 0.5f;
-                            ReturnToStart();
-                        }
-                    }
-                }
-
+                Back();
             }
 
         }
+
+        #region
+        //if (isDead) Die();
+
+        //else
+        //{
+
+        //    if (isDamaged) return;
+
+        //    //animation idle or run
+        //    if (observe.getAction() == 0)
+        //    {
+        //        anim.SetInteger("state", 0);
+        //    }
+        //    else if (observe.getAction() == 1)
+        //    {
+        //        anim.SetInteger("state", 1);
+        //    }
+
+
+        //    //Observe 상태일 때
+        //    if (observe.getIsObserve())
+        //    {
+        //        //타겟을 찾으면
+        //        if (_isFind)
+        //        {
+
+        //            observe.setIsObserve(false);
+
+        //        }
+        //        else
+        //        {
+        //            //타겟을 못찾으면 제자리에서 observe
+        //            Observe();
+        //        }
+
+        //    }
+        //    //Observe 상태가 아닐 때
+        //    else
+        //    {
+        //        //player가 공격 범위에 들어오면
+        //        if (_distance < attackRange)
+        //        {
+
+        //            anim.SetInteger("state", 2);
+
+        //        }
+        //        //player가 공격 범위에 없으면
+        //        else
+        //        {
+        //            if (_isFind && !returnToHome.getIsReturn())
+        //            {
+
+        //                anim.SetInteger("state", 1);
+
+        //                if (anim.GetBool("isRest") == false)
+        //                {
+        //                    FollowTarget();
+        //                }
+        //            }
+
+        //            else if (_isFind == false || returnToHome.getIsReturn() == true)
+        //            {
+        //                anim.SetInteger("state", 1);
+
+        //                if (anim.GetBool("isRest") == false)
+        //                {
+        //                   // AI.stoppingDistance = 0.5f;
+        //                    ReturnToStart();
+        //                }
+        //            }
+        //        }
+
+        //    }
+
+        //}
+        #endregion
 
     }
 
@@ -150,13 +214,13 @@ public class Goblin : EnemyMgr, IDamagedState
 
         if (observe.getIsRangeOver())
         {
-            anim.SetInteger("state", 0);
+            //anim.SetInteger("state", 0);
         }
 
 
         if (_isFind)
         {
-            anim.SetInteger("state", 1);
+            //anim.SetInteger("state", 1);
         }
 
         //Debug.Log("Idle 상태");
@@ -176,28 +240,29 @@ public class Goblin : EnemyMgr, IDamagedState
     public void FollowTarget()
     {
         //타겟 따라갈때는 observe false
-        observe.setIsObserve(false);
+        //observe.setIsObserve(false);
 
         //controller의 speed를 animation velocity 값에 넣어준다.
-        anim.SetFloat("velocity", controller.velocity.magnitude);
-
+        //anim.SetFloat("velocity", controller.velocity.magnitude);
+        anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
     }
 
-    public void ReturnToStart()
+    public void Back()
     {
         float _homeDistance = Vector3.Distance(startPos, transform.position);
 
         setMoveType(returnToHome);
-        returnToHome.setIsReturn(true);
-
         Move();
 
         if (_homeDistance <= 0.5f)
         {
+            findCount = 0;
             returnToHome.setIsReturn(false);
-            observe.setIsObserve(true);
+            AI.isStopped = true;
+            isObserve = true;
+            //observe.setIsObserve(true);
 
             //controller의 speed를 velocity의 값에 넣어준다.
             anim.SetFloat("velocity", controller.velocity.magnitude);
@@ -223,6 +288,7 @@ public class Goblin : EnemyMgr, IDamagedState
     IEnumerator AttackRoutine()
     {
         //rest를 켜고
+        AI.isStopped = true;
         anim.SetBool("isRest", true);
         yield return new WaitForSeconds(1.5f);
 
@@ -236,6 +302,8 @@ public class Goblin : EnemyMgr, IDamagedState
 
         yield return new WaitForSeconds(1.5f);
         //rest를 끈다
+        AI.isStopped = false;
+        anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
     }
 
@@ -259,7 +327,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
             hp = 0;
             isDead = true;
-            anim.SetTrigger("Die");
+            //anim.SetTrigger("Die");
             controller.enabled = false;
 
             if (disappearTime > 3f)
@@ -268,7 +336,7 @@ public class Goblin : EnemyMgr, IDamagedState
             }
 
         }
-        anim.SetTrigger("isDamage");
+       // anim.SetTrigger("isDamage");
 
         StartCoroutine(GetDamage());
 
@@ -281,17 +349,18 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             //아이템 떨어트리기
             gameObject.SetActive(false);
-            StopAllCoroutines();
-        }
 
+        }
+        AI.isStopped = true;
+        StopAllCoroutines();
     }
 
 
-    public void DropMoney(int maxGold,int minGold,Transform money,string name) 
+    public void DropMoney(int maxGold, int minGold, Transform money, string name)
     {
         gold = Random.Range(maxGold, minGold);
-        
-        
+
+
     }
 
 
