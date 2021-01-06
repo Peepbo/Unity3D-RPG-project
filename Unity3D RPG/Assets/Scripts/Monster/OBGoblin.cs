@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : EnemyMgr, IDamagedState
+public class OBGoblin : EnemyMgr, IDamagedState
 {
     private EnemyStat stat;
     private ObservingMove observe;
@@ -13,14 +13,13 @@ public class Goblin : EnemyMgr, IDamagedState
     private Vector3 startPos;
     private Vector3 direction;
 
-  
+ 
+    private int gold;
+ 
     private int findCount;
     private bool isFind;
 
-    //temp
-    bool isObserve = true;
-
-
+  
     [Range(3, 7)]
     public float observeRange;
     [Range(90, 300)]
@@ -34,8 +33,11 @@ public class Goblin : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
 
+        stat = gameObject.GetComponent<EnemyStat>();
         stat.hp = stat.maxHp;
+       // hp = maxHp;
         findCount = 0;
+        
     }
     void Start()
     {
@@ -288,8 +290,6 @@ public class Goblin : EnemyMgr, IDamagedState
     }
 
 
-
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
@@ -300,3 +300,4 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 }
+

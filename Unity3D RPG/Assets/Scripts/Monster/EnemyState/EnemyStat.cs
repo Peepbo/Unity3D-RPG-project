@@ -19,8 +19,17 @@ public class EnemyStat : MonoBehaviour
 
     public int minGold;
     public int maxGold;
-    public string[] loot = new string[3];
-   
+    private string[] loot = new string[3];
+    private int[] kindId = new int[3];
+
+
+
+    private void Start()
+    {
+       
+    }
+    
+
 }
 
 

@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 172957959203777737}
   - component: {fileID: 172957958093577140}
   - component: {fileID: -2920261266074864929}
+  - component: {fileID: 5801729096403278524}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Enemy
@@ -263,6 +264,29 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5801729096403278524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172957959203777731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67b752203332ac45a1c875fcb858b97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  hp: 100
+  atk: 45
+  def: 10
+  speed: 2
+  angle: 360
+  findRange: 10
+  attackRange: 3
+  observeRange: 0
+  minGold: 50
+  maxGold: 100
 --- !u!114 &299250430
 MonoBehaviour:
   m_ObjectHideFlags: 0

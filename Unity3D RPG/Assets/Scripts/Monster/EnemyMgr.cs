@@ -17,17 +17,15 @@ public abstract class EnemyMgr : MonoBehaviour
     protected bool isDead;
     protected float disappearTime;
 
+    //temp
+    public GameObject coinEffect;
 
-    [Range(1, 5)]
-    public float speed;
+
     [Range(5, 15)]
     public float findRange;
     [Range(1, 3)]
     public float attackRange;
 
-    public int atkPower;
-
-    public int maxHp;
 
 
     protected virtual void Awake()

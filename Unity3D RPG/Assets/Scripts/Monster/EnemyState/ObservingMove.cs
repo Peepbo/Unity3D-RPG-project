@@ -31,7 +31,7 @@ public class ObservingMove : MonoBehaviour, IMoveAble
     public void move()
     {
         if (!isObserve) return;
-
+       
 
         if (time > 0)
         {

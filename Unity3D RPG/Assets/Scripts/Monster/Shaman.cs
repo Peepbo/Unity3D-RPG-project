@@ -5,18 +5,12 @@ using UnityEngine.AI;
 
 public class Shaman : EnemyMgr, IDamagedState
 {
+    private EnemyStat stat;
     private Vector3 startPos;
 
     private ObservingMove observe;
     private ViewingAngle viewAngle;
 
-
-    #region stat
-    private int hp;
-    private int atk;
-    private float def;
-    private int gold;
-    #endregion
 
     private bool isDetected;
     private Transform firePos;
@@ -35,7 +29,7 @@ public class Shaman : EnemyMgr, IDamagedState
         startPos = transform.position;
         firePos = transform.Find("FirePos");
 
-        hp = maxHp;
+        stat.hp = stat.maxHp;
 
         anim.SetInteger("state", 0);
     }
@@ -44,7 +38,7 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
-        observe.Init(AI, startPos, speed, observeRange);
+        observe.Init(AI, startPos, stat.speed, observeRange);
       
     }
 
@@ -116,12 +110,12 @@ public class Shaman : EnemyMgr, IDamagedState
 
         if (isDamaged || isDead) return;
 
-        hp -= (int)(value * (1.0f - def / 100));
+        stat.hp -= (int)(value * (1.0f - stat.def / 100));
         anim.SetTrigger("damage");
 
-        if (hp <= 0)
+        if (stat.hp <= 0)
         {
-            hp = 0;
+            stat.hp = 0;
             isDead = true;
             anim.SetTrigger("die");
             controller.enabled = false;

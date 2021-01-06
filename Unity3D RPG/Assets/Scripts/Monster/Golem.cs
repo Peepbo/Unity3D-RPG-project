@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Golem : EnemyMgr, IDamagedState
 {
-
+    private EnemyStat stat;
     private FollowTarget follow;
     private ReturnMove back;
 
@@ -19,19 +19,11 @@ public class Golem : EnemyMgr, IDamagedState
     private float destroyCount;
 
 
-    #region stat
-    private int hp;
-    private int atk = 45;
-    private float def =10.0f;
-    private int gold;
-    #endregion
-
-
     protected override void Awake()
     {
         base.Awake();
         findCount = 0;
-        hp = maxHp;
+        stat.hp = stat.maxHp;
         spawnPos = transform.position;
 
     }
@@ -40,8 +32,8 @@ public class Golem : EnemyMgr, IDamagedState
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
-        follow.Init(AI, target, speed, attackRange);
-        back.init(AI, spawnPos, speed);
+        follow.Init(AI, target, stat.speed, attackRange);
+        back.init(AI, spawnPos, stat.speed);
 
         anim.SetInteger("state", 0);
     }
@@ -190,13 +182,13 @@ public class Golem : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead ) return;
 
-        hp -= (int)(value * (1.0f-def/100));
+        stat.hp -= (int)(value * (1.0f-stat.def/100));
 
-        if (hp > 0) StartCoroutine(GetDamage());
+        if (stat.hp > 0) StartCoroutine(GetDamage());
 
         else
         {
-            hp = 0;
+            stat.hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
         }
