@@ -35,6 +35,16 @@ public class ItemInfo
     public string iconPath;
 }
 
+public class AchieveInfo
+{
+    public int id;
+    public string name;
+    public int level;
+    public int number;
+    public string descrition;
+    public int reward;
+}
+
 public class CSVData : Singleton<CSVData>
 {
     protected CSVData() { }

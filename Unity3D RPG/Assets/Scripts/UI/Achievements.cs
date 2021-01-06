@@ -28,8 +28,11 @@ public class AchieveData
 
 public class Achievements : MonoBehaviour
 {
-    public GameObject achieveSlots;
-    public AchieveData[] data = new AchieveData[7];
+    public GameObject achieveSlots;                                 // 업적 슬롯
+    public GameObject popInfo;
+    public AchieveData[] data = new AchieveData[7];                 // 업적 갯수
+    public List<AchieveInfo> AchieveList = new List<AchieveInfo>(); // 업적 관련
+
 
     Color[] color = {
         new Color(117f / 255, 1, 105f / 255, 1),    // YET - 초록
@@ -70,8 +73,10 @@ public class Achievements : MonoBehaviour
 
     public void ShowAchieveData(int order)
     {
-        for (int i = 1; i < data[order].count; i++)
+        for (int i = 1; i < data[order].count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
+            popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = AchieveList[i - 1].name.ToString();
+
             if (data[i].state == ACHIEVE_STATE.YET)
             {
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[0];
