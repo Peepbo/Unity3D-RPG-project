@@ -36,11 +36,6 @@ public class Achievements : MonoBehaviour
     public GameObject achieveSlots;
     public AchieveData[] data = new AchieveData[7];
 
-    void Update()
-    {
-
-    }
-
     Color[] color = {
         new Color(117f / 255, 1, 105f / 255, 1),    // YET - 초록
         new Color(1, 1, 180f / 255, 1),             // PROGRESS - 노랑
@@ -48,9 +43,25 @@ public class Achievements : MonoBehaviour
         new Color(177f / 255, 189f / 255, 1, 1),    // ACHIEVE - 파랑
     };
 
-    Sprite GetPath(int id)
+    private void Start()
     {
-        return Resources.Load<Sprite>(CSVData.Instance.find(id).iconPath);
+        JsonData.Instance.CheckJsonData();
+
+        List<Achieve> _list = new List<Achieve>();
+
+        _list = JsonData.Instance.LoadAchieve();
+
+        for (int i = 0; i < _list.Count; i++)
+        {
+            Debug.Log(_list[i].Number);
+        }
+
+        JsonData.Instance.AchieveSave(_list);
+    }
+
+    void Update()
+    {
+
     }
 
     public void Content(int order)
@@ -62,7 +73,7 @@ public class Achievements : MonoBehaviour
         }
     }
 
-    public void GetAchieveData(int order)
+    public void ShowAchieveData(int order)
     {
         for (int i = 1; i < data[order].count; i++)
         {
@@ -83,5 +94,10 @@ public class Achievements : MonoBehaviour
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[3];
             }
         }
+    }
+
+    public void GetAchieveData()
+    {
+
     }
 }

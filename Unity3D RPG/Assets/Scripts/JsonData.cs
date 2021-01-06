@@ -22,16 +22,20 @@ public class SubItem
 public class Achieve
 {
     public int Id;
+    public string Name;
     public int Level;
     public int State;
     public int Number;
+    public string Description;
 
-    public Achieve(int id, int level, int state, int number)
+    public Achieve(int id, string name, int level, int state, int number, string description)
     {
         Id = id;
+        Name = name;
         Level = level;
         State = state;
         Number = number;
+        Description = description;
     }
 }
 
@@ -84,7 +88,7 @@ public class JsonData : Singleton<JsonData>
             List<Achieve> _list = new List<Achieve>();
             for(int i = 0; i < 8; i++)
             {
-                _list.Add(new Achieve(i, 1, 0, 0));
+                _list.Add(new Achieve(i, "", 1, 0, 0, ""));
             }
 
             AchieveSave(_list);
@@ -124,6 +128,7 @@ public class JsonData : Singleton<JsonData>
 
         //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(achieve.ToString());
         //string format = System.Convert.ToBase64String(bytes);
+
         File.WriteAllText(achievePath, JsonMapper.ToJson(achieve));
     }
 
@@ -161,16 +166,19 @@ public class JsonData : Singleton<JsonData>
         for(int i = 0; i < AchieveJsonData.Count; i++)
         {
             _output.Add(new Achieve(int.Parse(AchieveJsonData[i]["Id"].ToString()),
+                                    AchieveJsonData[i]["Name"].ToString(),
                                     int.Parse(AchieveJsonData[i]["Level"].ToString()),
                                     int.Parse(AchieveJsonData[i]["State"].ToString()),
-                                    int.Parse(AchieveJsonData[i]["Number"].ToString())));
-
+                                    int.Parse(AchieveJsonData[i]["Number"].ToString()),
+                                    AchieveJsonData[i]["Description"].ToString()));
         }
         /*
     public int Id;
+    public string name;
     public int Level;
     public int State;
     public int Number;
+    public string description;
          */
         return _output;
     }
