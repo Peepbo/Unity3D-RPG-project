@@ -9,8 +9,9 @@ public class Suhyun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            PlayerData.Instance.SaveChest(7);
-            //PlayerData.Instance.save
+            PlayerData.Instance.SaveChest(1);
+            PlayerData.Instance.SaveChest(2);
+            PlayerData.Instance.SaveChest(3);
         }
     }
 }

@@ -13,18 +13,6 @@ partial class LootManager
     public GameObject popLoot;
     ChestManager cm;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     Sprite GetPath(int id)
     {
         return Resources.Load<Sprite>(CSVData.Instance.find(id).iconPath);
@@ -32,24 +20,43 @@ partial class LootManager
 
     public void ShowPocketData()
     {
-        int num = 0;
-
-        for (int i = 1; i < 11; i++)
+        for(int i = 0; i < 10; i++)
         {
-            if (num == pd.myPocketItem.count)
+            if((i+1) > pd.myPocketItem.count)
             {
-                cm.lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
-                popLoot.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
+                cm.lootsData[i].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+                popLoot.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = null;
                 continue;
             }
+
             else
             {
-                int _itemNumber = cm.lootList[i - 1].id;
+                int _itemNumber = PlayerData.Instance.haveLootItem[i].id;
 
-                cm.lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
-                popLoot.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = cm.lootList[i - 1].count.ToString();
+                cm.lootsData[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
+                popLoot.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text =
+                    PlayerData.Instance.haveLootItem[i].count.ToString();
             }
-            num++;
         }
+
+        //int num = 0;
+
+        //for (int i = 1; i < 11; i++)
+        //{
+        //    if (num == pd.myPocketItem.count)
+        //    {
+        //        cm.lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
+        //        popLoot.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
+        //        continue;
+        //    }
+        //    else
+        //    {
+        //        int _itemNumber = cm.lootList[i - 1].id;
+
+        //        cm.lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
+        //        popLoot.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = cm.lootList[i - 1].count.ToString();
+        //    }
+        //    num++;
+        //}
     }
 }

@@ -113,10 +113,11 @@ public class JsonData : Singleton<JsonData>
     {
         CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
 
-        LitJson.JsonData ItemJson = JsonMapper.ToJson(character);
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ItemJson.ToString());
-        string format = System.Convert.ToBase64String(bytes);
-        File.WriteAllText(path, format);
+        //LitJson.JsonData ItemJson = JsonMapper.ToJson(character);
+        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ItemJson.ToString());
+        //string format = System.Convert.ToBase64String(bytes);
+        //File.WriteAllText(path, format);
+        File.WriteAllText(path, JsonMapper.ToJson(character));
     }
 
     public void AchieveSave(List<Achieve> achieve)
@@ -137,10 +138,10 @@ public class JsonData : Singleton<JsonData>
         get
         {
             string Jsonstring = File.ReadAllText(path);
-            byte[] bytes = System.Convert.FromBase64String(Jsonstring);
-            string reformat = System.Text.Encoding.UTF8.GetString(bytes);
-            LitJson.JsonData _data = JsonMapper.ToObject(reformat);
-
+            //byte[] bytes = System.Convert.FromBase64String(Jsonstring);
+            //string reformat = System.Text.Encoding.UTF8.GetString(bytes);
+            //LitJson.JsonData _data = JsonMapper.ToObject(reformat);
+            LitJson.JsonData _data = JsonMapper.ToObject(Jsonstring);
             return _data;
         } 
     }
