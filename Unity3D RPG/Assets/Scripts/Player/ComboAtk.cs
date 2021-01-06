@@ -27,13 +27,17 @@ public class ComboAtk : MonoBehaviour
     
     public void ColiderOn()
     {
-        currentCollider.meshCollider.enabled = true;
-        currentCollider.particle.SetActive(true);
+        if (player.isGuard == false)
+        {
+            currentCollider.meshCollider.enabled = true;
+            currentCollider.particle.SetActive(true);
+        }
 
     }
     public void ColiderOff()
     {
         currentCollider.meshCollider.enabled = false;
+        currentCollider.particle.SetActive(false);
     }
 
     public void GuardHitEnd()
@@ -43,7 +47,7 @@ public class ComboAtk : MonoBehaviour
     
     public void Attack() 
     {
-        if (player.isDash == false)
+        if (player.isDash == false && player.isGuard == false)
         {
             player.isFight = true;
             if (comboStep == 0 )
@@ -74,31 +78,35 @@ public class ComboAtk : MonoBehaviour
 
     public void CriAttack()
     {
-        player.isFight = true;
-        player.isCri = true;
-        if (player.isDash == false)
+        if(player.isGuard == false)
         {
-            if (comboStep == 0)
+
+            player.isFight = true;
+            player.isCri = true;
+            if (player.isDash == false)
             {
-                if ( player.stamina >= 50)
+                if (comboStep == 0)
                 {
-                    player.staminaDown(50);
-                    animator.Play("Atk3"); //크리공격시작
-                    comboStep = 100;
-                    return;
+                    if ( player.stamina >= 50)
+                    {
+                        player.staminaDown(50);
+                        animator.Play("Atk3"); //크리공격시작
+                        comboStep = 100;
+                        return;
+                    }
+                    else
+                    {
+                        player.isFight = false;
+                        player.isCri = false;
+                    }
                 }
-                else
+                if (comboStep != 0)
                 {
-                    player.isFight = false;
-                    player.isCri = false;
-                }
-            }
-            if (comboStep != 0)
-            {
-                if (isCriAtk)
-                {
-                    isCriAtk = false;
-                    comboStep += 10;
+                    if (isCriAtk)
+                    {
+                        isCriAtk = false;
+                        comboStep += 10;
+                    }
                 }
             }
         }
@@ -108,7 +116,6 @@ public class ComboAtk : MonoBehaviour
         isCombo = true;
         isCriAtk = true;
         ColiderOn();
-        currentCollider.particle.SetActive(true);
     }
 
     public void Combo()
@@ -130,7 +137,7 @@ public class ComboAtk : MonoBehaviour
         {
             ComboAnimation(50, "CriAtkFinal");
         }
-        currentCollider.particle.SetActive(false);
+       
     }
 
     public void ComboReset()
@@ -141,7 +148,6 @@ public class ComboAtk : MonoBehaviour
         player.isFight = false;
         player.isCri = false;
         ColiderOff();
-        currentCollider.particle.SetActive(false);
     }
 
 

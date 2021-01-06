@@ -16,13 +16,16 @@ partial class Player
     }
     
     public string           playerName;         //  플레이어 이름
-    
+
+    public int              potionNum;          //  플레이어 포션 갯수 
+    public int              potionMaxNum;       //  플레이어 포션 최대 갯수
+
     public int              maxHp = 100;        //  최대체력
     public int              hp = 100;           //  현제체력
     
     public int              maxStamina = 100;   //  최대 스태미나(최대기력)
     public int              stamina = 100;      //  스태미나(기력)
-    float                   staminaTime =0f;     //  스태미나 충전시간
+    float                   staminaTime =0f;    //  스태미나 충전시간
     
     public float            def;                //  방어력
     public float            increasedDef;       //  방어력 증가치

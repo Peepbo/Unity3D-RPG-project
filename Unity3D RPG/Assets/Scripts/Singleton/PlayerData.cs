@@ -64,6 +64,7 @@ public partial class PlayerData : Singleton<PlayerData>
         }
 
         //아이템
+        myItem.Clear();
         List<SubItem> _item = new List<SubItem>(JsonData.Instance.LoadItem());
         for(int i = 0; i < _item.Count; i++)
         {

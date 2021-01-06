@@ -16,13 +16,14 @@ public partial class Player : MonoBehaviour
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
         StateAwake();
-
+       
+        Debug.Log(PlayerData.Instance.a);
     }
     // Start is called before the first frame update
     void Start()
     {
         AnimStart();
-
+        EquipStat();
     }
    
     // Update is called once per frame
