@@ -43,7 +43,7 @@ public class Achieve
 public class CharacterInfo
 {
     public int Money;                                               // 돈
-    public int[] StaturePoint= new int [2];                                        // 성장 포인트
+    public int[] StaturePoint= new int [2];                         // 성장 포인트
     public int[] Equip = new int[4];                                // 착용 장비
     public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
     public int[] Characteristic = new int[35];                      // 특성
@@ -122,7 +122,6 @@ public class JsonData : Singleton<JsonData>
     public void AchieveSave(List<Achieve> achieve)
     {
         //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
-        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
 
         //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
 
@@ -135,7 +134,7 @@ public class JsonData : Singleton<JsonData>
     
     public LitJson.JsonData jsonData 
     { 
-        get 
+        get
         {
             string Jsonstring = File.ReadAllText(path);
             byte[] bytes = System.Convert.FromBase64String(Jsonstring);
