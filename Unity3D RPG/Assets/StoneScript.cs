@@ -20,6 +20,7 @@ public class StoneScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if(other.tag == "Player")
         {
             StopAllCoroutines();
@@ -32,6 +33,7 @@ public class StoneScript : MonoBehaviour
             EffectManager.Instance.EffectActive(5, transform.position, Quaternion.identity);
 
             effect.SetActive(false);
+            //gameObject.SetActive(false);
         }
 
         else if (other.tag == "Enemy")
@@ -46,6 +48,7 @@ public class StoneScript : MonoBehaviour
             EffectManager.Instance.EffectActive(5, transform.position, Quaternion.identity);
 
             effect.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 
@@ -79,10 +82,12 @@ public class StoneScript : MonoBehaviour
 
             if (fadeOn)
             {
+                col.enabled = false;
                 Color _endColor = mat.material.color;
                 _endColor.a = 0;
                 mat.material.color = Color.Lerp(mat.material.color, _endColor, Time.deltaTime * 3f);
 
+                if (mat.material.color.a <= 0.05f) gameObject.SetActive(false);
             }
         }
 

@@ -67,23 +67,23 @@ public class ObservingMove : MonoBehaviour, IMoveAble
 
                 else
                 {
-                    Vector3 _dir = (ranDestination - transform.position).normalized;
-                    _dir.y = 0;
-                    RaycastHit _hit;
+                    //Vector3 _dir = (ranDestination - transform.position).normalized;
+                    //_dir.y = 0;
+                    //RaycastHit _hit;
 
-                    if (Vector3.Distance(ranDestination, transform.position) < 1.5f)
-                    {
-                        if (Physics.Raycast(transform.position, _dir, out _hit, 1.5f))
-                        {
-                            if (_hit.transform.tag == "Object")
-                            {
-                                agent.isStopped = true;
+                    //if (Vector3.Distance(ranDestination, transform.position) < 1.5f)
+                    //{
+                    //    if (Physics.Raycast(transform.position, _dir, out _hit, 1.5f))
+                    //    {
+                    //        if (_hit.transform.tag == "Object")
+                    //        {
+                    //            agent.isStopped = true;
                               
 
-                            }
+                    //        }
 
-                        }
-                    }
+                    //    }
+                    //}
 
                 }
                 break;
