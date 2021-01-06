@@ -373,8 +373,6 @@ public class Goblin : EnemyMgr, IDamagedState
             gameObject.SetActive(false);
 
         }
-        AI.isStopped = true;
-
     }
 
 
