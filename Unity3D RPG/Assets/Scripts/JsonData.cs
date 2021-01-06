@@ -43,12 +43,12 @@ public class Achieve
 public class CharacterInfo
 {
     public int Money;                                               // 돈
-    public int StaturePoint;                                        // 성장 포인트
+    public int[] StaturePoint= new int [2];                                        // 성장 포인트
     public int[] Equip = new int[4];                                // 착용 장비
     public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
     public int[] Characteristic = new int[35];                      // 특성
 
-    public CharacterInfo(int money, int point, int[] equip, List<SubItem> item, int[] charac)
+    public CharacterInfo(int money, int[] point, int[] equip, List<SubItem> item, int[] charac)
     {
         Money = money;
         StaturePoint = point;
@@ -78,7 +78,7 @@ public class JsonData : Singleton<JsonData>
     {
         if (File.Exists(path) == false)
         {
-            Save(100, 0, new int[] { 0, 33, -1, -1 },
+            Save(100, new int[] {0, 0}, new int[] { 0, 33, -1, -1 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 new List<SubItem> { });
         }
@@ -109,7 +109,7 @@ public class JsonData : Singleton<JsonData>
         }
     }
 
-    public void Save(int money, int point, int[] equip, int[] charac, List<SubItem> item)
+    public void Save(int money, int[] point, int[] equip, int[] charac, List<SubItem> item)
     {
         CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
 
