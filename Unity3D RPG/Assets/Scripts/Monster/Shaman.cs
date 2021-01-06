@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Shaman : EnemyMgr, IDamagedState
 {
     private Vector3 startPos;
-    private Vector3 ranDirection;
 
     private ObservingMove observe;
     private ViewingAngle viewAngle;
@@ -36,7 +35,6 @@ public class Shaman : EnemyMgr, IDamagedState
         startPos = transform.position;
         firePos = transform.Find("FirePos");
 
-        ranDirection = GetRandomDirection();
         hp = maxHp;
 
         anim.SetInteger("state", 0);
@@ -46,8 +44,8 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
-
-        observe.initVariable(controller, startPos, ranDirection, speed, observeRange);
+        observe.Init(AI, startPos, speed, observeRange);
+      
     }
 
     void Update()

@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class Temp : EnemyMgr
 {
+    RaycastHit hit;
     float radius = 5f;
+    Vector3 ranDestination;
     Vector3 spawnPos;
     float time = 5f;
     int action;
@@ -18,11 +20,13 @@ public class Temp : EnemyMgr
 
     private void Update()
     {
+
         Observe();
     }
 
     void Observe()
     {
+
         if (time > 0)
         {
             time -= Time.deltaTime;
@@ -32,7 +36,8 @@ public class Temp : EnemyMgr
         {
             time = 5f;
 
-            action = Random.Range(0, 2);
+            action = 1;
+            //action = Random.Range(0, 2);
         }
 
         switch (action)
@@ -42,22 +47,47 @@ public class Temp : EnemyMgr
 
                 if (AI.hasPath == true)
                 {
-                    //경로를 가지고있을 때 reset해라!
+                    //경로를 가지고있을 때 reset
                     AI.ResetPath();
                 }
 
                 break;
             case 1: //move
-                AI.isStopped = false;
+
+                Vector3 _dir = (ranDestination - transform.position).normalized;
+                Debug.DrawRay(transform.position, _dir * 1.5f, Color.red);
+                // AI.isStopped = false;
 
                 if (AI.hasPath == false)
                 {
+                    Debug.Log("경로없음");
+                    ranDestination = Random.onUnitSphere * radius;
+                    ranDestination.y = 0;
                     time = 3f;
-                    Vector3 ranVec = Random.onUnitSphere * radius;
-                    ranVec.y = 0;
-                    AI.SetDestination(spawnPos + ranVec);
-                }
+                    AI.isStopped = false;
+                    AI.SetDestination(spawnPos + ranDestination);
 
+
+                }
+                else
+                {
+                    if (AI.pathStatus == NavMeshPathStatus.PathPartial)
+                    {
+                        Debug.Log("벽이다");
+                        AI.ResetPath();
+                    }
+                    //if (Vector3.Distance(ranDestination, transform.position) < 1.5f)
+                    //{
+                    //    if (Physics.Raycast(transform.position, _dir, out hit, 1.5f))
+                    //    {
+                    //        if (hit.transform.tag == "Object")
+                    //        {
+                    //            AI.isStopped = true;
+                    //            AI.ResetPath();
+                    //        }
+                    //    }
+                    //}
+                }
                 break;
         }
     }
