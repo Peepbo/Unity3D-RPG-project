@@ -38,7 +38,7 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         base.Awake();
         startPos = transform.position;
-        
+
         hp = maxHp;
         findCount = 0;
     }
@@ -201,21 +201,25 @@ public class Goblin : EnemyMgr, IDamagedState
     }
     public void ActiveMeshCol()
     {
+        if (isDead) return;
         weapon.GetComponent<MeshCollider>().enabled = true;
     }
     public void DeActiveMeshCol()
     {
+        if (isDead) return;
         weapon.GetComponent<MeshCollider>().enabled = false;
     }
 
 
     public void GetRest()
     {
+        if (isDead) return;
         StartCoroutine(AttackRoutine());
     }
 
     IEnumerator AttackRoutine()
     {
+
         //rest를 켜고
         anim.SetBool("isRest", true);
         AI.isStopped = true;
@@ -234,10 +238,12 @@ public class Goblin : EnemyMgr, IDamagedState
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
         AI.isStopped = false;
+
     }
 
     IEnumerator GetDamage()
     {
+
         isDamaged = true;
         AI.isStopped = true;
 
@@ -245,6 +251,8 @@ public class Goblin : EnemyMgr, IDamagedState
 
         AI.isStopped = false;
         isDamaged = false;
+
+
     }
 
     public void Damaged(int value)

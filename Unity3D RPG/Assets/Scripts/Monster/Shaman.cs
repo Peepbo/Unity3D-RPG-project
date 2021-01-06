@@ -55,7 +55,6 @@ public class Shaman : EnemyMgr, IDamagedState
 
         if (!isDetected)
         {
-
             Observe();
         }
 
@@ -88,13 +87,17 @@ public class Shaman : EnemyMgr, IDamagedState
         {
             //플레이어가 부채꼴 안에 있는지 검사를 한다. (공격 모션 거의 끝남)
             isDetected = viewAngle.FoundTarget(target, findRange, angle);
+            Vector3 _dir = (target.transform.position - transform.position).normalized;
+            _dir.y = 0;
 
+            transform.rotation = Quaternion.LookRotation(_dir);
             //만약 isDetected가 false가 되면? <before : atk상태> -> observe
             if (isDetected == false)
             {
                 int _action = observe.getAction();
                 anim.SetInteger("state", _action);
             }
+         
         }
 
     }

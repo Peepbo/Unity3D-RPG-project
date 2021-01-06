@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class FollowTarget : MonoBehaviour, IMoveAble
 {
-    CharacterController controller;
     GameObject target;
     NavMeshAgent nav;
     float speed;
