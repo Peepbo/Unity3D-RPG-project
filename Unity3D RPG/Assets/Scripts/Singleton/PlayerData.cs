@@ -26,7 +26,7 @@ public partial class PlayerData : Singleton<PlayerData>
     public int hpLv;
     public int stmLv;
 
-    public int myStature;
+    public int[] myStature = new int[2];
 
     public int myPotion;
 
@@ -47,10 +47,17 @@ public partial class PlayerData : Singleton<PlayerData>
         myCurrency = JsonData.Instance.LoadCurrency();
 
         //성장
-        myStature = JsonData.Instance.LoadStaturePoint();
+        for(int i = 0; i < 2; i++)
+        {
+            myStature[i] = JsonData.Instance.LoadStaturePoint()[i];
+        }
 
         //장비
         List<int> _equip = new List<int>(JsonData.Instance.LoadEquip());
+        //currentWeapon = _equip[0];
+        //currentArmor = _equip[1];
+        //currentAccessory = _equip[2];
+        //currentBossItem = _equip[3];
         for (int i = 0; i < _equip.Count; i++)
         {
             myEquipment[i + 1] = _equip[i];
@@ -83,21 +90,19 @@ public partial class PlayerData : Singleton<PlayerData>
         for(int i = 0; i < myItem.Count; i++)
         {
             SubItem _sub = new SubItem(myItem[i].id, myItem[i].count);
+            Debug.Log(myItem[i].id);
             _subItem.Add(_sub);
         }
 
         int[] _equip = new int[4];
         for (int i = 0; i < 4; i++)
+        {
             _equip[i] = myEquipment[i + 1];
+
+            Debug.Log(_equip[i]);
+
+        }
+
         JsonData.Instance.Save(myCurrency,new int[] { hpLv,stmLv}, _equip, myAbility, _subItem);
-        //+성장 데이터
-        
-        //int[] statLv = new int[2]
-        //statLv[0] = hpLv;
-        //statLv[1] = steminaLv;
-
-        //JsonData.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem, statLv);
-
-        //+업적 데이터
     }
 }

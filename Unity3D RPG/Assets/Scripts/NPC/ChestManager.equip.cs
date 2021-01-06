@@ -109,13 +109,18 @@ partial class ChestManager
         //착용중인 아이템이 있으면?
         else
         {
-            int _saveItem = PlayerData.Instance.myEquipment[_kindId];
+            //원래 내 아이템
+            int _saveId = PlayerData.Instance.myEquipment[_kindId];
 
+            //내 무기를 변경
             PlayerData.Instance.myEquipment[_kindId] = _item.id;
-
             PlayerData.Instance.player.EquipStat();
 
-            equipList[selectNumber] = CSVData.Instance.find(_saveItem);
+            int _index = PlayerData.Instance.myItem.IndexOf(_item);
+            //Debug.Log(_index);
+            PlayerData.Instance.myItem[_index] = CSVData.Instance.find(_saveId);
+
+            ItemUpdate();
         }
 
         //팝업을 끈다.
