@@ -34,6 +34,10 @@ public class ComboAtk : MonoBehaviour
         }
 
     }
+    public void ParticleOff()
+    {
+        currentCollider.particle.SetActive(false);
+    }
     public void ColiderOff()
     {
         currentCollider.meshCollider.enabled = false;
@@ -113,6 +117,7 @@ public class ComboAtk : MonoBehaviour
     }
     public void ComboPossible()
     {
+       
         isCombo = true;
         isCriAtk = true;
         ColiderOn();
