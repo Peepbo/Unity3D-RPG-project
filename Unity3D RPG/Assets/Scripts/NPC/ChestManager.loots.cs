@@ -22,43 +22,59 @@ partial class ChestManager
 
     public void GetLootsData()
     {
-        int num = 0;
+        //int num = 0;
 
-        for (int i = 1; i < 17; i++)
+        for (int i = 0; i < 16; i++)
         {
-            if (num == lootList.Count)
+            if((i+1) > PlayerData.Instance.haveLootItem.Count)
             {
-                lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear; // 표시 X
-                popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
+                lootsData[i].transform.GetChild(0).GetComponent<Image>().color = Color.clear; // 표시 X
+                popInfo1.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = null;
                 continue;
             }
 
             else
             {
-                int _itemNumber = lootList[i - 1].id;
+                int _itemNumber = PlayerData.Instance.haveLootItem[i].id;
 
-                lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
-                popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
-
+                lootsData[i].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
+                popInfo1.transform.GetChild(i).GetChild(1).GetComponent<Text>().text =
+                    PlayerData.Instance.haveLootItem[i].count.ToString();
             }
-            num++;
+
+            //if (num == lootList.Count)
+            //{
+            //    lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().color = Color.clear; // 표시 X
+            //    popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = null;
+            //    continue;
+            //}
+
+            //else
+            //{
+            //    int _itemNumber = lootList[i - 1].id;
+
+            //    lootsData[i - 1].transform.GetChild(0).GetComponent<Image>().sprite = GetPath(_itemNumber);
+            //    popInfo1.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = lootList[i - 1].count.ToString();
+
+            //}
+            //num++;
         }
     }
 
     public void ChangeLootsInfo(int selectedLootNum)
     {
-        if (selectedLootNum >= lootList.Count) return;
+        if (selectedLootNum >= PlayerData.Instance.haveLootItem.Count) return;
 
         selectNumber = selectedLootNum;
 
         List<string> lootInfo = new List<string>();
 
-        lootInfo.Add(lootList[selectedLootNum].itemName);
-        lootInfo.Add("가격 : " + lootList[selectedLootNum].price);
-        lootInfo.Add("소지량 : " + lootList[selectedLootNum].count);
+        lootInfo.Add(PlayerData.Instance.haveLootItem[selectedLootNum].itemName);
+        lootInfo.Add("가격 : " + PlayerData.Instance.haveLootItem[selectedLootNum].price);
+        lootInfo.Add("소지량 : " + PlayerData.Instance.haveLootItem[selectedLootNum].count);
 
         //sell info의 정보 업데이트
-        int _max = lootList[selectedLootNum].count;
+        int _max = PlayerData.Instance.haveLootItem[selectedLootNum].count;
 
         mySlider.maxValue = _max;
         maxCount.text = _max.ToString();
@@ -73,12 +89,14 @@ partial class ChestManager
 
     public void SellItem()
     {
-        PlayerData.Instance.myCurrency += lootList[selectNumber].price * (int)mySlider.value;
+        PlayerData.Instance.myCurrency += PlayerData.Instance.haveLootItem[selectNumber].price * (int)mySlider.value;
         //삭제
-        lootList[selectNumber].count -= (int)mySlider.value;
+        PlayerData.Instance.haveLootItem[selectNumber].count -= (int)mySlider.value;
 
-        if (lootList[selectNumber].count == 0) lootList.RemoveAt(selectNumber);
-        else mySlider.maxValue = lootList[selectNumber].count;
+        if (PlayerData.Instance.haveLootItem[selectNumber].count == 0) 
+            PlayerData.Instance.haveLootItem.RemoveAt(selectNumber);
+
+        else mySlider.maxValue = PlayerData.Instance.haveLootItem[selectNumber].count;
 
         mySlider.value = 1;
 
@@ -90,7 +108,7 @@ partial class ChestManager
 
     public void RootUpdate()
     {
-        if(selectNumber >= lootList.Count)
+        if(selectNumber >= PlayerData.Instance.haveLootItem.Count)
         {
             curCount.text = "";
             sellingPrice.text = "";
@@ -99,7 +117,7 @@ partial class ChestManager
         else
         {
             curCount.text = ((int)mySlider.value).ToString();
-            sellingPrice.text = ((int)mySlider.value * lootList[selectNumber].price).ToString();
+            sellingPrice.text = ((int)mySlider.value * PlayerData.Instance.haveLootItem[selectNumber].price).ToString();
         }
 
         playerMoney.text = PlayerData.Instance.myCurrency.ToString();

@@ -18,7 +18,7 @@ public class DataManager : MonoBehaviour
         //Debug.Log(PlayerData.Instance.myCurrency);
 
         chestData.MakeData();
-        chestData.ItemUpdate();
+        //chestData.ItemUpdate();
         chestData.OwnLoots();
         chestData.GetLootsData();
 

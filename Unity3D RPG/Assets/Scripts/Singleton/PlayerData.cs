@@ -10,6 +10,10 @@ public partial class PlayerData : Singleton<PlayerData>
     //내가 소지한 아이템 (착용 안한 장비 + 전리품)
     public List<ItemInfo> myItem = new List<ItemInfo>();
 
+    //01/06 두 가지로 분류 후 나중에 save할 때 하나의 list로 합쳐서 저장
+    public List<ItemInfo> haveEquipItem = new List<ItemInfo>();
+    public List<ItemInfo> haveLootItem = new List<ItemInfo>();
+
     //내가 착용한 아이템(아이템 넘버로 저장함)
     // {더미, 무기, 갑옷, 악세사리}  
     public int[] myEquipment = { 123, -1, -1, -1, -1 }; // 1. 무기 2. 방어구 3. 악세사리 4.보스스킬?
@@ -73,12 +77,27 @@ public partial class PlayerData : Singleton<PlayerData>
         //아이템
         myItem.Clear();
         List<SubItem> _item = new List<SubItem>(JsonData.Instance.LoadItem());
+        //for(int i = 0; i < _item.Count; i++)
+        //{
+        //    ItemInfo _Info = CSVData.Instance.find(_item[i].Id);
+        //    _Info.count = _item[i].Number;
+
+        //    myItem.Add(_Info);
+        //}
+
+        haveEquipItem.Clear();
+        haveLootItem.Clear();
+        
         for(int i = 0; i < _item.Count; i++)
         {
-            ItemInfo _Info = CSVData.Instance.find(_item[i].Id);
-            _Info.count = _item[i].Number;
+            ItemInfo _info = CSVData.Instance.find(_item[i].Id);
+            _info.count = _item[i].Number;
 
-            myItem.Add(_Info);
+            //장비는 장비 리스트에
+            if (_info.kindID != 4) haveEquipItem.Add(_info);
+
+            //전리품은 전리품 리스트에
+            else haveLootItem.Add(_info);
         }
 
         //Debug.Log("플레이어 데이터 연동 완료");
@@ -87,10 +106,21 @@ public partial class PlayerData : Singleton<PlayerData>
     public void SaveData()
     {
         List<SubItem> _subItem = new List<SubItem>();
-        for(int i = 0; i < myItem.Count; i++)
+        //for(int i = 0; i < myItem.Count; i++)
+        //{
+        //    SubItem _sub = new SubItem(myItem[i].id, myItem[i].count);
+        //    Debug.Log(myItem[i].id);
+        //    _subItem.Add(_sub);
+        //}
+
+        for(int i = 0; i < haveEquipItem.Count; i++)
         {
-            SubItem _sub = new SubItem(myItem[i].id, myItem[i].count);
-            Debug.Log(myItem[i].id);
+            SubItem _sub = new SubItem(haveEquipItem[i].id, haveEquipItem[i].count);
+            _subItem.Add(_sub);
+        }
+        for(int i = 0; i < haveLootItem.Count; i++)
+        {
+            SubItem _sub = new SubItem(haveLootItem[i].id, haveLootItem[i].count);
             _subItem.Add(_sub);
         }
 
@@ -99,7 +129,7 @@ public partial class PlayerData : Singleton<PlayerData>
         {
             _equip[i] = myEquipment[i + 1];
 
-            Debug.Log(_equip[i]);
+            //Debug.Log(_equip[i]);
 
         }
 
