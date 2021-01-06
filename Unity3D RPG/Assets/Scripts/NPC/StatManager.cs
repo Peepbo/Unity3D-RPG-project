@@ -166,6 +166,8 @@ public partial class StatManager : MonoBehaviour
 
     public void SetCharacteristic()
     {
+        if (PlayerData.Instance.myStature == 0) return;
+
         //선행 스킬이 없을 때
         if(characteristic[saveId].isFirst)
         {

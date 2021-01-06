@@ -123,5 +123,7 @@ partial class ChestManager
 
         //보유한 장비 리스트를 업데이트한다.
         GetData();
+
+        PlayerData.Instance.SaveData();
     }
 }
