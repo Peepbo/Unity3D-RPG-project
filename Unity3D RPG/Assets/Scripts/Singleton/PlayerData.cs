@@ -89,8 +89,7 @@ public partial class PlayerData : Singleton<PlayerData>
         int[] _equip = new int[4];
         for (int i = 0; i < 4; i++)
             _equip[i] = myEquipment[i + 1];
-
-        JsonData.Instance.Save(myCurrency, myStature, _equip, myAbility, _subItem);
+        JsonData.Instance.Save(myCurrency,new int[] { hpLv,stmLv}, _equip, myAbility, _subItem);
         //+성장 데이터
         
         //int[] statLv = new int[2]

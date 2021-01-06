@@ -6,6 +6,7 @@ public class DungeonChest : MonoBehaviour, IDamagedState
 {
     public int index;
     Animator anim;
+    bool isOpen = false;
 
     void Start()
     {
@@ -14,6 +15,8 @@ public class DungeonChest : MonoBehaviour, IDamagedState
 
     public void Damaged(int value)
     {
+        if (isOpen) return;
+
         if (DungeonQuest.Instance.Quest == DungeonQuest.QUEST.KEY)
         {
             if (DungeonQuest.Instance.ClearNumber == index)
@@ -28,5 +31,7 @@ public class DungeonChest : MonoBehaviour, IDamagedState
         else Debug.Log("아이템 획득!");
 
         anim.SetTrigger("Open");
+
+        isOpen = true;
     }
 }

@@ -22,16 +22,20 @@ public class SubItem
 public class Achieve
 {
     public int Id;
+    public string Name;
     public int Level;
     public int State;
     public int Number;
+    public string Description;
 
-    public Achieve(int id, int level, int state, int number)
+    public Achieve(int id, string name, int level, int state, int number, string description)
     {
         Id = id;
+        Name = name;
         Level = level;
         State = state;
         Number = number;
+        Description = description;
     }
 }
 
@@ -39,12 +43,12 @@ public class Achieve
 public class CharacterInfo
 {
     public int Money;                                               // 돈
-    public int StaturePoint;                                        // 성장 포인트
+    public int[] StaturePoint= new int [2];                         // 성장 포인트
     public int[] Equip = new int[4];                                // 착용 장비
     public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
     public int[] Characteristic = new int[35];                      // 특성
 
-    public CharacterInfo(int money, int point, int[] equip, List<SubItem> item, int[] charac)
+    public CharacterInfo(int money, int[] point, int[] equip, List<SubItem> item, int[] charac)
     {
         Money = money;
         StaturePoint = point;
@@ -74,7 +78,7 @@ public class JsonData : Singleton<JsonData>
     {
         if (File.Exists(path) == false)
         {
-            Save(100, 0, new int[] { 0, 33, -1, -1 },
+            Save(100, new int[] {0, 0}, new int[] { 0, 33, -1, -1 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
                 new List<SubItem> { });
         }
@@ -84,7 +88,7 @@ public class JsonData : Singleton<JsonData>
             List<Achieve> _list = new List<Achieve>();
             for(int i = 0; i < 8; i++)
             {
-                _list.Add(new Achieve(i, 1, 0, 0));
+                _list.Add(new Achieve(i, "", 1, 0, 0, ""));
             }
 
             AchieveSave(_list);
@@ -105,7 +109,7 @@ public class JsonData : Singleton<JsonData>
         }
     }
 
-    public void Save(int money, int point, int[] equip, int[] charac, List<SubItem> item)
+    public void Save(int money, int[] point, int[] equip, int[] charac, List<SubItem> item)
     {
         CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
 
@@ -118,19 +122,19 @@ public class JsonData : Singleton<JsonData>
     public void AchieveSave(List<Achieve> achieve)
     {
         //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
-        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
 
         //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
 
         //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(achieve.ToString());
         //string format = System.Convert.ToBase64String(bytes);
+
         File.WriteAllText(achievePath, JsonMapper.ToJson(achieve));
     }
 
     
     public LitJson.JsonData jsonData 
     { 
-        get 
+        get
         {
             string Jsonstring = File.ReadAllText(path);
             byte[] bytes = System.Convert.FromBase64String(Jsonstring);
@@ -161,16 +165,19 @@ public class JsonData : Singleton<JsonData>
         for(int i = 0; i < AchieveJsonData.Count; i++)
         {
             _output.Add(new Achieve(int.Parse(AchieveJsonData[i]["Id"].ToString()),
+                                    AchieveJsonData[i]["Name"].ToString(),
                                     int.Parse(AchieveJsonData[i]["Level"].ToString()),
                                     int.Parse(AchieveJsonData[i]["State"].ToString()),
-                                    int.Parse(AchieveJsonData[i]["Number"].ToString())));
-
+                                    int.Parse(AchieveJsonData[i]["Number"].ToString()),
+                                    AchieveJsonData[i]["Description"].ToString()));
         }
         /*
     public int Id;
+    public string name;
     public int Level;
     public int State;
     public int Number;
+    public string description;
          */
         return _output;
     }
