@@ -188,9 +188,16 @@ public class JsonData : Singleton<JsonData>
         return int.Parse(jsonData["Money"].ToString());
     }
 
-    public int LoadStaturePoint()
+    public List<int> LoadStaturePoint()
     {
-        return int.Parse(jsonData["StaturePoint"].ToString());
+        List<int> _output = new List<int>();
+
+        for(int i = 0; i < 2; i++)
+        {
+            _output.Add(int.Parse(jsonData["StaturePoint"][i].ToString()));
+        }
+
+        return _output;
     }
 
     public List<int> LoadEquip()
