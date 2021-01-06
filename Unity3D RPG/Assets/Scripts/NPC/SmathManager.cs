@@ -206,6 +206,8 @@ public partial class SmathManager : MonoBehaviour
 
         PlayerData.Instance.myCurrency -= curruntInfo.price;
         if (!_isSave && success) PlayerData.Instance.SaveChest(curruntInfo.id);
+
+
     }
 
     private void ChestCheck()
@@ -275,6 +277,8 @@ public partial class SmathManager : MonoBehaviour
         {
             //여기에 추가해주세요.
             PlayerData.Instance.player.EquipStat();
+
+            PlayerData.Instance.SaveData();
         }
     }
 }
