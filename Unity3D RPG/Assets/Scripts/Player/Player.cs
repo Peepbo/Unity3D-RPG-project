@@ -17,7 +17,6 @@ public partial class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         StateAwake();
        
-        Debug.Log(PlayerData.Instance.a);
     }
     // Start is called before the first frame update
     void Start()
@@ -38,7 +37,7 @@ public partial class Player : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.O))
         {
-            PlayerData.Instance.SaveChest(13);  
+            //PlayerData.Instance.SaveChest(13);  
         }
     }
 }

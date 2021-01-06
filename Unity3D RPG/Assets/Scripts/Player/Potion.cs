@@ -7,11 +7,11 @@ public class Potion : MonoBehaviour, IPointerDownHandler
 {
     Player player;
     [SerializeField] GameObject button;
-    Text text;
+    Text potionNumTxt;
     private void Awake()
     {
         player = GameObject.Find("MainPlayer").GetComponent<Player>();
-        text = button.transform.GetChild(1).GetComponent<Text>();
+        potionNumTxt = button.transform.GetChild(1).GetComponent<Text>();
     }
     // Start is called before the first frame update
     void Start()
@@ -27,7 +27,7 @@ public class Potion : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        text.text = "1";
+        potionNumTxt.text = "1";
     }
 
     
