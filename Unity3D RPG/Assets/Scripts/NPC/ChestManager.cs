@@ -55,20 +55,8 @@ public partial class ChestManager : MonoBehaviour
     //equipList와 rootList의 정보를 playerData의 myItem과 연동한다.
     public void ItemUpdate()
     {
-        //equipList.Clear();
-        //lootList.Clear();
-
-        //equipList + rootList
-        //for (int i = 0; i < PlayerData.Instance.myItem.Count; i++)
-        //{
-        //    ItemInfo _item = PlayerData.Instance.myItem[i];
-
-        //    //4가 아니면?
-        //    if (_item.kindID != 4) equipList.Add(_item);
-
-        //    //4면?
-        //    else lootList.Add(_item);
-        //}
+        PlayerData.Instance.LoadData_v2();
+        GetData();
     }
 
     public void OwnLoots()

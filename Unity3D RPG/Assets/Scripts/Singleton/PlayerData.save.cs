@@ -7,25 +7,13 @@ partial class PlayerData
 {
     public void SaveChest(int itemNumber)
     {
-        //print(myItem.Count);
-
         ItemInfo _item = CSVData.Instance.find(itemNumber);
 
-        //없으면 ?
-        if (myItem.Contains(_item) == false) myItem.Add(_item);
-        //if (myItem.ContainsKey(itemNumber) == false) myItem[itemNumber] = 1;
+        //전리품이 아니면
+        if (_item.kindID != 4) SaveItemType(ref haveEquipItem, _item);
 
-        //있으면?
-        else
-        {
-            int _index = myItem.IndexOf(_item);
-            myItem[_index].count++;
-
-            print(myItem[_index].count);
-        }
-        //else myItem[itemNumber] += 1;
-
-        //print(myItem.Count);
+        //전리품 이면
+        else SaveItemType(ref haveLootItem, _item);
 
         SaveData();
     }
@@ -41,5 +29,16 @@ partial class PlayerData
         }
 
         SaveData();
+    }
+
+    void SaveItemType(ref List<ItemInfo> list, ItemInfo item)
+    {
+        if (list.Contains(item) == false) list.Add(item);
+
+        else
+        {
+            int _index = list.IndexOf(item);
+            list[_index].count++;
+        }
     }
 }

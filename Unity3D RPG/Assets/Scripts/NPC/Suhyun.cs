@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Suhyun : MonoBehaviour
 {
-    public int me = -1;
-    public List<int> test = new List<int>();
     // Update is called once per frame
     void Update()
     {
@@ -13,14 +11,7 @@ public class Suhyun : MonoBehaviour
         {
             PlayerData.Instance.SaveChest(1);
             PlayerData.Instance.SaveChest(2);
-        }
-    }
-
-    void prt()
-    {
-        for(int i = 0; i < test.Count; i++)
-        {
-            Debug.Log(test[i]);
+            PlayerData.Instance.SaveChest(3);
         }
     }
 }

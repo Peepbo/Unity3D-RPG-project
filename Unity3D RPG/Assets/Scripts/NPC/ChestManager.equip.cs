@@ -47,24 +47,6 @@ partial class ChestManager
             if (gmData[i].GetComponent<Button>().enabled == false)
                 gmData[i].GetComponent<Button>().enabled = true;
         }
-
-        //int num = 0;
-        //foreach (GameObject data in gmData)
-        //{
-        //    if (num == equipList.Count)
-        //    {
-        //        data.transform.GetChild(0).GetComponent<Image>().color = Color.clear;
-        //        data.GetComponent<Button>().enabled = false;
-        //        continue;
-        //    }
-
-        //    data.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(equipList[num].id);
-
-        //    if (!data.GetComponent<Button>().enabled)
-        //        data.GetComponent<Button>().enabled = true;
-
-        //    num++;
-        //}
     }
 
     //아이템 정보 출력

@@ -106,18 +106,13 @@ public partial class PlayerData : Singleton<PlayerData>
     public void SaveData()
     {
         List<SubItem> _subItem = new List<SubItem>();
-        //for(int i = 0; i < myItem.Count; i++)
-        //{
-        //    SubItem _sub = new SubItem(myItem[i].id, myItem[i].count);
-        //    Debug.Log(myItem[i].id);
-        //    _subItem.Add(_sub);
-        //}
 
         for(int i = 0; i < haveEquipItem.Count; i++)
         {
             SubItem _sub = new SubItem(haveEquipItem[i].id, haveEquipItem[i].count);
             _subItem.Add(_sub);
         }
+
         for(int i = 0; i < haveLootItem.Count; i++)
         {
             SubItem _sub = new SubItem(haveLootItem[i].id, haveLootItem[i].count);
@@ -125,13 +120,7 @@ public partial class PlayerData : Singleton<PlayerData>
         }
 
         int[] _equip = new int[4];
-        for (int i = 0; i < 4; i++)
-        {
-            _equip[i] = myEquipment[i + 1];
-
-            //Debug.Log(_equip[i]);
-
-        }
+        for (int i = 0; i < 4; i++) _equip[i] = myEquipment[i + 1];
 
         JsonData.Instance.Save(myCurrency,new int[] { hpLv,stmLv}, _equip, myAbility, _subItem);
     }
