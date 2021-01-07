@@ -99,9 +99,6 @@ public class Golem : EnemyMgr, IDamagedState
                     {
                         anim.SetInteger("state", 2);
 
-
-                        Debug.Log("플레이어를 공격중");
-                        //AttackTarget();
                     }
                 }
 
@@ -144,7 +141,7 @@ public class Golem : EnemyMgr, IDamagedState
         {
             setMoveType(back);
             back.move();
-          
+
         }
     }
 
@@ -172,8 +169,10 @@ public class Golem : EnemyMgr, IDamagedState
 
     IEnumerator GetDamage()
     {
-        anim.SetTrigger("Damaged");
-
+        if (target.gameObject.GetComponent<Player>().isCri)
+        {
+            anim.SetTrigger("Damaged");
+        }
         AI.isStopped = true;
         isDamaged = true;
 
@@ -185,9 +184,9 @@ public class Golem : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
-        if (isDamaged || isDead ) return;
+        if (isDamaged || isDead) return;
 
-        hp -= (int)(value * (1.0f-def/100));
+        hp -= (int)(value * (1.0f - def / 100));
 
         if (hp > 0) StartCoroutine(GetDamage());
 
@@ -230,7 +229,7 @@ public class Golem : EnemyMgr, IDamagedState
 
         LootManager.Instance.GetPocketMoney(currency);
 
-        Debug.Log("getMoney : "+_coin);
+        Debug.Log("getMoney : " + _coin);
     }
 
     private void OnDrawGizmos()

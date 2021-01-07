@@ -29,11 +29,12 @@ public class Goblin : EnemyMgr, IDamagedState
         minGold = 20;
         maxGold = 30;
         findCount = 0;
+
     }
     void Start()
     {
         //Goblin Move pattern
-        
+       
         follow = gameObject.AddComponent<FollowTarget>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
@@ -44,6 +45,7 @@ public class Goblin : EnemyMgr, IDamagedState
         follow.Init(AI, target, speed, attackRange);
         returnToHome.init(AI, startPos, speed);
 
+        
         anim.SetInteger("state", 0);
     }
 

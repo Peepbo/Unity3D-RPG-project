@@ -36,7 +36,7 @@ public class Shaman : EnemyMgr, IDamagedState
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         observe.Init(AI, startPos, speed, observeRange);
-      
+        
     }
 
     void Update()
