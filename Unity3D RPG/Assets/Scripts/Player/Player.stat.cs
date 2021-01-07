@@ -23,12 +23,13 @@ partial class Player
     public int              maxHp = 100;        //  최대체력
     public int              hp = 100;           //  현제체력
     
-    public int              maxStamina = 100;   //  최대 스태미나(최대기력)
-    public int              stamina = 100;      //  스태미나(기력)
+    public float            maxStamina = 100;   //  최대 스태미나(최대기력)
+    public float            stamina = 100;      //  스태미나(기력)
     float                   staminaTime =0f;    //  스태미나 충전시간
     
     public float            def;                //  방어력
     public float            increasedDef;       //  방어력 증가치
+    float                   realDef;            //  최종방어력
 
     public float            power;              //  공격력
     public float            increasedAtk= 0;    //  공격력 증가치
@@ -125,12 +126,13 @@ partial class Player
 
     public void GetDamage(int damage)
     {
-        if(isGuard)
+        if(isGuard && !isGuardGrogi)
         {
             stamina -= 40;
             if(stamina <= 0)
             {
                 stamina = 0;
+                isGuardGrogi = true;
             }
             animator.Play("ShieldBlock");
             animator.SetBool("isGuardHit", true);
@@ -158,7 +160,15 @@ partial class Player
                     if( staminaTime > 6*Time.deltaTime)
                     {
                         staminaTime = 0;
-                        stamina+=maxStamina/200;
+                        stamina+=(maxStamina/200);
+                        if( stamina >= maxStamina)
+                        {
+                            stamina = maxStamina;
+                            if(isGuardGrogi == true)
+                            {
+                                isGuardGrogi = false;
+                            }
+                        }
                     }
                 }
                 else
@@ -167,9 +177,18 @@ partial class Player
                     {
                         staminaTime = 0;
                         stamina+= maxStamina/100;
+                        if (stamina >= maxStamina)
+                        {
+                            stamina = maxStamina;
+                            if (isGuardGrogi == true)
+                            {
+                                isGuardGrogi = false;
+                            }
+                        }
                     }
                 }
             }
+            
         }
     }
 }

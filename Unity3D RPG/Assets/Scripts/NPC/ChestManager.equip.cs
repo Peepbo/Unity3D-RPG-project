@@ -28,7 +28,7 @@ partial class ChestManager
         }
 
         //rightBg
-        Debug.Log(PlayerData.Instance.haveEquipItem.Count);
+        //Debug.Log(PlayerData.Instance.haveEquipItem.Count);
 
         for(int i = 0; i < gmData.Length; i++)
         {
@@ -39,7 +39,7 @@ partial class ChestManager
                 continue;
             }
             
-            Debug.Log(PlayerData.Instance.haveEquipItem[i].itemName);
+            //Debug.Log(PlayerData.Instance.haveEquipItem[i].itemName);
 
             gmData[i].transform.GetChild(0).GetComponent<Image>().sprite
                 = GetPath(PlayerData.Instance.haveEquipItem[i].id);

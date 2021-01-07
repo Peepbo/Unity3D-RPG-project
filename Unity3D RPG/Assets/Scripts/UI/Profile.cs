@@ -42,7 +42,7 @@ public class Profile : MonoBehaviour
     public void GetReinforce()
     {
         int myHp = player.maxHp / 100;
-        int myStamina = player.maxStamina / 100;
+        float myStamina = player.maxStamina / 100;
 
         if (myHp > 0)
         {

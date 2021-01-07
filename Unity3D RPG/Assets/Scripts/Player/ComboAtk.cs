@@ -104,7 +104,7 @@ public class ComboAtk : MonoBehaviour
                         player.isCri = false;
                     }
                 }
-                if (comboStep != 0)
+                else if (comboStep != 0)
                 {
                     if (isCriAtk)
                     {

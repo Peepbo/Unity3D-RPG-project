@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Suhyun : MonoBehaviour
 {
+    public Transform target;
+
+    public GameObject[] prefab = new GameObject[3];
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            PlayerData.Instance.SaveChest(1);
-            PlayerData.Instance.SaveChest(2);
-            PlayerData.Instance.SaveChest(3);
+            Instantiate(prefab[0], target.position, Quaternion.identity);
         }
     }
 }
