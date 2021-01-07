@@ -5,12 +5,15 @@ using UnityEngine.AI;
 
 public class Golem : EnemyMgr, IDamagedState
 {
-
+    
     private FollowTarget follow;
     private ReturnMove back;
 
     private Vector3 direction;
     private Vector3 spawnPos;
+
+    public GameObject damageCheck;
+
     private float distance;
     private bool isStay = true;
 
@@ -31,6 +34,7 @@ public class Golem : EnemyMgr, IDamagedState
         maxGold = 100;
         spawnPos = transform.position;
 
+       
     }
     private void Start()
     {
@@ -97,7 +101,16 @@ public class Golem : EnemyMgr, IDamagedState
 
                     if (distance <= attackRange)
                     {
+                        //공격범위
+                        
                         anim.SetInteger("state", 2);
+
+                        if(damageCheck.gameObject.GetComponent<DamageCheck>().GetCount() ==1)
+                        {
+                            target.gameObject.GetComponent<Player>().GetDamage(atk);
+
+                            damageCheck.gameObject.GetComponent<DamageCheck>().ReadyToDamage(0);
+                        }
 
                     }
                 }
@@ -247,7 +260,10 @@ public class Golem : EnemyMgr, IDamagedState
 
 
     #region Animation event functions
-
+    public void HandActive()
+    {
+        damageCheck.GetComponent<DamageCheck>().ReadyToDamage(0);
+    }
     #endregion
 
 
