@@ -75,7 +75,10 @@ public class Achievements : MonoBehaviour
     {
         for (int i = 1; i < data[order].count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
+            //popInfo.transform.GetChild(i - 1).GetChild(0).GetComponent<Image>().sprite = 아이콘 이름;
             popInfo.transform.GetChild(i - 1).GetChild(1).GetComponent<Text>().text = AchieveList[i - 1].name.ToString();
+            popInfo.transform.GetChild(i - 1).GetChild(2).GetComponent<Text>().text = AchieveList[i - 1].descrition.ToString();
+            popInfo.transform.GetChild(i - 1).GetChild(3).GetChild(0).GetComponent<Text>().text = AchieveList[i - 1].reward.ToString();
 
             if (data[i].state == ACHIEVE_STATE.YET)
             {

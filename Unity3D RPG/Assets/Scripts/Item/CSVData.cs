@@ -50,6 +50,8 @@ public class CSVData : Singleton<CSVData>
     protected CSVData() { }
 
     Dictionary<int, ItemInfo> dictionaryData;
+
+    Dictionary<int, AchieveInfo> achieveDictionaryData;
     
     
 
@@ -59,6 +61,8 @@ public class CSVData : Singleton<CSVData>
     {
         //데이터 불러오기 => 파일을 열어서 데이터가 담겨있는 테이블로 변환해줌
         Table _itemTable = CSVReader.Reader.ReadCSVToTable("ItemDB");
+
+        Table _achieveTable = CSVReader.Reader.ReadCSVToTable("AchievementDB");
         
         ////테이블에 있는 데이터를 배열로 변환
         //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();     
@@ -67,6 +71,8 @@ public class CSVData : Singleton<CSVData>
 
         //테이블에 있는 데이터를 Dictionary로 변환
         dictionaryData = _itemTable.TableToDictionary<int, ItemInfo>();
+
+        achieveDictionaryData = _achieveTable.TableToDictionary<int, AchieveInfo>();
 
         Debug.Log("SucceededLoad");
 
