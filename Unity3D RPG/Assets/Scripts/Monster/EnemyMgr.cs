@@ -17,12 +17,11 @@ public abstract class EnemyMgr : MonoBehaviour
     protected bool isDead;
     protected float disappearTime;
 
-    //temp
-    public GameObject coinEffect;
 
+    public GameObject coinEffect;
+    
 
     //stat
-
     public int maxHp;
     protected int hp;
     protected int atk;
@@ -41,8 +40,8 @@ public abstract class EnemyMgr : MonoBehaviour
     protected int maxGold;
     protected int currency;
 
-    //private string[] loot = new string[3];
-    //private int[] kindId = new int[3];
+ 
+ 
 
 
     protected virtual void Awake()
