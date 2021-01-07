@@ -147,11 +147,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
     public void FollowTarget()
     {
-        //타겟 따라갈때는 observe false
-        //observe.setIsObserve(false);
-
-        //controller의 speed를 animation velocity 값에 넣어준다.
-        //anim.SetFloat("velocity", controller.velocity.magnitude);
+        //navMesh의 speed를 animation velocity 값에 넣어준다.      
         anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
