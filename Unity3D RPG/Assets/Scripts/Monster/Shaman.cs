@@ -26,7 +26,8 @@ public class Shaman : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 35;
         def = 0f;
-
+        minGold = 25;
+        maxGold = 45;
         anim.SetInteger("state", 0);
     }
 
@@ -137,6 +138,14 @@ public class Shaman : EnemyMgr, IDamagedState
             //아이템 떨어트리기
             gameObject.SetActive(false);
         }
+    }
+
+    public override void DropCoin(int min, int max)
+    {
+        int _coin = Random.Range(min, max + 1);
+        Instantiate(coinEffect, transform.position, Quaternion.identity);
+        LootManager.Instance.GetPocketMoney(currency);
+        Debug.Log("getMoney : " + _coin);
     }
 
     private void OnDrawGizmos()

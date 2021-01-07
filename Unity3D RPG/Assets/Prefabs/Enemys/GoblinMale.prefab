@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 983756614664175078}
   - component: {fileID: 1813474528529976010}
   - component: {fileID: -1324745572845981226}
-  - component: {fileID: -4556327624007023951}
   m_Layer: 0
   m_Name: GoblinMale
   m_TagString: Enemy
@@ -114,13 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f664b5c32cbf14a9b2bc5be9e54791, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinEffect: {fileID: 1919543859444104, guid: b086cc438d6a4de409a0c0d3f2eebd21, type: 3}
+  maxHp: 30
   speed: 3
+  angle: 210
   findRange: 10
   attackRange: 2
-  atkPower: 10
-  maxHp: 30
   observeRange: 5
-  angle: 210
   weapon: {fileID: 7681984312012923756}
 --- !u!195 &-1324745572845981226
 NavMeshAgent:
@@ -144,33 +143,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-4556327624007023951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347180348202103792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67b752203332ac45a1c875fcb858b97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 30
-  hp: 30
-  atk: 10
-  def: 5
-  speed: 3
-  angle: 210
-  findRange: 10
-  attackRange: 2
-  observeRange: 5
-  minGold: 20
-  maxGold: 30
-  loot:
-  - 
-  - 
-  - 
 --- !u!1 &2745745941745664592
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +549,7 @@ Animator:
   m_GameObject: {fileID: 2745745941745669934}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
-  m_Controller: {fileID: 9100000, guid: d4a13fc4b402ff046b5da0b2bdbfaf57, type: 2}
+  m_Controller: {fileID: 9100000, guid: a523f59afdeeeca41884b35b0954eb18, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -598,7 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 880ac5fbcd26b9540bf8252e43252395, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster: 0
+  monster: 1
 --- !u!1 &2745745941745672060
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,15 +4895,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f690084620501f84b873643c709f83ac, type: 3}
---- !u!4 &7681984312012675180 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7985867327651130257, guid: f690084620501f84b873643c709f83ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 308606533953434621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7681984312012923756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7985867327651434641, guid: f690084620501f84b873643c709f83ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 308606533953434621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7681984312012675180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7985867327651130257, guid: f690084620501f84b873643c709f83ac,
     type: 3}
   m_PrefabInstance: {fileID: 308606533953434621}
   m_PrefabAsset: {fileID: 0}

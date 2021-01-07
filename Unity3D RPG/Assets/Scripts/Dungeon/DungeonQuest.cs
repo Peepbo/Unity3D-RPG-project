@@ -22,7 +22,8 @@ public class DungeonQuest : Singleton<DungeonQuest>
     public TextMeshProUGUI text;
 
     private void Start() 
-    { 
+    {
+        quest = QUEST.KEY;
         //quest = (QUEST)Random.Range(0, 2);
 
         if (quest == QUEST.KEY)

@@ -37,8 +37,10 @@ public abstract class EnemyMgr : MonoBehaviour
     [Range(1, 5)]
     public float observeRange;
 
-    public int minGold;
-    public int maxGold;
+    protected int minGold;
+    protected int maxGold;
+    protected int currency;
+
     //private string[] loot = new string[3];
     //private int[] kindId = new int[3];
 
@@ -79,6 +81,9 @@ public abstract class EnemyMgr : MonoBehaviour
     }
 
     public abstract void Die();
+
+    public abstract void DropCoin(int min, int max);
+  
 
     public Vector3 GetRandomDirection()
     {

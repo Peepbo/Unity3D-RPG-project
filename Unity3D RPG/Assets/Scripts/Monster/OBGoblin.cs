@@ -18,8 +18,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
     private bool isFind;
 
 
-
-
     public GameObject weapon;
 
     protected override void Awake()
@@ -30,6 +28,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 25;
         def = 5.0f;
+        minGold = 20;
+        maxGold = 30;
         findCount = 0;
 
     }
@@ -75,7 +75,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
         {
             if (!isFind)
             {
-                //anim.SetInteger("state", 0);
                 Observe();
             }
 
@@ -88,13 +87,13 @@ public class OBGoblin : EnemyMgr, IDamagedState
                     {
                         observe.setIsObserve(false);
                         anim.SetInteger("state", 1);
+                        //observe 상태일 때 action이 0 이면 움직이지 않는 경우를 대비
+                        AI.isStopped = false;
                         findCount = 1;
-                        //AI.isStopped = false;
                     }
                     else
                     {
                         Observe();
-                        //AI.isStopped = true;
                     }
                 }
             }
@@ -171,9 +170,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
             {
                 findCount = 0;
                 returnToHome.setIsReturn(false);
-                //AI.isStopped = true;
                 observe.setIsObserve(true);
-                //observe.setIsObserve(true);
 
                 //controller의 speed를 velocity의 값에 넣어준다.;
                 anim.SetInteger("state", 0);
@@ -248,6 +245,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
+        weapon.GetComponent<MeshCollider>().enabled = false;
         if (isDamaged || isDead) return;
 
         if (hp > 0)
@@ -275,14 +273,26 @@ public class OBGoblin : EnemyMgr, IDamagedState
     public override void Die()
     {
         disappearTime += Time.deltaTime;
-        if (disappearTime > 5f)
+      
+        if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
+            DropCoin(minGold, maxGold);
             gameObject.SetActive(false);
-
+            disappearTime = 0f;
         }
     }
 
+    public override void DropCoin(int min, int max)
+    {
+        currency = Random.Range(min, max + 1);
+
+        Instantiate(coinEffect, transform.position, Quaternion.identity);
+
+        LootManager.Instance.GetPocketMoney(currency);
+       
+        Debug.Log("getMoney : " + currency);
+    }
 
     private void OnDrawGizmos()
     {
