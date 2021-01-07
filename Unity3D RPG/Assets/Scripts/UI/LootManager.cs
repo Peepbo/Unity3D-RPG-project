@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
-using UnityEngine.UI;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public partial class LootManager : Singleton<LootManager>
 {
@@ -22,9 +15,9 @@ public partial class LootManager : Singleton<LootManager>
         public ItemInfo myPocketItem = null;
     }
 
-    public void GetPocketData(int itemId)
+    public void GetPocketData()
     {
-        ItemInfo _item = CSVData.Instance.find(itemId);
+        ItemInfo _item = CSVData.Instance.find(pd.myPocketItem.id);
 
         if (pd.pocketItem.Contains(_item) == false) pd.pocketItem.Add(_item);
 

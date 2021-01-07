@@ -29,12 +29,8 @@ public class AchieveData
 public class Achievements : MonoBehaviour
 {
     public GameObject achieveSlots;                                 // 업적 슬롯
-    public GameObject popInfo;
-    public AchieveData[] data = new AchieveData[7];                 // 업적 갯수
+    public GameObject popInfo;                                      // 업적 정보 띄우기
     public List<AchieveInfo> AchieveList = new List<AchieveInfo>(); // 업적 관련
-
-    public GameObject[] achievementData;
-    public GameObject achievements;
 
 
     Color[] color = {
@@ -70,11 +66,6 @@ public class Achievements : MonoBehaviour
     public void SetAchieveData()
     {
         AchieveList = (CSVData.Instance.GetAchieveCSV());
-
-        //for(int i = 0; i < AchieveList.Count; i++)
-        //{
-        //    Debug.Log(AchieveList[i].name);
-        //}
     }
 
     public void Content()
