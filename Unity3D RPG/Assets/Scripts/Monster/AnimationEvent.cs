@@ -78,7 +78,7 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.NOBGOBLIN:
                 nGoblin.DeActiveMeshCol();
                 break;
-          
+         
         }
     }
     #endregion

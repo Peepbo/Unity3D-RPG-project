@@ -226,6 +226,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
+        weapon.GetComponent<MeshCollider>().enabled = false;
         if (isDamaged || isDead) return;
 
         if (hp > 0)
@@ -265,12 +266,11 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public override void DropCoin(int min, int max)
     {
-        int _coin = Random.Range(min, max + 1);
+        currency= Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
 
         LootManager.Instance.GetPocketMoney(currency);
 
-        Debug.Log("getMoney : " + _coin);
     }
 
     private void OnDrawGizmos()
