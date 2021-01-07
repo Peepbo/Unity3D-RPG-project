@@ -39,23 +39,23 @@ public class AchieveInfo
 {
     public int id;
     public string name;
-    public int level;
     public int state;
     public int number;
     public string descrition;
     public int reward;
+    public string icon;
 
     //id,name,level,state,number,description,reward
 
-    public AchieveInfo(int ID, string NAME, int LEVEL, int STATE, int NUMBER, string DESCRIPTION, int REWARD)
+    public AchieveInfo(int ID, string NAME, int STATE, int NUMBER, string DESCRIPTION, int REWARD, string ICON)
     {
         id = ID;
         name = NAME;
-        level = LEVEL;
         state = STATE;
         number = NUMBER;
         descrition = DESCRIPTION;
         reward = REWARD;
+        icon = ICON;
     }
 }
 
@@ -64,6 +64,7 @@ public class CSVData : Singleton<CSVData>
     protected CSVData() { }
 
     Dictionary<int, ItemInfo> dictionaryData;
+    Dictionary<int, AchieveInfo> achieveDictionary;
 
     public List<string> achieveListData;
     /*
@@ -73,6 +74,7 @@ public class CSVData : Singleton<CSVData>
      */
 
     public ItemInfo find(int key) { return dictionaryData[key]; }
+    public AchieveInfo findAchieve(int num) { return achieveDictionary[num]; }
 
     void Awake()
     {
@@ -81,7 +83,7 @@ public class CSVData : Singleton<CSVData>
 
         Table _achieveTable = CSVReader.Reader.ReadCSVToTable("AchievementDB");
 
-        achieveListData = CSVSimpleReader.CSVSimpleReader.Reader("AchievementDB", 1, 3);
+        achieveListData = CSVSimpleReader.CSVSimpleReader.Reader("AchievementDB", 1, 21);
 
         ////테이블에 있는 데이터를 배열로 변환
         //ItemInfo[] arrayData = table.TableToArray<ItemInfo>();     
@@ -110,9 +112,9 @@ public class CSVData : Singleton<CSVData>
                                                    achieveListData[i + 1],
                                         int.Parse( achieveListData[i + 2]),
                                         int.Parse( achieveListData[i + 3]),
-                                        int.Parse( achieveListData[i + 4]),
-                                                   achieveListData[i + 5],
-                                        int.Parse( achieveListData[i + 6] )));
+                                                   achieveListData[i + 4],
+                                        int.Parse (achieveListData[i + 5]),
+                                                   achieveListData[i + 6] ));
         }
 
         return _data;

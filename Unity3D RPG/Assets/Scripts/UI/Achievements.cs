@@ -31,7 +31,7 @@ public class Achievements : MonoBehaviour
     public GameObject achieveSlots;                                 // 업적 슬롯
     public GameObject popInfo;                                      // 업적 정보 띄우기
     public List<AchieveInfo> AchieveList = new List<AchieveInfo>(); // 업적 관련
-
+    AchieveData ad;
 
     Color[] color = {
         new Color(117f / 255, 1, 105f / 255, 1),    // YET - 초록
@@ -56,6 +56,11 @@ public class Achievements : MonoBehaviour
         }
 
         JsonData.Instance.AchieveSave(_list);
+
+        for (int i = 0; i < AchieveList.Count; i++)
+        {
+            popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = false;
+        }
     }
 
     void Update()
@@ -72,20 +77,44 @@ public class Achievements : MonoBehaviour
     {
         for (int i = 0; i < AchieveList.Count; i++)
         {
+            if(ad.count > 0)
+            {
+                AchieveList[i].state = (int)ACHIEVE_STATE.PROGRESS;
+            }
+            else if (ad.count == AchieveList[i].number)
+            {
+                AchieveList[i].state = (int)ACHIEVE_STATE.DONE;
+            }
             if (AchieveList[i].state == (int)ACHIEVE_STATE.DONE)
             {
-                PlayerData.Instance.myCurrency += AchieveList[i].reward; // 아이템을 얻는다
-                AchieveList[i].state = (int)ACHIEVE_STATE.ACHIEVE;       // 업적 상태를 바꿔준다
+                popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = true;
+            }
+            if(AchieveList[i].state == (int)ACHIEVE_STATE.ACHIEVE)
+            {
+                popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = false;
             }
         }
     }
 
+    public void GetReward()
+    {
+        for (int i = 0; i < AchieveList.Count; i++)
+        {
+            PlayerData.Instance.myCurrency += AchieveList[i].reward; // 아이템을 얻는다
+            AchieveList[i].state = (int)ACHIEVE_STATE.ACHIEVE;       // 업적 상태를 바꿔준다
+        }
+    }
+
+    Sprite GetPath(int id)
+    {
+        return Resources.Load<Sprite>(CSVData.Instance.findAchieve(id).icon);
+    }
+
     public void ShowAchieveData()
     {
-
         for (int i = 0; i < AchieveList.Count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
-            //popInfo.transform.GetChild(i - 1).GetChild(0).GetComponent<Image>().sprite = 아이콘 이름;
+            //popInfo.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetPath(AchieveList[i].id);
             popInfo.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = AchieveList[i].name.ToString();
             popInfo.transform.GetChild(i).GetChild(2).GetComponent<Text>().text = AchieveList[i].descrition.ToString();
             popInfo.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<Text>().text = AchieveList[i].reward.ToString();
