@@ -12,6 +12,10 @@ public class MoveScene : MonoBehaviour
         {
             if (other.tag == "Player")
             {
+                if(LoadingSceneController.Instance.loadSceneName == "TownScene")
+                {
+                    LootManager.Instance.ClearPocketData();
+                }
                 LoadingSceneController.Instance.LoadScene(sceneName);
             }
         }

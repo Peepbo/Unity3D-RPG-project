@@ -30,13 +30,9 @@ public class Profile : MonoBehaviour
         popStats.transform.GetChild(1).GetComponent<Text>().text = 
             "스태미나 : " + player.stamina.ToString() + " / " + player.maxStamina.ToString();
         popStats.transform.GetChild(2).GetComponent<Text>().text =
-            "공격력 : " + player.power.ToString();
+            "공격력 : " + player.realAtk.ToString();
         popStats.transform.GetChild(3).GetComponent<Text>().text =
             "방어력 : " + player.def.ToString();
-        popStats.transform.GetChild(4).GetComponent<Text>().text =
-            "공격 속도 : " + player.atkSpeed.ToString();
-        popStats.transform.GetChild(5).GetComponent<Text>().text =
-            "이동 속도 : " + player.speed.ToString();
     }
 
     public void GetReinforce()
