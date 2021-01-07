@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public ChestManager chestData;
+    //public ChestManager chestData;
     public StatManager statData;
     // Start is called before the first frame update
 
@@ -14,17 +14,23 @@ public class DataManager : MonoBehaviour
         PlayerData.Instance.LoadData_v2();
 
         PlayerData.Instance.player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        PlayerData.Instance.player.EquipStat();
 
         //Debug.Log(PlayerData.Instance.myCurrency);
 
-        chestData.MakeData();
+        //chestData.MakeData();
         //chestData.ItemUpdate();
-        chestData.OwnLoots();
-        chestData.GetLootsData();
+        //chestData.OwnLoots();
+        //chestData.GetLootsData();
 
-        chestData.GetData();
+        //chestData.GetData();
 
         //statData.ResetStat();
         statData.GetData();
+    }
+
+    public void LoadData()
+    {
+        PlayerData.Instance.LoadData_v2();
     }
 }

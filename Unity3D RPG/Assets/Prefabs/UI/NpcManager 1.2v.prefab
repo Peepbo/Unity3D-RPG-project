@@ -3235,7 +3235,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5010590585830282536}
   - component: {fileID: 5010590585830282534}
-  - component: {fileID: 5010590585830282537}
   - component: {fileID: 5010590585830282533}
   - component: {fileID: 758234673}
   m_Layer: 5
@@ -3276,35 +3275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78cf452d48e11b41aa8bd69839c6482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestData: {fileID: 5010590585830282537}
   statData: {fileID: 5010590585830282533}
---- !u!114 &5010590585830282537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5010590585830282535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c91a576e17f9ee04cba7ea5d6aab09b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equips: {fileID: 7182305220461766810}
-  eqData: []
-  slots: {fileID: 7182305220476411740}
-  gmData: []
-  loots: {fileID: 5536475420678168874}
-  lootsData: []
-  popInfo0: {fileID: 7182305219129502020}
-  popInfo1: {fileID: 5536475420678168874}
-  infoPanel: {fileID: 5536475420652977652}
-  sellPanel: {fileID: 5536475420298074833}
-  mySlider: {fileID: 5536475420456942818}
-  curCount: {fileID: 5536475420878729433}
-  maxCount: {fileID: 5536475420380331861}
-  sellingPrice: {fileID: 5536475421633176240}
-  playerMoney: {fileID: 5536475420951660832}
 --- !u!114 &5010590585830282533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3523,6 +3494,17 @@ MonoBehaviour:
       - m_Target: {fileID: 5536475420298074833}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetSellInfo
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4424,8 +4406,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4434,6 +4416,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475419899241648
 GameObject:
@@ -4629,8 +4622,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4639,6 +4632,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420014424951
 GameObject:
@@ -4760,8 +4764,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4770,6 +4774,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420018249375
 GameObject:
@@ -5347,8 +5362,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5357,6 +5372,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420205738169
 GameObject:
@@ -5367,6 +5393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5536475420205738150}
+  - component: {fileID: 1346466111}
   m_Layer: 5
   m_Name: LootPn
   m_TagString: Untagged
@@ -5394,6 +5421,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1346466111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5536475420205738169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0249c88190627048a49b18b58924324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: {fileID: 5536475420678168875}
+  currency: {fileID: 5536475420951660832}
+  itemInfos: {fileID: 5536475420652977653}
+  sellInfos: {fileID: 5536475420298074846}
+  slider: {fileID: 5536475420456942818}
+  sellCount: {fileID: 5536475420878729433}
+  totalPrice: {fileID: 5536475421633176240}
+  selectNumber: 0
 --- !u!1 &5536475420208920925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5740,8 +5787,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5750,6 +5797,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420298074833
 GameObject:
@@ -6100,7 +6158,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6261,8 +6319,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6271,6 +6329,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420390888279
 GameObject:
@@ -6470,8 +6539,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6480,6 +6549,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420421593086
 GameObject:
@@ -6843,8 +6923,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6853,6 +6933,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420575145748
 GameObject:
@@ -7052,8 +7143,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7062,6 +7153,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475420623950881
 GameObject:
@@ -8464,8 +8566,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8474,6 +8576,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421036517779
 GameObject:
@@ -8595,8 +8708,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8605,6 +8718,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421051486135
 GameObject:
@@ -8957,8 +9081,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8967,6 +9091,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421150913857
 GameObject:
@@ -9244,8 +9379,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9254,6 +9389,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421198178338
 GameObject:
@@ -9434,7 +9580,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9595,8 +9741,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9605,6 +9751,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421476804217
 GameObject:
@@ -9761,7 +9918,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
+      - m_Target: {fileID: 1346466111}
         m_MethodName: SellItem
         m_Mode: 1
         m_Arguments:
@@ -10393,8 +10550,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10403,6 +10560,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421646401978
 GameObject:
@@ -10524,8 +10692,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeLootsInfo
+      - m_Target: {fileID: 1346466111}
+        m_MethodName: GetInfo
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10534,6 +10702,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 5536475420652977652}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &5536475421659133595
 GameObject:
@@ -11842,8 +12021,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12664,8 +12843,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13604,8 +13783,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13700,6 +13879,7 @@ GameObject:
   - component: {fileID: 7182305219056962883}
   - component: {fileID: 7182305219056962881}
   - component: {fileID: 7182305219056962882}
+  - component: {fileID: 1346466117}
   m_Layer: 5
   m_Name: EquipmentPn
   m_TagString: Untagged
@@ -13766,6 +13946,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1346466117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7182305219056962884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc58418a13244441959049ce18a798c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rightSlots: {fileID: 7182305220476411739}
+  selectPanel: {fileID: 7182305219129502019}
+  selectNumber: 0
 --- !u!1 &7182305219064836257
 GameObject:
   m_ObjectHideFlags: 0
@@ -14434,8 +14629,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15218,8 +15413,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16810,8 +17005,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17332,8 +17527,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18435,8 +18630,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20378,8 +20573,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21253,8 +21448,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22676,8 +22871,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22968,8 +23163,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24471,8 +24666,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25219,8 +25414,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25434,8 +25629,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -25796,9 +25991,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: WearingItem
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: ItemWear
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7182305219129502020}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26618,8 +26824,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 5010590585830282537}
-        m_MethodName: ChangeEquipInfo
+      - m_Target: {fileID: 1346466117}
+        m_MethodName: SelectNumber
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
