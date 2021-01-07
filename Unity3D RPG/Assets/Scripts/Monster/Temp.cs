@@ -127,6 +127,10 @@ public class Temp : EnemyMgr
     {
 
     }
+    public override void DropCoin(int min, int max)
+    {
+    
+    }
 
     private void OnDrawGizmos()
     {

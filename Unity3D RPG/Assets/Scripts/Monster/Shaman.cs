@@ -139,6 +139,14 @@ public class Shaman : EnemyMgr, IDamagedState
         }
     }
 
+    public override void DropCoin(int min, int max)
+    {
+        int _coin = Random.Range(min, max + 1);
+        Instantiate(coinEffect, transform.position, Quaternion.identity);
+        //loot.GetPocketMoney(_coin);
+        Debug.Log("getMoney : " + _coin);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

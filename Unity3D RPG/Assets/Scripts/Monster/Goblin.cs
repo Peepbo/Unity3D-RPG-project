@@ -240,7 +240,7 @@ public class Goblin : EnemyMgr, IDamagedState
             AI.enabled = false;
             StopAllCoroutines();
 
-
+          
         }
         anim.SetTrigger("isDamage");
 
@@ -250,16 +250,23 @@ public class Goblin : EnemyMgr, IDamagedState
     public override void Die()
     {
         disappearTime += Time.deltaTime;
-        if (disappearTime > 5f)
+
+        if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
+            DropCoin(minGold, maxGold);
             gameObject.SetActive(false);
-
+            disappearTime = 0f;
         }
     }
 
-
-
+    public override void DropCoin(int min, int max)
+    {
+        int _coin = Random.Range(min, max + 1);
+        Instantiate(coinEffect, transform.position, Quaternion.identity);
+        //loot.GetPocketMoney(_coin);
+        Debug.Log("getMoney : " + _coin);
+    }
 
     private void OnDrawGizmos()
     {

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -196,6 +195,7 @@ public class Golem : EnemyMgr, IDamagedState
             hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
+
         }
 
     }
@@ -213,12 +213,21 @@ public class Golem : EnemyMgr, IDamagedState
         {
             Debug.Log("gone");
             gameObject.SetActive(false);
+            destroyCount = 0f;
         }
 
         StopAllCoroutines();
         AI.enabled = false;
         controller.enabled = false;
 
+    }
+
+    public override void DropCoin(int min, int max)
+    {
+        int _coin = Random.Range(min, max + 1);
+        Instantiate(coinEffect, transform.position, Quaternion.identity);
+        //loot.GetPocketMoney(_coin);
+        Debug.Log("getMoney : "+_coin);
     }
 
     private void OnDrawGizmos()

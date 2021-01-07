@@ -18,6 +18,7 @@ public abstract class EnemyMgr : MonoBehaviour
     protected float disappearTime;
 
     //temp
+    protected LootManager loot;
     public GameObject coinEffect;
 
 
@@ -39,6 +40,7 @@ public abstract class EnemyMgr : MonoBehaviour
 
     public int minGold;
     public int maxGold;
+
     //private string[] loot = new string[3];
     //private int[] kindId = new int[3];
 
@@ -79,6 +81,9 @@ public abstract class EnemyMgr : MonoBehaviour
     }
 
     public abstract void Die();
+
+    public abstract void DropCoin(int min, int max);
+  
 
     public Vector3 GetRandomDirection()
     {

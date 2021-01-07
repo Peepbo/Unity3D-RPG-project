@@ -6,14 +6,16 @@ public class AnimationEvent : MonoBehaviour
 {
     public enum MONSTER
     {
-        GOBLIN,
+        OBGOBLIN,
+        NOBGOBLIN,
         SHAMAN,
         GOLEM
     }
 
     public MONSTER monster;
 
-    Goblin goblin;
+    OBGoblin obGoblin;
+    Goblin nGoblin;
     Shaman shaman;
     Golem golem;
 
@@ -21,8 +23,11 @@ public class AnimationEvent : MonoBehaviour
     {
         switch (monster)
         {
-            case MONSTER.GOBLIN:
-                goblin = gameObject.GetComponentInParent<Goblin>();
+            case MONSTER.OBGOBLIN:
+                obGoblin = gameObject.GetComponentInParent<OBGoblin>();
+                break;
+            case MONSTER.NOBGOBLIN:
+                nGoblin = gameObject.GetComponentInParent<Goblin>();
                 break;
             case MONSTER.SHAMAN:
                 shaman = gameObject.GetComponentInParent<Shaman>();
@@ -38,24 +43,43 @@ public class AnimationEvent : MonoBehaviour
     {
         switch (mon)
         {
-            case MONSTER.GOBLIN:
-                goblin.GetRest();
+            case MONSTER.OBGOBLIN:
+                obGoblin.GetRest();
                 break;
-            case MONSTER.SHAMAN:
+            case MONSTER.NOBGOBLIN:
+                nGoblin.GetRest();
                 break;
-            case MONSTER.GOLEM:
-                break;
+         
         }
     }
 
-    public void ActiveMeshCol()
+    public void ActiveMeshCol(MONSTER mon)
     {
-        goblin.ActiveMeshCol();
+        switch (mon)
+        {
+            case MONSTER.OBGOBLIN:
+                obGoblin.ActiveMeshCol();
+                break;
+            case MONSTER.NOBGOBLIN:
+                nGoblin.ActiveMeshCol();
+                break;
+          
+        }
+       
     }
 
-    public void DeActiveMeshCol()
+    public void DeActiveMeshCol(MONSTER mon)
     {
-        goblin.DeActiveMeshCol();
+        switch (mon)
+        {
+            case MONSTER.OBGOBLIN:
+                obGoblin.DeActiveMeshCol();
+                break;
+            case MONSTER.NOBGOBLIN:
+                nGoblin.DeActiveMeshCol();
+                break;
+          
+        }
     }
     #endregion
 
@@ -71,14 +95,7 @@ public class AnimationEvent : MonoBehaviour
     {
         golem.AttackTarget();
     }
-    //public void GetRandomNum()
-    //{
-    //    golem.GetRandomNum();
-    //}
-    //public void ChageRotation()
-    //{
-    //    golem.ChageRotation();
-    //}
+    
     #endregion
 
 }

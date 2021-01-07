@@ -30,8 +30,11 @@ public class ObservingMove : MonoBehaviour, IMoveAble
 
     public void move()
     {
-        if (!isObserve) return;
-       
+        if (!isObserve)
+        {
+            time = 3f;
+            return;
+        } 
 
         if (time > 0)
         {
@@ -79,7 +82,6 @@ public class ObservingMove : MonoBehaviour, IMoveAble
                             {
                                 agent.isStopped = true;
                               
-
                             }
 
                         }

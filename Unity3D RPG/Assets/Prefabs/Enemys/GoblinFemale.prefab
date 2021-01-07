@@ -26,7 +26,6 @@ GameObject:
   - component: {fileID: 6109424986406894464}
   - component: {fileID: 715902381452889278}
   - component: {fileID: 5431718363813763279}
-  - component: {fileID: -3270299321661381489}
   - component: {fileID: 4168759}
   m_Layer: 0
   m_Name: GoblinFemale
@@ -137,29 +136,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &-3270299321661381489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655707702591849128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e67b752203332ac45a1c875fcb858b97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 30
-  hp: 30
-  atk: 10
-  def: 5
-  speed: 3
-  angle: 210
-  findRange: 10
-  attackRange: 2
-  observeRange: 5
-  minGold: 20
-  maxGold: 30
 --- !u!114 &4168759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,13 +148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b972ea441c12344c9a1b9f0bb561e18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinEffect: {fileID: 1919543859444104, guid: b086cc438d6a4de409a0c0d3f2eebd21, type: 3}
+  maxHp: 30
   speed: 3
+  angle: 210
   findRange: 10
   attackRange: 2
-  atkPower: 3
-  maxHp: 30
   observeRange: 5
-  angle: 210
+  minGold: 20
+  maxGold: 30
   weapon: {fileID: 1557919345}
 --- !u!114 &795112572
 MonoBehaviour:
