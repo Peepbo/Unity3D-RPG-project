@@ -22,7 +22,7 @@ public partial class Player : MonoBehaviour
     void Start()
     {
         AnimStart();
-        //EquipStat();
+        EquipStat();
     }
    
     // Update is called once per frame

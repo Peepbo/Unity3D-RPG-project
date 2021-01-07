@@ -9,6 +9,7 @@ partial class Player
     public bool    isDash;                 //대쉬했냐
     bool           isAtk;
     public bool    isGuard;                // 가드중이냐
+    public bool    isGuardGrogi;           // 가드그로기상태이냐
     public bool    isCri;                  // 강공격중이냐
     public bool    isFight;                // 전투중이냐
     int            fightTimer;
