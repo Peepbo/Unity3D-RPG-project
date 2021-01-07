@@ -21,11 +21,26 @@ public abstract class EnemyMgr : MonoBehaviour
     public GameObject coinEffect;
 
 
+    //stat
+
+    public int maxHp;
+    protected int hp;
+    protected int atk;
+    protected float def;
+    public float speed;
+
+    public float angle;
     [Range(5, 15)]
     public float findRange;
-    [Range(1, 3)]
+    [Range(1, 10)]
     public float attackRange;
+    [Range(1, 5)]
+    public float observeRange;
 
+    public int minGold;
+    public int maxGold;
+    //private string[] loot = new string[3];
+    //private int[] kindId = new int[3];
 
 
     protected virtual void Awake()
@@ -33,7 +48,7 @@ public abstract class EnemyMgr : MonoBehaviour
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
 
-        for(int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).tag == "Animation")
                 anim = transform.GetChild(i).GetComponent<Animator>();
@@ -64,7 +79,7 @@ public abstract class EnemyMgr : MonoBehaviour
     }
 
     public abstract void Die();
-   
+
     public Vector3 GetRandomDirection()
     {
         float _ranX = Random.Range(-1f, 1f);
