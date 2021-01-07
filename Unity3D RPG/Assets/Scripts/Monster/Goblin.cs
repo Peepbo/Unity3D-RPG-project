@@ -26,7 +26,8 @@ public class Goblin : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 25;
         def = 5.0f;
-
+        minGold = 20;
+        maxGold = 30;
         findCount = 0;
     }
     void Start()
@@ -264,7 +265,9 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         int _coin = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
-        //loot.GetPocketMoney(_coin);
+
+        LootManager.Instance.GetPocketMoney(currency);
+
         Debug.Log("getMoney : " + _coin);
     }
 

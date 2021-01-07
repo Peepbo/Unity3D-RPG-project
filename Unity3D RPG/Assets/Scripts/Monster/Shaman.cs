@@ -26,7 +26,8 @@ public class Shaman : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 35;
         def = 0f;
-
+        minGold = 25;
+        maxGold = 45;
         anim.SetInteger("state", 0);
     }
 
@@ -143,7 +144,7 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         int _coin = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
-        //loot.GetPocketMoney(_coin);
+        LootManager.Instance.GetPocketMoney(currency);
         Debug.Log("getMoney : " + _coin);
     }
 

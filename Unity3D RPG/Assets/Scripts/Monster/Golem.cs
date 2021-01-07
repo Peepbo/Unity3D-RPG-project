@@ -27,7 +27,8 @@ public class Golem : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 45;
         def = 10.0f;
-            
+        minGold = 50;
+        maxGold = 100;
         spawnPos = transform.position;
 
     }
@@ -226,7 +227,9 @@ public class Golem : EnemyMgr, IDamagedState
     {
         int _coin = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
-        //loot.GetPocketMoney(_coin);
+
+        LootManager.Instance.GetPocketMoney(currency);
+
         Debug.Log("getMoney : "+_coin);
     }
 

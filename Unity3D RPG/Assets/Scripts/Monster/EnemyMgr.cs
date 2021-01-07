@@ -18,7 +18,6 @@ public abstract class EnemyMgr : MonoBehaviour
     protected float disappearTime;
 
     //temp
-    protected LootManager loot;
     public GameObject coinEffect;
 
 
@@ -38,8 +37,9 @@ public abstract class EnemyMgr : MonoBehaviour
     [Range(1, 5)]
     public float observeRange;
 
-    public int minGold;
-    public int maxGold;
+    protected int minGold;
+    protected int maxGold;
+    protected int currency;
 
     //private string[] loot = new string[3];
     //private int[] kindId = new int[3];

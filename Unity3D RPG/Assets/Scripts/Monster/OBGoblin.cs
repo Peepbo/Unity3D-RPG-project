@@ -17,8 +17,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
     private int findCount;
     private bool isFind;
 
-    private int currency;
-
 
     public GameObject weapon;
 
@@ -30,6 +28,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
         hp = maxHp;
         atk = 25;
         def = 5.0f;
+        minGold = 20;
+        maxGold = 30;
         findCount = 0;
 
     }
@@ -288,7 +288,9 @@ public class OBGoblin : EnemyMgr, IDamagedState
         currency = Random.Range(min, max + 1);
 
         Instantiate(coinEffect, transform.position, Quaternion.identity);
-        //loot.GetPocketMoney(currency);
+
+        LootManager.Instance.GetPocketMoney(currency);
+       
         Debug.Log("getMoney : " + currency);
     }
 
