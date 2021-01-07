@@ -30,8 +30,9 @@ public class Achievements : MonoBehaviour
 {
     public GameObject achieveSlots;                                 // 업적 슬롯
     public GameObject popInfo;                                      // 업적 정보 띄우기
-    public List<AchieveInfo> AchieveList = new List<AchieveInfo>(); // 업적 관련
-    AchieveData ad;
+
+    private List<AchieveInfo> AchieveList = new List<AchieveInfo>(); // 업적 관련(CSV)  ... <only LOAD>
+    private List<Achieve> achieveJsonList = new List<Achieve>();     // 업적 관련(Json) ... <SAVE, LOAD>
 
     Color[] color = {
         new Color(117f / 255, 1, 105f / 255, 1),    // YET - 초록
@@ -40,69 +41,72 @@ public class Achievements : MonoBehaviour
         new Color(177f / 255, 189f / 255, 1, 1),    // ACHIEVE - 파랑
     };
 
-    private void Start()
+    private void OnEnable()
     {
-        SetAchieveData();
+        AchieveList = (CSVData.Instance.GetAchieveCSV());
 
         JsonData.Instance.CheckJsonData();
-
-        List<Achieve> _list = new List<Achieve>();
-
-        _list = JsonData.Instance.LoadAchieve();
-
-        for (int i = 0; i < _list.Count; i++)
-        {
-            Debug.Log(_list[i].Number);
-        }
-
-        JsonData.Instance.AchieveSave(_list);
+        achieveJsonList = JsonData.Instance.LoadAchieve();
 
         for (int i = 0; i < AchieveList.Count; i++)
-        {
-            popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = false;
-        }
+            popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().enabled = false;
+
+        SaveJson();
     }
+
+    void SaveJson()
+    {
+        Content();
+        JsonData.Instance.AchieveSave(achieveJsonList);
+    }
+
 
     void Update()
     {
         ShowAchieveData();
     }
 
-    public void SetAchieveData()
-    {
-        AchieveList = (CSVData.Instance.GetAchieveCSV());
-    }
-
     public void Content()
     {
+        //Debug.LogError(achieveJsonList.Count);
+
         for (int i = 0; i < AchieveList.Count; i++)
         {
-            if(ad.count > 0)
+            switch (achieveJsonList[i].State)
             {
-                AchieveList[i].state = (int)ACHIEVE_STATE.PROGRESS;
-            }
-            else if (ad.count == AchieveList[i].number)
-            {
-                AchieveList[i].state = (int)ACHIEVE_STATE.DONE;
-            }
-            if (AchieveList[i].state == (int)ACHIEVE_STATE.DONE)
-            {
-                popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = true;
-            }
-            if(AchieveList[i].state == (int)ACHIEVE_STATE.ACHIEVE)
-            {
-                popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().interactable = false;
+                case 0://yet
+                    if(achieveJsonList[i].Number > 0)
+                        achieveJsonList[i].State = (int)ACHIEVE_STATE.PROGRESS;
+
+                    if (achieveJsonList[i].Number >= AchieveList[i].number)
+                    {
+                        achieveJsonList[i].State = (int)ACHIEVE_STATE.DONE;
+                        popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().enabled = true;
+                    }
+                    break;
+                case 1://progress
+                    if(achieveJsonList[i].Number >= AchieveList[i].number)
+                    {
+                        achieveJsonList[i].State = (int)ACHIEVE_STATE.DONE;
+                        popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().enabled = true;
+                    }
+                    break;
+                case 2://done
+                    popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().enabled = true;
+                    break;
+                case 3://achieve
+                    popInfo.transform.GetChild(i).GetChild(3).GetComponent<Button>().enabled = false;
+                    break;
             }
         }
     }
 
-    public void GetReward()
+    public void GetReward(int num)
     {
-        for (int i = 0; i < AchieveList.Count; i++)
-        {
-            PlayerData.Instance.myCurrency += AchieveList[i].reward; // 아이템을 얻는다
-            AchieveList[i].state = (int)ACHIEVE_STATE.ACHIEVE;       // 업적 상태를 바꿔준다
-        }
+        PlayerData.Instance.myCurrency += AchieveList[num].reward; // 재화를 얻는다
+        achieveJsonList[num].State = (int)ACHIEVE_STATE.ACHIEVE;   // 업적 상태를 바꿔준다
+
+        SaveJson();
     }
 
     Sprite GetPath(int id)
@@ -119,19 +123,19 @@ public class Achievements : MonoBehaviour
             popInfo.transform.GetChild(i).GetChild(2).GetComponent<Text>().text = AchieveList[i].descrition.ToString();
             popInfo.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<Text>().text = AchieveList[i].reward.ToString();
 
-            if (AchieveList[i].state == (int)ACHIEVE_STATE.YET)
+            if (achieveJsonList[i].State == (int)ACHIEVE_STATE.YET)
             {
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[0];
             }
-            else if (AchieveList[i].state == (int)ACHIEVE_STATE.PROGRESS)
+            else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.PROGRESS)
             {
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[1];
             }
-            else if (AchieveList[i].state == (int)ACHIEVE_STATE.DONE)
+            else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.DONE)
             {
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[2];
             }
-            else if (AchieveList[i].state == (int)ACHIEVE_STATE.ACHIEVE)
+            else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.ACHIEVE)
             {
                 achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[3];
             }
