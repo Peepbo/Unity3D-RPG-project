@@ -181,7 +181,7 @@ public class Golem : EnemyMgr, IDamagedState
         AI.isStopped = false;
         isDamaged = false;
     }
-
+   
     public void Damaged(int value)
     {
         if (isDamaged || isDead) return;
@@ -210,7 +210,7 @@ public class Golem : EnemyMgr, IDamagedState
         }
 
         if (destroyCount > 6.0f)
-        {
+        { 
             Debug.Log("gone");
             gameObject.SetActive(false);
             destroyCount = 0f;
@@ -224,12 +224,12 @@ public class Golem : EnemyMgr, IDamagedState
 
     public override void DropCoin(int min, int max)
     {
-        int _coin = Random.Range(min, max + 1);
+        currency = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
 
         LootManager.Instance.GetPocketMoney(currency);
 
-        Debug.Log("getMoney : " + _coin);
+
     }
 
     private void OnDrawGizmos()
@@ -247,7 +247,6 @@ public class Golem : EnemyMgr, IDamagedState
 
 
     #region Animation event functions
-
 
     #endregion
 

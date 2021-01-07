@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Shaman : EnemyMgr, IDamagedState
 {
-    private Vector3 startPos;           
+    private Vector3 startPos;
 
     private ObservingMove observe;
     private ViewingAngle viewAngle;
@@ -13,8 +13,10 @@ public class Shaman : EnemyMgr, IDamagedState
     private bool isDetected;
     private Transform firePos;
 
+    private bool isFire;
 
-  
+    private bool isLooking;
+
     [Range(1, 5)]
     public float skillSpawn;
 
@@ -36,13 +38,12 @@ public class Shaman : EnemyMgr, IDamagedState
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         observe.Init(AI, startPos, speed, observeRange);
-        
     }
 
     void Update()
     {
-      
-        if (isDamaged || isDead) return;
+
+        if (isDead) Die();
 
         if (!isDetected)
         {
@@ -51,15 +52,19 @@ public class Shaman : EnemyMgr, IDamagedState
 
         else
         {
-            anim.SetInteger("state", 2);
-
-            Fire();
+            if (isLooking)
+            {
+                anim.SetInteger("state", 2);
+                Fire();
+            }
         }
 
     }
 
     public void Observe()
     {
+        if (isDead) return;
+
         setMoveType(observe);
         observe.setIsObserve(true);
         observe.move();
@@ -69,7 +74,77 @@ public class Shaman : EnemyMgr, IDamagedState
 
         isDetected = viewAngle.FoundTarget(target, findRange, angle);
 
+        if (isDetected == true)
+        {
+            Vector3 _dir = (target.transform.position - transform.position).normalized;
+            _dir.y = 0;
+
+            transform.rotation = Quaternion.LookRotation(_dir);
+
+            StartCoroutine(Look());
+            //코루틴돌고
+            //1.5초뒤에 isLooking가 트루로 바꿈
+            //그리고 그안에 아까 사용한 회전함수 하면된다.
+
+        }
         //만약 isDetected가 true가 되면? <before : observe> -> atk
+
+        //ItemInfo _item;
+        //_item.count = 6;
+
+        //find => count 1개..
+    }
+
+    IEnumerator Look()
+    {
+        isLooking = false;
+        float t = 0f;
+        while (t < 1.5f)
+        {
+            t += Time.deltaTime;
+
+            Vector3 _direction = (target.transform.position - transform.position).normalized;
+            _direction.y = 0;
+            Quaternion _targetRotation = Quaternion.LookRotation(_direction);
+
+            //Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, Time.deltaTime);
+            Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, t / 1.5f);
+
+            transform.localRotation = _nextRotation;
+
+            yield return null;
+        }
+
+        isLooking = true;
+    }
+
+    IEnumerator Rest()
+    {
+        isFire = true;
+        anim.SetBool("isRest", true);
+
+        float t = 0f;
+        while (t < 1.5f)
+        {
+            t += Time.deltaTime;
+
+            Vector3 _direction = (target.transform.position - transform.position).normalized;
+            _direction.y = 0;
+            Quaternion _targetRotation = Quaternion.LookRotation(_direction);
+
+            //Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, Time.deltaTime);
+            Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, t / 1.5f);
+
+            transform.localRotation = _nextRotation;
+
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(1.5f);
+
+        anim.SetBool("isRest", false);
+
+        isFire = false;
     }
 
     public void Fire()
@@ -81,14 +156,17 @@ public class Shaman : EnemyMgr, IDamagedState
             Vector3 _dir = (target.transform.position - transform.position).normalized;
             _dir.y = 0;
 
-            transform.rotation = Quaternion.LookRotation(_dir);
+            if (!isFire) StartCoroutine(Rest());
+
+            //transform.rotation = Quaternion.LookRotation(_dir);
+
             //만약 isDetected가 false가 되면? <before : atk상태> -> observe
             if (isDetected == false)
             {
                 int _action = observe.getAction();
                 anim.SetInteger("state", _action);
             }
-         
+
         }
 
     }
@@ -108,15 +186,20 @@ public class Shaman : EnemyMgr, IDamagedState
         if (isDamaged || isDead) return;
 
         hp -= (int)(value * (1.0f - def / 100));
-        anim.SetTrigger("damage");
+
 
         if (hp <= 0)
         {
+            Debug.Log("죽음");
+
             hp = 0;
             isDead = true;
             anim.SetTrigger("die");
             controller.enabled = false;
+            AI.enabled = false;
+            StopAllCoroutines();
         }
+        else anim.SetTrigger("damage");
 
         StartCoroutine(GetDamage());
     }
@@ -133,19 +216,20 @@ public class Shaman : EnemyMgr, IDamagedState
     public override void Die()
     {
         disappearTime += Time.deltaTime;
-        if(disappearTime>5f)
+        if (disappearTime > 5f)
         {
             //아이템 떨어트리기
+            DropCoin(minGold, maxGold);
             gameObject.SetActive(false);
         }
     }
 
     public override void DropCoin(int min, int max)
     {
-        int _coin = Random.Range(min, max + 1);
+        currency = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
         LootManager.Instance.GetPocketMoney(currency);
-        Debug.Log("getMoney : " + _coin);
+
     }
 
     private void OnDrawGizmos()

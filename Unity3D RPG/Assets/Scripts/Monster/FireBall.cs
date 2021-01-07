@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBall : MonoBehaviour
 {
-    private float speed = 3f;
+    private float speed = 5f;
     private int atk=35;
     Vector3 spawnPos;
 

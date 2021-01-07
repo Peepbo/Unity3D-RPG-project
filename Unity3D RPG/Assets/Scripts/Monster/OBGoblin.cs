@@ -287,7 +287,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         LootManager.Instance.GetPocketMoney(currency);
        
-        Debug.Log("getMoney : " + currency);
     }
 
     private void OnDrawGizmos()
