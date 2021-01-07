@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Goblin : EnemyMgr, IDamagedState
 {
-    private EnemyStat stat;
-    private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
     private ViewingAngle viewAngle;
@@ -17,39 +15,33 @@ public class Goblin : EnemyMgr, IDamagedState
     private int findCount;
     private bool isFind;
 
-    //temp
     bool isObserve = true;
-
-
-    [Range(3, 7)]
-    public float observeRange;
-    [Range(90, 300)]
-    public float angle;
-
 
     public GameObject weapon;
 
     protected override void Awake()
     {
         base.Awake();
-        startPos = transform.position;
+        startPos = transform.position;       
+        hp = maxHp;
+        atk = 25;
+        def = 5.0f;
 
-        stat.hp = stat.maxHp;
         findCount = 0;
     }
     void Start()
     {
         //Goblin Move pattern
-        observe = gameObject.AddComponent<ObservingMove>();
+        
         follow = gameObject.AddComponent<FollowTarget>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
-        weapon.GetComponent<AxColision>().SetDamage(stat.atk);
+        weapon.GetComponent<AxColision>().SetDamage(atk);
 
-        observe.Init(AI, startPos, 1.5f, observeRange);
-        follow.Init(AI, target, stat.speed, attackRange);
-        returnToHome.init(AI, startPos, stat.speed);
+        
+        follow.Init(AI, target, speed, attackRange);
+        returnToHome.init(AI, startPos, speed);
 
         anim.SetInteger("state", 0);
     }
@@ -75,12 +67,12 @@ public class Goblin : EnemyMgr, IDamagedState
             return;
         }
 
-        if (observe.getIsObserve())
+        if (isObserve)
         {
             if (!isFind)
             {
-                //anim.SetInteger("state", 0);
-                Observe();
+                anim.SetInteger("state", 0);
+               
             }
 
             else
@@ -90,15 +82,14 @@ public class Goblin : EnemyMgr, IDamagedState
 
                     if (_hit.transform.tag == "Player")
                     {
-                        observe.setIsObserve(false);
                         anim.SetInteger("state", 1);
                         findCount = 1;
-                        //AI.isStopped = false;
+                        isObserve=false;
+                        AI.isStopped = false;
                     }
                     else
                     {
-                        Observe();
-                        //AI.isStopped = true;
+                        AI.isStopped = true;
                     }
                 }
             }
@@ -133,28 +124,9 @@ public class Goblin : EnemyMgr, IDamagedState
     }
 
 
-    public void Observe()
-    {
-
-        setMoveType(observe);
-        Move();
-
-        if (observe.getAction() == 0)
-        {
-            anim.SetInteger("state", 0);
-        }
-        if (observe.getAction() == 1)
-        {
-            anim.SetInteger("state", 1);
-        }
-
-    }
 
     public void FollowTarget()
     {
-        //타겟 따라갈때는 observe false
-        //observe.setIsObserve(false);
-
         //controller의 speed를 animation velocity 값에 넣어준다.
         //anim.SetFloat("velocity", controller.velocity.magnitude);
         anim.SetFloat("velocity", AI.speed);
@@ -175,9 +147,8 @@ public class Goblin : EnemyMgr, IDamagedState
             {
                 findCount = 0;
                 returnToHome.setIsReturn(false);
-                //AI.isStopped = true;
-                observe.setIsObserve(true);
-                //observe.setIsObserve(true);
+                AI.isStopped = true;
+                isObserve = true;
 
                 //controller의 speed를 velocity의 값에 넣어준다.;
                 anim.SetInteger("state", 0);
@@ -254,14 +225,14 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead) return;
 
-        if (stat.hp > 0)
+        if (hp > 0)
         {
-            stat.hp -= (int)(value * (1.0f - stat.def / 100));
+            hp -= (int)(value * (1.0f - def / 100));
             StartCoroutine(GetDamage());
         }
         else
         {
-            stat.hp = 0;
+            hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
 

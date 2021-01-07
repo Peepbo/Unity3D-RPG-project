@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OBGoblin : EnemyMgr, IDamagedState
 {
-    private EnemyStat stat;
+
     private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
@@ -13,17 +13,11 @@ public class OBGoblin : EnemyMgr, IDamagedState
     private Vector3 startPos;
     private Vector3 direction;
 
- 
-    private int gold;
- 
+
     private int findCount;
     private bool isFind;
 
-  
-    [Range(3, 7)]
-    public float observeRange;
-    [Range(90, 300)]
-    public float angle;
+
 
 
     public GameObject weapon;
@@ -33,11 +27,11 @@ public class OBGoblin : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
 
-        stat = gameObject.GetComponent<EnemyStat>();
-        stat.hp = stat.maxHp;
-       // hp = maxHp;
+        hp = maxHp;
+        atk = 25;
+        def = 5.0f;
         findCount = 0;
-        
+
     }
     void Start()
     {
@@ -47,11 +41,11 @@ public class OBGoblin : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
-        weapon.GetComponent<AxColision>().SetDamage(stat.atk);
+        weapon.GetComponent<AxColision>().SetDamage(atk);
 
         observe.Init(AI, startPos, 1.5f, observeRange);
-        follow.Init(AI, target, stat.speed, attackRange);
-        returnToHome.init(AI, startPos, stat.speed);
+        follow.Init(AI, target, speed, attackRange);
+        returnToHome.init(AI, startPos, speed);
 
         anim.SetInteger("state", 0);
     }
@@ -256,14 +250,14 @@ public class OBGoblin : EnemyMgr, IDamagedState
     {
         if (isDamaged || isDead) return;
 
-        if (stat.hp > 0)
+        if (hp > 0)
         {
-            stat.hp -= (int)(value * (1.0f - stat.def / 100));
+            hp -= (int)(value * (1.0f - def / 100));
             StartCoroutine(GetDamage());
         }
         else
         {
-            stat.hp = 0;
+            hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
 
