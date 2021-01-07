@@ -1,34 +1,36 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.Networking;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
 
-//namespace CSVSimpleReader 
-//{ 
-//    public class CSVSimpleReader
-//    {
-//        //CSV
-//        public static List<string> Reader(string fileName, int startRow=0, int endRow=0)
-//         {
-//             List<string> _playerSaveInfo = new List<string>();
+namespace CSVSimpleReader
+{
+    public class CSVSimpleReader
+    {
+        //CSV
+        public static List<string> Reader(string fileName, int startRow = 0, int endRow = 0)
+        {
+            List<string> _playerSaveInfo = new List<string>();
 
-//             TextAsset _playerData = Resources.Load(fileName)as TextAsset ;
-//             string[] _rowData = _playerData.text.Split(new char[] { '\n' });
-//            if (endRow == 0)
-//                endRow = _rowData.Length;
-            
-//             for (int i = startRow; i < endRow; i++)
-//             {
-//                 string[] _column = _rowData[i].Split(new char[] { ',' });
-         
-//                 for(int k=0; k<_column.Length; k++)
-//                     {
-//                         _playerSaveInfo.Add(_column[k]);
-//                     }
-//             }
-             
-//                 return _playerSaveInfo;
-//         }
+            TextAsset _playerData = Resources.Load(fileName) as TextAsset;
+            string[] _rowData = _playerData.text.Split(new char[] { '\n' });
+            if (endRow == 0)
+                endRow = _rowData.Length;
+
+            for (int i = startRow; i < endRow; i++)
+            {
+                string[] _column = _rowData[i].Split(new char[] { ',' });
+
+                for (int k = 0; k < _column.Length; k++)
+                {
+                    _playerSaveInfo.Add(_column[k]);
+                }
+            }
+
+            return _playerSaveInfo;
+        }
+    }
+}
 
 //        //   //List<ItemInfo> itemList = new List<ItemInfo>();
 
