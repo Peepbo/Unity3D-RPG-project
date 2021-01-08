@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2143634459}
   - component: {fileID: 2143634462}
   m_Layer: 9
-  m_Name: Col
+  m_Name: DamageBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,12 +27,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2143634457}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.37, z: 1.14}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.63, z: 1.14}
   m_LocalScale: {x: 1, y: 1, z: 2.0837567}
   m_Children: []
-  m_Father: {fileID: 5042325360968075129}
-  m_RootOrder: 3
+  m_Father: {fileID: 172957959203777735}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2143634461
 MeshFilter:
@@ -155,6 +155,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2143634458}
   - {fileID: 5042325360968075129}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -225,7 +226,6 @@ MonoBehaviour:
   findRange: 10
   attackRange: 3
   observeRange: 0
-  damageCheck: {fileID: 2143634457}
 --- !u!143 &172957959203777737
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1056,7 +1056,7 @@ PrefabInstance:
     - target: {fileID: 5160993694227408764, guid: 8b5ce15162f0d4a539e49c131c5734f2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5160993694227408764, guid: 8b5ce15162f0d4a539e49c131c5734f2,
         type: 3}
