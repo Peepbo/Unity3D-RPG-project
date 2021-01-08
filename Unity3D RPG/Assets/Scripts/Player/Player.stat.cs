@@ -97,6 +97,8 @@ partial class Player
             comboAtk.currentCollider = currentWeapon.GetComponent<WeaponCollider>();
             increasedAtk = weapon.atk;
             atkSpeed = weapon.atkSpeed;
+
+            realAtk = atkSpeed + increasedAtk;
         }
         if (armor != PlayerData.Instance.EquipArmor())
         {
@@ -126,69 +128,75 @@ partial class Player
 
     public void GetDamage(int damage)
     {
-        if(isGuard && !isGuardGrogi)
+        if(isDie== false)
         {
-            stamina -= 40;
-            if(stamina <= 0)
+            if(isGuard && !isGuardGrogi)
             {
-                stamina = 0;
-                isGuardGrogi = true;
+                stamina -= 40;
+                if(stamina <= 0)
+                {
+                    stamina = 0;
+                    isGuardGrogi = true;
+                }
+                animator.Play("ShieldBlock");
+                animator.SetBool("isGuardHit", true);
+                //animator.SetTrigger("GuardHit");
             }
-            animator.Play("ShieldBlock");
-            animator.SetBool("isGuardHit", true);
-            //animator.SetTrigger("GuardHit");
-        }
-        else
-        {
-            hp -= damage;
-            if(hp < 0)
+            else
             {
-                hp = 0;
-                PlayerDie();
+                hp -= (int)(damage *(1- realDef/100));
+                if(hp < 0)
+                {
+                    hp = 0;
+                    PlayerDie();
+                }
             }
         }
     }
     public void StaminaReload() // 스태미나 자동 충전
     {
-        if(isGuard == false)
+        if(isDie == false)
         {
-            if(stamina<maxStamina)
+            if (isGuard == false)
             {
-                staminaTime+= Time.deltaTime;
-                if(isFight)
+                if (stamina < maxStamina)
                 {
-                    if( staminaTime > 6*Time.deltaTime)
+                    staminaTime += Time.deltaTime;
+                    if (isFight)
                     {
-                        staminaTime = 0;
-                        stamina+=(maxStamina/200);
-                        if( stamina >= maxStamina)
+                        if (staminaTime > 6 * Time.deltaTime)
                         {
-                            stamina = maxStamina;
-                            if(isGuardGrogi == true)
+                            staminaTime = 0;
+                            stamina += (maxStamina / 200);
+                            if (stamina >= maxStamina)
                             {
-                                isGuardGrogi = false;
+                                stamina = maxStamina;
+                                if (isGuardGrogi == true)
+                                {
+                                    isGuardGrogi = false;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (staminaTime > 6 * Time.deltaTime)
+                        {
+                            staminaTime = 0;
+                            stamina += maxStamina / 100;
+                            if (stamina >= maxStamina)
+                            {
+                                stamina = maxStamina;
+                                if (isGuardGrogi == true)
+                                {
+                                    isGuardGrogi = false;
+                                }
                             }
                         }
                     }
                 }
-                else
-                {
-                    if (staminaTime > 6 * Time.deltaTime)
-                    {
-                        staminaTime = 0;
-                        stamina+= maxStamina/100;
-                        if (stamina >= maxStamina)
-                        {
-                            stamina = maxStamina;
-                            if (isGuardGrogi == true)
-                            {
-                                isGuardGrogi = false;
-                            }
-                        }
-                    }
-                }
+
             }
-            
         }
     }
 }

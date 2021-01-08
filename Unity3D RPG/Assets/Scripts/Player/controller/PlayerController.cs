@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        if (player.isDash == false)
+        if (player.isDash == false && player.isDie == false)
         {   
             Vector2 _movementInput = playerInput.PlayerMain.Move.ReadValue<Vector2>();
             value = _movementInput;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
             value3 = _move;
 
 
-            if (player.isFight == false && player.isGuard == false/*&& UiManager.Instance.PanelOpen == false*/)
+            if (player.isFight == false && player.isGuard == false&& UiManager.Instance.PanelOpen == false)
             {
                 if(_move != Vector3.zero)
                 {
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
                     controller.Move(_move * Time.deltaTime * playerSpeed); // 움직임
                 }
 
-                //실패작들
+                //실패작
                 //Vector3 G = child.position - _move;
                 //float a = Mathf.SmoothDampAngle(child.eulerAngles.x,G.x , ref angularVelocity, 0.3f);
                 //float b = Mathf.SmoothDampAngle(child.eulerAngles.y,G.y , ref angularVelocity, 0.3f);

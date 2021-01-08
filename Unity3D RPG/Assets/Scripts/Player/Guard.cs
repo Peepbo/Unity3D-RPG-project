@@ -12,18 +12,23 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         player = GameObject.Find("MainPlayer").GetComponent<Player>();
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
     // Update is called once per frame
     void Update()
     {
         if( isPress)
         {
-            player.comboAtk.animator.SetBool("isGuard", true);
-            
-
+            if(player.isGuardGrogi== false)
+            {
+                player.comboAtk.animator.SetBool("isGuard", true);
+            }
+            else
+            {
+                player.comboAtk.animator.SetBool("isGuard", false);
+                if (player.comboAtk.animator.GetBool("isGuardHit") == false)
+                {
+                    player.isGuard = false;
+                }
+            }
         }
         else
         {
@@ -32,18 +37,21 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
             {
                 player.isGuard = false;
             }
-
         }
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        if(!player.isCri)
+        if(player.isDie == false)
         {
-            player.state = Player.PlayerState.GUARD;
-            isPress = true;
-            player.isGuard = true;
 
-            player.comboAtk.ComboReset();
+            if(!player.isCri)
+            {
+                player.state = Player.PlayerState.GUARD;
+                isPress = true;
+                player.isGuard = true;
+
+                player.comboAtk.ComboReset();
+            }
         }
     }
 
