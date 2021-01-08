@@ -32,12 +32,12 @@ public partial class LootManager : Singleton<LootManager>
 
 
         //itemA, itemB, itemC, itemD...
-
         for(int i = 0; i < pocketItemInfo.Count; i++)
         {
             ItemInfo _item = pocketItemInfo[i];
 
-            if (pocketItemInfo.Contains(_item) == false) pd.pocketItem.Add(_item);
+
+            if (pd.pocketItem.Contains(_item) == false) pd.pocketItem.Add(_item);
 
             else
             {

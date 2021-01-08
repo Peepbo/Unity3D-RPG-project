@@ -61,6 +61,7 @@ public class Goblin : EnemyMgr, IDamagedState
         for (int i = 0; i < 3; i++)
         {
             drop = CSVData.Instance.find(itemKind[i]);
+            Debug.Log(drop.count);
             item.Add(drop);
 
         }
@@ -71,15 +72,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            hp -= 10;
-            if (hp <= 0)
-            {
-                hp = 0;
-                isDead = true;
-            }
-        }
+
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
@@ -305,7 +298,9 @@ public class Goblin : EnemyMgr, IDamagedState
 
         if (hp > 0)
         {
+
             hp -= (int)(value * (1.0f - def / 100));
+            Debug.Log("damaged");
 
             if (player.isCri) StartCoroutine(GetCriDamage());
             else StartCoroutine(GetDamage());
@@ -363,18 +358,27 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void Drop(List<ItemInfo> dropItem)
     {
+        List<ItemInfo> _itemList = new List<ItemInfo>();
+
+        Debug.Log(dropItem.Count);
         for (int i = 0; i < dropItem.Count; i++)
         {
-            dropRate = Random.Range(1, 10);
-            Debug.Log(dropRate);
-            if (dropRate > 3) continue;
 
-            if (dropRate < 3)
+            dropRate = 10;/*Random.Range(, 10);*/
+
+            if (dropRate != 10) continue;
+
+            if (dropRate == 10)
             {
-                //LootManager.Instance.GetPocketData(dropItem);
-                Debug.Log(dropItem[i].itemName);
+                Debug.Log(dropItem[i].itemName + "획득!");
+                _itemList.Add(dropItem[i]);
             }
 
+        }
+
+        if (_itemList.Count != 0)
+        {
+            LootManager.Instance.GetPocketData(_itemList);
         }
 
     }
