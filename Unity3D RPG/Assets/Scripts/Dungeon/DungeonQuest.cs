@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DungeonQuest : Singleton<DungeonQuest>
+public class DungeonQuest : MonoBehaviour
 {
-    protected DungeonQuest() { }
-
     public enum QUEST { KEY, LEVER }
 
     public QUEST quest;
     //find key
-    int correctNumber;
+    int correctNumber = 0;
     //find key and turn on lever
     bool isClear = false;
 
     public QUEST Quest { get { return quest; } }
 
-    public int ClearNumber { get { return correctNumber; } }
-
     public TextMeshProUGUI text;
 
-    private void Start() 
+    public int GetCorrectNumber() { return correctNumber; }
+
+    private void Awake()
     {
+        Debug.Log("awake");
+
+        isClear = false;
+
         quest = QUEST.KEY;
-        //quest = (QUEST)Random.Range(0, 2);
 
         if (quest == QUEST.KEY)
             correctNumber = Random.Range(0, 4);
+
+        text.text = "던전 목표: 키 찾기";
     }
 
     public void Update()
