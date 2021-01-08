@@ -7,20 +7,13 @@ public partial class PlayerData : Singleton<PlayerData>
 {
     protected PlayerData() { }
 
-    //내가 소지한 아이템 (착용 안한 장비 + 전리품)
-    public List<ItemInfo> myItem = new List<ItemInfo>();
-
     //01/06 두 가지로 분류 후 나중에 save할 때 하나의 list로 합쳐서 저장
     public List<ItemInfo> haveEquipItem = new List<ItemInfo>();
     public List<ItemInfo> haveLootItem = new List<ItemInfo>();
 
-    //내가 착용한 아이템(아이템 넘버로 저장함)
-    // {더미, 무기, 갑옷, 악세사리}  
     public int[] myEquipment = { 123, -1, -1, -1, -1 }; // 1. 무기 2. 방어구 3. 악세사리 4.보스스킬?
-    //0으로 초기화 안 한 이유는 아이템 넘버가 0부터 존재해서..
 
     //내 특성
-
     public int[] myAbility = new int[35];
 
     //내가 가지고 있는 화폐
@@ -45,16 +38,26 @@ public partial class PlayerData : Singleton<PlayerData>
     public int currentAccessory = -1;
     public int currentBossItem = -1;
 
+    #region INSURANCE
+    public bool normalInsurance;
+    public bool rareInsurance;
+
+    public void ResetInsurance()
+    {
+        normalInsurance = false;
+        rareInsurance = false;
+    }
+    #endregion
+
     public void LoadData_v2()
     {
         //화폐
         myCurrency = JsonData.Instance.LoadCurrency();
 
         //성장
-        for(int i = 0; i < 2; i++)
-        {
-            myStature[i] = JsonData.Instance.LoadStaturePoint()[i];
-        }
+        hpLv = JsonData.Instance.LoadStaturePoint()[0];
+        stmLv = JsonData.Instance.LoadStaturePoint()[1];
+
 
         //장비
         List<int> _equip = new List<int>(JsonData.Instance.LoadEquip());
@@ -75,15 +78,8 @@ public partial class PlayerData : Singleton<PlayerData>
         }
 
         //아이템
-        myItem.Clear();
+        //myItem.Clear();
         List<SubItem> _item = new List<SubItem>(JsonData.Instance.LoadItem());
-        //for(int i = 0; i < _item.Count; i++)
-        //{
-        //    ItemInfo _Info = CSVData.Instance.find(_item[i].Id);
-        //    _Info.count = _item[i].Number;
-
-        //    myItem.Add(_Info);
-        //}
 
         haveEquipItem.Clear();
         haveLootItem.Clear();

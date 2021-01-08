@@ -9890,12 +9890,12 @@ PrefabInstance:
     - target: {fileID: 7352739532845424380, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.003552926
+      value: 0.0035528913
       objectReference: {fileID: 0}
     - target: {fileID: 7352739532845424380, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00056800473
+      value: -0.00056799914
       objectReference: {fileID: 0}
     - target: {fileID: 7352739532845424380, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
@@ -9960,12 +9960,12 @@ PrefabInstance:
     - target: {fileID: 7352739534158983270, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0035682318
+      value: 0.0035681934
       objectReference: {fileID: 0}
     - target: {fileID: 7352739534158983270, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00046222899
+      value: -0.00046222404
       objectReference: {fileID: 0}
     - target: {fileID: 7352739534158983270, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
@@ -10607,13 +10607,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3358f89b9654c3745bbc5923c638c9a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: 2
+  npcName: 3
   talkPanel: {fileID: 359203483}
   anim: {fileID: 185724532}
   equipPanel: {fileID: 0}
   chestPanel: {fileID: 0}
   growthPanel: {fileID: 0}
   smithPanel: {fileID: 0}
+  insurancePanel: {fileID: 1017412184}
 --- !u!65 &805949024
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10623,7 +10624,7 @@ BoxCollider:
   m_GameObject: {fileID: 805949021}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9922773, y: 0.471025, z: 1.4157536}
   m_Center: {x: 0.0038617535, y: 0.26448727, z: 0.20787701}
@@ -12934,6 +12935,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 077e585196f15914fa6e50566e92f321, type: 3}
+--- !u!1 &1017412184 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1017412184, guid: 22e7e3595ae372c4dbd08c97dc5ef950,
+    type: 3}
+  m_PrefabInstance: {fileID: 1346466104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1029839328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15736,6 +15743,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NpcManager 1.2v
       objectReference: {fileID: 0}
+    - target: {fileID: 7182305219304506457, guid: 22e7e3595ae372c4dbd08c97dc5ef950,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2136013260}
+    - target: {fileID: 7182305220315265854, guid: 22e7e3595ae372c4dbd08c97dc5ef950,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2136013260}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22e7e3595ae372c4dbd08c97dc5ef950, type: 3}
 --- !u!224 &1346466105 stripped
@@ -31350,6 +31367,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd63e7ed2d501564ebcb6cd6729e699e, type: 3}
+--- !u!1 &2136013259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136013261}
+  - component: {fileID: 2136013260}
+  m_Layer: 0
+  m_Name: UiMng
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2136013260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136013259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6802f0e370b978848b34024f908761f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2136013261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136013259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.8755684, y: -1.0299999, z: -1.0355282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2136218227
 GameObject:
   m_ObjectHideFlags: 0
@@ -31461,6 +31521,7 @@ MonoBehaviour:
   chestPanel: {fileID: 1346466107}
   growthPanel: {fileID: 0}
   smithPanel: {fileID: 0}
+  insurancePanel: {fileID: 0}
 --- !u!1 &1079913032926824720
 GameObject:
   m_ObjectHideFlags: 0
@@ -31704,6 +31765,7 @@ MonoBehaviour:
   chestPanel: {fileID: 0}
   growthPanel: {fileID: 0}
   smithPanel: {fileID: 1564304558}
+  insurancePanel: {fileID: 0}
 --- !u!1 &6873079657006436061
 GameObject:
   m_ObjectHideFlags: 0
@@ -31822,6 +31884,7 @@ MonoBehaviour:
   chestPanel: {fileID: 0}
   growthPanel: {fileID: 2050046280}
   smithPanel: {fileID: 0}
+  insurancePanel: {fileID: 0}
 --- !u!65 &7752106017969673523
 BoxCollider:
   m_ObjectHideFlags: 0
