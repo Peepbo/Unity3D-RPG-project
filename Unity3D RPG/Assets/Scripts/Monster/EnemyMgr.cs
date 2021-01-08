@@ -9,6 +9,7 @@ public abstract class EnemyMgr : MonoBehaviour
     private IAttackAble attackType;
 
     protected NavMeshAgent AI;
+    protected NavMeshPath path;
     protected CharacterController controller;
     protected Player player;                    //player script
     protected GameObject target;                //distance , direction 체크용
@@ -58,6 +59,7 @@ public abstract class EnemyMgr : MonoBehaviour
                 anim = transform.GetChild(i).GetComponent<Animator>();
         }
         AI = gameObject.GetComponent<NavMeshAgent>();
+        path = new NavMeshPath();
 
         isDead = false;
     }

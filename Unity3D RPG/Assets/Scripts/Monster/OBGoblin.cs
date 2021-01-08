@@ -297,7 +297,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
         if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
-            //아이템 떨어트리기
             var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
             Item.GetComponent<LootBox>().setItemInfo(item, 5, minGold, maxGold);
 
