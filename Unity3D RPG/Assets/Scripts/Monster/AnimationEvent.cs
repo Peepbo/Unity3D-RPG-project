@@ -49,7 +49,6 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.NOBGOBLIN:
                 nGoblin.GetRest();
                 break;
-         
         }
     }
 
