@@ -19,8 +19,7 @@ public abstract class EnemyMgr : MonoBehaviour
     protected bool isDead;
     protected float disappearTime;
 
-
-    public GameObject coinEffect;
+    public GameObject ItemBox;
 
 
     //stat
@@ -43,6 +42,9 @@ public abstract class EnemyMgr : MonoBehaviour
     protected int currency;
 
 
+    protected int[] itemKind = new int[3];
+    protected ItemInfo drop;
+    protected List<ItemInfo> item = new List<ItemInfo>();
 
     protected virtual void Awake()
     {
