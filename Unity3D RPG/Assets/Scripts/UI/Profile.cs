@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class Profile : MonoBehaviour
 {
@@ -54,5 +55,15 @@ public class Profile : MonoBehaviour
                 popStamina.transform.GetChild(i).GetComponent<Image>().color = Color.yellow;
             }
         }
+    }
+
+    public void OpenPanel()
+    {
+        UiManager0.Instance.PanelOpen = true;
+    }
+
+    public void ClosePanel()
+    {
+        UiManager0.Instance.PanelOpen = false;
     }
 }
