@@ -33,4 +33,9 @@ public class DataManager : MonoBehaviour
     {
         PlayerData.Instance.LoadData_v2();
     }
+
+    public void ClosePanel()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
 }

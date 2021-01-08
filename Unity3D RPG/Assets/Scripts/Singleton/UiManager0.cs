@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UiManager0 : Singleton<UiManager0>
 {
-    protected UiManager0() { }
+    public UiManager0() { }
 
     public bool PanelOpen = false;
 }
