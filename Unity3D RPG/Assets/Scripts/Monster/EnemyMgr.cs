@@ -84,7 +84,6 @@ public abstract class EnemyMgr : MonoBehaviour
 
     public abstract void Die();
 
-    public abstract void DropCoin(int min, int max);
 
     protected IEnumerator LookBack()
     {

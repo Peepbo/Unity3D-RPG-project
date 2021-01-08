@@ -233,13 +233,6 @@ public class Shaman : EnemyMgr, IDamagedState
         }
     }
 
-    public override void DropCoin(int min, int max)
-    {
-        currency = Random.Range(min, max + 1);
-        Instantiate(coinEffect, transform.position, Quaternion.identity);
-        LootManager.Instance.GetPocketMoney(currency);
-
-    }
 
     private void OnDrawGizmos()
     {
