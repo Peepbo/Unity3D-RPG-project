@@ -20,9 +20,9 @@ public class Goblin : EnemyMgr, IDamagedState
 
 
 
-    private float dropRate = 0f;
+    private int dropRate = 0;
 
-    private int []itemKind = new int[3];
+    private int[] itemKind = new int[3];
     List<ItemInfo> item = new List<ItemInfo>();
     ItemInfo drop;
 
@@ -58,14 +58,12 @@ public class Goblin : EnemyMgr, IDamagedState
         itemKind[0] = 79;
         itemKind[1] = 80;
         itemKind[2] = 82;
-        for(int i = 0; i <3; i ++)
+        for (int i = 0; i < 3; i++)
         {
             drop = CSVData.Instance.find(itemKind[i]);
             item.Add(drop);
 
         }
-
-    
 
 
         anim.SetInteger("state", 0);
@@ -73,8 +71,15 @@ public class Goblin : EnemyMgr, IDamagedState
 
     void Update()
     {
-
-
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            hp -= 10;
+            if (hp <= 0)
+            {
+                hp = 0;
+                isDead = true;
+            }
+        }
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
@@ -331,6 +336,7 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             //아이템 떨어트리기
             DropCoin(minGold, maxGold);
+            Drop(item);
             gameObject.SetActive(false);
             disappearTime = 0f;
         }
@@ -355,17 +361,20 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 
-    public void Drop(List<ItemInfo> dropItem, float percent)
+    public void Drop(List<ItemInfo> dropItem)
     {
-
         for (int i = 0; i < dropItem.Count; i++)
         {
-            dropRate = Random.Range(0.0f, 1.0f);
-            if (dropRate < percent)
-            {
-               
+            dropRate = Random.Range(1, 10);
+            Debug.Log(dropRate);
+            if (dropRate > 3) continue;
 
+            if (dropRate < 3)
+            {
+                //LootManager.Instance.GetPocketData(dropItem);
+                Debug.Log(dropItem[i].itemName);
             }
+
         }
 
     }
