@@ -86,7 +86,7 @@ public class ComboAtk : MonoBehaviour
 
     public void CriAttack()
     {
-        if(player.isGuard == false && player.isDie == false)
+        if(player.isGuard == false && player.isDie == false )
         {
 
             player.isFight = true;

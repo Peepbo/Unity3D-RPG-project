@@ -45,6 +45,7 @@ partial class Player
 
     public float            atkSpeed = 1;       //  공격 속도
 
+    public bool             isSlow;             // 플레이어가 느려졌는가
     [HideInInspector]
     public int              weaponKind;         //  무기 종류 0 = 한손검 1 = 두손검
 
@@ -64,24 +65,47 @@ partial class Player
     void PlayerStatUpdate()
     {
         StaminaReload();
-        //EquipStat();
+
+        PlayerData.Instance.nowHp = hp; // 싱글톤에 현재 hp 전달
     }
-    public void ChangeStat()
+
+
+    public void ReturnData()
     {
-        //if(PlayerData.Instance.hpLv+ PlayerData.Instance.stmLv <=10)
-        //{
-        //    maxHp = 100+ PlayerData.Instance.hpLv*200 ;
-        //    maxStamina = 100 + PlayerData.Instance.stmLv * 30;
-        //    hp = maxHp;
-        //    stamina = maxStamina;
-        //}
-        //else if(PlayerData.Instance.hpLv + PlayerData.Instance.stmLv > 10)
-        //{
-        //    maxHp = 100 + PlayerData.Instance.hpLv * 20;
-        //    maxStamina = 100 + PlayerData.Instance.stmLv * 3;
-        //    hp = maxHp;
-        //    stamina = maxStamina;
-        //}
+        if(PlayerData.Instance.isReturn == true) //집에 갔을떄 
+        {
+            PlayerData.Instance.nowHp = maxHp;
+            hp = maxHp;
+
+            PlayerData.Instance.myCurrentPotion = PlayerData.Instance.myPotion;
+
+            PlayerData.Instance.isReturn = false;
+        }
+        else
+        {
+            hp = PlayerData.Instance.nowHp;
+        }
+    }
+    public void GrowthStat()
+    {
+        if(PlayerData.Instance.hpLv <=10)
+        {
+            maxHp = 100+ PlayerData.Instance.hpLv*200 ;
+        }
+        else if(PlayerData.Instance.hpLv> 10)
+        {
+            maxHp = 2100 + (PlayerData.Instance.hpLv-10) * 20;
+        }
+
+        if (PlayerData.Instance.stmLv <= 10)
+        {
+            maxStamina = 100 + PlayerData.Instance.stmLv * 30;
+
+        }
+        else if (PlayerData.Instance.stmLv > 10)
+        {
+            maxStamina = 400 + (PlayerData.Instance.stmLv-10) * 3;
+        }
     }
     public void EquipStat()
     {
@@ -211,7 +235,6 @@ partial class Player
                         }
                     }
                 }
-
             }
         }
     }
