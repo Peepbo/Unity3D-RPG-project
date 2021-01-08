@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 partial class Player
 {
-    bool           isDie;                  //죽었냐
+    public bool    isDie;                  //죽었냐
     public bool    isDash;                 //대쉬했냐
     bool           isAtk;
     public bool    isGuard;                // 가드중이냐
@@ -26,9 +26,6 @@ partial class Player
         DIE
     }
 
-    void StateAwake()
-    {
-    }
     void PlayerStateUpdate()
     {
         animator.SetFloat("Value", playerC.distance);
@@ -140,7 +137,7 @@ partial class Player
     public void PlayerDie()
     {
         isDie = true;
-
+        comboAtk.ComboReset();
 
         comboAtk.animator.SetTrigger("Die");
 

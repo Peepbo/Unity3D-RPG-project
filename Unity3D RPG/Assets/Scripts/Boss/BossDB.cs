@@ -20,6 +20,13 @@ public enum BossState
     DIE,
 
 }
+public enum BossATKPattern
+{
+    THREEATK,
+    THUMP,
+    SPAWN,
+    END
+}
 
 [System.Serializable]
 public abstract class BossDB : MonoBehaviour
@@ -28,12 +35,19 @@ public abstract class BossDB : MonoBehaviour
     public int hp, hpMax;
     public int atk;
     public float atkSpeed;
+    public float atkDelay;
+    public float atkTime;
     public int def;
     public float moveSpeed;
     public int goldMin;
     public int goldMax;
     public ItemDropInfo[] itemDropInfo;
     private bool isStart;
-    public BossState bossState;
+    public BossState state;
+    public GameObject minionFactory;
+    public int minionMaxCount;
+    public Transform[] spawnArea;
+    
    public bool start { get { return isStart; } set { isStart = value; } }
 }
+

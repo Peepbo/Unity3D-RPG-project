@@ -51,38 +51,42 @@ public class ComboAtk : MonoBehaviour
     
     public void Attack() 
     {
-        if (player.isDash == false && player.isGuard == false)
+        if(player.isDie == false)
         {
-            player.isFight = true;
-            if (comboStep == 0 )
+            if (player.isDash == false && player.isGuard == false)
             {
-                if (player.stamina >= 30)
+                player.isFight = true;
+                if (comboStep == 0)
                 {
-                    player.staminaDown(30);
-                    animator.Play("Atk1");
-                    comboStep = 1;
-                    return;
+                    if (player.stamina >= 30)
+                    {
+                        player.staminaDown(30);
+                        animator.Play("Atk1");
+                        comboStep = 1;
+                        return;
+                    }
+                    else
+                    {
+                        player.isFight = false;
+                        player.isCri = false;
+                    }
                 }
-                else
+                if (comboStep != 0)
                 {
-                    player.isFight = false;
-                    player.isCri = false;
-                }
-            }
-            if (comboStep != 0)
-            {
-                if (isCombo)
-                {
-                    isCombo = false;
-                    comboStep += 1;
+                    if (isCombo)
+                    {
+                        isCombo = false;
+                        comboStep += 1;
+                    }
                 }
             }
         }
+       
     }
 
     public void CriAttack()
     {
-        if(player.isGuard == false)
+        if(player.isGuard == false && player.isDie == false)
         {
 
             player.isFight = true;

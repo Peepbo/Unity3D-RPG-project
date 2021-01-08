@@ -7,39 +7,43 @@ public class BossController
 {
     
     Transform target;
-  
-    public void Init(Transform _target) 
+    Animator anim;
+    NavMeshAgent agent;
+    public void Init(Transform _target, Animator _anim, NavMeshAgent _agent) 
     {
         
         target = _target;
+        anim = _anim;
+        agent = _agent;
   
         
     }
-    public void Idle(ref NavMeshAgent agent, ref Animator anim, ref BossState state)
+    public void Idle()
     {
+        
+        
 
-        //anim.SetTrigger("Idle");
-        if ((agent.transform.position - target.position).sqrMagnitude > 1f)
-            state = BossState.RUN;
-        Debug.Log(state);
+       
     }
-    public void CombatIdle(ref Animator anim)
+    public void CombatIdle()
     {
+        
         anim.SetTrigger("CombatIdle");
+        
     }
     
-    public void Move(ref NavMeshAgent agent, ref Animator anim)
+    public void Move()
     {
         agent.SetDestination(target.position);
-        agent.stoppingDistance = 1f;
+        
         anim.SetTrigger("Run");
     }
     
-    public void attack(BossATKPattern pattern, ref Animator anim)
-    {
-        pattern.SetupATKPattern(ref anim, target);
-    }
-    public void Hit(ref Animator anim)
+    //public void attack(BossATKPattern pattern)
+    //{
+    //    pattern.SetupATKPattern(ref anim, target);
+    //}
+    public void Hit()
     {
         anim.SetTrigger("Hit");
     }
@@ -49,7 +53,7 @@ public class BossController
     //    anim.SetTrigger("Idle");
 
     //}
-    public void Die(ref Animator anim)
+    public void Die(ref BossState state)
     {
         anim.SetTrigger("Die");
     }

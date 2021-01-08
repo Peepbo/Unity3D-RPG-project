@@ -22,7 +22,7 @@ public class TalkNpc : MonoBehaviour
 
     [Header("TRAINER")]
     public GameObject growthPanel;
-    public GameObject characteristicPanel;
+    //public GameObject characteristicPanel;
 
     [Header("SMITH")]
     public GameObject smithPanel;
@@ -69,21 +69,23 @@ public class TalkNpc : MonoBehaviour
                     ResetAndAddListener(childObj[1].GetComponent<Button>(), chestPanel);
 
                     break;
-                case NPC.TRAINER://3가지
-                    btn2.SetActive(false);
-                    btn3.SetActive(true);
+                case NPC.TRAINER://3가지 -> 2가지
+                    btn2.SetActive(true);
+                    btn3.SetActive(false);
 
-                    for (int i = 0; i < 2; i++)
-                        childObj[i] = btn3.transform.GetChild(i).gameObject;
+                    //for (int i = 0; i < 2; i++)
+                    //    childObj[i] = btn3.transform.GetChild(i).gameObject;
 
-                    childObj[0].transform.GetChild(0).GetComponent<Text>().text = "성장";
-                    childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
+                    childObj[0] = btn2.transform.GetChild(0).gameObject;
+
+                    childObj[0].GetComponentInChildren<Text>().text = "성장";
+                    //childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
 
                     //action0
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), growthPanel);
 
                     //action1
-                    ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
+                    //ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
 
                     break;
                 case NPC.SMITH://2가지

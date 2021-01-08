@@ -15,8 +15,7 @@ public partial class Player : MonoBehaviour
         comboAtk = GetComponentInChildren<ComboAtk>();
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
-        StateAwake();
-       
+        isDie = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -35,9 +34,6 @@ public partial class Player : MonoBehaviour
         PlayerStateUpdate();
         PlayerStatUpdate();
 
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            //PlayerData.Instance.SaveChest(13);  
-        }
+     
     }
 }

@@ -26,7 +26,7 @@ public class DataManager : MonoBehaviour
         //chestData.GetData();
 
         //statData.ResetStat();
-        statData.GetData();
+        //statData.GetData();
     }
 
     public void LoadData()
