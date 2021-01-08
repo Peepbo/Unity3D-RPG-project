@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class OBGoblin : EnemyMgr, IDamagedState
 {
-
     private ObservingMove observe;
     private FollowTarget follow;
     private ReturnMove returnToHome;
@@ -157,7 +156,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
     {
         float _homeDistance = Vector3.Distance(startPos, transform.position);
 
-        if (!isDamaged)
+        if (!isHit)
         {
             setMoveType(returnToHome);
             Move();
@@ -200,10 +199,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
         if (isDead) return;
         StartCoroutine(AttackRoutine());
     }
-
     IEnumerator AttackRoutine()
     {
-
         //rest를 켜고
         anim.SetBool("isRest", true);
         AI.isStopped = true;
@@ -221,51 +218,68 @@ public class OBGoblin : EnemyMgr, IDamagedState
         //rest를 끈다
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
-        AI.isStopped = false;
+        if (!observe.getIsObserve())
+            AI.isStopped = false;
 
     }
 
-    IEnumerator GetDamage()
+    IEnumerator GetCriDamage()
     {
-
         isDamaged = true;
+        isHit = true;
         AI.isStopped = true;
 
         yield return new WaitForSeconds(.7f);
 
         AI.isStopped = false;
+        isHit = false;
         isDamaged = false;
-
-
     }
+    IEnumerator GetDamage()
+    {
+
+        isHit = true;
+
+        yield return new WaitForSeconds(.7f);
+
+        isHit = false;
+    }
+
 
     public void Damaged(int value)
     {
-        weapon.GetComponent<MeshCollider>().enabled = false;
-        if (isDamaged || isDead) return;
+
+        if (player.isCri)
+        {
+            weapon.GetComponent<MeshCollider>().enabled = false;
+        }
+
+        if (isHit || isDead) return;
 
         if (hp > 0)
         {
             hp -= (int)(value * (1.0f - def / 100));
-            StartCoroutine(GetDamage());
+
+            if (player.isCri) StartCoroutine(GetCriDamage());
+            else StartCoroutine(GetDamage());
         }
         else
         {
             hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
-
             controller.enabled = false;
+
             AI.enabled = false;
+
             StopAllCoroutines();
 
-
         }
-        anim.SetTrigger("isDamage");
 
+        if (player.isCri)
+            anim.SetTrigger("isDamage");
 
     }
-
     public override void Die()
     {
         disappearTime += Time.deltaTime;
