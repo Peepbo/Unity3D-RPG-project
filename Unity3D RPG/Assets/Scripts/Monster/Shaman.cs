@@ -140,7 +140,6 @@ public class Shaman : EnemyMgr, IDamagedState
             yield return null;
         }
 
-        //yield return new WaitForSeconds(1.5f);
 
         anim.SetBool("isRest", false);
 
@@ -157,8 +156,6 @@ public class Shaman : EnemyMgr, IDamagedState
             _dir.y = 0;
 
             if (!isFire) StartCoroutine(Rest());
-
-            //transform.rotation = Quaternion.LookRotation(_dir);
 
             //만약 isDetected가 false가 되면? <before : atk상태> -> observe
             if (isDetected == false)
@@ -187,11 +184,8 @@ public class Shaman : EnemyMgr, IDamagedState
 
         hp -= (int)(value * (1.0f - def / 100));
 
-
         if (hp <= 0)
         {
-            Debug.Log("죽음");
-
             hp = 0;
             isDead = true;
             anim.SetTrigger("die");
@@ -199,9 +193,13 @@ public class Shaman : EnemyMgr, IDamagedState
             AI.enabled = false;
             StopAllCoroutines();
         }
-        else anim.SetTrigger("damage");
-
+        else
+        {
+            if (player.isCri)
+                anim.SetTrigger("damage");
+        }
         StartCoroutine(GetDamage());
+
     }
 
     public void Flame()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     //public ChestManager chestData;
-    public StatManager statData;
+    //public StatManager statData;
     // Start is called before the first frame update
 
     private void Start()

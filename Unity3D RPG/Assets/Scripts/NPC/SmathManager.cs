@@ -71,7 +71,14 @@ public partial class SmathManager : MonoBehaviour
 
     private void PlayerItemListInit()
     {
-        List<ItemInfo> _itemDB = PlayerData.Instance.myItem;
+        List<ItemInfo> _itemDB = new List<ItemInfo>();
+
+        for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count; i++)
+            _itemDB.Add(PlayerData.Instance.haveEquipItem[i]);
+
+        for(int i = 0; i < PlayerData.Instance.haveLootItem.Count; i++)
+            _itemDB.Add(PlayerData.Instance.haveLootItem[i]);
+        
         int[] _playerItemDB = PlayerData.Instance.myEquipment;
 
         //test
@@ -125,6 +132,7 @@ public partial class SmathManager : MonoBehaviour
         else
             return lootList[itemName].count.ToString();
     }
+
     private void MaterialTextSetting()
     {
         infoImage.sprite = Resources.Load(curruntInfo.iconPath, typeof(Sprite)) as Sprite;
@@ -152,6 +160,7 @@ public partial class SmathManager : MonoBehaviour
 
         MakeButtonActive();
     }
+
     private void MaterialText(TextMeshProUGUI text, string num1, string num2)
     {
         text.text = num1 + " / " + num2;
@@ -170,7 +179,6 @@ public partial class SmathManager : MonoBehaviour
         }
         if (curruntInfo.price > PlayerData.Instance.myCurrency) makeButton.GetComponent<Button>().interactable = false;
     }
-
 
     public void OnMakeButton()
     {
@@ -212,27 +220,53 @@ public partial class SmathManager : MonoBehaviour
 
     private void ChestCheck()
     {
-        for (int i = 0; i < PlayerData.Instance.myItem.Count;)
+        for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count;)
         {
-            if (lootList[curruntInfo.ingredient1].id == PlayerData.Instance.myItem[i].id)
+            if(lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveEquipItem[i].id)
             {
-                PlayerData.Instance.myItem[i].count -= curruntInfo.ingredientCount1;
-                if (PlayerData.Instance.myItem[i].count == 0) { PlayerData.Instance.myItem.RemoveAt(i); continue; }
+                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount1;
+                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient2].id == PlayerData.Instance.myItem[i].id)
+            else if (lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveEquipItem[i].id)
             {
-                PlayerData.Instance.myItem[i].count -= curruntInfo.ingredientCount2;
-                if (PlayerData.Instance.myItem[i].count == 0) { PlayerData.Instance.myItem.RemoveAt(i); continue; }
+                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount2;
+                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient3].id == PlayerData.Instance.myItem[i].id)
+            else if (lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveEquipItem[i].id)
             {
-                PlayerData.Instance.myItem[i].count -= curruntInfo.ingredientCount3;
-                if (PlayerData.Instance.myItem[i].count == 0) { PlayerData.Instance.myItem.RemoveAt(i); continue; }
+                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount3;
+                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient4].id == PlayerData.Instance.myItem[i].id)
+            else if (lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveEquipItem[i].id)
             {
-                PlayerData.Instance.myItem[i].count -= curruntInfo.ingredientCount4;
-                if (PlayerData.Instance.myItem[i].count == 0) { PlayerData.Instance.myItem.RemoveAt(i); continue; }
+                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount4;
+                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
+            }
+            else
+                i++;
+        }
+
+        for (int i = 0; i < PlayerData.Instance.haveLootItem.Count;)
+        {
+            if (lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveLootItem[i].id)
+            {
+                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount1;
+                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
+            }
+            else if (lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveLootItem[i].id)
+            {
+                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount2;
+                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
+            }
+            else if (lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveLootItem[i].id)
+            {
+                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount3;
+                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
+            }
+            else if (lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveLootItem[i].id)
+            {
+                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount4;
+                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
             }
             else
                 i++;
