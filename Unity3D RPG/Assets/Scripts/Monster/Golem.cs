@@ -6,16 +6,16 @@ using UnityEngine.AI;
 public class Golem : EnemyMgr, IDamagedState
 {
     
-    private FollowTarget follow;
-    private ReturnMove back;
+    private FollowTarget follow;       // targetFollow move
+    private ReturnMove back;           // backToHome move
 
-    private Vector3 direction;
+    private Vector3 direction;         
     private Vector3 spawnPos;
 
-    public GameObject damageCheck;
+    private GameObject damageCheck;    // Player damage check box
 
-    private float distance;
-    private bool isStay = true;
+    private float distance;            // between target and transform
+    private bool isStay = true;        
 
     private int findCount;
     private float destroyCount;
@@ -33,9 +33,9 @@ public class Golem : EnemyMgr, IDamagedState
         minGold = 50;
         maxGold = 100;
         spawnPos = transform.position;
-
        
     }
+
     private void Start()
     {
         follow = gameObject.AddComponent<FollowTarget>();
@@ -43,7 +43,7 @@ public class Golem : EnemyMgr, IDamagedState
 
         follow.Init(AI, target, speed, attackRange);
         back.init(AI, spawnPos, speed);
-
+        damageCheck = transform.GetChild(0).gameObject;
         anim.SetInteger("state", 0);
     }
 

@@ -43,13 +43,9 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
-        // RaycastHit _hit;
-
         Debug.DrawRay(transform.position, direction * findRange, Color.blue);
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
-
-
 
         if (isDead)
         {
@@ -73,7 +69,6 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         }
 
     }
-
 
 
     public void FollowTarget()
@@ -162,7 +157,6 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
             controller.enabled = false;
             AI.enabled = false;
             StopAllCoroutines();
-
 
         }
         anim.SetTrigger("isDamage");

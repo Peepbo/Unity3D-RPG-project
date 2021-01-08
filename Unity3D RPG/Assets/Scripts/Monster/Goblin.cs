@@ -8,10 +8,12 @@ public class Goblin : EnemyMgr, IDamagedState
     private ReturnMove returnToHome;
     private ViewingAngle viewAngle;
 
+
+
     private Vector3 startPos;
     private Vector3 direction;
 
-  
+
     private int findCount;
     private bool isFind;
 
@@ -22,7 +24,7 @@ public class Goblin : EnemyMgr, IDamagedState
     protected override void Awake()
     {
         base.Awake();
-        startPos = transform.position;       
+        startPos = transform.position;
         hp = maxHp;
         atk = 25;
         def = 5.0f;
@@ -34,23 +36,24 @@ public class Goblin : EnemyMgr, IDamagedState
     void Start()
     {
         //Goblin Move pattern
-       
+
         follow = gameObject.AddComponent<FollowTarget>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
         weapon.GetComponent<AxColision>().SetDamage(atk);
 
-        
         follow.Init(AI, target, speed, attackRange);
         returnToHome.init(AI, startPos, speed);
 
-        
+
         anim.SetInteger("state", 0);
     }
 
     void Update()
     {
+
+
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
@@ -74,8 +77,8 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             if (!isFind)
             {
-                anim.SetInteger("state", 0);
-               
+                ProtectHome();
+
             }
 
             else
@@ -87,7 +90,7 @@ public class Goblin : EnemyMgr, IDamagedState
                     {
                         anim.SetInteger("state", 1);
                         findCount = 1;
-                        isObserve=false;
+                        isObserve = false;
                         AI.isStopped = false;
                     }
                     else
@@ -99,26 +102,44 @@ public class Goblin : EnemyMgr, IDamagedState
         }
         else
         {
-            if (!returnToHome.getIsReturn() && findCount == 1)
+            if (!returnToHome.getIsReturn() /*&& findCount == 1*/)
             {
-                if (isFind)
+                if (findCount == 1)
                 {
-                    FollowTarget();
+                    if (isFind)
+                    {
+                        Debug.Log("find!");
+                        FollowTarget();
+                    }
+                    else
+                    {
+                        if (_distance >= attackRange)
+                        {
+                            Debug.Log("atk 범위 벗어남");
+                            returnToHome.setIsReturn(true);
+                        }
+                    }
+
 
                     if (_distance <= attackRange)
                     {
-
+                        Debug.Log("atk");
                         anim.SetInteger("state", 2);
                     }
                 }
                 else
                 {
-                    returnToHome.setIsReturn(true);
+                    Debug.Log("findCount ==0");
+                    //returnToHome.setIsReturn(true);
                 }
+
+
             }
 
             if (returnToHome.getIsReturn())
             {
+
+                Debug.Log("return");
                 Back();
             }
 
@@ -126,7 +147,19 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 
+    public void ProtectHome()
+    {
+        if (isHit)
+        {
+            StartCoroutine(LookBack());
 
+        }
+        else
+        {
+            anim.SetInteger("state", 0);
+
+        }
+    }
 
     public void FollowTarget()
     {
@@ -141,17 +174,19 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         float _homeDistance = Vector3.Distance(startPos, transform.position);
 
-        if (!isDamaged)
+        if (!isHit)
         {
             setMoveType(returnToHome);
             Move();
 
-            if (_homeDistance <= 0.5f)
+            if (_homeDistance <= 0.3f)
             {
-                findCount = 0;
+                Debug.Log("home");
                 returnToHome.setIsReturn(false);
                 AI.isStopped = true;
+
                 isObserve = true;
+                findCount = 0;
 
                 //controller의 speed를 velocity의 값에 넣어준다.;
                 anim.SetInteger("state", 0);
@@ -162,9 +197,9 @@ public class Goblin : EnemyMgr, IDamagedState
 
         else
         {
+            Debug.Log("look");
             transform.rotation = Quaternion.LookRotation(direction);
             returnToHome.setIsReturn(false);
-
         }
 
     }
@@ -188,7 +223,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     IEnumerator AttackRoutine()
     {
-
         //rest를 켜고
         anim.SetBool("isRest", true);
         AI.isStopped = true;
@@ -206,48 +240,65 @@ public class Goblin : EnemyMgr, IDamagedState
         //rest를 끈다
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
+        if (!isObserve)
         AI.isStopped = false;
 
     }
 
-    IEnumerator GetDamage()
+    IEnumerator GetCriDamage()
     {
-
         isDamaged = true;
+        isHit = true;
         AI.isStopped = true;
 
         yield return new WaitForSeconds(.7f);
 
         AI.isStopped = false;
+        isHit = false;
         isDamaged = false;
+    }
+    IEnumerator GetDamage()
+    {
 
+        isHit = true;
 
+        yield return new WaitForSeconds(.7f);
+
+        isHit = false;
     }
 
     public void Damaged(int value)
     {
-        weapon.GetComponent<MeshCollider>().enabled = false;
-        if (isDamaged || isDead) return;
+
+        if (player.isCri)
+        {
+            weapon.GetComponent<MeshCollider>().enabled = false;
+        }
+
+        if (isHit || isDead) return;
 
         if (hp > 0)
         {
             hp -= (int)(value * (1.0f - def / 100));
-            StartCoroutine(GetDamage());
+
+            if (player.isCri) StartCoroutine(GetCriDamage());
+            else StartCoroutine(GetDamage());
         }
         else
         {
             hp = 0;
             isDead = true;
             anim.SetTrigger("Die");
-
             controller.enabled = false;
+
             AI.enabled = false;
+
             StopAllCoroutines();
 
-          
         }
-        anim.SetTrigger("isDamage");
 
+        if (player.isCri)
+            anim.SetTrigger("isDamage");
 
     }
 
@@ -266,7 +317,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public override void DropCoin(int min, int max)
     {
-        currency= Random.Range(min, max + 1);
+        currency = Random.Range(min, max + 1);
         Instantiate(coinEffect, transform.position, Quaternion.identity);
 
         LootManager.Instance.GetPocketMoney(currency);
@@ -282,4 +333,7 @@ public class Goblin : EnemyMgr, IDamagedState
         Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
+
+
+
 }

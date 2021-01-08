@@ -7,18 +7,21 @@ public abstract class EnemyMgr : MonoBehaviour
 {
     private IMoveAble moveType;
     private IAttackAble attackType;
+
     protected NavMeshAgent AI;
     protected CharacterController controller;
-    protected GameObject target;
+    protected Player player;                    //player script
+    protected GameObject target;                //distance , direction 체크용
     protected Animator anim;
 
+    protected bool isHit;
     protected bool isDamaged;
     protected bool isDead;
     protected float disappearTime;
 
 
     public GameObject coinEffect;
-    
+
 
     //stat
     public int maxHp;
@@ -45,6 +48,7 @@ public abstract class EnemyMgr : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        player = target.GetComponent<Player>();
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -79,8 +83,27 @@ public abstract class EnemyMgr : MonoBehaviour
     public abstract void Die();
 
     public abstract void DropCoin(int min, int max);
-  
 
+    protected IEnumerator LookBack()
+    {
+        float t = 0f;
+        while (t < 0.7f)
+        {
+            t += Time.deltaTime;
+
+            Vector3 _direction = (target.transform.position - transform.position).normalized;
+            _direction.y = 0;
+            Quaternion _targetRotation = Quaternion.LookRotation(_direction);
+
+            //Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, Time.deltaTime);
+            Quaternion _nextRotation = Quaternion.Lerp(transform.localRotation, _targetRotation, t / 1.5f);
+
+            transform.localRotation = _nextRotation;
+
+            yield return null;
+        }
+
+    }
     public Vector3 GetRandomDirection()
     {
         float _ranX = Random.Range(-1f, 1f);
