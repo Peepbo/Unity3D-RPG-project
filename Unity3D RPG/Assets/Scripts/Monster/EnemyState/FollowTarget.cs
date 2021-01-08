@@ -12,18 +12,22 @@ public class FollowTarget : MonoBehaviour, IMoveAble
 
     public void setSpeed(float newSpeed) { speed = newSpeed; }
 
-    public void Init(NavMeshAgent ai,GameObject destination,float walkSpeed ,float stopRange)
+    public void Init(NavMeshAgent ai, GameObject destination, float walkSpeed, float stopRange)
     {
         this.nav = ai;
         this.target = destination;
         this.speed = walkSpeed;
         this.stopDis = stopRange;
     }
-   
+
     public void move()
     {
-        nav.speed = speed;
-        nav.stoppingDistance = stopDis;
-        nav.SetDestination(target.transform.position);
+        if (target != null)
+        {
+            nav.speed = speed;
+            nav.stoppingDistance = stopDis;
+            nav.SetDestination(target.transform.position);
+        }
+
     }
 }

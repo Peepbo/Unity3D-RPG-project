@@ -9,7 +9,8 @@ public class AnimationEvent : MonoBehaviour
         OBGOBLIN,
         NOBGOBLIN,
         SHAMAN,
-        GOLEM
+        GOLEM,
+        SPAWN
     }
 
     public MONSTER monster;
@@ -18,7 +19,7 @@ public class AnimationEvent : MonoBehaviour
     Goblin nGoblin;
     Shaman shaman;
     Golem golem;
-
+    SlaveGoblin spawnGoblin;
     private void Start()
     {
         switch (monster)
@@ -35,6 +36,9 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.GOLEM:
                 golem = gameObject.GetComponentInParent<Golem>();
                 break;
+            case MONSTER.SPAWN:
+                spawnGoblin = gameObject.GetComponentInParent<SlaveGoblin>();
+                break;
         }
     }
 
@@ -49,6 +53,9 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.NOBGOBLIN:
                 nGoblin.GetRest();
                 break;
+            case MONSTER.SPAWN:
+                spawnGoblin.GetRest();
+                break;
         }
     }
 
@@ -61,6 +68,9 @@ public class AnimationEvent : MonoBehaviour
                 break;
             case MONSTER.NOBGOBLIN:
                 nGoblin.ActiveMeshCol();
+                break;
+            case MONSTER.SPAWN:
+                spawnGoblin.ActiveMeshCol();
                 break;
           
         }
@@ -77,7 +87,10 @@ public class AnimationEvent : MonoBehaviour
             case MONSTER.NOBGOBLIN:
                 nGoblin.DeActiveMeshCol();
                 break;
-         
+            case MONSTER.SPAWN:
+                spawnGoblin.DeActiveMeshCol();
+                break;
+
         }
     }
     #endregion
