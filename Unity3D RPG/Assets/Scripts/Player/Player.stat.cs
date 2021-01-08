@@ -9,6 +9,7 @@ partial class Player
     public enum PlayerCondition
     {
         NONECONDITION,
+        SLOWCONDITION,
         FIRECONDITION,
         POISONCONDITION,
         BLOODCONDITION,
@@ -65,7 +66,23 @@ partial class Player
         StaminaReload();
         //EquipStat();
     }
-    
+    public void ChangeStat()
+    {
+        //if(PlayerData.Instance.hpLv+ PlayerData.Instance.stmLv <=10)
+        //{
+        //    maxHp = 100+ PlayerData.Instance.hpLv*200 ;
+        //    maxStamina = 100 + PlayerData.Instance.stmLv * 30;
+        //    hp = maxHp;
+        //    stamina = maxStamina;
+        //}
+        //else if(PlayerData.Instance.hpLv + PlayerData.Instance.stmLv > 10)
+        //{
+        //    maxHp = 100 + PlayerData.Instance.hpLv * 20;
+        //    maxStamina = 100 + PlayerData.Instance.stmLv * 3;
+        //    hp = maxHp;
+        //    stamina = maxStamina;
+        //}
+    }
     public void EquipStat()
     {
         
@@ -74,7 +91,6 @@ partial class Player
             weapon = PlayerData.Instance.EquipWeapon();
             if (weapon.kind == "한손검")
             {
-
                 weaponKind = 0;
                 animator.runtimeAnimatorController = overrideController1H;
                 currentWeapon.SetActive(false);
