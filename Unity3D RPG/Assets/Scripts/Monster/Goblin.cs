@@ -9,7 +9,6 @@ public class Goblin : EnemyMgr, IDamagedState
     private ViewingAngle viewAngle;
 
 
-
     private Vector3 startPos;
     private Vector3 direction;
 
@@ -19,7 +18,17 @@ public class Goblin : EnemyMgr, IDamagedState
 
     bool isObserve = true;
 
+
+
+    private float dropRate = 0f;
+
+    private int []itemKind = new int[3];
+    List<ItemInfo> item = new List<ItemInfo>();
+    ItemInfo drop;
+
     public GameObject weapon;
+
+
 
     protected override void Awake()
     {
@@ -45,6 +54,18 @@ public class Goblin : EnemyMgr, IDamagedState
 
         follow.Init(AI, target, speed, attackRange);
         returnToHome.init(AI, startPos, speed);
+
+        itemKind[0] = 79;
+        itemKind[1] = 80;
+        itemKind[2] = 82;
+        for(int i = 0; i <3; i ++)
+        {
+            drop = CSVData.Instance.find(itemKind[i]);
+            item.Add(drop);
+
+        }
+
+    
 
 
         anim.SetInteger("state", 0);
@@ -241,7 +262,7 @@ public class Goblin : EnemyMgr, IDamagedState
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
         if (!isObserve)
-        AI.isStopped = false;
+            AI.isStopped = false;
 
     }
 
@@ -334,6 +355,19 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 
+    public void Drop(List<ItemInfo> dropItem, float percent)
+    {
 
+        for (int i = 0; i < dropItem.Count; i++)
+        {
+            dropRate = Random.Range(0.0f, 1.0f);
+            if (dropRate < percent)
+            {
+               
+
+            }
+        }
+
+    }
 
 }

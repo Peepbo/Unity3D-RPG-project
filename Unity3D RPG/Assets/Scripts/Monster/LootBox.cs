@@ -2,27 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LootBox : MonoBehaviour
 {
     private bool isOpen = false;
-    ItemInfo item;
-    private void Start()
-    {
-    }
-
-    private void Update()
-    {
-        if(isOpen)
-        {
-            
-        }
-    }
+    private float dropRate = 0f;
+    List<ItemInfo> item = new List<ItemInfo>();
+    ItemInfo drop;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag=="Player")
+        if (other.tag == "Player")
         {
-            isOpen = true;   
+            isOpen = true;
         }
     }
+
+ 
+
+
 }
