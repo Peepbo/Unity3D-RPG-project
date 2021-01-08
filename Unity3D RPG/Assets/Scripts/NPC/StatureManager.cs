@@ -5,16 +5,11 @@ using UnityEngine.UI;
 
 public class StatureManager : MonoBehaviour
 {
-    public GameObject StaturePanel;
-
     public enum STAT
     {
         HP,
         STEMINA
     }
-
-    public int hpLevel;
-    public int steminaLevel;
 
     public GameObject hpSlots;
     public GameObject steminaSlots;
@@ -27,39 +22,43 @@ public class StatureManager : MonoBehaviour
 
     public Text[] paymentAmount;
 
+    private void OnEnable()
+    {
+        LinkData();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         hpImg = hpSlots.GetComponentsInChildren<Image>();
         steminaImg = steminaSlots.GetComponentsInChildren<Image>();
-
-        hpLevel = PlayerData.Instance.hpLv;
-        steminaLevel = PlayerData.Instance.stmLv;
     }
 
-    private void Update()
+    void LinkData()
     {
-        if(StaturePanel.activeSelf)
+        Debug.Log("Data Load and Link");
+        PlayerData.Instance.LoadData_v2();
+
+        money.text = PlayerData.Instance.myCurrency.ToString();
+        myLevel.text = "성장 단계 : " + 
+            (PlayerData.Instance.hpLv + PlayerData.Instance.stmLv).ToString();
+
+        int _pay = 0;
+
+        for (int i = 0; i < 2; i++)
         {
-            money.text = PlayerData.Instance.myCurrency.ToString();
-            myLevel.text = "성장 단계 : " + (hpLevel + steminaLevel).ToString();
+            _pay = 1000 + (PlayerData.Instance.hpLv + PlayerData.Instance.stmLv) * 1000;
 
-            int _pay;
+            paymentAmount[i].text = _pay.ToString() + "G";
 
-            for (int i = 0; i < 2; i++)
-            {
-                _pay = 1000 + (hpLevel + steminaLevel) * 1000;
-
-                paymentAmount[i].text = _pay.ToString() + "G";
-
-                if (PlayerData.Instance.myCurrency < _pay)
-                    paymentAmount[i].color = Color.red;
-                else
-                    paymentAmount[i].color = Color.white;
-            }
+            if (PlayerData.Instance.myCurrency < _pay)
+                paymentAmount[i].color = Color.red;
+            else
+                paymentAmount[i].color = Color.white;
         }
     }
 
+    #region BUTTON FUNCTIONS
     public void Enhancement(int num)
     {
         if (paymentAmount[0].color == Color.red) return;
@@ -67,16 +66,16 @@ public class StatureManager : MonoBehaviour
         switch ((STAT)num)
         {
             case STAT.HP:
-                hpLevel++;
-
-                PlayerData.Instance.hpLv = hpLevel;
+                PlayerData.Instance.hpLv++;
                 break;
             case STAT.STEMINA:
-                steminaLevel++;
-
-                PlayerData.Instance.stmLv = steminaLevel;
+                PlayerData.Instance.stmLv++;
                 break;
         }
+
+        PlayerData.Instance.SaveData();
+
+        LinkData();
 
         ChangeColor((STAT)num);
     }
@@ -88,7 +87,7 @@ public class StatureManager : MonoBehaviour
             case STAT.HP:
                 for(int i = 1; i < hpImg.Length; i++)
                 {
-                    if (i > hpLevel) return;
+                    if (i > PlayerData.Instance.hpLv) return;
 
                     hpImg[i-1].color = Color.green;
                 }
@@ -96,11 +95,12 @@ public class StatureManager : MonoBehaviour
             case STAT.STEMINA:
                 for(int i = 1; i < steminaImg.Length; i++)
                 {
-                    if (i > steminaLevel) return;
+                    if (i > PlayerData.Instance.stmLv) return;
 
                     steminaImg[i-1].color = Color.yellow;
                 }
                 break;
         }
     }
+    #endregion
 }
