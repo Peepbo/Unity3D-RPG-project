@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 
 
-public class GoblinChieftain : BossDB/*, IDamagedState*/
+public class GoblinChieftain : BossDB, IDamagedState
 {
 
     //[SerializeField]
@@ -17,12 +17,14 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
     private Animator anim;
     NavMeshAgent agent;
     public Transform target;
-    const float distance = 2f;
+    const float distance = 3f;
     bool isRoar = false;
     bool isSpawn = false;
     bool isPlayerCri = false;
     bool isHit = false;
     bool isDie = false;
+    public CapsuleCollider weapon;
+    BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
     List<GameObject> minions = new List<GameObject>();
     void Start()
@@ -54,6 +56,7 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
         itemDropInfo[2].itemName = "족장의 목걸이";
         itemDropInfo[2].itemID = 85;
         state = BossState.IDLE;
+        dieCount = 5.5f;
         for (int i = 0; i < itemDropCount; i++) { itemDropInfo[i].itemDropCount = 1; }
      
 
@@ -85,6 +88,8 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
             atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
+
+       
     }
 
    
@@ -93,7 +98,7 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
     {
         anim.SetTrigger("CombatIdle");
 
-        if ((transform.position - target.position).magnitude > distance)
+        if ((int)(transform.position - target.position).magnitude > (int)distance)
         {
             state = BossState.RUN;
             
@@ -101,6 +106,7 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
         else if(hp <= (hpMax/2)&& !isRoar)
         {
             isRoar = true;
+            atkTime = atkDelay / 2;
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
             anim.SetTrigger("Roar");
@@ -117,7 +123,7 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
         anim.SetTrigger("Run");
         agent.SetDestination(target.position);
         agent.stoppingDistance = distance;
-        if ((transform.position - target.position).magnitude < distance)
+        if ((int)(transform.position - target.position).magnitude <= (int)distance)
         {
             state = BossState.COMBATIDLE;
         }
@@ -128,16 +134,16 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
         anim.ResetTrigger("CombatIdle");
        
         atkTime = 0f;
-
-        BossATKPattern _pattern;
+        transform.forward = (target.position - transform.position).normalized;
+        
         if (isRoar && !isSpawn)
-            _pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.END);
+            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.END);
         else if( isRoar )
-            _pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
+            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
-            _pattern = BossATKPattern.SPAWN;
+            pattern = BossATKPattern.THREEATK;
 
-        switch (_pattern)
+        switch (pattern)
         {
             case BossATKPattern.THREEATK:
                 //IBossATKPattern atkPattern = new ThreeATKPattern();
@@ -158,10 +164,13 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
 
     public void ThreeATKCombo()
     {
-        if ((transform.position - target.position).magnitude > distance)
+        if ((int)(transform.position - target.position).magnitude > (int)distance)
             ComBatIdleState();
         else
+        {
             anim.SetInteger("ThreeATKKind", 1);
+            transform.forward = (target.position - transform.position).normalized;
+        }
     }
 
     public void Spawn()
@@ -181,10 +190,7 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
             minions[i].transform.position = spawnArea[i].position;
         }
     }
-    //public void ATKPattern(IBossATKPattern pattern)
-    //{
-    //    pattern.SetupATKPattern(ref anim, target);
-    //}
+    
     public void ComBatIdleState() 
     { 
         state = BossState.COMBATIDLE; 
@@ -192,11 +198,12 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
     public void Damaged(int value)
     {
         isHit = true;
+        hp -= value;
+        //hp -= value-def>=0? value-def:0;
+        Debug.Log(hp);
         if (hp > 0)
         {
-            hp -= value;
-           
-            
+            Debug.Log(hp);
         }
         else
         {
@@ -205,6 +212,22 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
             Die();
         }
        
+    }
+
+    public void SetDamage()
+    {
+        int _atkDam = 0;
+        switch (pattern)
+        {
+            case BossATKPattern.THREEATK:
+                _atkDam  = atk / 3;
+                break;
+            case BossATKPattern.THUMP:
+                _atkDam = atk;
+                break;
+        }
+        //target.GetComponent<TESTATTACK>().GetDamage(temp);
+        target.GetComponent<Player>().GetDamage(_atkDam);
     }
     private void shuffle()
     {
@@ -234,7 +257,14 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
 
     public void Die()
     {
+        StartCoroutine(DieCoroutine());
+    }
+    IEnumerator DieCoroutine() 
+    {
+        anim.SetTrigger("Die");
+        yield return new WaitForSeconds(dieCount);
         Destroy(gameObject);
+
     }
     private void Hit()
     {
@@ -253,12 +283,29 @@ public class GoblinChieftain : BossDB/*, IDamagedState*/
         state = BossState.HIT;
     }
 
-    private void OnCollisionStay(Collision collision)
+    //private void OnCollisionStay(Collision collision)
+    //{
+    //    if (collision.transform.GetComponent<Player>() != null && isHit)
+    //    {
+    //        isPlayerCri = collision.transform.GetComponent<Player>().isCri;
+    //        Hit();
+    //        Debug.Log("hitColl");
+    //    }
+    //}
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.GetComponent<Player>() != null && isHit)
+        if (other.transform.GetComponent<Player>() != null && isHit)
         {
-            isPlayerCri = collision.transform.GetComponent<Player>().isCri;
+            isPlayerCri = other.transform.GetComponent<Player>().isCri;
             Hit();
+            Debug.Log("hitColl");
         }
+    }
+
+
+    public void ActiveCollision()
+    {
+        weapon.enabled = weapon.enabled ? false : true;
+        
     }
 }
