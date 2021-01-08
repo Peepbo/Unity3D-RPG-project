@@ -79,6 +79,8 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
         {
             StartCoroutine(Fade(false));
             SceneManager.sceneLoaded -= OnSceneLoaded;
+
+            SceneManager.LoadScene("UiScene", LoadSceneMode.Additive);
         }
     }
     private IEnumerator Fade(bool isFadeIn)
