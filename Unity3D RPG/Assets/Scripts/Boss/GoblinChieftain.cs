@@ -24,6 +24,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     bool isHit = false;
     bool isDie = false;
     public CapsuleCollider weapon;
+    float hitTime = 0f;
     BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
     List<GameObject> minions = new List<GameObject>();
@@ -32,7 +33,6 @@ public class GoblinChieftain : BossDB, IDamagedState
         ChieftainDBInit();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        //bossContrroller.Init(target,anim,agent);
     }
 
     private void ChieftainDBInit()
@@ -78,7 +78,9 @@ public class GoblinChieftain : BossDB, IDamagedState
                 Move();
                 break;
             case BossState.HIT:
-                
+                hitTime += Time.deltaTime;
+                if (hitTime > 5f)
+                { state = BossState.COMBATIDLE; hitTime = 0f; }
                 break;
             case BossState.DIE:
                 break;
@@ -88,7 +90,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
-
+        Debug.Log(state);
        
     }
 
@@ -97,6 +99,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     private void CombatIdle()
     {
         anim.SetTrigger("CombatIdle");
+        weapon.enabled = false;
 
         if ((int)(transform.position - target.position).magnitude > (int)distance)
         {
@@ -193,17 +196,19 @@ public class GoblinChieftain : BossDB, IDamagedState
     
     public void ComBatIdleState() 
     { 
-        state = BossState.COMBATIDLE; 
+        state = BossState.COMBATIDLE;
+        isHit = false;
     }
     public void Damaged(int value)
     {
+        if (isHit) return;
+
         isHit = true;
-        hp -= value;
-        //hp -= value-def>=0? value-def:0;
-        Debug.Log(hp);
+        hp -= def - value >=0? def-value : 0;
         if (hp > 0)
         {
-            Debug.Log(hp);
+            isPlayerCri = target.GetComponent<Player>().isCri;
+            Hit();
         }
         else
         {
@@ -268,44 +273,17 @@ public class GoblinChieftain : BossDB, IDamagedState
     }
     private void Hit()
     {
-        isHit = false;
-        anim.SetTrigger("Hit");
-
-        if (isPlayerCri && state == BossState.ATK)
-            anim.SetInteger("HitKind", 3);
-        else if (!isPlayerCri && state == BossState.ATK)
-            anim.SetInteger("HitKind", 2);
-        else if (isPlayerCri)
-            anim.SetInteger("HitKind", 1);
-        else
-            anim.SetInteger("HitKind", 0);
-
-        state = BossState.HIT;
-    }
-
-    //private void OnCollisionStay(Collision collision)
-    //{
-    //    if (collision.transform.GetComponent<Player>() != null && isHit)
-    //    {
-    //        isPlayerCri = collision.transform.GetComponent<Player>().isCri;
-    //        Hit();
-    //        Debug.Log("hitColl");
-    //    }
-    //}
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.GetComponent<Player>() != null && isHit)
+        if(state != BossState.ATK)
         {
-            isPlayerCri = other.transform.GetComponent<Player>().isCri;
-            Hit();
-            Debug.Log("hitColl");
+            if (isPlayerCri) { anim.SetInteger("HitKind", UnityEngine.Random.Range(2, 4)); }
+            else { anim.SetInteger("HitKind", UnityEngine.Random.Range(0, 2)); }
+
+            anim.SetTrigger("Hit"); 
+            state = BossState.HIT;
         }
     }
-
-
     public void ActiveCollision()
     {
         weapon.enabled = weapon.enabled ? false : true;
-        
     }
 }
