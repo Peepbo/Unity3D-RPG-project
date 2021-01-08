@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public partial class LootManager : Singleton<LootManager>
 {
@@ -7,6 +8,7 @@ public partial class LootManager : Singleton<LootManager>
 
     public GameObject poccketPanel;
     pocketData pd = new pocketData();
+    public GameObject checkMoney;
 
     public class pocketData
     {
@@ -46,7 +48,7 @@ public partial class LootManager : Singleton<LootManager>
             }
         }
 
-        
+        checkMoney.transform.GetChild(1).GetComponent<Text>().text = pd.pocketMoney.ToString();
     }
 
     public void GetPocketMoney(int currency)
