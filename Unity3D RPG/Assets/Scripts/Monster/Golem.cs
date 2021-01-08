@@ -21,19 +21,25 @@ public class Golem : EnemyMgr, IDamagedState
     private float destroyCount;
 
 
-
     protected override void Awake()
     {
         base.Awake();
 
         findCount = 0;
         hp = maxHp;
-        atk = 45;
+        atk = 56;
         def = 10.0f;
         minGold = 50;
         maxGold = 100;
         spawnPos = transform.position;
-       
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            itemKind[i] = 79;
+            drop = CSVData.Instance.find(itemKind[i]);
+            item.Add(drop);
+        }
     }
 
     private void Start()
@@ -223,8 +229,11 @@ public class Golem : EnemyMgr, IDamagedState
         }
 
         if (destroyCount > 6.0f)
-        { 
-            Debug.Log("gone");
+        {
+            //아이템 떨어트리기
+            var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
+            Item.GetComponent<LootBox>().setItemInfo(item, 3, minGold, maxGold);
+
             gameObject.SetActive(false);
             destroyCount = 0f;
         }

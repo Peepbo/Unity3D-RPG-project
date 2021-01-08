@@ -26,11 +26,20 @@ public class Shaman : EnemyMgr, IDamagedState
         startPos = transform.position;
         firePos = transform.Find("FirePos");
         hp = maxHp;
-        atk = 35;
+        atk = 40;
         def = 0f;
         minGold = 25;
         maxGold = 45;
         anim.SetInteger("state", 0);
+
+        itemKind[0] = 79;
+        itemKind[1] = 80;
+        itemKind[2] = 83;
+        for (int i = 0; i < 3; i++)
+        {
+            drop = CSVData.Instance.find(itemKind[i]);
+            item.Add(drop);
+        }
     }
 
     void Start()
@@ -217,7 +226,9 @@ public class Shaman : EnemyMgr, IDamagedState
         if (disappearTime > 5f)
         {
             //아이템 떨어트리기
-            DropCoin(minGold, maxGold);
+            var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
+            Item.GetComponent<LootBox>().setItemInfo(item, 4, minGold, maxGold);
+
             gameObject.SetActive(false);
         }
     }

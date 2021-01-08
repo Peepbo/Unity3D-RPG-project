@@ -18,7 +18,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         base.Awake();
         //startPos = transform.position;
         hp = maxHp;
-        atk = 25;
+        atk = 30;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;

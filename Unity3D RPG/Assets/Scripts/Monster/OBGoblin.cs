@@ -25,11 +25,21 @@ public class OBGoblin : EnemyMgr, IDamagedState
         startPos = transform.position;
 
         hp = maxHp;
-        atk = 25;
+        atk = 30;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;
         findCount = 0;
+
+        itemKind[0] = 79;
+        itemKind[1] = 80;
+        itemKind[2] = 82;
+        for (int i = 0; i < 3; i++)
+        {
+            drop = CSVData.Instance.find(itemKind[i]);
+            item.Add(drop);
+        }
+
 
     }
     void Start()
@@ -287,7 +297,10 @@ public class OBGoblin : EnemyMgr, IDamagedState
         if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
-            DropCoin(minGold, maxGold);
+            //아이템 떨어트리기
+            var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
+            Item.GetComponent<LootBox>().setItemInfo(item, 5, minGold, maxGold);
+
             gameObject.SetActive(false);
             disappearTime = 0f;
         }

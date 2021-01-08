@@ -8,7 +8,6 @@ public class Goblin : EnemyMgr, IDamagedState
     private ReturnMove returnToHome;
     private ViewingAngle viewAngle;
 
-
     private Vector3 startPos;
     private Vector3 direction;
 
@@ -19,13 +18,6 @@ public class Goblin : EnemyMgr, IDamagedState
     bool isObserve = true;
 
 
-
-    private int dropRate = 0;
-
-    private int[] itemKind = new int[3];
-    List<ItemInfo> item = new List<ItemInfo>();
-    ItemInfo drop;
-
     public GameObject weapon;
 
 
@@ -35,11 +27,20 @@ public class Goblin : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
         hp = maxHp;
-        atk = 25;
+        atk = 35;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;
         findCount = 0;
+
+        itemKind[0] = 79;
+        itemKind[1] = 80;
+        itemKind[2] = 82;
+        for (int i = 0; i < 3; i++)
+        {
+            drop = CSVData.Instance.find(itemKind[i]);
+            item.Add(drop);
+        }
 
     }
     void Start()
@@ -55,16 +56,6 @@ public class Goblin : EnemyMgr, IDamagedState
         follow.Init(AI, target, speed, attackRange);
         returnToHome.init(AI, startPos, speed);
 
-        itemKind[0] = 79;
-        itemKind[1] = 80;
-        itemKind[2] = 82;
-        for (int i = 0; i < 3; i++)
-        {
-            drop = CSVData.Instance.find(itemKind[i]);
-            Debug.Log(drop.count);
-            item.Add(drop);
-
-        }
 
 
         anim.SetInteger("state", 0);
@@ -72,6 +63,11 @@ public class Goblin : EnemyMgr, IDamagedState
 
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            isDead = true;
+        }
 
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
@@ -330,8 +326,9 @@ public class Goblin : EnemyMgr, IDamagedState
         if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
-            DropCoin(minGold, maxGold);
-            Drop(item);
+            var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
+            Item.GetComponent<LootBox>().setItemInfo(item, 5, minGold, maxGold);
+
             gameObject.SetActive(false);
             disappearTime = 0f;
         }
@@ -356,31 +353,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 
-    public void Drop(List<ItemInfo> dropItem)
-    {
-        List<ItemInfo> _itemList = new List<ItemInfo>();
-
-        Debug.Log(dropItem.Count);
-        for (int i = 0; i < dropItem.Count; i++)
-        {
-
-            dropRate = 10;/*Random.Range(, 10);*/
-
-            if (dropRate != 10) continue;
-
-            if (dropRate == 10)
-            {
-                Debug.Log(dropItem[i].itemName + "획득!");
-                _itemList.Add(dropItem[i]);
-            }
-
-        }
-
-        if (_itemList.Count != 0)
-        {
-            LootManager.Instance.GetPocketData(_itemList);
-        }
-
-    }
+    
 
 }
