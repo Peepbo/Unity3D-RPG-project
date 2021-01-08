@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 partial class PlayerData
 {
-    public void SaveChest(int itemNumber)
+    public void SaveChest(int itemNumber, int count = 1)
     {
         ItemInfo _item = CSVData.Instance.find(itemNumber);
+        _item.count = count;
 
         //전리품이 아니면
         if (_item.kindID != 4) SaveItemType(ref haveEquipItem, _item);
@@ -38,7 +39,7 @@ partial class PlayerData
         else
         {
             int _index = list.IndexOf(item);
-            list[_index].count++;
+            list[_index].count += item.count;
         }
     }
 }
