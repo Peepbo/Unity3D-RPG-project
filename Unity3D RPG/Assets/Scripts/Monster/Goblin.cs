@@ -123,14 +123,12 @@ public class Goblin : EnemyMgr, IDamagedState
                 {
                     if (isFind)
                     {
-                        Debug.Log("find!");
                         FollowTarget();
                     }
                     else
                     {
                         if (_distance >= attackRange)
                         {
-                            Debug.Log("atk 범위 벗어남");
                             returnToHome.setIsReturn(true);
                         }
                     }
@@ -138,14 +136,8 @@ public class Goblin : EnemyMgr, IDamagedState
 
                     if (_distance <= attackRange)
                     {
-                        Debug.Log("atk");
                         anim.SetInteger("state", 2);
                     }
-                }
-                else
-                {
-                    Debug.Log("findCount ==0");
-                    //returnToHome.setIsReturn(true);
                 }
 
 
@@ -154,7 +146,6 @@ public class Goblin : EnemyMgr, IDamagedState
             if (returnToHome.getIsReturn())
             {
 
-                Debug.Log("return");
                 Back();
             }
 
@@ -196,7 +187,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
             if (_homeDistance <= 0.3f)
             {
-                Debug.Log("home");
                 returnToHome.setIsReturn(false);
                 AI.isStopped = true;
 
@@ -212,7 +202,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
         else
         {
-            Debug.Log("look");
             transform.rotation = Quaternion.LookRotation(direction);
             returnToHome.setIsReturn(false);
         }
@@ -247,7 +236,6 @@ public class Goblin : EnemyMgr, IDamagedState
         _direction.Normalize();
         _direction.y = 0;
 
-        //transform.LookAt(_direction);
 
         transform.forward = (_direction);
 

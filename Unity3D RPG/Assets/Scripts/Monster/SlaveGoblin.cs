@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class SlaveGoblin : EnemyMgr, IDamagedState
 {
@@ -8,38 +10,34 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     private Vector3 direction;
 
-    private int findCount;
-    private bool isFind;
+    private bool isStart = true;
 
-    // public GameObject weapon;
+    public GameObject weapon;
 
     protected override void Awake()
     {
         base.Awake();
+
         //startPos = transform.position;
         hp = maxHp;
         atk = 30;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;
-        findCount = 0;
-
-    }
-    void Start()
-    {
-        //Goblin Move pattern
 
         follow = gameObject.AddComponent<FollowTarget>();
         follow.Init(AI, target, speed, attackRange);
 
-        //weapon.GetComponent<AxColision>().SetDamage(atk);
-
-
+        AI.enabled = false;
+        weapon.GetComponent<AxColision>().SetDamage(atk);
         anim.SetInteger("state", 0);
     }
 
     void Update()
     {
+
+        if (AI.enabled == false) AI.enabled = true;
+
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
@@ -53,31 +51,39 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
             return;
         }
 
-        if (_distance < findRange)
+        if (isStart)
         {
-            FollowTarget();
-
-            if (_distance < attackRange)
+            if (_distance < findRange)
             {
-                anim.SetInteger("state", 2);
+                isStart = false;
             }
         }
+
         else
         {
-            anim.SetInteger("state", 0);
-            AI.isStopped = true;
+            if (_distance < findRange)
+            {
+                FollowTarget();
+
+                if (_distance < attackRange)
+                {
+                    anim.SetInteger("state", 2);
+                }
+            }
+            else
+            {
+                isStart = true;
+                anim.SetInteger("state", 0);
+                AI.isStopped = true;
+            }
         }
+
 
     }
 
 
     public void FollowTarget()
     {
-        //temp
-        AI.isStopped = false;
-        //controller의 speed를 animation velocity 값에 넣어준다.
-        //anim.SetFloat("velocity", controller.velocity.magnitude);
-        //anim.SetFloat("velocity", AI.speed);
         anim.SetInteger("state", 1);
         setMoveType(follow);
         Move();
@@ -87,12 +93,12 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
     public void ActiveMeshCol()
     {
         if (isDead) return;
-        //weapon.GetComponent<MeshCollider>().enabled = true;
+        weapon.GetComponent<MeshCollider>().enabled = true;
     }
     public void DeActiveMeshCol()
     {
         if (isDead) return;
-        // weapon.GetComponent<MeshCollider>().enabled = false;
+        weapon.GetComponent<MeshCollider>().enabled = false;
     }
 
 
@@ -104,25 +110,13 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     IEnumerator AttackRoutine()
     {
-
-        //rest를 켜고
         anim.SetBool("isRest", true);
         AI.isStopped = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.97f);
 
-        Vector3 _direction = target.transform.position - transform.position;
-        _direction.Normalize();
-        _direction.y = 0;
-
-
-        transform.forward = (_direction);
-
-        yield return new WaitForSeconds(1.5f);
-        //rest를 끈다
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
         AI.isStopped = false;
-
     }
 
     IEnumerator GetDamage()
@@ -139,27 +133,36 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
-        // weapon.GetComponent<MeshCollider>().enabled = false;
-        if (isDamaged || isDead) return;
+        if (player.isCri)
+        {
+            weapon.GetComponent<MeshCollider>().enabled = false;
+        }
+
+        if (isDead) return;
 
         if (hp > 0)
         {
-            hp -= (int)(value * (1.0f - def / 100));
-            StartCoroutine(GetDamage());
+            if(!isDamaged)
+            {
+                hp -= (int)(value * (1.0f - def / 100));
+                StartCoroutine(GetDamage());
+            }
         }
 
         else
         {
             hp = 0;
             isDead = true;
-            anim.SetTrigger("Die");
 
             controller.enabled = false;
             AI.enabled = false;
             StopAllCoroutines();
 
         }
-        anim.SetTrigger("isDamage");
+        if (player.isCri)
+        {
+            anim.SetTrigger("isDamage");
+        }
 
     }
 
