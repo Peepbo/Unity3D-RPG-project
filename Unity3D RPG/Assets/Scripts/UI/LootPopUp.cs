@@ -22,7 +22,7 @@ partial class LootManager
     {
         for(int i = 0; i < 10; i++)
         {
-            if((i+1) > pd.myPocketItem.count)
+            if((i+1) > pd.pocketItem.Count)
             {
                 cm.lootsData[i].transform.GetChild(0).GetComponent<Image>().color = Color.clear;
                 popLoot.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = null;
