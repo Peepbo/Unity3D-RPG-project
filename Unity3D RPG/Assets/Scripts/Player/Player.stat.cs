@@ -23,9 +23,9 @@ partial class Player
 
     public int              maxHp = 100;        //  최대체력
     public int              hp = 100;           //  현제체력
-    
-    public float            maxStamina = 100;   //  최대 스태미나(최대기력)
-    public float            stamina = 100;      //  스태미나(기력)
+
+    public float            maxStamina;         //  최대 스태미나(최대기력)
+    public float            stamina;            //  스태미나(기력)
     float                   staminaTime =0f;    //  스태미나 충전시간
     
     public float            def;                //  방어력
@@ -100,12 +100,17 @@ partial class Player
         if (PlayerData.Instance.stmLv <= 10)
         {
             maxStamina = 100 + PlayerData.Instance.stmLv * 30;
+            Debug.Log("스태미너 레벨"+PlayerData.Instance.stmLv);
 
         }
         else if (PlayerData.Instance.stmLv > 10)
         {
             maxStamina = 400 + (PlayerData.Instance.stmLv-10) * 3;
         }
+
+        PlayerData.Instance.nowHp = maxHp;
+        hp = maxHp;
+        stamina = maxStamina;
     }
     public void EquipStat()
     {
