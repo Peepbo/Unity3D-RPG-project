@@ -10,7 +10,8 @@ public class TalkNpc : MonoBehaviour
     {
         CHEST,
         TRAINER,
-        SMITH
+        SMITH,
+        INSURANCE
     }
     public NPC npcName;
     public GameObject talkPanel;
@@ -26,6 +27,9 @@ public class TalkNpc : MonoBehaviour
 
     [Header("SMITH")]
     public GameObject smithPanel;
+
+    [Header("INSURANCE")]
+    public GameObject insurancePanel;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -96,6 +100,15 @@ public class TalkNpc : MonoBehaviour
                     
                     childObj[0].GetComponentInChildren<Text>().text = "장비 제작";
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), smithPanel);
+                    break;
+                case NPC.INSURANCE://2가지
+                    btn2.SetActive(true);
+                    btn3.SetActive(false);
+
+                    childObj[0] = btn2.transform.GetChild(0).gameObject;
+
+                    childObj[0].GetComponentInChildren<Text>().text = "보험 구매";
+                    ResetAndAddListener(childObj[0].GetComponent<Button>(), insurancePanel);
                     break;
             }
         }
