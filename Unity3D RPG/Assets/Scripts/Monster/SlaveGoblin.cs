@@ -169,17 +169,11 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         if (disappearTime > 3.5f)
         {
-            //아이템 떨어트리기
-            DropCoin(minGold, maxGold);
             gameObject.SetActive(false);
             disappearTime = 0f;
         }
     }
 
-    public override void DropCoin(int min, int max)
-    {
-        //no need for this Uinit
-    }
 
     private void OnDrawGizmos()
     {
