@@ -15,16 +15,16 @@ public partial class LootManager : Singleton<LootManager>
         public ItemInfo myPocketItem = null;
     }
 
-    public void GetPocketData()
+    public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
         ItemInfo _item = CSVData.Instance.find(pd.myPocketItem.id);
 
-        if (pd.pocketItem.Contains(_item) == false) pd.pocketItem.Add(_item);
+        if (pocketItemInfo.Contains(_item) == false) pd.pocketItem.Add(_item);
 
         else
         {
             int _index = pd.pocketItem.IndexOf(_item);
-            pd.pocketItem[_index].count++;
+            pocketItemInfo[_index].count++;
         }
     }
 
