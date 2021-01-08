@@ -22,15 +22,17 @@ public partial class Player : MonoBehaviour
     {
         AnimStart();
         EquipStat();
+        GrowthStat();
+        ReturnData();
     }
    
     // Update is called once per frame
     void Update()
     {
-        Move();
-        GetInput();
-        Turn();
-
+        //Move();
+        //GetInput();
+        //Turn();
+        //
         PlayerStateUpdate();
         PlayerStatUpdate();
 

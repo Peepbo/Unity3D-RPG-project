@@ -12,17 +12,26 @@ public class MoveScene : MonoBehaviour
         {
             if (other.tag == "Player")
             {
-                if(LoadingSceneController.Instance.loadSceneName == "TownScene")
+                //if(LoadingSceneController.Instance.loadSceneName == "TownScene")
+                //{
+                //    LootManager.Instance.ClearPocketData();
+                //}
+                if (sceneName == "TownScene")
                 {
-                    LootManager.Instance.ClearPocketData();
+                    PlayerData.Instance.isReturn = true;
                 }
                 LoadingSceneController.Instance.LoadScene(sceneName);
+               
             }
         }
     }
 
     public void ChangeScene(string sceneName)
     {
+        if (sceneName == "TownScene")
+        {
+            PlayerData.Instance.isReturn = true;
+        }
         LoadingSceneController.Instance.LoadScene(sceneName);
     }
 }

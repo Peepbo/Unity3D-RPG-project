@@ -6,7 +6,7 @@ using UnityEditor;
 public partial class PlayerData : Singleton<PlayerData>
 {
     protected PlayerData() { }
-
+    
     //01/06 두 가지로 분류 후 나중에 save할 때 하나의 list로 합쳐서 저장
     public List<ItemInfo> haveEquipItem = new List<ItemInfo>();
     public List<ItemInfo> haveLootItem = new List<ItemInfo>();
@@ -26,6 +26,10 @@ public partial class PlayerData : Singleton<PlayerData>
     public int[] myStature = new int[2];
 
     public int myPotion;
+    public int myCurrentPotion;
+
+    public int nowHp; // 플레이어 현재체력
+    
 
     public Player player;
 
@@ -49,6 +53,8 @@ public partial class PlayerData : Singleton<PlayerData>
     }
     #endregion
 
+    // 마을로 돌아가는지
+    public bool isReturn;
     public void LoadData_v2()
     {
         //화폐

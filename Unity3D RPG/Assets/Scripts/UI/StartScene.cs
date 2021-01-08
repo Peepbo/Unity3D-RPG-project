@@ -20,6 +20,7 @@ public class StartScene : MonoBehaviour
     public void StartGame()
     {
         LoadingSceneController.Instance.LoadScene("TownScene");
+        PlayerData.Instance.isReturn = true;
     }
 
     public void QuitGame()
