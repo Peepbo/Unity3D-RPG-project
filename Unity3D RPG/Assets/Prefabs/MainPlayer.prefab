@@ -313,8 +313,8 @@ MonoBehaviour:
   potionMaxNum: 0
   maxHp: 100
   hp: 100
-  maxStamina: 300
-  stamina: 300
+  maxStamina: 100
+  stamina: 100
   def: 10
   increasedDef: 0
   power: 10
@@ -326,6 +326,7 @@ MonoBehaviour:
   guardStamina: 0
   condition: 0
   atkSpeed: 1
+  isSlow: 0
   weaponKind: 0
   overrideController1H: {fileID: 22100000, guid: cf23f29ece07aae4bb115b3e5c1aed74,
     type: 2}
@@ -457,6 +458,10 @@ PrefabInstance:
     - target: {fileID: 1428387009061096, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
       propertyPath: m_Name
       value: Character_Hero_Knight_Male
+      objectReference: {fileID: 0}
+    - target: {fileID: 1428387009061096, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4524380348334466, guid: a96b63f27d072234bbc3d7818166e4eb, type: 3}
       propertyPath: m_LocalPosition.x
