@@ -31,31 +31,33 @@ public class LootBox : MonoBehaviour
 
     public void Drop()
     {
-        currency = Random.Range(min, max+1);
-        LootManager.Instance.GetPocketMoney(currency);
 
-        Debug.Log(currency + " 획득");
-        List<ItemInfo> _itemList = new List<ItemInfo>();
+        Debug.Log("아이템 준비중");
+        //currency = Random.Range(min, max+1);
+        //LootManager.Instance.GetPocketMoney(currency);
 
-        for (int i = 0; i < item.Count; i++)
-        {
+        //Debug.Log(currency + " 획득");
+        //List<ItemInfo> _itemList = new List<ItemInfo>();
 
-            int rate = Random.Range(0, 10);
+        //for (int i = 0; i < item.Count; i++)
+        //{
 
-            if (dropRate > rate) continue;
+        //    int rate = Random.Range(0, 10);
 
-            if (dropRate <= rate)
-            {
-                Debug.Log(item[i].itemName + "획득!");
-                _itemList.Add(item[i]);
-            }
+        //    if (dropRate > rate) continue;
 
-        }
+        //    if (dropRate <= rate)
+        //    {
+        //        Debug.Log(item[i].itemName + "획득!");
+        //        _itemList.Add(item[i]);
+        //    }
 
-        if (_itemList.Count != 0)
-        {
-            LootManager.Instance.GetPocketData(_itemList);
-        }
+        //}
+
+        //if (_itemList.Count != 0)
+        //{
+        //    LootManager.Instance.GetPocketData(_itemList);
+        //}
 
     }
 
