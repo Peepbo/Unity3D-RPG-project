@@ -11,8 +11,9 @@ public class EnterSwitch : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if(other.tag == "Player")
         {
-            Debug.Log("switch On");
             boss.start = true;
+            boss.state = BossState.COMBATIDLE;
+            Destroy(gameObject);
         }
      }
 

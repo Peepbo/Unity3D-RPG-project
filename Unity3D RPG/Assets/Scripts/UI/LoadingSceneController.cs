@@ -16,7 +16,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
     GameObject SceneUI;
     CanvasGroup canvasGroup;
     Image progressBar;
-    string loadSceneName;
+    public string loadSceneName;
 
     private void Awake()
     {

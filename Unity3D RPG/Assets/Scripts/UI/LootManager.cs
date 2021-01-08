@@ -44,7 +44,11 @@ public partial class LootManager : Singleton<LootManager>
         }
 
         PlayerData.Instance.myCurrency += pd.pocketMoney;
+        PlayerData.Instance.SaveData();
+    }
 
+    public void ClearPocketData()
+    {
         pd.pocketItem.Clear();
         pd.pocketMoney = 0;
     }

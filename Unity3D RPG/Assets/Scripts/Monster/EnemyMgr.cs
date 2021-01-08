@@ -11,7 +11,6 @@ public abstract class EnemyMgr : MonoBehaviour
     protected CharacterController controller;
     protected GameObject target;
     protected Animator anim;
-    protected float gravity = -9.81f;
 
     protected bool isDamaged;
     protected bool isDead;
@@ -29,7 +28,7 @@ public abstract class EnemyMgr : MonoBehaviour
     public float speed;
 
     public float angle;
-    [Range(5, 15)]
+    [Range(5, 30)]
     public float findRange;
     [Range(1, 10)]
     public float attackRange;
@@ -40,8 +39,6 @@ public abstract class EnemyMgr : MonoBehaviour
     protected int maxGold;
     protected int currency;
 
- 
- 
 
 
     protected virtual void Awake()
