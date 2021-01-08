@@ -26,9 +26,9 @@ public class Profile : MonoBehaviour
     public void GetPlayerStats()
     {
         popStats.transform.GetChild(0).GetComponent<Text>().text = 
-            "체력 : " + player.hp.ToString() + " / 1000";
+            "체력 : " + player.hp.ToString();
         popStats.transform.GetChild(1).GetComponent<Text>().text = 
-            "스태미나 : " + player.stamina.ToString() + " / 1000";
+            "스태미나 : " + player.stamina.ToString();
         popStats.transform.GetChild(2).GetComponent<Text>().text =
             "공격력 : " + player.realAtk.ToString();
         popStats.transform.GetChild(3).GetComponent<Text>().text =
