@@ -5,7 +5,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+enum ChiefTainFXPrefab
+{
+    ATK1,
+    ATK2,
+    THUMP,
+    ROAR,
+    SPAWNM,
+    SPAWNS,
 
+}
 
 public class GoblinChieftain : BossDB, IDamagedState
 {
@@ -58,8 +67,6 @@ public class GoblinChieftain : BossDB, IDamagedState
         state = BossState.IDLE;
         dieCount = 5.5f;
         for (int i = 0; i < itemDropCount; i++) { itemDropInfo[i].itemDropCount = 1; }
-     
-
 
     }
 
@@ -113,6 +120,10 @@ public class GoblinChieftain : BossDB, IDamagedState
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
             anim.SetTrigger("Roar");
+            GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ROAR]);
+            Vector3 _temp = transform.position;
+            _temp.y -= 1.629f;
+            _fx.transform.position = _temp;
         }
         else if (atkTime > atkDelay)
         {
@@ -159,7 +170,11 @@ public class GoblinChieftain : BossDB, IDamagedState
                 break;
             case BossATKPattern.SPAWN:
                 anim.SetTrigger("Spawn");
-                //Spawn();
+                GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNM]);
+                Vector3 _temp = transform.position;
+                _temp.y -= 1.629f;
+                _fx.transform.position = _temp;
+                
                 break;
         }
     }
@@ -179,6 +194,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void Spawn()
     {
         isSpawn = true;
+
         if (minions.Count != 0)
         {
             for (int i = 0; i < minionMaxCount; i++) { Destroy(minions[i]); }
@@ -191,6 +207,8 @@ public class GoblinChieftain : BossDB, IDamagedState
         {
             minions.Add(Instantiate(minionFactory));
             minions[i].transform.position = spawnArea[i].position;
+            GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNS]);
+            _fx.transform.position = spawnArea[i].position;
         }
     }
     
@@ -222,18 +240,31 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void SetDamage()
     {
         int _atkDam = 0;
+        GameObject fx;
         switch (pattern)
         {
             case BossATKPattern.THREEATK:
                 _atkDam  = atk / 3;
+                fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ATK1]);
+                fx.transform.position = target.position;
                 break;
             case BossATKPattern.THUMP:
                 _atkDam = atk;
+                fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
+                fx.transform.position = target.position;
                 break;
         }
         //target.GetComponent<TESTATTACK>().GetDamage(temp);
         target.GetComponent<Player>().GetDamage(_atkDam);
     }
+
+    //IEnumerator ThreeATKFX()
+    //{
+        
+        
+
+    //    //yield return new WaitForSeconds(fx.get)
+    //}
     private void shuffle()
     {
         for (int i = 0; i < 5; i++)

@@ -48,7 +48,7 @@ public abstract class BossDB : MonoBehaviour
     public int minionMaxCount;
     public Transform[] spawnArea;
     public float dieCount;
-    
+    public GameObject[] FXfactory;
    public bool start { get { return isStart; } set { isStart = value; } }
 }
 
