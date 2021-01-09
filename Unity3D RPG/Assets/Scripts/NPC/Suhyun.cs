@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Suhyun : MonoBehaviour
 {
-    public GameObject prefab;
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            //Instantiate(prefab, transform.position, Quaternion.identity);
-            prefab.SetActive(true);
-        }
-    }
+    //public void hi()
+    //{
+    //    LootData.Instance.Something();
+    //}
+    //public void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Y))
+    //    {
+    //        hi();
+    //    }
+    //}
 }
