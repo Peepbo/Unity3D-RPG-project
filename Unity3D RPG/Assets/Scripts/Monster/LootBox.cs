@@ -11,6 +11,29 @@ public class LootBox : MonoBehaviour
     List<ItemInfo> item = new List<ItemInfo>();
     ItemInfo drop;
 
+    #region COLLIDER & LIGHT
+    BoxCollider col;
+    public Light light;
+    float colTime;
+
+    private void Start()
+    {
+        col = GetComponent<BoxCollider>();
+        light.intensity = 0;
+    }
+
+    private void Update()
+    {
+        if(!col.enabled)
+        {
+            colTime += Time.deltaTime;
+            light.intensity = Mathf.Lerp(light.intensity, 2, Time.deltaTime);
+
+            if (colTime > 1) col.enabled = true;
+        }
+    }
+    #endregion
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
