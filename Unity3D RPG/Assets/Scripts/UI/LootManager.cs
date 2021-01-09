@@ -2,6 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public class pocketData
+{
+    public List<ItemInfo> pocketItem = new List<ItemInfo>();  // 던전에서 획득 한 전리품 (아이템)
+    public int pocketMoney = 0;                               // 던전에서 획득 한 전리품 (돈)
+                                                              //public ItemInfo myPocketItem = null;
+}
+
 public partial class LootManager : Singleton<LootManager>
 {
     protected LootManager() { }
@@ -9,13 +16,6 @@ public partial class LootManager : Singleton<LootManager>
     public GameObject poccketPanel;
     pocketData pd = new pocketData();
     public GameObject checkMoney;
-
-    public class pocketData
-    {
-        public List<ItemInfo> pocketItem = new List<ItemInfo>();  // 던전에서 획득 한 전리품 (아이템)
-        public int pocketMoney = 0;                               // 던전에서 획득 한 전리품 (돈)
-        //public ItemInfo myPocketItem = null;
-    }
 
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
