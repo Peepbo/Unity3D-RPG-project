@@ -239,7 +239,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         transform.forward = (_direction);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.9f);
         //rest를 끈다
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
