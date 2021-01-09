@@ -6,7 +6,7 @@ using TMPro;
 
 public partial class SmathManager : MonoBehaviour
 {
-    const string rare = "rare";
+    //const string rare = "rare";
     const string normal = "normal";
     const string make = "제작하기 ";
     const int materialMaxCount = 8;
@@ -25,13 +25,15 @@ public partial class SmathManager : MonoBehaviour
     public GameObject resultPanel;
     List<GameObject> itemList = new List<GameObject>();
     Dictionary<string, ItemInfo> lootList = new Dictionary<string, ItemInfo>();
-   // int itemListCount =0;
-    void Start()    
+    // int itemListCount =0;
+    private void Awake()
     {
         InfoInit();
-        PlayerItemListInit();
-        
         ListMake();
+    }
+    void Start()    
+    {
+        PlayerItemListInit();
         WeaponListSerch();
         ArmourListSerch();
         AccListSerch();
@@ -44,18 +46,14 @@ public partial class SmathManager : MonoBehaviour
 
     private void ListMake()
     {
-        for (int i = 0; i < maxAcc; i++)
-        {
-            itemList.Add(Instantiate(itemMakeListFactory, itemListGroup.transform));
-            itemList[i].SetActive(false);
-        }
+        for (int i = 0; i < maxAcc; i++) itemList.Add(Instantiate(itemMakeListFactory, itemListGroup.transform));
     }
 
     private void InfoInit()
     {
         //money
         moneyText = transform.Find("Coin").GetComponentInChildren<TextMeshProUGUI>();
-        moneyText.text = PlayerData.Instance.myCurrency.ToString();
+        
         //itemList
         //itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
         itemListGroup = transform.Find("ItemList/ScrollRect/ListGroup").gameObject;
@@ -67,17 +65,24 @@ public partial class SmathManager : MonoBehaviour
         percentText = transform.Find("ItemInfo/PercentText").GetComponent<TextMeshProUGUI>();
         percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
         percentText.color = Color.blue;
+       
+       
     }
 
     private void PlayerItemListInit()
     {
-        List<ItemInfo> _itemDB = new List<ItemInfo>();
+        //NPC List Clear
 
-        for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count; i++)
-            _itemDB.Add(PlayerData.Instance.haveEquipItem[i]);
+        moneyText.text = PlayerData.Instance.myCurrency.ToString();
+        for (int i = 0; i < maxAcc; i++) itemList[i].SetActive(false);
+        weaponList.Clear();
+        armourList.Clear();
+        accList.Clear();
+        accCheck.Clear();
+        lootList.Clear();
 
-        for(int i = 0; i < PlayerData.Instance.haveLootItem.Count; i++)
-            _itemDB.Add(PlayerData.Instance.haveLootItem[i]);
+        List<ItemInfo> _EquipDB = PlayerData.Instance.haveEquipItem;
+        List<ItemInfo> _LootDB = PlayerData.Instance.haveLootItem;
         
         int[] _playerItemDB = PlayerData.Instance.myEquipment;
 
@@ -102,12 +107,19 @@ public partial class SmathManager : MonoBehaviour
         if(_playerItemDB[3] != -1) AccListInsert(_playerItemDB[3]);
 
 
-        for (int i = 0; i < _itemDB.Count; i++)
+        for (int i = 0; i < _EquipDB.Count; i++)
         {
-            if (_itemDB[i].kindID == 1) { WeaponListInsert(_itemDB[i].id); LootListInsert(_itemDB[i]); }
-            else if (_itemDB[i].kindID == 2) { ArmourListInsert(_itemDB[i].id); LootListInsert(_itemDB[i]); }
-            else if (_itemDB[i].kindID == 3) { AccListInsert(_itemDB[i].id); }
-            else if (_itemDB[i].kindID == 4) { LootListInsert(_itemDB[i]); }
+            if (_EquipDB[i].kindID == 1) { WeaponListInsert(_EquipDB[i].id); LootListInsert(_EquipDB[i]); }
+            else if (_EquipDB[i].kindID == 2) { ArmourListInsert(_EquipDB[i].id); LootListInsert(_EquipDB[i]); }
+            else if (_EquipDB[i].kindID == 3) { AccListInsert(_EquipDB[i].id); }
+            //else if (_EquipDB[i].kindID == 4) { LootListInsert(_EquipDB[i]); }
+        }
+        for (int i = 0; i < _LootDB.Count; i++)
+        {
+            //if (_LootDB[i].kindID == 1) { WeaponListInsert(_LootDB[i].id); LootListInsert(_LootDB[i]); }
+            //else if (_LootDB[i].kindID == 2) { ArmourListInsert(_LootDB[i].id); LootListInsert(_LootDB[i]); }
+            //else if (_LootDB[i].kindID == 3) { AccListInsert(_LootDB[i].id); }
+            LootListInsert(_LootDB[i]); 
         }
     }
 
@@ -164,7 +176,7 @@ public partial class SmathManager : MonoBehaviour
     private void MaterialText(TextMeshProUGUI text, string num1, string num2)
     {
         text.text = num1 + " / " + num2;
-        if (int.Parse(num1) != int.Parse(num2)) { text.color = Color.red; }
+        if (int.Parse(num1) < int.Parse(num2)) { text.color = Color.red; }
         else { text.color = Color.black; isHasMaterial[materialCount] = true; }
         materialCount++;
     }
@@ -208,9 +220,11 @@ public partial class SmathManager : MonoBehaviour
     private void MaterialPlayerDataRemove(bool success)
     {
         bool _isSave = false;
-
-        EquipmentCheck(success, ref _isSave);
-        ChestCheck();
+        bool[] _check = new bool[materialCount];
+        for (int i = 0; i < materialCount; i++)
+            _check[i] = false;
+        EquipmentCheck(success, ref _isSave, ref _check);
+        ChestCheck(ref _check);
 
         PlayerData.Instance.myCurrency -= curruntInfo.price;
         if (!_isSave && success) PlayerData.Instance.SaveChest(curruntInfo.id);
@@ -218,27 +232,31 @@ public partial class SmathManager : MonoBehaviour
 
     }
 
-    private void ChestCheck()
+    private void ChestCheck(ref bool[] check)
     {
         for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count;)
         {
-            if(lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveEquipItem[i].id)
+            if(!check[0]&&lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveEquipItem[i].id)
             {
+                check[0] = true;
                 PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount1;
                 if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveEquipItem[i].id)
+            else if ( materialCount > 1 && !check[1] && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveEquipItem[i].id)
             {
+                check[1] = true;
                 PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount2;
                 if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveEquipItem[i].id)
+            else if (materialCount > 2 && !check[2] && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveEquipItem[i].id)
             {
+                check[2] = true;
                 PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount3;
                 if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveEquipItem[i].id)
+            else if ( materialCount > 3 && !check[3] && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveEquipItem[i].id)
             {
+                check[3] = true;
                 PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount4;
                 if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); }
             }
@@ -248,23 +266,28 @@ public partial class SmathManager : MonoBehaviour
 
         for (int i = 0; i < PlayerData.Instance.haveLootItem.Count;)
         {
-            if (lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveLootItem[i].id)
+            if (!check[0] && lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveLootItem[i].id)
             {
+                check[0] = true;
                 PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount1;
                 if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
+                Debug.Log(i);
             }
-            else if (lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 1 && !check[1] && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveLootItem[i].id)
             {
+                check[1] = true;
                 PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount2;
                 if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 2 && !check[2] && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveLootItem[i].id)
             {
+                check[2] = true;
                 PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount3;
                 if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
             }
-            else if (lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 3 && !check[3] && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveLootItem[i].id)
             {
+                check[3] = true;
                 PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount4;
                 if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); }
             }
@@ -273,33 +296,37 @@ public partial class SmathManager : MonoBehaviour
         }
     }
 
-    private void EquipmentCheck(bool success, ref bool _isSave)
+    private void EquipmentCheck(bool success, ref bool _isSave, ref bool[] check)
     {
         for (int k = 0; k < PlayerData.Instance.myEquipment.Length; k++)
         {
             if (lootList.ContainsKey(curruntInfo.ingredient1)&&lootList[curruntInfo.ingredient1].id == PlayerData.Instance.myEquipment[k])
             {
+                check[0] = true;
+                if (success)
+                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true;}
+                else
+                { PlayerData.Instance.myEquipment[k] = -1; }
+            }
+            else if (materialCount > 1 && !check[1] && lootList.ContainsKey(curruntInfo.ingredient2) && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.myEquipment[k])
+            {
+                check[1] = true;
                 if (success)
                 { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
                 else
                 { PlayerData.Instance.myEquipment[k] = -1; }
             }
-            else if (lootList.ContainsKey(curruntInfo.ingredient2) && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.myEquipment[k])
+            else if (materialCount > 2 && !check[2] && lootList.ContainsKey(curruntInfo.ingredient3) && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.myEquipment[k])
             {
+                check[2] = true;
                 if (success)
                 { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
                 else
                 { PlayerData.Instance.myEquipment[k] = -1; }
             }
-            else if (lootList.ContainsKey(curruntInfo.ingredient3) && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.myEquipment[k])
+            else if (materialCount > 3 && !check[3] && lootList.ContainsKey(curruntInfo.ingredient4) && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.myEquipment[k])
             {
-                if (success)
-                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
-                else
-                { PlayerData.Instance.myEquipment[k] = -1; }
-            }
-            else if (lootList.ContainsKey(curruntInfo.ingredient4) && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.myEquipment[k])
-            {
+                check[3] = true;
                 if (success)
                 { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
                 else

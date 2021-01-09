@@ -151,9 +151,18 @@ partial class SmathManager
     private void WeaponListInsert(int id)
     {
         ItemInfo _temp = CSVData.Instance.find(id);
-        ItemInfo _itemDB =  CSVData.Instance.find(id+1);
-        if (_temp.grade != _itemDB.grade) { _itemDB = _temp; }
+        ItemInfo _itemDB;
+        if (id != 21)
+        {
+            _itemDB = CSVData.Instance.find(id + 1);
+            if (_temp.grade != _itemDB.grade) { _itemDB = _temp; }
+        }
+        else
+        {
+            _itemDB = _temp;
+        }
         
+        Debug.Log(_itemDB.itemName);
         switch (_itemDB.kind)
         {
             case hand:
