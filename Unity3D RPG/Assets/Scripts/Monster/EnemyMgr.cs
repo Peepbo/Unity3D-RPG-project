@@ -24,7 +24,7 @@ public abstract class EnemyMgr : MonoBehaviour
 
 
     //stat
-    public int maxHp;
+    protected int maxHp;
     protected int hp;
     protected int atk;
     protected float def;
