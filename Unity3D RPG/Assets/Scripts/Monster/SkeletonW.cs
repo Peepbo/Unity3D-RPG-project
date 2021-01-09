@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,6 +17,7 @@ public class SkeletonW : EnemyMgr, IDamagedState
     private RaycastHit hit;
 
 
+    public GameObject weapon;
     protected override void Awake()
     {
         base.Awake();
@@ -46,8 +46,10 @@ public class SkeletonW : EnemyMgr, IDamagedState
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
-        follow.Init(AI, target, speed, attackRange);
+        follow.Init(AI, target, speed, 0);
         back.init(AI, startPos, speed);
+        weapon.GetComponent<WepCol>().setAtk(atk);
+      
     }
 
     private void Update()
@@ -71,14 +73,16 @@ public class SkeletonW : EnemyMgr, IDamagedState
                     if (hit.transform.tag == "Player")
                     {
                         isStay = false;
+                        AI.isStopped = false;
                         findCount = 1;
+                        anim.SetInteger("state", 1);
                     }
                     else
                     {
-                        //집 지키기
+                        AI.isStopped = true;
+                        anim.SetInteger("state", 0);
                     }
                 }
-
             }
         }
 
@@ -89,16 +93,32 @@ public class SkeletonW : EnemyMgr, IDamagedState
             {
                 if (findCount == 1)
                 {
-                    Follow();
 
-                    if (distance < attackRange)
+                    if (distance < findRange)
                     {
-                        //어택
+                        if (anim.GetInteger("state") != 2)
+                        {
+                            AI.isStopped = false;
+                            Follow();
+                        }
+
                     }
-                    if (distance > findRange)
+                    else
                     {
+
+                        anim.SetInteger("state", 1);
                         back.setIsReturn(true);
                     }
+                    if (distance <= (attackRange))
+                    {
+                        AI.isStopped = true;
+                        anim.SetInteger("state", 2);
+                       
+                        AI.velocity = Vector3.zero;
+                    }
+
+
+
                 }
 
             }
@@ -112,6 +132,7 @@ public class SkeletonW : EnemyMgr, IDamagedState
 
     private void Follow()
     {
+        anim.SetInteger("state", 1);
         setMoveType(follow);
         Move();
     }
@@ -126,30 +147,101 @@ public class SkeletonW : EnemyMgr, IDamagedState
         {
             isStay = true;
             findCount = 0;
+            back.setIsReturn(false);
+            anim.SetInteger("state", 0);
+            AI.isStopped = true;
         }
+    }
+
+    IEnumerator AttackRoutine()
+    {
+        //rest를 켜고
+        anim.SetBool("isRest", true);
+        AI.isStopped = true;
+        yield return new WaitForSeconds(1.5f);
+
+        transform.forward = direction;
+
+        yield return new WaitForSeconds(1.5f);
+        //rest를 끈다
+        anim.SetInteger("state", 1);
+        anim.SetBool("isRest", false);
+        if (!isStay)
+            AI.isStopped = false;
+
     }
 
     public void Damaged(int value)
     {
+        if (isDead) return;
+
         if (hp > 0)
         {
             if (!isDamaged)
             {
+                anim.SetTrigger("isDamage");
                 hp -= value;
-             
+
+                isDamaged = true;
             }
         }
         else
         {
             hp = 0;
             isDead = true;
-        }
+            anim.SetTrigger("Die");
+            StopAllCoroutines();
+            AI.enabled = true;
 
+        }
 
     }
 
     public override void Die()
     {
+        disappearTime += Time.deltaTime;
+        if (disappearTime > 3f)
+        {
+            var _item = Instantiate(ItemBox, transform.position, Quaternion.identity);
+            _item.GetComponent<LootBox>().setItemInfo(item, 5, minGold, maxGold);
 
+            disappearTime = 0f;
+            gameObject.SetActive(false);
+        }
     }
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, findRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(startPos, 1f);
+    }
+
+    #region EVENT FUNCTIONS
+    public void RandomAttack()
+    {
+        int _type = Random.Range(0, 2);
+        anim.SetInteger("atkType", _type);
+    }
+
+    public void GetRest()
+    {
+        StartCoroutine(AttackRoutine());
+    }
+
+    public void Active()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = true;
+    }
+
+    public void DeActive()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = false;
+    }
+    #endregion
 }
