@@ -53,7 +53,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         weapon.GetComponent<AxColision>().SetDamage(atk);
 
-        follow.Init(AI, target, speed, attackRange);
+        follow.Init(AI, target, speed,0);
         returnToHome.init(AI, startPos, speed);
 
 
@@ -136,6 +136,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
                     if (_distance <= attackRange)
                     {
+                        AI.velocity = Vector3.zero;
                         anim.SetInteger("state", 2);
                     }
                 }

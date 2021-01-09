@@ -53,7 +53,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
         weapon.GetComponent<AxColision>().SetDamage(atk);
 
         observe.Init(AI, startPos, 1.5f, observeRange);
-        follow.Init(AI, target, speed, attackRange);
+        follow.Init(AI, target, speed, 0);
         returnToHome.init(AI, startPos, speed);
 
         anim.SetInteger("state", 0);
@@ -117,7 +117,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
                     if (_distance <= attackRange)
                     {
-
+                        AI.velocity = Vector3.zero;
                         anim.SetInteger("state", 2);
                     }
                 }
@@ -224,7 +224,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         transform.forward = (_direction);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.8f);
         //rest를 끈다
         anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
