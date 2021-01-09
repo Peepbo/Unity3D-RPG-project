@@ -100,7 +100,7 @@ partial class Player
         if (PlayerData.Instance.stmLv <= 10)
         {
             maxStamina = 100 + PlayerData.Instance.stmLv * 30;
-            Debug.Log("스태미너 레벨"+PlayerData.Instance.stmLv);
+
 
         }
         else if (PlayerData.Instance.stmLv > 10)
