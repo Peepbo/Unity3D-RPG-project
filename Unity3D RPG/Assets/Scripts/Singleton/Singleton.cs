@@ -4,57 +4,58 @@ using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _singleton;
+    // Check to see if we're about to be destroyed
+    private static bool m_ShuttingDown = false;
+    private static object m_Lock = new object();
+    private static T m_Instance;
 
-    private static object _lock = new object();
-
-    private static bool appIsQuitting = false;
-
+    /// <summary>
+    /// Access singleton instance through this propriety.
+    /// </summary>
     public static T Instance
     {
         get
         {
-            if (appIsQuitting)
+            if (m_ShuttingDown)
             {
-                Debug.LogError("[Singleton<" + typeof(T).ToString() + ">] : " +
-                                "already destroyed on application quit");
-
+                Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
+                    "' already destroyed. Returning null.");
                 return null;
             }
 
-            lock (_lock)
+            lock (m_Lock)
             {
-                if (_singleton == null)
+                if (m_Instance == null)
                 {
-                    _singleton = FindObjectOfType<T>();
+                    // Search for existing instance.
+                    m_Instance = (T)FindObjectOfType(typeof(T));
 
-                    if (FindObjectsOfType(typeof(T)).Length > 1)
+                    // Create new instance if one doesn't already exist.
+                    if (m_Instance == null)
                     {
-                        Debug.LogError("[Singleton<" + typeof(T).ToString() + ">] : " +
-                                        "singleton instance is duplicated");
+                        // Need to create a new GameObject to attach the singleton to.
+                        var singletonObject = new GameObject();
+                        m_Instance = singletonObject.AddComponent<T>();
+                        singletonObject.name = typeof(T).ToString() + " (Singleton)";
 
-                        return _singleton;
-                    }
-
-                    if (_singleton == null)
-                    {
-                        GameObject go = new GameObject();
-                        _singleton = go.AddComponent<T>();
-                        _singleton.name = "<Singleton> " + typeof(T).ToString();
-
-                        DontDestroyOnLoad(_singleton);
+                        // Make instance persistent.
+                        DontDestroyOnLoad(singletonObject);
                     }
                 }
 
-                return _singleton;
+                return m_Instance;
             }
         }
     }
 
-    public virtual void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        appIsQuitting = true;
+        m_ShuttingDown = true;
+    }
 
-        _singleton = null;
+
+    private void OnDestroy()
+    {
+        m_ShuttingDown = true;
     }
 }
