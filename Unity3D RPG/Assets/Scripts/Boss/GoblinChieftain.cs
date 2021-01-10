@@ -233,7 +233,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (isHit) return;
 
         isHit = true;
-        hp -= def - value >= 0 ? def - value : 0;
+        hp -= value;/*def - value >= 0 ? def - value : 0;*/
         if (hp > 0)
         {
             isPlayerCri = target.GetComponent<Player>().isCri;

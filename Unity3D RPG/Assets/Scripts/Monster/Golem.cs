@@ -5,17 +5,17 @@ using UnityEngine.AI;
 
 public class Golem : EnemyMgr, IDamagedState
 {
-    
+
     private FollowTarget follow;       // targetFollow move
     private ReturnMove back;           // backToHome move
 
-    private Vector3 direction;         
+    private Vector3 direction;
     private Vector3 spawnPos;
 
     private GameObject damageCheck;    // Player damage check box
 
     private float distance;            // between target and transform
-    private bool isStay = true;        
+    private bool isStay = true;
 
     private int findCount;
     private float destroyCount;
@@ -26,7 +26,7 @@ public class Golem : EnemyMgr, IDamagedState
         base.Awake();
 
         findCount = 0;
-        hp = maxHp=100 / 2;     //체크용
+        hp = maxHp = 100 / 2;     //체크용
         //hp = maxHp = 100;
         atk = 56;
         def = 10.0f;
@@ -109,10 +109,10 @@ public class Golem : EnemyMgr, IDamagedState
                     if (distance <= attackRange)
                     {
                         //공격범위
-                        
+
                         anim.SetInteger("state", 2);
 
-                        if(damageCheck.gameObject.GetComponent<DamageCheck>().GetCount() ==1)
+                        if (damageCheck.gameObject.GetComponent<DamageCheck>().GetCount() == 1)
                         {
                             target.gameObject.GetComponent<Player>().GetDamage(atk);
 
@@ -167,6 +167,7 @@ public class Golem : EnemyMgr, IDamagedState
 
     IEnumerator AttackCycle()
     {
+
         AI.isStopped = true;
         AI.updateRotation = false;
         yield return new WaitForSeconds(1.3f);
@@ -179,17 +180,18 @@ public class Golem : EnemyMgr, IDamagedState
         anim.SetBool("IsRest", false);
         AI.isStopped = false;
         AI.updateRotation = true;
+
+
     }
 
     public void AttackTarget()
     {
-        Debug.Log("startCoru");
+        if (isDead) return;
         StartCoroutine(AttackCycle());
     }
 
     IEnumerator GetDamage()
     {
-
         AI.isStopped = true;
         isDamaged = true;
 
@@ -198,29 +200,32 @@ public class Golem : EnemyMgr, IDamagedState
         AI.isStopped = false;
         isDamaged = false;
     }
-   
+
     public void Damaged(int value)
     {
         if (isDead) return;
 
         if (hp > 0)
         {
-            if(!isDamaged)
+            if (!isDamaged)
             {
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
 
+                if (hp <= 0)
+                {
+                    hp = 0;
+                    isDead = true;
+                    anim.SetTrigger("Die");
+                    StopAllCoroutines();
+                    AI.enabled = true;
+                }
+
             }
 
-            if(hp<=0)
-            {
-                hp = 0;
-                isDead = true;
-                anim.SetTrigger("Die");
-                StopAllCoroutines();
-                AI.enabled = true;
-            }
         }
+
+        
 
         if (player.isCri)
         {
