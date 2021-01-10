@@ -114,13 +114,15 @@ partial class Player
     }
     public void EquipStat()
     {
-        
-        if(weapon != PlayerData.Instance.EquipWeapon())
+        animator = GetComponentInChildren<Animator>();
+
+        if (weapon != PlayerData.Instance.EquipWeapon())
         {
             weapon = PlayerData.Instance.EquipWeapon();
             if (weapon.kind == "한손검")
             {
                 weaponKind = 0;
+
                 animator.runtimeAnimatorController = overrideController1H;
                 currentWeapon.SetActive(false);
                 currentShield.SetActive(false);
