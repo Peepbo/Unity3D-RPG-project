@@ -21,6 +21,7 @@ public class StatureManager : MonoBehaviour
     public Text myLevel;
 
     public Text[] paymentAmount;
+    public int payMoney;
 
     private void OnEnable()
     {
@@ -48,7 +49,7 @@ public class StatureManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             _pay = 1000 + (PlayerData.Instance.hpLv + PlayerData.Instance.stmLv) * 1000;
-
+            payMoney = _pay;
             paymentAmount[i].text = _pay.ToString() + "G";
 
             if (PlayerData.Instance.myCurrency < _pay)
@@ -72,6 +73,7 @@ public class StatureManager : MonoBehaviour
                 PlayerData.Instance.stmLv++;
                 break;
         }
+        PlayerData.Instance.myCurrency -= payMoney;
 
         PlayerData.Instance.SaveData();
 

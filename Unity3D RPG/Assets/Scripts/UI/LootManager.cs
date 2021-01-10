@@ -2,20 +2,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class pocketData
-{
-    public List<ItemInfo> pocketItem = new List<ItemInfo>();  // 던전에서 획득 한 전리품 (아이템)
-    public int pocketMoney = 0;                               // 던전에서 획득 한 전리품 (돈)
-                                                              //public ItemInfo myPocketItem = null;
-}
+//public class pocketData
+//{
+//    public List<ItemInfo> pocketItem = new List<ItemInfo>();  // 던전에서 획득 한 전리품 (아이템)
+//    public int pocketMoney = 0;                               // 던전에서 획득 한 전리품 (돈)
+//                                                              //public ItemInfo myPocketItem = null;
+//}
 
 public partial class LootManager : Singleton<LootManager>
 {
     protected LootManager() { }
 
-    public GameObject poccketPanel;
-    pocketData pd = new pocketData();
-    public GameObject checkMoney;
+    //public GameObject poccketPanel;
+    //pocketData pd = new pocketData();
+    public List<ItemInfo> pocketItem = new List<ItemInfo>();
+    public int pocketMoney = 0;
+    //public GameObject checkMoney;
 
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
@@ -36,24 +38,24 @@ public partial class LootManager : Singleton<LootManager>
         //itemA, itemB, itemC, itemD...
         for(int i = 0; i < pocketItemInfo.Count; i++)
         {
-            ItemInfo _item = pocketItemInfo[i];
+            ItemInfo _item = new ItemInfo();
+            _item = pocketItemInfo[i];
 
-
-            if (pd.pocketItem.Contains(_item) == false) pd.pocketItem.Add(_item);
+            if (pocketItem.Contains(_item) == false) pocketItem.Add(_item);
 
             else
             {
-                int _index = pd.pocketItem.IndexOf(_item);
-                pd.pocketItem[_index].count += _item.count;
+                int _index = pocketItem.IndexOf(_item);
+                pocketItem[_index].count += _item.count;
             }
         }
 
-        checkMoney.transform.GetChild(1).GetComponent<Text>().text = pd.pocketMoney.ToString();
+        //checkMoney.transform.GetChild(1).GetComponent<Text>().text = pocketMoney.ToString();
     }
 
     public void GetPocketMoney(int currency)
     {
-        pd.pocketMoney += currency;
+        pocketMoney += currency;
     }
 
     public void Delivery()
@@ -65,18 +67,18 @@ public partial class LootManager : Singleton<LootManager>
         //        PlayerData.Instance.SaveChest(pd.pocketItem[i].id);
         //    }
         //}
-        for (int i = 0; i < pd.pocketItem.Count; i++)
+        for (int i = 0; i < pocketItem.Count; i++)
         {
-            PlayerData.Instance.SaveChest(pd.pocketItem[i].id, pd.pocketItem[i].count);
+            PlayerData.Instance.SaveChest(pocketItem[i].id, pocketItem[i].count);
         }
 
-        PlayerData.Instance.myCurrency += pd.pocketMoney;
+        PlayerData.Instance.myCurrency += pocketMoney;
         PlayerData.Instance.SaveData();
     }
 
     public void ClearPocketData()
     {
-        pd.pocketItem.Clear();
-        pd.pocketMoney = 0;
+        pocketItem.Clear();
+        pocketMoney = 0;
     }
 }
