@@ -124,7 +124,7 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         isFire = true;
         anim.SetBool("isRest", true);
-
+        
         float t = 0f;
         while (t < 1.5f)
         {
