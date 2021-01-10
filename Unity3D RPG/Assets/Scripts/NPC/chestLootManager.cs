@@ -32,8 +32,11 @@ public class chestLootManager : MonoBehaviour
             //sellCount
             sellCount.text = ((int)slider.value).ToString();
             //price
-            totalPrice.text = (((int)slider.value) * 
-                PlayerData.Instance.haveLootItem[selectNumber].price).ToString();
+            if(PlayerData.Instance.haveLootItem.Count > 0)
+            {
+                totalPrice.text = (((int)slider.value) *
+                    PlayerData.Instance.haveLootItem[selectNumber].price).ToString();
+            }
         }
     }
 

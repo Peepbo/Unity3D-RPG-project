@@ -114,7 +114,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         AI.isStopped = true;
         yield return new WaitForSeconds(0.97f);
 
-        anim.SetInteger("state", 1);
+        anim.SetInteger("state", 0);
         anim.SetBool("isRest", false);
         AI.isStopped = false;
     }

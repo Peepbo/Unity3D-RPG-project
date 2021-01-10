@@ -20,6 +20,13 @@ public class MoveScene : MonoBehaviour
                 {
                     PlayerData.Instance.isReturn = true;
                 }
+
+                if (LoadingSceneController.Instance.loadSceneName == "TownScene")
+                {
+                    Debug.Log("clear loot");
+                    LootManager.Instance.ClearPocketData();
+                }
+
                 LoadingSceneController.Instance.LoadScene(sceneName);
                
             }
@@ -32,6 +39,13 @@ public class MoveScene : MonoBehaviour
         {
             PlayerData.Instance.isReturn = true;
         }
+
+        if(LoadingSceneController.Instance.loadSceneName == "TownScene")
+        {
+            Debug.Log("clear loot");
+            LootManager.Instance.ClearPocketData();
+        }
+
         LoadingSceneController.Instance.LoadScene(sceneName);
     }
 }

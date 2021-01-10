@@ -51,6 +51,8 @@ public abstract class EnemyMgr : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
+        AI = gameObject.GetComponent<NavMeshAgent>();
+        path = new NavMeshPath();
         player = target.GetComponent<Player>();
 
         for (int i = 0; i < transform.childCount; i++)
@@ -58,8 +60,7 @@ public abstract class EnemyMgr : MonoBehaviour
             if (transform.GetChild(i).tag == "Animation")
                 anim = transform.GetChild(i).GetComponent<Animator>();
         }
-        AI = gameObject.GetComponent<NavMeshAgent>();
-        path = new NavMeshPath();
+       
 
         isDead = false;
     }
