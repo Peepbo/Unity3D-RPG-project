@@ -108,6 +108,11 @@ public class AnimationEvent : MonoBehaviour
         golem.AttackTarget();
     }
     
+    public void ChangeAnim()
+    {
+        golem.ChangeIdle();
+    }
+
     #endregion
 
 }
