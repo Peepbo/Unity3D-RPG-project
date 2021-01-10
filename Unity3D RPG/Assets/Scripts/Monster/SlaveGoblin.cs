@@ -41,8 +41,6 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
 
-        Debug.DrawRay(transform.position, direction * findRange, Color.blue);
-
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
         if (isDead)
@@ -113,7 +111,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         anim.SetBool("isRest", true);
         AI.isStopped = true;
         yield return new WaitForSeconds(0.97f);
-
+        //StartCoroutine(LookBack());
         anim.SetInteger("state", 0);
         anim.SetBool("isRest", false);
         AI.isStopped = false;
@@ -133,8 +131,6 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
-       
-
         if (isDead) return;
 
         if (hp > 0)
@@ -181,11 +177,11 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
     private void OnDrawGizmos()
     {
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, findRange);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, findRange);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
 

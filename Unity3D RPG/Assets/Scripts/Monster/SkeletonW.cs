@@ -176,7 +176,7 @@ public class SkeletonW : EnemyMgr, IDamagedState
             if (!isDamaged)
             {
                 anim.SetTrigger("isDamage");
-                hp -= value;
+                hp -= (int)(value * (1.0f - def / 100));
 
                 isDamaged = true;
             }

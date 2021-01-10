@@ -243,7 +243,7 @@ public class Shaman : EnemyMgr, IDamagedState
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(startPos, observeRange);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(startPos, observeRange);
     }
 }
