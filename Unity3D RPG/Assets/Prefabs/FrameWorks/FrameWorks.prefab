@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1275199442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1275199443}
+  - component: {fileID: 1275199444}
+  m_Layer: 0
+  m_Name: LootMng
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1275199443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275199442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5266232993249729025}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1275199444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275199442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206b81b306545e14eb3a31a2f4321b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pocketMoney: 0
 --- !u!1 &1323356590
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +142,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5266232993249729025}
   - component: {fileID: 6337897765813497080}
-  - component: {fileID: 4438790272961102087}
   m_Layer: 0
   m_Name: FrameWorks
   m_TagString: Untagged
@@ -121,6 +164,7 @@ Transform:
   - {fileID: 4905773729029381296}
   - {fileID: 1323356591}
   - {fileID: 2016718586}
+  - {fileID: 1275199443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -139,18 +183,6 @@ MonoBehaviour:
   SceneUIFactory: {fileID: 1381083012668730073, guid: bd258e6669d11024b9a38ce260493c7f,
     type: 3}
   loadSceneName: 
---- !u!114 &4438790272961102087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3854412854470740105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21954f2c333c6a94494937992edbc122, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4905773729029381298
 GameObject:
   m_ObjectHideFlags: 0
