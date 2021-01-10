@@ -164,13 +164,11 @@ public class Golem : EnemyMgr, IDamagedState
         {
             setMoveType(back);
             back.move();
-
         }
     }
 
     IEnumerator AttackCycle()
     {
-
         AI.isStopped = true;
         AI.updateRotation = false;
         yield return new WaitForSeconds(1.3f);
@@ -183,8 +181,7 @@ public class Golem : EnemyMgr, IDamagedState
         anim.SetBool("IsRest", false);
         AI.isStopped = false;
         AI.updateRotation = true;
-
-
+        
     }
 
     public void AttackTarget()

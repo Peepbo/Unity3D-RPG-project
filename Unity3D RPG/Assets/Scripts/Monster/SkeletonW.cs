@@ -101,11 +101,9 @@ public class SkeletonW : EnemyMgr, IDamagedState
                             AI.isStopped = false;
                             Follow();
                         }
-
                     }
                     else
                     {
-
                         anim.SetInteger("state", 1);
                         back.setIsReturn(true);
                     }
@@ -116,8 +114,6 @@ public class SkeletonW : EnemyMgr, IDamagedState
                        
                         AI.velocity = Vector3.zero;
                     }
-
-
 
                 }
 
