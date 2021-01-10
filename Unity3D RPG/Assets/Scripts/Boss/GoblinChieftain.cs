@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,6 +36,10 @@ public class GoblinChieftain : BossDB, IDamagedState
     BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
     List<GameObject> minions = new List<GameObject>();
+
+    List<ItemInfo> item = new List<ItemInfo>();
+    ItemInfo info;
+    public GameObject itemBox;
     void Start()
     {
         ChieftainDBInit();
@@ -66,14 +69,22 @@ public class GoblinChieftain : BossDB, IDamagedState
         itemDropInfo[2].itemID = 85;
         state = BossState.IDLE;
         dieCount = 5.5f;
-        for (int i = 0; i < itemDropCount; i++) { itemDropInfo[i].itemDropCount = 1; }
+
+        for (int i = 0; i < itemDropCount; i++)
+        {
+            itemDropInfo[i].itemDropCount = 1;
+            
+            //아이템 정보  list<itemInfo>로 전달
+            info = CSVData.Instance.find(itemDropInfo[i].itemID);
+            item.Add(info);
+        }
 
     }
 
     private void Update()
     {
         if (!start) return;
-      
+
         switch (state)
         {
             case BossState.COMBATIDLE:
@@ -98,10 +109,10 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (isSpawn)
             MinionsCheck();
         Debug.Log(state);
-       
+
     }
 
-   
+
 
     private void CombatIdle()
     {
@@ -111,9 +122,9 @@ public class GoblinChieftain : BossDB, IDamagedState
         if ((int)(transform.position - target.position).magnitude > (int)distance)
         {
             state = BossState.RUN;
-            
+
         }
-        else if(hp <= (hpMax/2)&& !isRoar)
+        else if (hp <= (hpMax / 2) && !isRoar)
         {
             isRoar = true;
             atkTime = atkDelay / 2;
@@ -146,13 +157,13 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void ATK()
     {
         anim.ResetTrigger("CombatIdle");
-       
+
         atkTime = 0f;
         transform.forward = (target.position - transform.position).normalized;
-        
+
         if (isRoar && !isSpawn)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.END);
-        else if( isRoar )
+        else if (isRoar)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
             pattern = BossATKPattern.THREEATK;
@@ -174,11 +185,11 @@ public class GoblinChieftain : BossDB, IDamagedState
                 Vector3 _temp = transform.position;
                 _temp.y -= 1.629f;
                 _fx.transform.position = _temp;
-                
+
                 break;
         }
     }
-  
+
 
     public void ThreeATKCombo()
     {
@@ -200,7 +211,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             for (int i = 0; i < minionMaxCount; i++) { Destroy(minions[i]); }
             minions.Clear();
         }
-        
+
         atkTime += atkDelay * 0.5f;
         shuffle();
         for (int i = 0; i < minionMaxCount; i++)
@@ -211,9 +222,9 @@ public class GoblinChieftain : BossDB, IDamagedState
             _fx.transform.position = spawnArea[i].position;
         }
     }
-    
-    public void ComBatIdleState() 
-    { 
+
+    public void ComBatIdleState()
+    {
         state = BossState.COMBATIDLE;
         isHit = false;
     }
@@ -222,7 +233,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (isHit) return;
 
         isHit = true;
-        hp -= def - value >=0? def-value : 0;
+        hp -= def - value >= 0 ? def - value : 0;
         if (hp > 0)
         {
             isPlayerCri = target.GetComponent<Player>().isCri;
@@ -234,7 +245,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             start = false;
             Die();
         }
-       
+
     }
 
     public void SetDamage()
@@ -244,7 +255,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         switch (pattern)
         {
             case BossATKPattern.THREEATK:
-                _atkDam  = atk / 3;
+                _atkDam = atk / 3;
                 fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ATK1]);
                 fx.transform.position = target.position;
                 break;
@@ -260,8 +271,8 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     //IEnumerator ThreeATKFX()
     //{
-        
-        
+
+
 
     //    //yield return new WaitForSeconds(fx.get)
     //}
@@ -295,21 +306,25 @@ public class GoblinChieftain : BossDB, IDamagedState
     {
         StartCoroutine(DieCoroutine());
     }
-    IEnumerator DieCoroutine() 
+    IEnumerator DieCoroutine()
     {
         anim.SetTrigger("Die");
         yield return new WaitForSeconds(dieCount);
+        //아이템 드롭 
+        var bossItem = Instantiate(itemBox, transform.position, Quaternion.identity);
+        bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
+
         Destroy(gameObject);
 
     }
     private void Hit()
     {
-        if(state != BossState.ATK)
+        if (state != BossState.ATK)
         {
             if (isPlayerCri) { anim.SetInteger("HitKind", UnityEngine.Random.Range(2, 4)); }
             else { anim.SetInteger("HitKind", UnityEngine.Random.Range(0, 2)); }
 
-            anim.SetTrigger("Hit"); 
+            anim.SetTrigger("Hit");
             state = BossState.HIT;
         }
     }

@@ -259,42 +259,44 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
+        if (isDead) return;
+
+        if (hp > 0)
+        {
+            if(!isHit)
+            {
+                hp -= (int)(value * (1.0f - def / 100));
+
+                if (player.isCri) StartCoroutine(GetCriDamage());
+                else StartCoroutine(GetDamage());
+            }
+
+            if(hp<=0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("Die");
+                controller.enabled = false;
+
+                AI.enabled = false;
+                weapon.GetComponent<MeshCollider>().enabled = false;
+                StopAllCoroutines();
+            }
+           
+        }
 
         if (player.isCri)
         {
             weapon.GetComponent<MeshCollider>().enabled = false;
-        }
-
-        if (isHit || isDead) return;
-
-        if (hp > 0)
-        {
-            hp -= (int)(value * (1.0f - def / 100));
-
-            if (player.isCri) StartCoroutine(GetCriDamage());
-            else StartCoroutine(GetDamage());
-        }
-        else
-        {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("Die");
-            controller.enabled = false;
-
-            AI.enabled = false;
-
-            StopAllCoroutines();
-
-        }
-
-        if (player.isCri)
             anim.SetTrigger("isDamage");
+        }
 
     }
+
     public override void Die()
     {
         disappearTime += Time.deltaTime;
-      
+
         if (disappearTime > 3.5f)
         {
             //아이템 떨어트리기
