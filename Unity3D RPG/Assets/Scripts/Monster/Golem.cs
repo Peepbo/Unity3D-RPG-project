@@ -41,6 +41,7 @@ public class Golem : EnemyMgr, IDamagedState
             drop = CSVData.Instance.find(itemKind[i]);
             item.Add(drop);
         }
+        AI.enabled = false;
     }
 
     private void Start()
@@ -56,6 +57,8 @@ public class Golem : EnemyMgr, IDamagedState
 
     private void Update()
     {
+
+
         direction = (target.transform.position - transform.position).normalized;
         distance = Vector3.Distance(target.transform.position, transform.position);
 
@@ -68,7 +71,7 @@ public class Golem : EnemyMgr, IDamagedState
             Die();
             return;
         }
-
+        if (AI.enabled == false) AI.enabled = true;
         if (isStay)
         {
             anim.SetInteger("state", 0);
@@ -225,7 +228,7 @@ public class Golem : EnemyMgr, IDamagedState
 
         }
 
-        
+
 
         if (player.isCri)
         {

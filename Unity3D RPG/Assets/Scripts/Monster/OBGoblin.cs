@@ -41,7 +41,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
             item.Add(drop);
         }
 
-
+        AI.enabled = false;
     }
     void Start()
     {
@@ -80,6 +80,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
             Die();
             return;
         }
+
+        if (AI.enabled == false) AI.enabled = true;
 
         if (observe.getIsObserve())
         {
@@ -227,7 +229,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         yield return new WaitForSeconds(1.8f);
         //rest를 끈다
-        anim.SetInteger("state", 1);
+        anim.SetInteger("state", 0);
         anim.SetBool("isRest", false);
         if (!observe.getIsObserve())
             AI.isStopped = false;

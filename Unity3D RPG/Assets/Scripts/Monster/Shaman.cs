@@ -31,8 +31,7 @@ public class Shaman : EnemyMgr, IDamagedState
         def = 0f;
         minGold = 25;
         maxGold = 45;
-        anim.SetInteger("state", 0);
-
+       
         itemKind[0] = 79;
         itemKind[1] = 80;
         itemKind[2] = 83;
@@ -41,6 +40,7 @@ public class Shaman : EnemyMgr, IDamagedState
             drop = CSVData.Instance.find(itemKind[i]);
             item.Add(drop);
         }
+        AI.enabled = false;
     }
 
     void Start()
@@ -48,13 +48,19 @@ public class Shaman : EnemyMgr, IDamagedState
         observe = gameObject.AddComponent<ObservingMove>();
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         observe.Init(AI, startPos, speed, observeRange);
+        anim.SetInteger("state", 0);
+
     }
 
     void Update()
     {
 
-        if (isDead) Die();
-
+        if (isDead)
+        {
+            Die();
+            return;
+        }
+        if (AI.enabled == false) AI.enabled = true;
         if (!isDetected)
         {
             Observe();
