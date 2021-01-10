@@ -52,7 +52,7 @@ public partial class SmathManager : MonoBehaviour
     private void InfoInit()
     {
         //money
-        moneyText = transform.Find("Coin").GetComponentInChildren<TextMeshProUGUI>();
+        moneyText = transform.Find("CoinText").GetComponent<TextMeshProUGUI>();
         
         //itemList
         //itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
