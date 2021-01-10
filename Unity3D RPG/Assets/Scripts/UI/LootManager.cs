@@ -30,7 +30,7 @@ public partial class LootManager : Singleton<LootManager>
         pocketMoney += currency;
     }
 
-    public void Delivery(bool die)
+    public void Delivery(bool die = false)
     {
         if(die)
         {
