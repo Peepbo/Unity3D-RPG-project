@@ -26,8 +26,8 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         base.Awake();
         startPos = transform.position;
-        hp = maxHp =30 /2 ;       //체크용
-       // hp = maxHp =30;
+        hp = maxHp = 30 / 2;       //체크용
+                                   // hp = maxHp =30;
         atk = 35;
         def = 5.0f;
         minGold = 20;
@@ -54,7 +54,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         weapon.GetComponent<AxColision>().SetDamage(atk);
 
-        follow.Init(AI, target, speed,0);
+        follow.Init(AI, target, speed, 0);
         returnToHome.init(AI, startPos, speed);
 
 
@@ -65,7 +65,7 @@ public class Goblin : EnemyMgr, IDamagedState
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             isDead = true;
         }
@@ -274,38 +274,37 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
+        if (isDead) return;
+
+        if (hp > 0)
+        {
+            if (!isHit)
+            {
+                hp -= (int)(value * (1.0f - def / 100));
+                Debug.Log("damaged");
+
+                if (player.isCri) StartCoroutine(GetCriDamage());
+                else StartCoroutine(GetDamage());
+            }
+
+            if (hp <= 0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("Die");
+                controller.enabled = false;
+
+                AI.enabled = false;
+
+                StopAllCoroutines();
+            }
+        }
 
         if (player.isCri)
         {
             weapon.GetComponent<MeshCollider>().enabled = false;
-        }
-
-        if (isHit || isDead) return;
-
-        if (hp > 0)
-        {
-
-            hp -= (int)(value * (1.0f - def / 100));
-            Debug.Log("damaged");
-
-            if (player.isCri) StartCoroutine(GetCriDamage());
-            else StartCoroutine(GetDamage());
-        }
-        else
-        {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("Die");
-            controller.enabled = false;
-
-            AI.enabled = false;
-
-            StopAllCoroutines();
-
-        }
-
-        if (player.isCri)
             anim.SetTrigger("isDamage");
+        }
 
     }
 
@@ -335,6 +334,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     }
 
-    
+
 
 }

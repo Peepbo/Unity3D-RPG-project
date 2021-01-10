@@ -189,10 +189,7 @@ public class Golem : EnemyMgr, IDamagedState
 
     IEnumerator GetDamage()
     {
-        if (target.gameObject.GetComponent<Player>().isCri)
-        {
-            anim.SetTrigger("Damaged");
-        }
+
         AI.isStopped = true;
         isDamaged = true;
 
@@ -204,20 +201,31 @@ public class Golem : EnemyMgr, IDamagedState
    
     public void Damaged(int value)
     {
-        if (isDamaged || isDead) return;
+        if (isDead) return;
 
-        hp -= (int)(value * (1.0f - def / 100));
-
-        if (hp > 0) StartCoroutine(GetDamage());
-
-        else
+        if (hp > 0)
         {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("Die");
+            if(!isDamaged)
+            {
+                hp -= (int)(value * (1.0f - def / 100));
+                StartCoroutine(GetDamage());
 
+            }
+
+            if(hp<=0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("Die");
+                StopAllCoroutines();
+                AI.enabled = true;
+            }
         }
 
+        if (player.isCri)
+        {
+            anim.SetTrigger("Damaged");
+        }
     }
 
     public override void Die()
