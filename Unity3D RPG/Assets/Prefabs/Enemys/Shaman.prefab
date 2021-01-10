@@ -55,8 +55,8 @@ GameObject:
   - component: {fileID: 8070745341243258848}
   - component: {fileID: 8070745341243258851}
   - component: {fileID: 1660114855106571737}
-  - component: {fileID: 172844045658117084}
   - component: {fileID: -792000441814505288}
+  - component: {fileID: 172844045658117084}
   m_Layer: 0
   m_Name: Shaman
   m_TagString: Enemy
@@ -146,25 +146,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &172844045658117084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8070745341243258853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6301dcaffd052df41b57671793f8dc5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemBox: {fileID: 1219818311729074143, guid: 30568519b2dba034ab686e54b247cc43, type: 3}
-  speed: 1
-  angle: 210
-  findRange: 10
-  attackRange: 3
-  observeRange: 5
-  skillSpawn: 5
 --- !u!195 &-792000441814505288
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -187,6 +168,25 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &172844045658117084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070745341243258853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6301dcaffd052df41b57671793f8dc5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemBox: {fileID: 1219818311729074143, guid: 30568519b2dba034ab686e54b247cc43, type: 3}
+  speed: 1
+  angle: 210
+  findRange: 10
+  attackRange: 3
+  observeRange: 5
+  skillSpawn: 5
 --- !u!1001 &90457925
 PrefabInstance:
   m_ObjectHideFlags: 0
