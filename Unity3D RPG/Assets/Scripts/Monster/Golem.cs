@@ -207,11 +207,13 @@ public class Golem : EnemyMgr, IDamagedState
     public void Damaged(int value)
     {
         if (isDead) return;
+        
 
         if (hp > 0)
         {
             if (!isDamaged)
             {
+
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
 
@@ -219,21 +221,22 @@ public class Golem : EnemyMgr, IDamagedState
                 {
                     hp = 0;
                     isDead = true;
-                    anim.SetTrigger("Die");
+                    //anim.Play("Death");
+                     anim.SetTrigger("Die");
                     StopAllCoroutines();
                     AI.enabled = true;
+                }
+
+                else if(player.isCri)
+                {
+                    anim.SetTrigger("Damaged");
+
                 }
 
             }
 
         }
-
-
-
-        if (player.isCri)
-        {
-            anim.SetTrigger("Damaged");
-        }
+     
     }
 
     public override void Die()
@@ -279,6 +282,10 @@ public class Golem : EnemyMgr, IDamagedState
     public void HandActive()
     {
         damageCheck.GetComponent<DamageCheck>().ReadyToDamage(0);
+    }
+    public void ChangeIdle()
+    {
+        anim.SetTrigger("changeState");
     }
     #endregion
 
