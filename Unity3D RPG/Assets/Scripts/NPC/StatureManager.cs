@@ -22,7 +22,7 @@ public class StatureManager : MonoBehaviour
 
     public Text[] paymentAmount;
     public int payMoney;
-
+    Player player;
     private void OnEnable()
     {
         LinkData();
@@ -33,6 +33,7 @@ public class StatureManager : MonoBehaviour
     {
         hpImg = hpSlots.GetComponentsInChildren<Image>();
         steminaImg = steminaSlots.GetComponentsInChildren<Image>();
+        player = GameObject.FindWithTag("Player").GetComponent<Player>(); 
     }
 
     void LinkData()
@@ -74,7 +75,7 @@ public class StatureManager : MonoBehaviour
                 break;
         }
         PlayerData.Instance.myCurrency -= payMoney;
-
+        player.GrowthStat();
         PlayerData.Instance.SaveData();
 
         LinkData();
