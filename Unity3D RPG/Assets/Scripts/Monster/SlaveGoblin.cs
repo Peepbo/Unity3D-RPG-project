@@ -133,10 +133,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     public void Damaged(int value)
     {
-        if (player.isCri)
-        {
-            weapon.GetComponent<MeshCollider>().enabled = false;
-        }
+       
 
         if (isDead) return;
 
@@ -147,21 +144,24 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
             }
+
+            if (hp <= 0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("Die");
+                controller.enabled = false;
+
+                AI.enabled = false;
+                weapon.GetComponent<MeshCollider>().enabled = false;
+                StopAllCoroutines();
+            }
         }
 
-        else
-        {
-            hp = 0;
-            isDead = true;
-
-            controller.enabled = false;
-            AI.enabled = false;
-            StopAllCoroutines();
-
-        }
         if (player.isCri)
         {
             anim.SetTrigger("isDamage");
+            weapon.GetComponent<MeshCollider>().enabled = false;
         }
 
     }
