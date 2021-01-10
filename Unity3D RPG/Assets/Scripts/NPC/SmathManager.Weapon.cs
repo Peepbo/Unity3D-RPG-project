@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 [System.Serializable]
 public struct WeaponBaseID
@@ -31,7 +31,7 @@ enum WeaponKind
 partial class SmathManager
 {
     const int maxWeapon = 4;
-    TextMeshProUGUI[] weaponListText;
+    Text[] weaponListText;
     Dictionary<WeaponKind,ItemInfo> weaponList = new Dictionary<WeaponKind,ItemInfo>();
     const string hand = "한손검";
     const string twoHand = "대검";
@@ -83,7 +83,7 @@ partial class SmathManager
     }
     private void WeaponListSetting(int num)
     {
-        weaponListText = itemList[num].GetComponentsInChildren<TextMeshProUGUI>();
+        weaponListText = itemList[num].GetComponentsInChildren<Text>();
         WeaponKind _temp = (WeaponKind)num;
         ItemInfo _item = weaponList[_temp];
         weaponListText[0].text = _item.skillIncrease + "티어 "+ _item.itemName;

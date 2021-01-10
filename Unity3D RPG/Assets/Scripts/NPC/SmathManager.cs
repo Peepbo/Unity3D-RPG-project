@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 public partial class SmathManager : MonoBehaviour
 {
@@ -13,10 +13,10 @@ public partial class SmathManager : MonoBehaviour
     bool[] isHasMaterial = new bool[materialMaxCount/2];
     int materialCount;
     const int makePercent =9;
-    TextMeshProUGUI moneyText;
-    TextMeshProUGUI infoText;
-    TextMeshProUGUI[] materialText;
-    TextMeshProUGUI percentText;
+    Text moneyText;
+    Text infoText;
+    Text[] materialText;
+    Text percentText;
     GameObject makeButton;
     ItemInfo curruntInfo = new ItemInfo();
     Image infoImage;
@@ -52,17 +52,17 @@ public partial class SmathManager : MonoBehaviour
     private void InfoInit()
     {
         //money
-        moneyText = transform.Find("CoinText").GetComponent<TextMeshProUGUI>();
+        moneyText = transform.Find("CoinText").GetComponent<Text>();
         
         //itemList
         //itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
         itemListGroup = transform.Find("ItemList/ScrollRect/ListGroup").gameObject;
         //itemInfo
         infoImage = transform.Find("ItemInfo/ItemIconBG/ItemIcon").GetComponent<Image>();
-        infoText = transform.Find("ItemInfo/InfoText").GetComponent<TextMeshProUGUI>();
-        materialText = transform.Find("ItemInfo/Material").GetComponentsInChildren<TextMeshProUGUI>();
+        infoText = transform.Find("ItemInfo/InfoText").GetComponent<Text>();
+        materialText = transform.Find("ItemInfo/Material").GetComponentsInChildren<Text>();
         makeButton = transform.Find("ItemInfo/MakeButton").gameObject;
-        percentText = transform.Find("ItemInfo/PercentText").GetComponent<TextMeshProUGUI>();
+        percentText = transform.Find("ItemInfo/PercentText").GetComponent<Text>();
         percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
         percentText.color = Color.blue;
        
@@ -150,7 +150,7 @@ public partial class SmathManager : MonoBehaviour
         infoImage.sprite = Resources.Load(curruntInfo.iconPath, typeof(Sprite)) as Sprite;
         infoText.text = curruntInfo.skillIncrease + "티어 " + curruntInfo.itemName + "\n" + "공격력 " +
         curruntInfo.atk + "\n" + "방어력 " + curruntInfo.def + "\n" + curruntInfo.skill;
-        makeButton.GetComponentInChildren<TextMeshProUGUI>().text = make + curruntInfo.price.ToString();
+        makeButton.GetComponentInChildren<Text>().text = make + curruntInfo.price.ToString();
 
 
         for (int i = 0; i < materialMaxCount; i++) 
@@ -173,11 +173,11 @@ public partial class SmathManager : MonoBehaviour
         MakeButtonActive();
     }
 
-    private void MaterialText(TextMeshProUGUI text, string num1, string num2)
+    private void MaterialText(Text text, string num1, string num2)
     {
         text.text = num1 + " / " + num2;
         if (int.Parse(num1) < int.Parse(num2)) { text.color = Color.red; }
-        else { text.color = Color.black; isHasMaterial[materialCount] = true; }
+        else { text.color = Color.white; isHasMaterial[materialCount] = true; }
         materialCount++;
     }
 

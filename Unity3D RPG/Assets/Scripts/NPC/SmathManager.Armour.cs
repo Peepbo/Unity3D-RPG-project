@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 enum ArmourKind
 {
@@ -28,7 +28,7 @@ partial class SmathManager
     const int maxArmour = 2;
     public ArmourBaseID baseArmourID;
     public ArmourMaxLevel armourMaxLevel;
-    TextMeshProUGUI[] armourListText;
+    Text[] armourListText;
     bool isArmour = false;
     public void OnArmourButton()
     {
@@ -64,7 +64,7 @@ partial class SmathManager
 
     private void ArmourListSetting(int num)
     {
-        armourListText = itemList[num].GetComponentsInChildren<TextMeshProUGUI>();
+        armourListText = itemList[num].GetComponentsInChildren<Text>();
         ArmourKind _temp = (ArmourKind)num;
         ItemInfo _item = armourList[_temp];
         armourListText[0].text = _item.skillIncrease + "티어 " + _item.itemName;

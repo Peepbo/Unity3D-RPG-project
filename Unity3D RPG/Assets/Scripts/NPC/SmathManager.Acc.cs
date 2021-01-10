@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 partial class SmathManager
 {
     //List<ItemInfo> accList = new List<ItemInfo>();
     Dictionary<int, ItemInfo> accList = new Dictionary<int, ItemInfo>();
     Dictionary<int, bool> accCheck = new Dictionary<int, bool>();
-    TextMeshProUGUI[] accListText;
+    Text[] accListText;
     const int maxAcc = 35;
     const int startNum = 44;
     bool isAcc = false;
@@ -32,7 +32,7 @@ partial class SmathManager
 
     private void AccListSetting(int num)
     {
-        accListText = itemList[num].GetComponentsInChildren<TextMeshProUGUI>();
+        accListText = itemList[num].GetComponentsInChildren<Text>();
       
         accListText[0].text = accList[num].skillIncrease + "티어 " + accList[num].itemName;
         accListText[1].text = accList[num].kind;
