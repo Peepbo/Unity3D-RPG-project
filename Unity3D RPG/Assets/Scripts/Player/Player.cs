@@ -22,7 +22,6 @@ public partial class Player : MonoBehaviour
     {
         AnimStart();
         EquipStat();
-        GrowthStat();
         ReturnData();
     }
    

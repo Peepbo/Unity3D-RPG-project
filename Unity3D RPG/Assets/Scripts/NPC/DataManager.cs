@@ -17,8 +17,7 @@ public class DataManager : MonoBehaviour
         JsonData.Instance.CheckJsonData();
         PlayerData.Instance.LoadData_v2();
 
-        PlayerData.Instance.player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        PlayerData.Instance.player.EquipStat();
+        
 
         //Debug.Log(PlayerData.Instance.myCurrency);
 
@@ -26,7 +25,7 @@ public class DataManager : MonoBehaviour
         //chestData.ItemUpdate();
         //chestData.OwnLoots();
         //chestData.GetLootsData();
-
+            
         //chestData.GetData();
 
         //statData.ResetStat();
