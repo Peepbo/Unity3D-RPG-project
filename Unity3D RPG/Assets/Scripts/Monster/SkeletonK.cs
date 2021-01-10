@@ -119,6 +119,7 @@ public class SkeletonK : EnemyMgr, IDamagedState
                 {
                     AI.isStopped = true;
                     anim.SetInteger("state", 2);
+                    anim.SetInteger("atkType", 1);
 
                     AI.velocity = Vector3.zero;
                 }

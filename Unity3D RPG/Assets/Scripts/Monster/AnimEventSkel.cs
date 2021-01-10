@@ -4,30 +4,77 @@ using UnityEngine;
 
 public class AnimEventSkel : MonoBehaviour
 {
+    public enum SkelType
+    {
+        WARRIOR,
+        KNIGHT
+    }
+
+    public SkelType skeleton;
+
     SkeletonW skel;
+    SkeletonK knight;
 
     void Start()
     {
         skel = transform.GetComponentInParent<SkeletonW>();
+        knight = transform.GetComponentInParent<SkeletonK>();
     }
 
-    public void SetRandomNum()
+    public void SetRandomNum(SkelType mon)
     {
-        skel.RandomAttack();
+        switch (mon)
+        {
+            case SkelType.WARRIOR:
+                skel.RandomAttack();
+                break;
+            case SkelType.KNIGHT:
+                break;
+
+        }
+       
+
     }
 
-    public void GetRest()
+    public void GetRest(SkelType mon)
     {
-        skel.GetRest();
+        switch (mon)
+        {
+            case SkelType.WARRIOR:
+                skel.GetRest();
+                break;
+            case SkelType.KNIGHT:
+                knight.GetRest();
+                break;
+
+        }
+
     }
 
-    public void Active()
+    public void Active(SkelType mon)
     {
-        skel.Active();
+        switch (mon)
+        {
+            case SkelType.WARRIOR:
+                skel.Active();
+                break;
+            case SkelType.KNIGHT:
+                break;
+
+        }
+
     }
-    
-    public void DeActive()
+
+    public void DeActive(SkelType mon)
     {
-        skel.DeActive();
+        switch (mon)
+        {
+            case SkelType.WARRIOR:
+                skel.DeActive();
+                break;
+            case SkelType.KNIGHT:
+                break;
+
+        }
     }
 }
