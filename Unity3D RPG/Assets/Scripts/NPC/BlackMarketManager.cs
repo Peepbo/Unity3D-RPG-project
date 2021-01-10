@@ -51,4 +51,14 @@ public class BlackMarketManager : MonoBehaviour
                 break;
         }
     }
+
+    public void ClosePanel()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
+    public void OpenPanel()
+    {
+        UiManager0.Instance.PanelOpen = true;
+    }
+
 }
