@@ -120,7 +120,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
                     if (_distance <= attackRange)
                     {
-                        AI.velocity = Vector3.zero;
+                        //AI.velocity = Vector3.zero;
+                        AI.stoppingDistance = attackRange;
                         anim.SetInteger("state", 2);
                     }
                 }
@@ -159,7 +160,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
     public void FollowTarget()
     {
-        //navMesh의 speed를 animation velocity 값에 넣어준다.      
+        //navMesh의 speed를 animation velocity 값에 넣어준다.     
+       
         anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
@@ -180,7 +182,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 returnToHome.setIsReturn(false);
                 observe.setIsObserve(true);
 
-                //controller의 speed를 velocity의 값에 넣어준다.;
+                //controller의 speed를 velocity의 값에 넣어준다.
                 anim.SetInteger("state", 0);
                 anim.SetFloat("velocity", controller.velocity.magnitude);
             }
@@ -229,7 +231,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         yield return new WaitForSeconds(1.8f);
         //rest를 끈다
-        anim.SetInteger("state", 0);
+        anim.SetInteger("state", 1);
         anim.SetBool("isRest", false);
         if (!observe.getIsObserve())
             AI.isStopped = false;
