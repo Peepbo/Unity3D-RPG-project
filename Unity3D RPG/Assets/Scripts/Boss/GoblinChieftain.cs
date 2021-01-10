@@ -168,7 +168,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         else if (isRoar)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
-            pattern = BossATKPattern.THUMP;
+            pattern = BossATKPattern.THREEATK;
 
         switch (pattern)
         {
