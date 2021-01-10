@@ -20,27 +20,22 @@ public class BlackMarketManager : MonoBehaviour
         currency.text = (PlayerData.Instance.myCurrency).ToString();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void BuyItem(int num)
     {
         switch (num)
         {
             case 0://500 potion
                 if (PlayerData.Instance.myCurrency < 500) return;
-                {
-                    Debug.LogWarning("작업중");
-                }
 
+                PlayerData.Instance.myCurrency -= 500;
+                PlayerData.Instance.player.BuyPotion(1);
+
+                PlayerData.Instance.SaveData();
                 break;
             case 1://500 boos skill
                 Debug.Log("작업중");
                 break;
-            case 2://
+            case 2://5000 come back
                 if (PlayerData.Instance.myCurrency < 5000) return;
 
                 PlayerData.Instance.myCurrency -= 5000;
