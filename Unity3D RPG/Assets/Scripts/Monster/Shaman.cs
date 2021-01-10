@@ -31,7 +31,7 @@ public class Shaman : EnemyMgr, IDamagedState
         def = 0f;
         minGold = 25;
         maxGold = 45;
-       
+
         itemKind[0] = 79;
         itemKind[1] = 80;
         itemKind[2] = 83;
@@ -130,7 +130,7 @@ public class Shaman : EnemyMgr, IDamagedState
     {
         isFire = true;
         anim.SetBool("isRest", true);
-        
+
         float t = 0f;
         while (t < 1.5f)
         {
@@ -150,12 +150,16 @@ public class Shaman : EnemyMgr, IDamagedState
 
 
         anim.SetBool("isRest", false);
-
+        AI.isStopped = false;
         isFire = false;
     }
 
     public void Fire()
     {
+        if (isDead) return;
+
+        AI.isStopped = true;
+
         if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 > 0.85f)
         {
             //플레이어가 부채꼴 안에 있는지 검사를 한다. (공격 모션 거의 끝남)
@@ -194,7 +198,6 @@ public class Shaman : EnemyMgr, IDamagedState
         {
             if (!isDamaged)
             {
-
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
             }
@@ -211,10 +214,8 @@ public class Shaman : EnemyMgr, IDamagedState
             }
         }
 
-
         if (player.isCri)
             anim.SetTrigger("damage");
-
     }
 
     public void Flame()

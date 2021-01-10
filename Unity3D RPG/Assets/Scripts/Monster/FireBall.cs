@@ -5,7 +5,7 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     private float speed = 5f;
-    private int atk=35;
+    private int atk = 35;
     Vector3 spawnPos;
 
     //awake : 최초 생성 즉 gameobject가 처음 켜질때만 작동되는듯
@@ -28,9 +28,12 @@ public class FireBall : MonoBehaviour
     public void setAtk(int value) { atk = value; }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag != "Enemy")
         {
-            other.gameObject.GetComponent<Player>().GetDamage(atk);
+            if (other.tag == "Player")
+            {
+                other.gameObject.GetComponent<Player>().GetDamage(atk);
+            }
             gameObject.SetActive(false);
 
         }
