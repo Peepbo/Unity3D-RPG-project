@@ -40,7 +40,7 @@ public class CheckingLoot : MonoBehaviour
             pocketPanel.transform.GetChild(i).GetChild(0).GetComponent<Image>().color = Color.white;
 
             pocketPanel.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite =
-                GetPath(int.Parse(LootManager.Instance.pocketItem[i].iconPath));
+                GetPath(LootManager.Instance.pocketItem[i].id);
             pocketPanel.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = 
                 LootManager.Instance.pocketItem[i].count.ToString();
         }
