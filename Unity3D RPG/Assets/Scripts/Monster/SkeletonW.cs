@@ -180,17 +180,16 @@ public class SkeletonW : EnemyMgr, IDamagedState
 
                 isDamaged = true;
             }
-        }
-        else
-        {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("Die");
-            StopAllCoroutines();
-            AI.enabled = true;
 
+            if(hp<=0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("Die");
+                StopAllCoroutines();
+                AI.enabled = true;
+            }
         }
-
     }
 
     public override void Die()
@@ -209,13 +208,13 @@ public class SkeletonW : EnemyMgr, IDamagedState
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, findRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, attackRange);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, findRange);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(startPos, 1f);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(startPos, 1f);
     }
 
     #region EVENT FUNCTIONS
