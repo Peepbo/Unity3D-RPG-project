@@ -21,17 +21,22 @@ public class Potion : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     void Update()
     {
-        
+        potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if(player.isDie ==false)
         {
-            if(potionParticle1.activeSelf == false && potionParticle2.activeSelf ==false)
+            if (PlayerData.Instance.myCurrentPotion > 0)
             {
-                potionParticle1.SetActive(true);
-                potionParticle2.SetActive(true);
+                if (potionParticle1.activeSelf == false && potionParticle2.activeSelf == false)
+                {
+                    potionParticle1.SetActive(true);
+                    potionParticle2.SetActive(true);
+                    player.GetHp(30);
+                    
+                }
             }
         }
        

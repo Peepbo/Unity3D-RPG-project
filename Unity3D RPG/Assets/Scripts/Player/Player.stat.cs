@@ -19,7 +19,6 @@ partial class Player
     public string           playerName;         //  플레이어 이름
 
     public int              potionNum;          //  플레이어 포션 갯수 
-    public int              potionMaxNum;       //  플레이어 포션 최대 갯수
 
     public int              maxHp = 100;        //  최대체력
     public int              hp = 100;           //  현제체력
@@ -161,17 +160,28 @@ partial class Player
             bossItem = PlayerData.Instance.EquipBossItem();
         }
     }
-    
 
-    
     public void GetHp(int value)
     {
-        hp += value;
-        if(hp>= maxHp)
+        Debug.Log("potion "+ PlayerData.Instance.myCurrentPotion);
+        if(PlayerData.Instance.myCurrentPotion > 0)
         {
-            hp = maxHp;
+            PlayerData.Instance.myCurrentPotion--;
+            hp += value;
+            if (hp >= maxHp)
+            {
+                hp = maxHp;
+            }
         }
+        
     }
+
+    public void BuyPotion(int value)
+    {
+        PlayerData.Instance.myCurrentPotion += value;
+    }
+
+
 
     public void GetDamage(int damage)
     {
