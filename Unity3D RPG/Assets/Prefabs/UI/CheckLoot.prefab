@@ -1762,6 +1762,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4857508866127685494}
   - component: {fileID: 4857508866127685495}
+  - component: {fileID: 8235095349866153953}
   m_Layer: 5
   m_Name: CheckLoot
   m_TagString: Untagged
@@ -1802,9 +1803,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 206b81b306545e14eb3a31a2f4321b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poccketPanel: {fileID: 4857508864650362530}
+  pocketMoney: 0
+--- !u!114 &8235095349866153953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4857508866127685449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f799924c2fc5c7a409c9ae8356355d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pocketPanel: {fileID: 4857508865754999083}
   checkMoney: {fileID: 7443261380643599638}
-  popLoot: {fileID: 4857508865754999083}
 --- !u!1 &4857508866227247105
 GameObject:
   m_ObjectHideFlags: 0
