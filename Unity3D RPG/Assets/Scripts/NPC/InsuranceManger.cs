@@ -36,8 +36,8 @@ public class InsuranceManger : MonoBehaviour
             }
             else
             {
-                button[i].GetComponent<Button>().enabled = false;
-                button[i].GetChild(0).GetComponent<Text>().color = Color.black;
+                button[i].GetComponent<Button>().enabled = true;
+                button[i].GetChild(0).GetComponent<Text>().color = Color.white;
             }
         }
     }
@@ -50,14 +50,29 @@ public class InsuranceManger : MonoBehaviour
         switch (num)
         {
             case 0: // normal
+                if (PlayerData.Instance.myCurrency < 500) return;
+                PlayerData.Instance.myCurrency -= 500;
+
                 PlayerData.Instance.normalInsurance = true;
+
+                PlayerData.Instance.SaveData();
                 break;
             case 1: // rare
+                if (PlayerData.Instance.myCurrency < 1000) return;
+                PlayerData.Instance.myCurrency -= 1000;
+
                 PlayerData.Instance.rareInsurance = true;
+
+                PlayerData.Instance.SaveData();
                 break;
             case 2: // normal + rare
+                if (PlayerData.Instance.myCurrency < 5000) return;
+                PlayerData.Instance.myCurrency -= 5000;
+
                 PlayerData.Instance.normalInsurance = true;
                 PlayerData.Instance.rareInsurance = true;
+
+                PlayerData.Instance.SaveData();
                 break;
         }
 
