@@ -11,6 +11,8 @@ public class ReturnTown : MonoBehaviour
         PlayerData.Instance.player = GameObject.FindWithTag("Player").GetComponent<Player>();
         PlayerData.Instance.player.EquipStat();
         PlayerData.Instance.player.GrowthStat();
+        PlayerData.Instance.myPotion = 5;
+        PlayerData.Instance.myCurrentPotion = 5;
     }
 
    
