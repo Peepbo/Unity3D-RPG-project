@@ -44,7 +44,7 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         if(player.isDie == false)
         {
 
-            if(!player.isCri)
+            if(!player.isCri && !player.isDash)
             {
                 player.state = Player.PlayerState.GUARD;
                 isPress = true;

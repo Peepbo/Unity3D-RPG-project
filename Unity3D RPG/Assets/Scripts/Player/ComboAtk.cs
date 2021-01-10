@@ -9,6 +9,7 @@ public class ComboAtk : MonoBehaviour
     GameObject particle;
     Button atkButton;
     Button criButton;
+    Button dashButton;
     public Animator animator;
     public Player player;
     bool isCombo;
@@ -20,8 +21,10 @@ public class ComboAtk : MonoBehaviour
     {
         atkButton = GameObject.Find("AtkButton").GetComponent<Button>();
         criButton = GameObject.Find("CriAtkButton").GetComponent<Button>();
+        dashButton = GameObject.Find("DashButton").GetComponent<Button>();
         atkButton.onClick.AddListener(Attack);
         criButton.onClick.AddListener(CriAttack);
+        dashButton.onClick.AddListener(player.PlayerDash);
         //atkButton.onClick.AddListener(delegate { Attack(); });
     }
     

@@ -143,7 +143,7 @@ partial class Player
             increasedAtk = weapon.atk;
             atkSpeed = weapon.atkSpeed;
 
-            realAtk = atkSpeed + increasedAtk;
+            realAtk = power + increasedAtk;
         }
         if (armor != PlayerData.Instance.EquipArmor())
         {
@@ -193,7 +193,7 @@ partial class Player
                 if(hp < 0)
                 {
                     hp = 0;
-                    PlayerDie();
+                    //PlayerDie();
                 }
             }
         }

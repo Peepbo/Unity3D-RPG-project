@@ -17,15 +17,13 @@ public class DataManager : MonoBehaviour
         JsonData.Instance.CheckJsonData();
         PlayerData.Instance.LoadData_v2();
 
-        
-
         //Debug.Log(PlayerData.Instance.myCurrency);
 
         //chestData.MakeData();
         //chestData.ItemUpdate();
         //chestData.OwnLoots();
         //chestData.GetLootsData();
-            
+
         //chestData.GetData();
 
         //statData.ResetStat();
