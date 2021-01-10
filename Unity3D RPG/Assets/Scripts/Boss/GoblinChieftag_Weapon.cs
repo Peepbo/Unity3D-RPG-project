@@ -17,3 +17,5 @@ public class GoblinChieftag_Weapon : MonoBehaviour
         //Debug.Log("trigger");
     }
 }
+
+

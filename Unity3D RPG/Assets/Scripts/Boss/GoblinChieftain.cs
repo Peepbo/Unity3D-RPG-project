@@ -4,19 +4,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-enum ChiefTainFXPrefab
-{
-    ATK1,
-    ATK2,
-    THUMP,
-    ROAR,
-    SPAWNM,
-    SPAWNS,
 
-}
 
 public class GoblinChieftain : BossDB, IDamagedState
 {
+    enum ChiefTainFXPrefab
+    {
+        ATK1,
+        ATK2,
+        THUMP,
+        ROAR,
+        SPAWNM,
+        SPAWNS,
+
+    }
+    enum BossATKPattern
+    {
+        THREEATK,
+        THUMP,
+        SPAWN,
+        END
+    }
 
     //[SerializeField]
     //private BossDB info = new BossDB();
@@ -24,22 +32,16 @@ public class GoblinChieftain : BossDB, IDamagedState
     //private BossController bossContrroller = new BossController();
     private Animator anim;
     NavMeshAgent agent;
-    public Transform target;
     const float distance = 3f;
-    bool isRoar = false;
-    bool isSpawn = false;
-    bool isPlayerCri = false;
-    bool isHit = false;
-    bool isDie = false;
-    public CapsuleCollider weapon;
+    
+    //bool isDie = false;
     float hitTime = 0f;
     BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
-    List<GameObject> minions = new List<GameObject>();
 
-    List<ItemInfo> item = new List<ItemInfo>();
-    ItemInfo info;
-    public GameObject itemBox;
+    
+    
+    
     void Start()
     {
         ChieftainDBInit();
@@ -52,7 +54,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         const int itemDropCount = 3;
         bossName = "고블린 치프틴";
         hpMax = 200;
-        hp = 200;
+        hp = hpMax;
         atk = 50;
         def = 15;
         atkSpeed = 1.0f;
@@ -68,7 +70,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         itemDropInfo[2].itemName = "족장의 목걸이";
         itemDropInfo[2].itemID = 85;
         state = BossState.IDLE;
-        dieCount = 5.5f;
+        dieTime = 5.5f;
 
         for (int i = 0; i < itemDropCount; i++)
         {
@@ -166,7 +168,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         else if (isRoar)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
-            pattern = BossATKPattern.THREEATK;
+            pattern = BossATKPattern.THUMP;
 
         switch (pattern)
         {
@@ -201,7 +203,14 @@ public class GoblinChieftain : BossDB, IDamagedState
             transform.forward = (target.position - transform.position).normalized;
         }
     }
-
+    public void ThumpFX()
+    {
+        GameObject fx;
+        fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
+        Vector3 temp = transform.position + transform.forward*2.3f;
+        //temp = transform.forward * 1.5f;
+        fx.transform.position = temp;
+    }
     public void Spawn()
     {
         isSpawn = true;
@@ -233,7 +242,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (isHit) return;
 
         isHit = true;
-        hp -= value;/*def - value >= 0 ? def - value : 0;*/
+        hp -= GetDamage(def, value);
         if (hp > 0)
         {
             isPlayerCri = target.GetComponent<Player>().isCri;
@@ -251,18 +260,18 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void SetDamage()
     {
         int _atkDam = 0;
-        GameObject fx;
+        
         switch (pattern)
         {
             case BossATKPattern.THREEATK:
                 _atkDam = atk / 3;
+                GameObject fx;
                 fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ATK1]);
                 fx.transform.position = target.position;
                 break;
             case BossATKPattern.THUMP:
                 _atkDam = atk;
-                fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
-                fx.transform.position = target.position;
+               
                 break;
         }
         //target.GetComponent<TESTATTACK>().GetDamage(temp);
@@ -309,7 +318,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     IEnumerator DieCoroutine()
     {
         anim.SetTrigger("Die");
-        yield return new WaitForSeconds(dieCount);
+        yield return new WaitForSeconds(dieTime);
         //아이템 드롭 
         var bossItem = Instantiate(itemBox, transform.position, Quaternion.identity);
         bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
