@@ -19,10 +19,7 @@ public class DungeonChest : MonoBehaviour, IDamagedState
 
     public void Damaged(int value)
     {
-        Debug.Log("damaged 0");
-
         if (isOpen) return;
-        Debug.Log("damaged 1");
 
         if (dq.Quest == DungeonQuest.QUEST.KEY)
         {
@@ -35,12 +32,8 @@ public class DungeonChest : MonoBehaviour, IDamagedState
             else Debug.Log("꽝!");
         }
 
-        else Debug.Log("아이템 획득!");
-
         anim.SetTrigger("Open");
 
         isOpen = true;
-
-        Debug.Log("damaged 2");
     }
 }
