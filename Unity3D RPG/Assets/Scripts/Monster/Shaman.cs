@@ -25,8 +25,8 @@ public class Shaman : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
         firePos = transform.Find("FirePos");
-        hp = maxHp =30 / 2;    //체크용
-        hp = maxHp =30;
+        hp = maxHp = 30 / 2;    //체크용
+        hp = maxHp = 30;
         atk = 40;
         def = 0f;
         minGold = 25;
@@ -92,17 +92,9 @@ public class Shaman : EnemyMgr, IDamagedState
             transform.rotation = Quaternion.LookRotation(_dir);
 
             StartCoroutine(Look());
-            //코루틴돌고
-            //1.5초뒤에 isLooking가 트루로 바꿈
-            //그리고 그안에 아까 사용한 회전함수 하면된다.
 
         }
-        //만약 isDetected가 true가 되면? <before : observe> -> atk
 
-        //ItemInfo _item;
-        //_item.count = 6;
-
-        //find => count 1개..
     }
 
     IEnumerator Look()
@@ -190,25 +182,32 @@ public class Shaman : EnemyMgr, IDamagedState
     public void Damaged(int value)
     {
 
-        if (isDamaged || isDead) return;
+        if (isDead) return;
 
-        hp -= (int)(value * (1.0f - def / 100));
+        if (hp > 0)
+        {
+            if (!isDamaged)
+            {
 
-        if (hp <= 0)
-        {
-            hp = 0;
-            isDead = true;
-            anim.SetTrigger("die");
-            controller.enabled = false;
-            AI.enabled = false;
-            StopAllCoroutines();
+                hp -= (int)(value * (1.0f - def / 100));
+                StartCoroutine(GetDamage());
+            }
+
+            if (hp <= 0)
+            {
+                hp = 0;
+                isDead = true;
+                anim.SetTrigger("die");
+                controller.enabled = false;
+                AI.enabled = false;
+                StopAllCoroutines();
+
+            }
         }
-        else
-        {
-            if (player.isCri)
-                anim.SetTrigger("damage");
-        }
-        StartCoroutine(GetDamage());
+
+
+        if (player.isCri)
+            anim.SetTrigger("damage");
 
     }
 
