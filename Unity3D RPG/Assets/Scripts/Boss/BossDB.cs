@@ -20,35 +20,51 @@ public enum BossState
     DIE,
 
 }
-public enum BossATKPattern
-{
-    THREEATK,
-    THUMP,
-    SPAWN,
-    END
-}
+
 
 [System.Serializable]
+
 public abstract class BossDB : MonoBehaviour
 {
+    [Header("State")]
     public string bossName;
-    public int hp, hpMax;
+    public int hpMax;
+    protected int hp;
     public int atk;
     public float atkSpeed;
     public float atkDelay;
-    public float atkTime;
+    protected float atkTime;
     public int def;
     public float moveSpeed;
     public int goldMin;
     public int goldMax;
+    [Space]
     public ItemDropInfo[] itemDropInfo;
+    
     private bool isStart;
+    [HideInInspector]
     public BossState state;
+    [Space]
     public GameObject minionFactory;
     public int minionMaxCount;
+    [Space]
     public Transform[] spawnArea;
-    public float dieCount;
+    protected float dieTime;
+    [Space]
     public GameObject[] FXfactory;
-   public bool start { get { return isStart; } set { isStart = value; } }
+    protected bool isHit = false;
+    protected bool isPlayerCri;
+    protected bool isRoar = false;
+    protected bool isSpawn = false;
+    [Space]
+    public Transform target;
+    public CapsuleCollider weapon;
+    protected List<GameObject> minions = new List<GameObject>();
+    public GameObject itemBox;
+    protected List<ItemInfo> item = new List<ItemInfo>();
+    protected ItemInfo info;
+
+    public bool start { get { return isStart; } set { isStart = value; } }
+    protected int GetDamage(float def, int atk) { float _damage = atk * (1.0f - def/100); return (int)_damage; }
 }
 
