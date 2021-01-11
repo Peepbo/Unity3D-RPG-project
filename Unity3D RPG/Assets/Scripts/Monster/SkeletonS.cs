@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,7 @@ public class SkeletonS : EnemyMgr, IDamagedState
     private float distance;
 
     public GameObject weapon;
+    private bool isStay = true;
 
     protected override void Awake()
     {
@@ -21,6 +21,8 @@ public class SkeletonS : EnemyMgr, IDamagedState
         AI.enabled = false;
         follow = gameObject.AddComponent<FollowTarget>();
         follow.Init(AI, target, speed, 0);
+
+        weapon.GetComponent<WepCol>().setAtk(atk);
     }
 
     void Update()
@@ -34,29 +36,72 @@ public class SkeletonS : EnemyMgr, IDamagedState
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
         distance = Vector3.Distance(target.transform.position, transform.position);
+
         if (AI.enabled == false) AI.enabled = true;
 
-        if (distance < findRange)
+        if (isStay)
         {
-            Follow();
-
-            if (distance <= attackRange)
+            if (distance < findRange)
             {
-                AI.stoppingDistance = attackRange;
-                //attack;
+                AI.isStopped = false;
+                isStay = false;
+                anim.SetInteger("state", 1);
             }
+            else
+            {
+                AI.isStopped = true;
+                anim.SetInteger("state", 0);
+            }
+
         }
+
         else
         {
-            //stop;
+            if (distance < findRange)
+            {
+                Follow();
+                if (distance <= attackRange)
+                {
+                    AI.stoppingDistance = attackRange;
+                    //attack;
+                    anim.SetInteger("state", 2);
+                }
+            }
+            else
+            {
+                isStay = true;
+                anim.SetInteger("state", 0);
+            }
         }
     }
+
 
     private void Follow()
     {
         setMoveType(follow);
         Move();
+        anim.SetInteger("state", 1);
     }
+
+
+    IEnumerator AttackRoutine()
+    {
+        //rest를 켜고
+        anim.SetBool("isRest", true);
+        AI.isStopped = true;
+        yield return new WaitForSeconds(1.5f);
+
+        StartCoroutine(LookBack());
+
+        yield return new WaitForSeconds(1.5f);
+        //rest를 끈다
+        anim.SetInteger("state", 1);
+        anim.SetBool("isRest", false);
+        if (!isStay)
+            AI.isStopped = false;
+
+    }
+
 
     public void Damaged(int value)
     {
@@ -66,27 +111,63 @@ public class SkeletonS : EnemyMgr, IDamagedState
         {
             if (!isDamaged)
             {
+                anim.SetTrigger("isDamage");
                 hp -= (int)(value * (1.0f - def / 100));
-
             }
 
-            if (hp<=0)
+            if (hp <= 0)
             {
                 hp = 0;
-                controller.enabled = false;
-                AI.enabled = false;
+                isDead = true;
+                anim.SetTrigger("Die");
                 StopAllCoroutines();
+                AI.enabled = true;
             }
         }
     }
+
 
     public override void Die()
     {
         disappearTime += Time.deltaTime;
 
-        if(disappearTime>2.0f)
+        if (disappearTime > 2.0f)
         {
             gameObject.SetActive(false);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, findRange);
+    }
+
+    #region
+    public void RandomAttack()
+    {
+        int _type = Random.Range(0, 2);
+        anim.SetInteger("atkType", _type);
+    }
+
+    public void GetRest()
+    {
+        if (isDead) return;
+        StartCoroutine(AttackRoutine());
+    }
+
+    public void Active()
+    {
+        if (isDead) return;
+        weapon.GetComponent<MeshCollider>().enabled = true;
+    }
+
+    public void DeActive()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = false;
+    }
+    #endregion
 }
