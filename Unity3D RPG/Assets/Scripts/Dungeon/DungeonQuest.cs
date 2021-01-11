@@ -12,13 +12,18 @@ public class DungeonQuest : MonoBehaviour
     }
 
     public QUEST quest;
+
+    #region KEY
     //find key
     int correctNumber = 0;
-    //kill monster
-    public int killCount = 0;
-    public int maxMonster = 0;
+    #endregion
 
-    public int obstacle = 0;
+    #region KILL
+    //kill monster
+    public int maxMonster = 0;
+    public int meleeMonster = 0;
+    public int killCount = 0;
+    #endregion
 
     bool isClear = false;
 
@@ -30,21 +35,10 @@ public class DungeonQuest : MonoBehaviour
 
     private void Awake()
     {
-        //Debug.Log("awake");
-
         isClear = false;
 
-        //quest = QUEST.KEY;
-
-        //if (quest == QUEST.KEY)
-        //{
-        //    correctNumber = Random.Range(0, 4);
-        //    text.text = "던전 목표: 키 찾기";
-        //}
-        //else if (quest == QUEST.ALLKILL)
-        //{
-        //    text.text = "던전 목표: 모든 적 처치하기";
-        //}
+        var _allEnemys = GameObject.FindGameObjectsWithTag("Enemy");
+        MonsterType mt = new MonsterType();
 
         switch (Quest)
         {
@@ -54,18 +48,28 @@ public class DungeonQuest : MonoBehaviour
                 break;
             case QUEST.ALLKILL:
                 text.text = "던전 목표: 모든 몬스터 처치하기";
-                //maxMonster = GameObject.FindGameObjectsWithTag("Enemy").Length - obstacle;
+                
+                for (int i = 0; i < _allEnemys.Length; i++)
+                {
+                    if (_allEnemys[i].TryGetComponent<MonsterType>(out mt))
+                    {
+                        maxMonster++;
+                    }
+                }
                 break;
             case QUEST.MELEEALLKILL:
                 text.text = "던전 목표: 모든 근접 몬스터 처치하기";
+
+                for (int i = 0; i < _allEnemys.Length; i++)
+                {
+                    if (_allEnemys[i].TryGetComponent<MonsterType>(out mt))
+                    {
+                        if (mt.GetEnemyType() == MonType.Melee) meleeMonster++;
+                    }
+                }
                 break;
         }
     }
-
-    //public void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.U)) Clear();
-    //}
 
     public void Clear() 
     { 
