@@ -14,6 +14,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: HitKind
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRoaring
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9180750340047880693}
   m_Solo: 0
@@ -35,10 +38,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: CombatIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8001266895268229296}
   m_Solo: 0
@@ -219,7 +219,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3897652592371477570}
-    m_Position: {x: 40, y: 240, z: 0}
+    m_Position: {x: 30, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7304545129701068086}
     m_Position: {x: 290, y: -70, z: 0}
@@ -231,7 +231,7 @@ AnimatorStateMachine:
     m_Position: {x: 690, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5383557392288236865}
-    m_Position: {x: 380, y: 90, z: 0}
+    m_Position: {x: 420, y: 90, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -3281651786524906936}
@@ -446,67 +446,73 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: CombatIdle
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: HitKind
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Hit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: ThreeATK
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Run
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: ThreeATKKind
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Thump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Roar
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Spawn
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
+  - m_Name: isRoaring
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -646,10 +652,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: CombatIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8001266895268229296}
   m_Solo: 0
@@ -896,7 +899,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 10, y: 210, z: 0}
-  m_ExitPosition: {x: 800, y: 120, z: 0}
+  m_ExitPosition: {x: 820, y: 210, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 9180750340047880693}
 --- !u!1101 &4796895162385835468
@@ -913,6 +916,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: HitKind
     m_EventTreshold: 2
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRoaring
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7890877453221543285}
   m_Solo: 0
@@ -1066,6 +1072,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Hit
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRoaring
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 96329944640770705}
   m_Solo: 0
@@ -1087,10 +1096,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: CombatIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8001266895268229296}
   m_Solo: 0
@@ -1119,6 +1125,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: HitKind
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: isRoaring
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8662481170904256030}
   m_Solo: 0
@@ -1251,10 +1260,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: CombatIdle
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8001266895268229296}
   m_Solo: 0

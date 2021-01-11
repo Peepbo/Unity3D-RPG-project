@@ -14,16 +14,17 @@ using UnityEngine.Audio;
 enum PlayerName { BGM1,BGM2,AMB}
 public class SoundManager : Singleton<SoundManager>
 {
+    protected SoundManager() { }
+
     [SerializeField]
     private AudioMixer mixer;
-    protected SoundManager() { }
     private Dictionary<string, AudioClip> soundBank = new Dictionary<string, AudioClip>();
     private AudioSource[] player;
     public SoundInfo[] soundData;
     bool isSFXMute = false;
     bool isMasterMute = false;
     
-    private void Start()
+    private void Awake()
     {
         SoundBankInit();
         player = GetComponents<AudioSource>();
@@ -170,10 +171,10 @@ public class SoundManager : Singleton<SoundManager>
     {
         player.volume += 0.01f;
         yield return new WaitForSeconds(0.1f);
-        if (player.volume <= 1f)
+        if (player.volume <= 0.5f)
             StartCoroutine(FadeIn(player));
         else
-            player.volume = 1f;
+            player.volume = 0.5f;
 
     }
 

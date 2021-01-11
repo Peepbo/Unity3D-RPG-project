@@ -626,6 +626,25 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: eeba036d5837836469e2f4fce8ee923c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f6b0c88789bc024189afa8e609cf122, type: 3}
+--- !u!1 &349785673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 171874, guid: 8f6b0c88789bc024189afa8e609cf122,
+    type: 3}
+  m_PrefabInstance: {fileID: 239894175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &349785674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349785673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b840217f2c334b54090281d873a0b100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMclipName: MainTitleBGM
 --- !u!1001 &601974414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1818,7 +1837,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.777512, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2004,6 +2023,61 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[1].name
+      value: Dungeon1BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: a6574c97334043e4498169dad65c643f, type: 3}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[2].name
+      value: MainTitleBGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0fda836074ab4a546b836ab0a88929a3, type: 3}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[3].name
+      value: VillageBGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6b2d8638ab583b64dbeb94e8d946a3ef, type: 3}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[4].name
+      value: attack
+      objectReference: {fileID: 0}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 08f05ca4197475340a6074aa921c7d87, type: 3}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b28a2e366d350a47a8b7b9f1dd49652, type: 3}
+    - target: {fileID: 6122835977817277968, guid: 55bb293e1d582e941909a81136f46cfa,
+        type: 3}
+      propertyPath: soundData.Array.data[0].name
+      value: Boss1BGM
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55bb293e1d582e941909a81136f46cfa, type: 3}
