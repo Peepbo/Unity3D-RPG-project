@@ -13,6 +13,7 @@ public class EnterSwitch : MonoBehaviour
         {
             boss.start = true;
             boss.state = BossState.COMBATIDLE;
+            boss.hpBar.gameObject.SetActive(true);
             Destroy(gameObject);
         }
      }

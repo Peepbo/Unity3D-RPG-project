@@ -72,6 +72,9 @@ public class GoblinChieftain : BossDB, IDamagedState
         state = BossState.IDLE;
         dieTime = 5.5f;
 
+        hpBar.maxValue = hpMax;
+        hpBar.value = hp;
+
         for (int i = 0; i < itemDropCount; i++)
         {
             itemDropInfo[i].itemDropCount = 1;
@@ -93,6 +96,9 @@ public class GoblinChieftain : BossDB, IDamagedState
                 CombatIdle();
                 break;
             case BossState.ATK:
+                hitTime += Time.deltaTime;
+                if (hitTime > 5f)
+                { state = BossState.COMBATIDLE; hitTime = 0f; }
                 break;
             case BossState.RUN:
                 Move();
@@ -110,6 +116,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
+
         Debug.Log(state);
 
     }
@@ -236,14 +243,15 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void ComBatIdleState()
     {
         state = BossState.COMBATIDLE;
-        isHit = false;
     }
     public void Damaged(int value)
     {
-        if (isHit) return;
-
+        if (isHit||isDead) return;
+        //anim.ResetTrigger("ThreeATK");
         isHit = true;
+        StartCoroutine(IsHitTimer());
         hp -= GetDamage(def, value);
+       
         if (hp > 0)
         {
             isPlayerCri = target.GetComponent<Player>().isCri;
@@ -253,10 +261,13 @@ public class GoblinChieftain : BossDB, IDamagedState
         {
             hp = 0;
             start = false;
+            isDead = true;
             Die();
         }
-
+        hpBar.value = (float)hp;
+        
     }
+    IEnumerator IsHitTimer() { yield return new WaitForSeconds(0.3f);isHit = false; }
 
     public void SetDamage()
     {
@@ -276,13 +287,6 @@ public class GoblinChieftain : BossDB, IDamagedState
         target.GetComponent<Player>().GetDamage(_atkDam);
     }
 
-    //IEnumerator ThreeATKFX()
-    //{
-
-
-
-    //    //yield return new WaitForSeconds(fx.get)
-    //}
     private void shuffle()
     {
         for (int i = 0; i < 5; i++)
