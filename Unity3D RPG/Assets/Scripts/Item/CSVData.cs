@@ -73,7 +73,39 @@ public class CSVData : Singleton<CSVData>
      * playerAbility = CSVSimpleReader.CSVSimpleReader.Reader("playerStateDB",2,3);
      */
 
-    public ItemInfo find(int key) { return dictionaryData[key]; }
+    public ItemInfo find(int key) 
+    {
+        ItemInfo _item = new ItemInfo();
+        //_item = dictionaryData[key];
+        //_item.count = 1;
+        _item.id = dictionaryData[key].id;
+        _item.kindID = dictionaryData[key].kindID;
+        _item.kind = dictionaryData[key].kind;
+        _item.itemName = dictionaryData[key].itemName;
+        _item.grade = dictionaryData[key].grade;
+        _item.count = dictionaryData[key].count;
+        _item.atk = dictionaryData[key].atk;
+        _item.atkSpeed = dictionaryData[key].atkSpeed;
+        _item.def = dictionaryData[key].def;
+        _item.skill = dictionaryData[key].skill;
+        _item.skillIncrease = dictionaryData[key].skillIncrease;
+        _item.ingredient1 = dictionaryData[key].ingredient1;
+        _item.ingredientCount1 = dictionaryData[key].ingredientCount1;
+        _item.ingredient2 = dictionaryData[key].ingredient2;
+        _item.ingredientCount2 = dictionaryData[key].ingredientCount2;
+        _item.ingredient3 = dictionaryData[key].ingredient3;
+        _item.ingredientCount3 = dictionaryData[key].ingredientCount3;
+        _item.ingredient4 = dictionaryData[key].ingredient4;
+        _item.ingredientCount4 = dictionaryData[key].ingredientCount4;
+        _item.price = dictionaryData[key].price;
+        _item.descript = dictionaryData[key].descript;
+        _item.dropRate = dictionaryData[key].dropRate;
+        _item.prefabName = dictionaryData[key].prefabName;
+        _item.iconPath = dictionaryData[key].iconPath;
+
+        //Debug.Log(_item.count);
+        return _item;
+    }
     public AchieveInfo findAchieve(int num) { return achieveDictionary[num]; }
 
     void Awake()

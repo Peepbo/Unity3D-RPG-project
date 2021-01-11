@@ -92,7 +92,8 @@ public partial class PlayerData : Singleton<PlayerData>
         
         for(int i = 0; i < _item.Count; i++)
         {
-            ItemInfo _info = CSVData.Instance.find(_item[i].Id);
+            ItemInfo _info = new ItemInfo();
+            _info = CSVData.Instance.find(_item[i].Id);
             _info.count = _item[i].Number;
 
             //장비는 장비 리스트에
