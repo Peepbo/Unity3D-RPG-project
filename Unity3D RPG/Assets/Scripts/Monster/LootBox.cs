@@ -9,7 +9,6 @@ public class LootBox : MonoBehaviour
     int min, max;
     int currency;
     List<ItemInfo> item = new List<ItemInfo>();
-    ItemInfo drop;
 
     #region COLLIDER & LIGHT
     BoxCollider col;
@@ -64,7 +63,6 @@ public class LootBox : MonoBehaviour
 
         for (int i = 0; i < item.Count; i++)
         {
-
             int rate = Random.Range(0, 10);
 
             if (dropRate > rate) continue;
