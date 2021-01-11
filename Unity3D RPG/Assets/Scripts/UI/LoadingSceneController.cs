@@ -24,7 +24,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
         DontDestroyOnLoad(gameObject);
         SceneUI = Instantiate(SceneUIFactory);
         DontDestroyOnLoad(SceneUI);
-        Debug.Log("Awake");
+        
     }
 
     void Start()

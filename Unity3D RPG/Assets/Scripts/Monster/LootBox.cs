@@ -70,6 +70,7 @@ public class LootBox : MonoBehaviour
             if (dropRate <= rate)
             {
                 Debug.Log(item[i].itemName + "획득!");
+                item[i].count = 1;
                 _itemList.Add(item[i]);
             }
 
