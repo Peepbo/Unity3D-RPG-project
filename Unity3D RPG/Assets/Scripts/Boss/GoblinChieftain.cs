@@ -88,6 +88,8 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     private void Update()
     {
+        if (hpBar.value != (float)hp)
+            hpBar.value -= 1.0f;
         if (!start) return;
 
         switch (state)
@@ -116,12 +118,12 @@ public class GoblinChieftain : BossDB, IDamagedState
             atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
-
+        
         Debug.Log(state);
 
     }
 
-
+    public void IsRoaring() { anim.SetBool("isRoaring", false); }
 
     private void CombatIdle()
     {
@@ -136,6 +138,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         else if (hp <= (hpMax / 2) && !isRoar)
         {
             isRoar = true;
+            anim.SetBool("isRoaring", true);
             atkTime = atkDelay / 2;
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
@@ -247,7 +250,6 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void Damaged(int value)
     {
         if (isHit||isDead) return;
-        //anim.ResetTrigger("ThreeATK");
         isHit = true;
         StartCoroutine(IsHitTimer());
         hp -= GetDamage(def, value);
@@ -264,8 +266,6 @@ public class GoblinChieftain : BossDB, IDamagedState
             isDead = true;
             Die();
         }
-        hpBar.value = (float)hp;
-        
     }
     IEnumerator IsHitTimer() { yield return new WaitForSeconds(0.3f);isHit = false; }
 
