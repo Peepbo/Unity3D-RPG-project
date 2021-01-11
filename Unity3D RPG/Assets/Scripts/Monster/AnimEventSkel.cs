@@ -7,18 +7,21 @@ public class AnimEventSkel : MonoBehaviour
     public enum SkelType
     {
         WARRIOR,
-        KNIGHT
+        KNIGHT,
+        SLAVE
     }
 
     public SkelType skeleton;
 
     SkeletonW skel;
     SkeletonK knight;
+    SkeletonS slave;
 
     void Start()
     {
         skel = transform.GetComponentInParent<SkeletonW>();
         knight = transform.GetComponentInParent<SkeletonK>();
+        slave = transform.GetComponentInParent<SkeletonS>();
     }
 
     public void SetRandomNum(SkelType mon)
@@ -29,10 +32,12 @@ public class AnimEventSkel : MonoBehaviour
                 skel.RandomAttack();
                 break;
             case SkelType.KNIGHT:
+                knight.RandomAttack();
                 break;
-
+            case SkelType.SLAVE:
+                slave.RandomAttack();
+                break;
         }
-       
 
     }
 
@@ -46,7 +51,9 @@ public class AnimEventSkel : MonoBehaviour
             case SkelType.KNIGHT:
                 knight.GetRest();
                 break;
-
+            case SkelType.SLAVE:
+                slave.GetRest();
+                break;
         }
 
     }
@@ -59,6 +66,10 @@ public class AnimEventSkel : MonoBehaviour
                 skel.Active();
                 break;
             case SkelType.KNIGHT:
+                knight.Active();
+                break;
+            case SkelType.SLAVE:
+                slave.Active();
                 break;
 
         }
@@ -73,8 +84,11 @@ public class AnimEventSkel : MonoBehaviour
                 skel.DeActive();
                 break;
             case SkelType.KNIGHT:
+                knight.DeActive();
                 break;
-
+            case SkelType.SLAVE:
+                slave.DeActive();
+                break;
         }
     }
 }

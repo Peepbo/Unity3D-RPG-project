@@ -80,6 +80,8 @@ public class LootBox : MonoBehaviour
         if (_itemList.Count != 0)
         {
             LootManager.Instance.GetPocketData(_itemList);
+
+            Debug.Log(_itemList.Count);
         }
 
     }
