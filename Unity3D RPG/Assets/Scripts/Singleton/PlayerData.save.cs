@@ -34,11 +34,14 @@ partial class PlayerData
 
     void SaveItemType(ref List<ItemInfo> list, ItemInfo item)
     {
-        if (list.Contains(item) == false) list.Add(item);
+        ItemInfo _item = list.Find(x => (x.id == item.id));
+
+        if (_item == null) list.Add(item);
 
         else
         {
-            int _index = list.IndexOf(item);
+            int _index = list.IndexOf(_item);
+
             list[_index].count += item.count;
         }
     }

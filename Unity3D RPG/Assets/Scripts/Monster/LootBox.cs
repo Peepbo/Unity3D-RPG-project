@@ -58,7 +58,6 @@ public class LootBox : MonoBehaviour
         currency = Random.Range(min, max + 1);
         LootManager.Instance.GetPocketMoney(currency);
 
-        Debug.Log(currency + " 획득");
         List<ItemInfo> _itemList = new List<ItemInfo>();
 
         for (int i = 0; i < item.Count; i++)
@@ -69,11 +68,8 @@ public class LootBox : MonoBehaviour
 
             if (dropRate <= rate)
             {
-                Debug.Log(item[i].itemName + "획득!");
-                item[i].count = 1;
                 _itemList.Add(item[i]);
             }
-
         }
 
         if (_itemList.Count != 0)
@@ -83,33 +79,7 @@ public class LootBox : MonoBehaviour
             Debug.Log(_itemList.Count);
         }
 
+        else Debug.Log("아무런 아이템이 뜨지 않았습니다");
+
     }
-
-    //public void Drop(List<ItemInfo> dropItem,int rate)
-    //{
-    //    List<ItemInfo> _itemList = new List<ItemInfo>();
-
-    //    Debug.Log(dropItem.Count);
-    //    for (int i = 0; i < dropItem.Count; i++)
-    //    {
-
-    //        dropRate = 10;/*Random.Range(, 10);*/
-
-    //        if (dropRate != 10) continue;
-
-    //        if (dropRate == 10)
-    //        {
-    //            Debug.Log(dropItem[i].itemName + "획득!");
-    //            _itemList.Add(dropItem[i]);
-    //        }
-
-    //    }
-
-    //    if (_itemList.Count != 0)
-    //    {
-    //        LootManager.Instance.GetPocketData(_itemList);
-    //    }
-
-    //}
-
 }
