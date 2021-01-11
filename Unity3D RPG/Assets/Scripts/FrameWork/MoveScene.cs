@@ -6,6 +6,7 @@ public class MoveScene : MonoBehaviour
 {
     public string sceneName;
     public bool isTrigger = false;
+
     private void OnTriggerEnter(Collider other)
     {
         if (isTrigger)
@@ -42,7 +43,7 @@ public class MoveScene : MonoBehaviour
 
             if(LoadingSceneController.Instance.loadSceneName != "")
             {
-                Debug.Log(LoadingSceneController.Instance.loadSceneName);
+                //Debug.Log(LoadingSceneController.Instance.loadSceneName);
                 LootManager.Instance.Delivery();
             }
         }

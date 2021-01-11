@@ -10,12 +10,17 @@ public partial class LootManager : Singleton<LootManager>
 
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
-        for(int i = 0; i < pocketItemInfo.Count; i++)
-        {
-            ItemInfo _item = new ItemInfo();
-            _item = pocketItemInfo[i];
+        List<ItemInfo> _list = new List<ItemInfo>();
+        _list = pocketItemInfo;
 
-            if (pocketItem.Contains(_item) == false) pocketItem.Add(_item);
+        for(int i = 0; i < _list.Count; i++)
+        {
+            ItemInfo _item = _list[i];
+
+            if (pocketItem.Contains(_item) == false)
+            {
+                pocketItem.Add(_item);
+            }
 
             else
             {
