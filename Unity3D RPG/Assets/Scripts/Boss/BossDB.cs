@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct ItemDropInfo
@@ -56,6 +57,7 @@ public abstract class BossDB : MonoBehaviour
     protected bool isPlayerCri;
     protected bool isRoar = false;
     protected bool isSpawn = false;
+    protected bool isDead = false;
     [Space]
     public Transform target;
     public CapsuleCollider weapon;
@@ -63,6 +65,7 @@ public abstract class BossDB : MonoBehaviour
     public GameObject itemBox;
     protected List<ItemInfo> item = new List<ItemInfo>();
     protected ItemInfo info;
+    public Slider hpBar;
 
     public bool start { get { return isStart; } set { isStart = value; } }
     protected int GetDamage(float def, int atk) { float _damage = atk * (1.0f - def/100); return (int)_damage; }
