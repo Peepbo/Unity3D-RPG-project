@@ -12,7 +12,7 @@ public class chestLootManager : MonoBehaviour
     public Text currency;
     [Header("Info Panel")]
     public Transform itemInfos;
-    [Header("Sell Panel")]
+    [Header("Sell")]
     public Transform sellInfos;
     public Slider slider;
     public Text sellCount;

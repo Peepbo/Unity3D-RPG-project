@@ -43,7 +43,7 @@ public abstract class EnemyMgr : MonoBehaviour
 
 
     protected int[] itemKind = new int[3];
-    protected ItemInfo drop;
+    protected ItemInfo drop = new ItemInfo();
     protected List<ItemInfo> item = new List<ItemInfo>();
 
     protected virtual void Awake()
