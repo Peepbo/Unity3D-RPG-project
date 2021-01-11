@@ -435,12 +435,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossName: "\uACE0\uBE14\uB9B0 \uCE58\uD504\uD2F4"
-  hp: 200
   hpMax: 200
   atk: 50
   atkSpeed: 1
   atkDelay: 4
-  atkTime: 0
   def: 15
   moveSpeed: 2
   goldMin: 200
@@ -465,7 +463,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  dieCount: 5.5
   FXfactory:
   - {fileID: 7534174254603955514, guid: c967f57f1aa270847966c4ca5421476a, type: 3}
   - {fileID: 1277154925287174, guid: 122de29f42c7f674ab912e1e6c9a608b, type: 3}
@@ -493,7 +490,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4213107094990234770
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +2947,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4672037082051274140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4672037082051032524}
