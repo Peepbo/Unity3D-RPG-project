@@ -29,7 +29,16 @@ public class SoundManager : Singleton<SoundManager>
         SoundBankInit();
         player = GetComponents<AudioSource>();
     }
-
+    private void Start()
+    {
+        
+        BGMPlay("MainTitleBGM");
+        
+    }
+    private void OnEnable()
+    {
+        
+    }
     private void SoundBankInit()
     {
         for (int i = 0; i < soundData.Length; i++)
@@ -75,6 +84,8 @@ public class SoundManager : Singleton<SoundManager>
             player[(int)PlayerName.BGM2].clip = soundBank[clipName];
             player[(int)PlayerName.BGM2].volume = 0f;
             player[(int)PlayerName.BGM2].Play();
+            StopCoroutine(FadeIn(player[(int)PlayerName.BGM1]));
+
             StartCoroutine(FadeIn(player[(int)PlayerName.BGM2]));
             StartCoroutine(FadeOut(player[(int)PlayerName.BGM1]));
         }
@@ -84,8 +95,11 @@ public class SoundManager : Singleton<SoundManager>
             player[(int)PlayerName.BGM1].volume = 0f;
             player[(int)PlayerName.BGM1].Play();
             StartCoroutine(FadeIn(player[(int)PlayerName.BGM1]));
-            if(player[(int)PlayerName.BGM2].isPlaying)
+            if (player[(int)PlayerName.BGM2].isPlaying)
+            {
+                StopCoroutine(FadeIn(player[(int)PlayerName.BGM2]));
                 StartCoroutine(FadeOut(player[(int)PlayerName.BGM2]));
+            }
         }
     }
 
@@ -152,11 +166,11 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public IEnumerator FadeOut(AudioSource player ,bool isStop = false)
+    public IEnumerator FadeOut(AudioSource player ,bool isStop = true)
     {
         
-        player.volume -= 0.01f;
-        yield return new WaitForSeconds(0.1f);
+        player.volume -= 0.02f;
+        yield return new WaitForSeconds(0.15f);
         if (player.volume > 0.0001f)
             StartCoroutine(FadeOut(player));
         else
@@ -165,7 +179,7 @@ public class SoundManager : Singleton<SoundManager>
             if(isStop)
                 player.Stop();
         }
-
+        Debug.Log(player.name);
     }
     public IEnumerator FadeIn(AudioSource player)
     {
@@ -173,9 +187,10 @@ public class SoundManager : Singleton<SoundManager>
         yield return new WaitForSeconds(0.1f);
         if (player.volume <= 0.5f)
             StartCoroutine(FadeIn(player));
-        else
+        else 
             player.volume = 0.5f;
 
+        Debug.Log(player.name);
     }
 
     IEnumerator ObjectPoolReturn(float time, GameObject gameObject)

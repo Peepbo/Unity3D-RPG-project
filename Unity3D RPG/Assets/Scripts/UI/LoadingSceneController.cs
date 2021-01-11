@@ -17,6 +17,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
     CanvasGroup canvasGroup;
     Image progressBar;
     public string loadSceneName;
+    bool isDun = false;
 
     private void Awake()
     {
@@ -67,6 +68,25 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                 if(progressBar.fillAmount >=1f)
                 {
                     _op.allowSceneActivation = true;
+                    if (loadSceneName != "" && !isDun)
+                    {
+                        switch (loadSceneName)
+                        {
+                            case "TownScene":
+                                SoundManager.Instance.BGMPlay("VillageBGM");
+                                break;
+                            case "Dungeon 1(light bake)":
+                            case "Dungeon 2(light bake)":
+                                isDun = true;
+                                SoundManager.Instance.BGMPlay("Dungeon1_BGM");
+                                break;
+                            case "BossRoom(light bake)":
+                                SoundManager.Instance.BGMPlay("Boss1_BGM");
+                                break;
+                        }
+                    }
+                    else
+                        isDun = false;
                     yield break;
                 }
             }
