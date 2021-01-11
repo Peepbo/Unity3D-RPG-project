@@ -39,7 +39,12 @@ public class MoveScene : MonoBehaviour
         if (sceneName == "TownScene")
         {
             PlayerData.Instance.isReturn = true;
-            LootManager.Instance.Delivery();
+
+            if(LoadingSceneController.Instance.loadSceneName != "")
+            {
+                Debug.Log(LoadingSceneController.Instance.loadSceneName);
+                LootManager.Instance.Delivery();
+            }
         }
 
         if(LoadingSceneController.Instance.loadSceneName == "TownScene")
