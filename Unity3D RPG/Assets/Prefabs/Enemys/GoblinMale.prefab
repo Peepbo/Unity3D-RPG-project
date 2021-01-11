@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 983756614664175078}
   - component: {fileID: 1813474528529976010}
   - component: {fileID: -1324745572845981226}
+  - component: {fileID: 6117228789146513110}
   m_Layer: 0
   m_Name: GoblinMale
   m_TagString: Enemy
@@ -142,6 +143,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6117228789146513110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347180348202103792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546f5ca7f79f61440b858dda8873008f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
 --- !u!1 &2745745941745664592
 GameObject:
   m_ObjectHideFlags: 0
@@ -4894,15 +4908,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f690084620501f84b873643c709f83ac, type: 3}
---- !u!1 &7681984312012923756 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7985867327651434641, guid: f690084620501f84b873643c709f83ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 308606533953434621}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7681984312012675180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7985867327651130257, guid: f690084620501f84b873643c709f83ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 308606533953434621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7681984312012923756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7985867327651434641, guid: f690084620501f84b873643c709f83ac,
     type: 3}
   m_PrefabInstance: {fileID: 308606533953434621}
   m_PrefabAsset: {fileID: 0}
