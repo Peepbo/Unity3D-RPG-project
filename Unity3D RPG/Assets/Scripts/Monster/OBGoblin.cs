@@ -315,11 +315,11 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(startPos, 5f);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(startPos, 5f);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
 }

@@ -187,6 +187,7 @@ public class GoblinChieftain : BossDB, IDamagedState
                 Vector3 _temp = transform.position;
                 _temp.y -= 1.629f;
                 _fx.transform.position = _temp;
+                
 
                 break;
         }
@@ -207,8 +208,8 @@ public class GoblinChieftain : BossDB, IDamagedState
     {
         GameObject fx;
         fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
-        Vector3 temp = transform.position + transform.forward*2.3f;
-        //temp = transform.forward * 1.5f;
+        Vector3 temp = transform.position + transform.forward*2.6f;
+        temp.y -= 1.629f;
         fx.transform.position = temp;
     }
     public void Spawn()
@@ -265,13 +266,10 @@ public class GoblinChieftain : BossDB, IDamagedState
         {
             case BossATKPattern.THREEATK:
                 _atkDam = atk / 3;
-                GameObject fx;
-                fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ATK1]);
-                fx.transform.position = target.position;
+                EffectManager.Instance.EffectActive(6, target.position, Quaternion.identity);
                 break;
             case BossATKPattern.THUMP:
                 _atkDam = atk;
-               
                 break;
         }
         //target.GetComponent<TESTATTACK>().GetDamage(temp);

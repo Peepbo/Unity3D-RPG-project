@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public abstract class EnemyMgr : MonoBehaviour
 {
     private IMoveAble moveType;
-    private IAttackAble attackType;
 
     protected NavMeshAgent AI;
     protected NavMeshPath path;
@@ -70,19 +69,9 @@ public abstract class EnemyMgr : MonoBehaviour
         moveType.move();
     }
 
-    public void Attack()
-    {
-        attackType.attack();
-    }
-
     public void setMoveType(IMoveAble newMoveType)
     {
         this.moveType = newMoveType;
-    }
-
-    public void setAttackType(IAttackAble newAttackType)
-    {
-        this.attackType = newAttackType;
     }
 
     public abstract void Die();

@@ -263,14 +263,14 @@ public class Golem : EnemyMgr, IDamagedState
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(spawnPos, 1f);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(spawnPos, 1f);
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, findRange);
+        //Gizmos.color = Color.blue;
+        //Gizmos.DrawWireSphere(transform.position, findRange);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
 

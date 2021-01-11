@@ -21,6 +21,12 @@ public class AxColision : MonoBehaviour
             other.GetComponent<Player>().GetDamage(damage);
             GetComponent<MeshCollider>().enabled = false;
 
+            #region 01-11
+            EffectManager.Instance.EffectActive(6,
+                other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
+                Quaternion.identity);
+            #endregion
+
             isOn = false;
         }
     }

@@ -33,6 +33,12 @@ public class FireBall : MonoBehaviour
             if (other.tag == "Player")
             {
                 other.gameObject.GetComponent<Player>().GetDamage(atk);
+
+                #region 01-11
+                EffectManager.Instance.EffectActive(7,
+                    other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
+                    Quaternion.identity);
+                #endregion
             }
             gameObject.SetActive(false);
 
