@@ -26,8 +26,8 @@ public class Golem : EnemyMgr, IDamagedState
         base.Awake();
 
         findCount = 0;
-        hp = maxHp = 100 / 2;     //체크용
-        //hp = maxHp = 100;
+        //hp = maxHp = 100 / 2;     //체크용
+        hp = maxHp = 100;
         atk = 56;
         def = 10.0f;
         minGold = 50;

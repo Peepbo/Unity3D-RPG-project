@@ -25,7 +25,7 @@ public class Shaman : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
         firePos = transform.Find("FirePos");
-        hp = maxHp = 30 / 2;    //체크용
+        //hp = maxHp = 30 / 2;    //체크용
         hp = maxHp = 30;
         atk = 40;
         def = 0f;

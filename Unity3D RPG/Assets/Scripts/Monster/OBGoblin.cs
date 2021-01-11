@@ -24,8 +24,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
         base.Awake();
         startPos = transform.position;
 
-        hp = maxHp = 30 /2 ;    //체크용
-        //hp = maxHp = 30;
+        //hp = maxHp = 30 /2 ;    //체크용
+        hp = maxHp = 30;
         atk = 30;
         def = 5.0f;
         minGold = 20;
