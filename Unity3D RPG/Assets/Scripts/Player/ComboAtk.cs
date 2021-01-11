@@ -61,9 +61,9 @@ public class ComboAtk : MonoBehaviour
                 player.isFight = true;
                 if (comboStep == 0)
                 {
-                    if (player.stamina >= 30)
+                    if (player.stamina >= 15)
                     {
-                        player.staminaDown(30);
+                        player.staminaDown(15);
                         animator.Play("Atk1");
                         comboStep = 1;
                         return;
@@ -98,9 +98,9 @@ public class ComboAtk : MonoBehaviour
             {
                 if (comboStep == 0)
                 {
-                    if ( player.stamina >= 50)
+                    if ( player.stamina >= 25)
                     {
-                        player.staminaDown(50);
+                        player.staminaDown(25);
                         animator.Play("Atk3"); //크리공격시작
                         comboStep = 100;
                         return;
@@ -135,19 +135,19 @@ public class ComboAtk : MonoBehaviour
         ColiderOff();
         if (comboStep == 2)
         {
-            ComboAnimation(30, "Atk2");
+            ComboAnimation(15, "Atk2");
         }
         if (comboStep == 3)
         {
-            ComboAnimation(30, "Atk4");
+            ComboAnimation(15, "Atk4");
         }
         if (comboStep >=110)
         {
-            ComboAnimation(50, "CriAtkFinal");
+            ComboAnimation(25, "CriAtkFinal");
         }
         if (comboStep >10 && comboStep < 100)
         {
-            ComboAnimation(50, "CriAtkFinal");
+            ComboAnimation(25, "CriAtkFinal");
         }
        
     }
