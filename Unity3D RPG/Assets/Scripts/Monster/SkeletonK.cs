@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +14,7 @@ public class SkeletonK : EnemyMgr, IDamagedState
 
     public GameObject weapon;
 
-    private bool isStay=true;
+    private bool isStay = true;
     private int findCount;
     private RaycastHit hit;
 
@@ -46,7 +45,7 @@ public class SkeletonK : EnemyMgr, IDamagedState
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
-        // weapon.GetComponent<WepCol>().setAtk(atk);
+        weapon.GetComponent<WepCol>().setAtk(atk);
 
         follow.Init(AI, target, speed, 0);
         back.init(AI, startPos, speed);
@@ -60,7 +59,7 @@ public class SkeletonK : EnemyMgr, IDamagedState
         direction = (target.transform.position - transform.position).normalized;
         direction.y = 0;
         distance = Vector3.Distance(target.transform.position, transform.position);
-        
+
 
         if (isDead)
         {
@@ -164,7 +163,7 @@ public class SkeletonK : EnemyMgr, IDamagedState
         AI.isStopped = true;
         yield return new WaitForSeconds(1.5f);
 
-        transform.forward = direction;
+        StartCoroutine(LookBack());
 
         yield return new WaitForSeconds(1.5f);
         //rest를 끈다
@@ -175,10 +174,6 @@ public class SkeletonK : EnemyMgr, IDamagedState
 
     }
 
-    public void GetRest()
-    {
-        StartCoroutine(AttackRoutine());
-    }
 
     public void Damaged(int value)
     {
@@ -220,12 +215,36 @@ public class SkeletonK : EnemyMgr, IDamagedState
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, findRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, attackRange);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(transform.position, findRange);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(startPos, 1f);
+        //Gizmos.color = Color.yellow;
+        //Gizmos.DrawWireSphere(startPos, 1f);
     }
+
+    #region
+
+    public void RandomAttack()
+    {
+        int _type = Random.Range(0, 2);
+        anim.SetInteger("atkType", _type);
+    }
+
+    public void GetRest()
+    {
+        StartCoroutine(AttackRoutine());
+    }
+
+    public void Active()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = true;
+    }
+
+    public void DeActive()
+    {
+        weapon.GetComponent<MeshCollider>().enabled = false;
+    }
+    #endregion
 }

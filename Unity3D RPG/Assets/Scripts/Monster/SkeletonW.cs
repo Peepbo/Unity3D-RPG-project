@@ -149,6 +149,19 @@ public class SkeletonW : EnemyMgr, IDamagedState
         }
     }
 
+    IEnumerator GetDamage()
+    {
+        isDamaged = true;
+        AI.isStopped = true;
+
+        yield return new WaitForSeconds(.7f);
+
+        AI.isStopped = false;
+        isDamaged = false;
+
+    }
+
+
     IEnumerator AttackRoutine()
     {
         //rest를 켜고
@@ -177,8 +190,6 @@ public class SkeletonW : EnemyMgr, IDamagedState
             {
                 anim.SetTrigger("isDamage");
                 hp -= (int)(value * (1.0f - def / 100));
-
-                isDamaged = true;
             }
 
             if(hp<=0)
@@ -226,6 +237,7 @@ public class SkeletonW : EnemyMgr, IDamagedState
 
     public void GetRest()
     {
+        if (isDead) return;
         StartCoroutine(AttackRoutine());
     }
 
