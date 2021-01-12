@@ -64,7 +64,7 @@ public partial class SmathManager : MonoBehaviour
         makeButton = transform.Find("ItemInfo/MakeButton").gameObject;
         percentText = transform.Find("ItemInfo/PercentText").GetComponent<Text>();
         percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
-        percentText.color = Color.blue;
+        //percentText.color = Color.blue;
        
        
     }
