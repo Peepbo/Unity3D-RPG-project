@@ -49,7 +49,7 @@ public class TalkNpc : MonoBehaviour
             GameObject btn2 = talkPanel.transform.GetChild(0).gameObject;
             GameObject btn3 = talkPanel.transform.GetChild(1).gameObject;
 
-            GameObject[] childObj = new GameObject[2];
+            GameObject[] childObj = new GameObject[3];
 
             switch (npcName)
             {
@@ -57,12 +57,12 @@ public class TalkNpc : MonoBehaviour
                     btn2.SetActive(false);
                     btn3.SetActive(true);
 
-                    for(int i = 0; i < 2; i++)
+                    for(int i = 0; i < 3; i++)
                         childObj[i] = btn3.transform.GetChild(i).gameObject;
 
                     childObj[0].transform.GetChild(0).GetComponent<Text>().text = "장비 착용";
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "아이템 확인";
-
+                    
 
                     //addListener
 
@@ -72,15 +72,17 @@ public class TalkNpc : MonoBehaviour
                     //action1
                     ResetAndAddListener(childObj[1].GetComponent<Button>(), chestPanel);
 
+                    //clickSound
+                    ClickAddListener(childObj[2].GetComponent<Button>());
                     break;
                 case NPC.TRAINER://3가지 -> 2가지
                     btn2.SetActive(true);
                     btn3.SetActive(false);
 
-                    //for (int i = 0; i < 2; i++)
-                    //    childObj[i] = btn3.transform.GetChild(i).gameObject;
+                    for (int i = 0; i < 2; i++)
+                        childObj[i] = btn2.transform.GetChild(i).gameObject;
 
-                    childObj[0] = btn2.transform.GetChild(0).gameObject;
+                    //childObj[0] = btn2.transform.GetChild(0).gameObject;
 
                     childObj[0].GetComponentInChildren<Text>().text = "성장";
                     //childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
@@ -88,6 +90,8 @@ public class TalkNpc : MonoBehaviour
                     //action0
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), growthPanel);
 
+                    //clickSound
+                    ClickAddListener(childObj[1].GetComponent<Button>());
                     //action1
                     //ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
 
@@ -96,21 +100,35 @@ public class TalkNpc : MonoBehaviour
                     btn2.SetActive(true);
                     btn3.SetActive(false);
 
-                    childObj[0] = btn2.transform.GetChild(0).gameObject;
+                    for (int i = 0; i < 2; i++)
+                        childObj[i] = btn2.transform.GetChild(i).gameObject;
+
+                    //childObj[0] = btn2.transform.GetChild(0).gameObject;
                     
                     childObj[0].GetComponentInChildren<Text>().text = "장비 제작";
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), smithPanel);
+
+                    ClickAddListener(childObj[1].GetComponent<Button>());
+
                     break;
                 case NPC.INSURANCE://2가지
                     btn2.SetActive(true);
                     btn3.SetActive(false);
 
-                    childObj[0] = btn2.transform.GetChild(0).gameObject;
+                    for (int i = 0; i < 2; i++)
+                        childObj[i] = btn2.transform.GetChild(i).gameObject;
+                    //childObj[0] = btn2.transform.GetChild(0).gameObject;
 
                     childObj[0].GetComponentInChildren<Text>().text = "보험 구매";
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), insurancePanel);
+
+
+
+                    ClickAddListener(childObj[1].GetComponent<Button>());
                     break;
             }
+
+            SoundManager.Instance.SFXPlay2D("UI_NPCPopup");
         }
     }
 
@@ -131,8 +149,21 @@ public class TalkNpc : MonoBehaviour
             openPanel.SetActive(true);
             talkPanel.SetActive(false);
             UiManager0.Instance.PanelOpen = false;
+            SoundManager.Instance.SFXPlay2D("UI_Popup");
         };
 
         btn.onClick.AddListener(_action);
+        
+    }
+
+    void ClickAddListener(Button btn)
+    {
+        btn.onClick.RemoveAllListeners();
+        btn.onClick.AddListener(UI_ClickSound);
+
+    }
+    public void UI_ClickSound()
+    {
+        SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);
     }
 }
