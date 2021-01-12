@@ -151,6 +151,8 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 AI.enabled = false;
                 weapon.GetComponent<MeshCollider>().enabled = false;
                 StopAllCoroutines();
+
+                DungeonMng.Instance.KillMeleeMonster();
             }
         }
 

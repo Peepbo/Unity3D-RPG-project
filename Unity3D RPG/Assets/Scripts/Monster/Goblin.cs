@@ -297,6 +297,8 @@ public class Goblin : EnemyMgr, IDamagedState
                 AI.enabled = false;
 
                 StopAllCoroutines();
+
+                DungeonMng.Instance.KillMeleeMonster();
             }
         }
 
