@@ -22,6 +22,8 @@ public class Profile : MonoBehaviour
     public void Start()
     {
         player = Player.FindObjectOfType<Player>();
+        GetPlayerStats();
+        GetReinforce();
     }
 
     public void GetPlayerStats()
@@ -38,19 +40,20 @@ public class Profile : MonoBehaviour
 
     public void GetReinforce()
     {
-        int myHp = player.maxHp / 100;
-        float myStamina = player.maxStamina / 100;
+       
 
-        if (myHp > 0)
+        int myHpLv = PlayerData.Instance.hpLv;
+        int myStaminaLv = PlayerData.Instance.stmLv;
+        if (myHpLv > 0)
         {
-            for (int i = 0; i < myHp; i++)
+            for (int i = 0; i < myHpLv; i++)
             {
                 popHp.transform.GetChild(i).GetComponent<Image>().color = Color.red;
-            }
+            }   
         }
-        if (myStamina > 0)
+        if (myStaminaLv > 0)
         {
-            for (int i = 0; i < myStamina; i++)
+            for (int i = 0; i < myStaminaLv; i++)
             {
                 popStamina.transform.GetChild(i).GetComponent<Image>().color = Color.yellow;
             }

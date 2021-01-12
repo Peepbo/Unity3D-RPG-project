@@ -30,6 +30,7 @@ public class UIplayer : MonoBehaviour
     {
 
         hpBar.fillAmount = (float)player.hp / (float)player.maxHp;
+        Debug.Log((float)player.hp / (float)player.maxHp + "Hp야 ~~");
 
     }
     public void StaminaBarControl()
