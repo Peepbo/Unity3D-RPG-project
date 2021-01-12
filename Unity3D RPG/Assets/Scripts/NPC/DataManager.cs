@@ -11,25 +11,7 @@ public class DataManager : MonoBehaviour
 
     public GameObject noTouch_1;
     public GameObject noTouch_2;
-
-    private void Start()
-    {
-        JsonData.Instance.CheckJsonData();
-        PlayerData.Instance.LoadData_v2();
-
-        //Debug.Log(PlayerData.Instance.myCurrency);
-
-        //chestData.MakeData();
-        //chestData.ItemUpdate();
-        //chestData.OwnLoots();
-        //chestData.GetLootsData();
-
-        //chestData.GetData();
-
-        //statData.ResetStat();
-        //statData.GetData();
-    }
-
+   
     public void LoadData()
     {
         PlayerData.Instance.LoadData_v2();

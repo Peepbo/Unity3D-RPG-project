@@ -9,7 +9,7 @@ public class Potion : MonoBehaviour, IPointerDownHandler
     GameObject potionParticle2;
     Player player;
     [SerializeField] GameObject button;
-    Text potionNumTxt;
+    public Text potionNumTxt;
     private void Awake()
     {
         player = GameObject.Find("MainPlayer").GetComponent<Player>();
@@ -18,12 +18,7 @@ public class Potion : MonoBehaviour, IPointerDownHandler
         potionParticle2 = GameObject.Find("Character_Hero_Knight_Male").transform.GetChild(1).gameObject;
 
     }
-    // Update is called once per frame
-    void Update()
-    {
-        potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
-    }
-
+   
     public void OnPointerDown(PointerEventData eventData)
     {
         if(player.isDie ==false)
@@ -35,7 +30,8 @@ public class Potion : MonoBehaviour, IPointerDownHandler
                     potionParticle1.SetActive(true);
                     potionParticle2.SetActive(true);
                     player.GetHp(30);
-                    
+                    potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
+
                 }
             }
         }

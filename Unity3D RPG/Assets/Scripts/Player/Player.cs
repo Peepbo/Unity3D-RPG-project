@@ -8,14 +8,21 @@ public partial class Player : MonoBehaviour
     public ComboAtk comboAtk;
     private MainPlayer playerInput;
 
-   
+    Potion potion;
+
 
     private void Awake()
     {
+
+        JsonData.Instance.CheckJsonData();
+        PlayerData.Instance.LoadData_v2();
+
         comboAtk = GetComponentInChildren<ComboAtk>();
         playerC = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody>();
         isDie = false;
+       
+
     }
     // Start is called before the first frame update
     void Start()
@@ -23,6 +30,8 @@ public partial class Player : MonoBehaviour
         AnimStart();
         EquipStat();
         ReturnData();
+        potion = GameObject.Find("PotionButton").GetComponent<Potion>();
+        potion.potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
     }
    
     // Update is called once per frame

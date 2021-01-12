@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ReturnTown : MonoBehaviour
 {
+    
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,7 @@ public class ReturnTown : MonoBehaviour
         PlayerData.Instance.player.GrowthStat();
         PlayerData.Instance.myPotion = 5;
         PlayerData.Instance.myCurrentPotion = 5;
+       
     }
 
    
