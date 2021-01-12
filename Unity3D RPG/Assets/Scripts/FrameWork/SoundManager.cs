@@ -11,7 +11,7 @@ using UnityEngine.Audio;
     public AudioClip clip;
 }
 
-enum PlayerName { BGM1,BGM2,AMB}
+enum PlayerName { BGM1,BGM2,AMB,UI}
 public class SoundManager : Singleton<SoundManager>
 {
     protected SoundManager() { }
@@ -35,10 +35,6 @@ public class SoundManager : Singleton<SoundManager>
         BGMPlay("MainTitleBGM");
         
     }
-    private void OnEnable()
-    {
-        
-    }
     private void SoundBankInit()
     {
         for (int i = 0; i < soundData.Length; i++)
@@ -46,7 +42,12 @@ public class SoundManager : Singleton<SoundManager>
             soundBank.Add(soundData[i].name, soundData[i].clip);
         }
     }
-
+    public void SFXPlay2D(string clipName, float volume = 0.5f)
+    {
+        //player[(int)PlayerName.AMB].clip = soundBank[clipName];
+        player[(int)PlayerName.UI].volume = volume;
+        player[(int)PlayerName.UI].PlayOneShot(soundBank[clipName]);
+    }
     public void SFXPlay(string clipName, Vector3 position)
     {
         GameObject _speaker = ObjectPool.SharedInstance.GetPooledObject("Sound");
@@ -135,7 +136,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SFXMuteSwitch()
     {
-        if (!isSFXMute)            isSFXMute = true;
+        if (!isSFXMute) isSFXMute = true;
         else            isSFXMute = false;
         
     }

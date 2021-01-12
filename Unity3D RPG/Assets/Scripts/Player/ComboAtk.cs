@@ -177,5 +177,9 @@ public class ComboAtk : MonoBehaviour
         }
     }
 
-
+    public void FootSound()
+    {
+        string randomFoot = "Player_Foot0" + Random.Range(1, 5).ToString();
+        SoundManager.Instance.SFXPlay2D(randomFoot);
+    }
 }
