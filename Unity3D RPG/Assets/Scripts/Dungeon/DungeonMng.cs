@@ -14,6 +14,8 @@ public class DungeonMng : Singleton<DungeonMng>
 
     private void Start()
     {
+        Debug.Log("DungeonMng start");
+
         var obj = GameObject.FindWithTag("Quest");
 
         if (obj != null)
@@ -32,6 +34,12 @@ public class DungeonMng : Singleton<DungeonMng>
             countMelee = value;
 
             LinkCount();
+
+            if(dungeonQuest == null)
+            {
+                var obj = GameObject.FindWithTag("Quest");
+                dungeonQuest = obj.GetComponent<DungeonQuest>();
+            }
 
 
             if (dungeonQuest.quest == DungeonQuest.QUEST.MELEEALLKILL)
@@ -83,7 +91,7 @@ public class DungeonMng : Singleton<DungeonMng>
         killCount = countMelee + countRange;
     }
 
-    void ClearCount()
+    public void ClearCount()
     {
         killCount = 0;
         countMelee = 0;

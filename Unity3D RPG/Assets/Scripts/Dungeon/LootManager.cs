@@ -15,19 +15,46 @@ public partial class LootManager : Singleton<LootManager>
 
         for(int i = 0; i < _list.Count; i++)
         {
-            ItemInfo _item = _list[i];
+            ItemInfo _item = pocketItem.Find(x => (x.id == _list[i].id));
 
-            if (pocketItem.Contains(_item) == false)
-            {
-                pocketItem.Add(_item);
-            }
+            if (_item == null) pocketItem.Add(_list[i]);
 
             else
             {
                 int _index = pocketItem.IndexOf(_item);
-                pocketItem[_index].count += _item.count;
+                pocketItem[_index].count += _list[i].count;
             }
         }
+
+        //for(int i = 0; i < _list.Count; i++)
+        //{
+        //    ItemInfo _item = _list[i];
+
+        //    if (pocketItem.Contains(_item) == false)
+        //    {
+        //        pocketItem.Add(_item);
+        //    }
+
+        //    else
+        //    {
+        //        int _index = pocketItem.IndexOf(_item);
+        //        pocketItem[_index].count += _item.count;
+        //    }
+        //}
+
+
+        /*
+        ItemInfo _item = list.Find(x => (x.id == item.id));
+
+        if (_item == null) list.Add(item);
+
+        else
+        {
+            int _index = list.IndexOf(_item);
+
+            list[_index].count += item.count;
+        }
+         */
     }
 
     public void GetPocketMoney(int currency)

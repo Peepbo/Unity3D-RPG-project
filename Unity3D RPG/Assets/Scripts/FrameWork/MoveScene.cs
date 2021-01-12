@@ -6,7 +6,6 @@ public class MoveScene : MonoBehaviour
 {
     public string sceneName;
     public bool isTrigger = false;
-    public GameObject panel;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -22,7 +21,6 @@ public class MoveScene : MonoBehaviour
                 {
                     PlayerData.Instance.isReturn = true;
                     LootManager.Instance.Delivery();
-                    panel.SetActive(false);
                 }
 
                 if (LoadingSceneController.Instance.loadSceneName == "TownScene")
@@ -46,6 +44,7 @@ public class MoveScene : MonoBehaviour
             if(LoadingSceneController.Instance.loadSceneName != "")
             {
                 //Debug.Log(LoadingSceneController.Instance.loadSceneName);
+                DungeonMng.Instance.ClearCount();
                 LootManager.Instance.Delivery();
             }
         }

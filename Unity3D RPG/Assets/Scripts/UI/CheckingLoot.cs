@@ -12,6 +12,11 @@ public class CheckingLoot : MonoBehaviour
         ShowLoots();
     }
 
+    //private void OnEnable()
+    //{
+    //    ShowLoots();
+    //}
+
     // Update is called once per frame
     void Update()
     {

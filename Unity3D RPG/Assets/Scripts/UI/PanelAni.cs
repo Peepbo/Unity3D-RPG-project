@@ -9,6 +9,7 @@ public class PanelAni : MonoBehaviour
 
     public void OpenPanelAni()
     {
+        transform.parent.GetComponent<CheckingLoot>().ShowLoots();
         panel.GetComponent<Animator>().SetBool("Open", true);
     }
     public void ClosePanelAni()
