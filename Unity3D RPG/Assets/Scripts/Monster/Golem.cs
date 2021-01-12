@@ -54,7 +54,7 @@ public class Golem : EnemyMgr, IDamagedState
         damageCheck = transform.GetChild(0).gameObject;
         anim.SetInteger("state", 0);
 
-        
+
     }
 
     private void Update()
@@ -183,7 +183,7 @@ public class Golem : EnemyMgr, IDamagedState
         anim.SetBool("IsRest", false);
         AI.isStopped = false;
         AI.updateRotation = true;
-        
+
     }
 
     public void AttackTarget()
@@ -206,7 +206,7 @@ public class Golem : EnemyMgr, IDamagedState
     public void Damaged(int value)
     {
         if (isDead) return;
-        
+
 
         if (hp > 0)
         {
@@ -221,14 +221,14 @@ public class Golem : EnemyMgr, IDamagedState
                     hp = 0;
                     isDead = true;
                     //anim.Play("Death");
-                     anim.SetTrigger("Die");
+                    anim.SetTrigger("Die");
                     StopAllCoroutines();
                     AI.enabled = true;
 
-                    DungeonMng.Instance.KillMeleeMonster();
+                    DungeonMng.Instance.killMelee++;
                 }
 
-                else if(player.isCri)
+                else if (player.isCri)
                 {
                     anim.SetTrigger("Damaged");
 
@@ -237,7 +237,7 @@ public class Golem : EnemyMgr, IDamagedState
             }
 
         }
-     
+
     }
 
     public override void Die()

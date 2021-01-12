@@ -82,6 +82,26 @@ partial class Player
         }
         else
         {
+           
+            if (PlayerData.Instance.hpLv <= 10)
+            {
+                maxHp = 100 + PlayerData.Instance.hpLv * 200;
+            }
+            else if (PlayerData.Instance.hpLv > 10)
+            {
+                maxHp = 2100 + (PlayerData.Instance.hpLv - 10) * 20;
+            }
+
+            if (PlayerData.Instance.stmLv <= 10)
+            {
+                maxStamina = 100 + PlayerData.Instance.stmLv * 30;
+
+
+            }
+            else if (PlayerData.Instance.stmLv > 10)
+            {
+                maxStamina = 400 + (PlayerData.Instance.stmLv - 10) * 3;
+            }
             hp = PlayerData.Instance.nowHp;
         }
     }

@@ -23,6 +23,7 @@ public class StatureManager : MonoBehaviour
     public Text[] paymentAmount;
     public int payMoney;
     Player player;
+   
     private void OnEnable()
     {
         LinkData();
@@ -33,7 +34,9 @@ public class StatureManager : MonoBehaviour
     {
         hpImg = hpSlots.GetComponentsInChildren<Image>();
         steminaImg = steminaSlots.GetComponentsInChildren<Image>();
-        player = GameObject.FindWithTag("Player").GetComponent<Player>(); 
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        ChangeColor();
+
     }
 
     void LinkData()
@@ -59,7 +62,24 @@ public class StatureManager : MonoBehaviour
                 paymentAmount[i].color = Color.white;
         }
     }
+    public void ChangeColor()
+    {
 
+        for (int i = 1; i < hpImg.Length; i++)
+        {
+            if (i > PlayerData.Instance.hpLv) continue;
+
+            hpImg[i - 1].color = Color.green;
+        }
+
+        for (int i = 1; i < steminaImg.Length; i++)
+        {
+            if (i > PlayerData.Instance.stmLv) continue;
+
+            steminaImg[i - 1].color = Color.yellow;
+        }
+
+    }
     #region BUTTON FUNCTIONS
     public void Enhancement(int num)
     {

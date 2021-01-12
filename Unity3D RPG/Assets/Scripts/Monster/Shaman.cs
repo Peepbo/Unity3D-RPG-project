@@ -211,7 +211,7 @@ public class Shaman : EnemyMgr, IDamagedState
                 AI.enabled = false;
                 StopAllCoroutines();
 
-                DungeonMng.Instance.KillRangeMonster();
+                DungeonMng.Instance.killRange++;
             }
         }
 
