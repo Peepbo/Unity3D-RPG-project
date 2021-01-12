@@ -15,4 +15,12 @@ public class PanelAni : MonoBehaviour
     {
         panel.GetComponent<Animator>().SetBool("Open", false);
     }
+    public void ClickSound()
+    {
+        SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);
+    }
+    public void SellSound()
+    {
+        SoundManager.Instance.SFXPlay2D("UI_ItemSell", 0.6f);
+    }
 }
