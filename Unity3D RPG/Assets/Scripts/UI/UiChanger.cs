@@ -10,8 +10,14 @@ public class UiChanger : MonoBehaviour
     private void Awake()
     {
         if (LoadingSceneController.Instance.loadSceneName == "TownScene")
+        {
             TownUi.SetActive(true);
-        else 
+            DungeonUi.SetActive(false);
+        }
+        else
+        {
             DungeonUi.SetActive(true);
+            TownUi.SetActive(false);
+        }
     }
 }
