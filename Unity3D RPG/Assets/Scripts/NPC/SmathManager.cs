@@ -203,14 +203,14 @@ public partial class SmathManager : MonoBehaviour
         {
             _success.SetActive(true);
             _fail.SetActive(false);
-
+            SoundManager.Instance.SFXPlay2D("UI_Success");
             MaterialPlayerDataRemove(true);
         }
         else //강화실패
         {
             _success.SetActive(false);
             _fail.SetActive(true);
-
+            SoundManager.Instance.SFXPlay2D("UI_Fail");
             MaterialPlayerDataRemove(false);
         }
 
