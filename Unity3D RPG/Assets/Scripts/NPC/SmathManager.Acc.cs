@@ -14,6 +14,7 @@ partial class SmathManager
     bool isAcc = false;
     public void OnAccButton()
     {
+        ClickSound();
         isWeapon = false;
         isArmour = false;
         isAcc = true;
@@ -63,7 +64,7 @@ partial class SmathManager
     private void OnAccClick(int num)
     {
         if (!isAcc) return;
-
+        ClickSound();
         curruntInfo = accList[num];
 
         MaterialTextSetting();

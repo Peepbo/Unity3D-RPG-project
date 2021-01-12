@@ -32,6 +32,7 @@ partial class SmathManager
     bool isArmour = false;
     public void OnArmourButton()
     {
+        ClickSound();
         isWeapon = false;
         isArmour = true;
         isAcc = false;
@@ -127,7 +128,7 @@ partial class SmathManager
     private void OnArmourClick(int num)
     {
         if (!isArmour) return;
-
+        ClickSound();
         curruntInfo = armourList[(ArmourKind)num];
 
         MaterialTextSetting();

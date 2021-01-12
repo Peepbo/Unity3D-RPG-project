@@ -44,6 +44,7 @@ partial class SmathManager
 
     public void OnWeaponButton()
     {
+        ClickSound();
         isWeapon = true;
         isArmour = false;
         isAcc = false;
@@ -140,7 +141,7 @@ partial class SmathManager
     private void OnWeaponClick(int num)
     {
         if (!isWeapon) return;
-
+        ClickSound();
         curruntInfo = weaponList[(WeaponKind)num];
         
         MaterialTextSetting();

@@ -194,6 +194,7 @@ public partial class SmathManager : MonoBehaviour
 
     public void OnMakeButton()
     {
+        ClickSound();
         resultPanel.SetActive(true);
         GameObject _success = resultPanel.transform.Find("ResultRect/Success").gameObject;
         GameObject _fail = resultPanel.transform.Find("ResultRect/Fail").gameObject;
@@ -213,7 +214,6 @@ public partial class SmathManager : MonoBehaviour
             MaterialPlayerDataRemove(false);
         }
 
-        Debug.Log("start한다");
         this.Start();
     }
 
@@ -344,5 +344,11 @@ public partial class SmathManager : MonoBehaviour
 
             PlayerData.Instance.SaveData();
         }
+    }
+
+
+    void ClickSound()
+    {
+        SoundManager.Instance.SFXPlay2D("UI_Click",0.6f);
     }
 }
