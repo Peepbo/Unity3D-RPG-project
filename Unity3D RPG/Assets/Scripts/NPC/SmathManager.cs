@@ -347,7 +347,7 @@ public partial class SmathManager : MonoBehaviour
     }
 
 
-    void ClickSound()
+    public void ClickSound()
     {
         SoundManager.Instance.SFXPlay2D("UI_Click",0.6f);
     }
