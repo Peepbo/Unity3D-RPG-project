@@ -19,7 +19,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
         base.Awake();
 
         //startPos = transform.position;
-        hp = maxHp =30;
+        hp = maxHp = 30;
         atk = 30;
         def = 5.0f;
         minGold = 20;
@@ -135,7 +135,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         if (hp > 0)
         {
-            if(!isDamaged)
+            if (!isDamaged)
             {
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
@@ -152,16 +152,16 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 weapon.GetComponent<MeshCollider>().enabled = false;
                 StopAllCoroutines();
 
-                DungeonMng.Instance.KillMeleeMonster();
+                DungeonMng.Instance.killMelee++;
             }
-        }
 
-        if (player.isCri)
-        {
-            anim.SetTrigger("isDamage");
-            weapon.GetComponent<MeshCollider>().enabled = false;
-        }
+            if (player.isCri)
+            {
+                anim.SetTrigger("isDamage");
+                weapon.GetComponent<MeshCollider>().enabled = false;
+            }
 
+        }
     }
 
     public override void Die()

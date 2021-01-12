@@ -17,6 +17,7 @@ public class DungeonQuest : MonoBehaviour
 
     public QUEST quest;
 
+   
     #region KEY
     //find key
     public int boxNumber = 4;
@@ -27,12 +28,11 @@ public class DungeonQuest : MonoBehaviour
     //kill monster
     public int maxMonster = 0;
     public int meleeMonster = 0;
-    public int killCount = 0;
     #endregion
 
     bool isClear = false;
 
-    public QUEST Quest { get { return quest; } }
+    //public QUEST Quest { get { return quest; } }
 
     public TextMeshProUGUI text;
 
@@ -42,15 +42,13 @@ public class DungeonQuest : MonoBehaviour
     {
         isClear = false;
 
-
-
         var _allEnemys = GameObject.FindGameObjectsWithTag("Enemy");
-        Debug.Log(_allEnemys.Length);
+        //Debug.Log(_allEnemys.Length);
         MonsterType mt;
 
         quest = ChooseQuest();
 
-        switch (Quest)
+        switch (quest)
         {
             case QUEST.KEY:
                 correctNumber = Random.Range(0, boxNumber);
@@ -61,10 +59,10 @@ public class DungeonQuest : MonoBehaviour
                 
                 for (int i = 0; i < _allEnemys.Length; i++)
                 {
-                    Debug.Log(_allEnemys[i].name);
+                    //Debug.Log(_allEnemys[i].name);
                     if (_allEnemys[i].TryGetComponent(out mt))
                     {
-                        Debug.Log("monster");
+                        //Debug.Log("monster");
                         maxMonster++;
                     }
                 }
@@ -74,12 +72,12 @@ public class DungeonQuest : MonoBehaviour
 
                 for (int i = 0; i < _allEnemys.Length; i++)
                 {
-                    Debug.Log(_allEnemys[i].name);
+                    //Debug.Log(_allEnemys[i].name);
                     if (_allEnemys[i].TryGetComponent(out mt))
                     {
                         if (mt.GetEnemyType() == MonType.Melee)
                         {
-                            Debug.Log("melee monster");
+                            //Debug.Log("melee monster");
                             meleeMonster++;
                         }
                     }

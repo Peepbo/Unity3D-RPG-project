@@ -298,7 +298,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
                 StopAllCoroutines();
 
-                DungeonMng.Instance.KillMeleeMonster();
+                DungeonMng.Instance.killMelee++;
             }
         }
 

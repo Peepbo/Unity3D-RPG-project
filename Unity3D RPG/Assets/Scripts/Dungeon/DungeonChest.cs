@@ -21,7 +21,11 @@ public class DungeonChest : MonoBehaviour, IDamagedState
     {
         if (isOpen) return;
 
-        if (dq.Quest == DungeonQuest.QUEST.KEY)
+        //DungeonQuest.QUEST.MELEEALLKILL
+      
+     
+
+        if (dq.quest == 0)
         {
             if (dq.GetCorrectNumber() == index)
             {
