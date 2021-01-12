@@ -64,7 +64,7 @@ public abstract class BossDB : MonoBehaviour
     protected List<GameObject> minions = new List<GameObject>();
     public GameObject itemBox;
     protected List<ItemInfo> item = new List<ItemInfo>();
-    protected ItemInfo info;
+    protected ItemInfo info = new ItemInfo();
     public Slider hpBar;
 
     public bool start { get { return isStart; } set { isStart = value; } }
