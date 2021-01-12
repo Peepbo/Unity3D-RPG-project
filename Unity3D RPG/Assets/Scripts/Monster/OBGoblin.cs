@@ -286,7 +286,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 weapon.GetComponent<MeshCollider>().enabled = false;
                 StopAllCoroutines();
 
-                DungeonMng.Instance.KillMeleeMonster();
+                DungeonMng.Instance.killMelee++;
             }
            
         }

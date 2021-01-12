@@ -200,7 +200,7 @@ public class SkeletonW : EnemyMgr, IDamagedState
                 StopAllCoroutines();
                 AI.enabled = true;
 
-                DungeonMng.Instance.KillMeleeMonster();
+                DungeonMng.Instance.killMelee++;
             }
         }
     }
