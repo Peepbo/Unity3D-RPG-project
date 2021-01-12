@@ -53,6 +53,8 @@ public class Golem : EnemyMgr, IDamagedState
         back.init(AI, spawnPos, speed);
         damageCheck = transform.GetChild(0).gameObject;
         anim.SetInteger("state", 0);
+
+        
     }
 
     private void Update()
@@ -222,6 +224,8 @@ public class Golem : EnemyMgr, IDamagedState
                      anim.SetTrigger("Die");
                     StopAllCoroutines();
                     AI.enabled = true;
+
+                    DungeonMng.Instance.KillMeleeMonster();
                 }
 
                 else if(player.isCri)
