@@ -172,11 +172,11 @@ public class SoundManager : Singleton<SoundManager>
         
         player.volume -= 0.02f;
         yield return new WaitForSeconds(0.15f);
-        if (player.volume > 0.0001f)
+        if (player.volume > 0.01f)
             StartCoroutine(FadeOut(player));
         else
         {
-            player.volume = 0.0001f;
+            player.volume = 0.01f;
             if(isStop)
                 player.Stop();
         }

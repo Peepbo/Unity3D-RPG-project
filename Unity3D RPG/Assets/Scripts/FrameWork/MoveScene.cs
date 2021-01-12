@@ -28,7 +28,7 @@ public class MoveScene : MonoBehaviour
                     Debug.Log("clear loot");
                     LootManager.Instance.ClearPocketData();
                 }
-                SoundManager.Instance.SFXPlay2D("UI_Warp");
+                SoundManager.Instance.SFXPlay2D("UI_Warp",0.6f);
                 LoadingSceneController.Instance.LoadScene(sceneName);
                 
             }
@@ -56,6 +56,5 @@ public class MoveScene : MonoBehaviour
         }
 
         LoadingSceneController.Instance.LoadScene(sceneName);
-        Debug.Log("Change");
     }
 }
