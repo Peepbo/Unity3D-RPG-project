@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class PanelAni : MonoBehaviour
 {
-    public GameObject panel;
-    public bool isOpen;
-
-    public void OpenPanelAni()
+    private void OnEnable()
     {
         transform.parent.GetComponent<CheckingLoot>().ShowLoots();
-        panel.GetComponent<Animator>().SetBool("Open", true);
     }
-    public void ClosePanelAni()
-    {
-        panel.GetComponent<Animator>().SetBool("Open", false);
-    }
+
     public void ClickSound()
     {
         SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);
@@ -24,4 +17,6 @@ public class PanelAni : MonoBehaviour
     {
         SoundManager.Instance.SFXPlay2D("UI_ItemSell", 0.6f);
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
 }

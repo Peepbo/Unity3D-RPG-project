@@ -142,5 +142,7 @@ public class chestLootManager : MonoBehaviour
 
         LinkData();
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
     #endregion
 }

@@ -159,5 +159,7 @@ class ChestEquipManager : MonoBehaviour
 
         LinkData();
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
     #endregion
 }

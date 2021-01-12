@@ -69,4 +69,6 @@ public class Profile : MonoBehaviour
     {
         UiManager0.Instance.PanelOpen = false;
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
 }

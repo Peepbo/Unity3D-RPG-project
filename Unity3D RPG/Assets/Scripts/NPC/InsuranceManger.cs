@@ -84,5 +84,7 @@ public class InsuranceManger : MonoBehaviour
 
         LinkData();
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
     #endregion
 }

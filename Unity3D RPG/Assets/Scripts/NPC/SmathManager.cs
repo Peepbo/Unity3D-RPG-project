@@ -351,4 +351,8 @@ public partial class SmathManager : MonoBehaviour
     {
         SoundManager.Instance.SFXPlay2D("UI_Click",0.6f);
     }
+
+    #region BUTTON ACTIONS
+    public void QuitButton() { gameObject.SetActive(false); }
+    #endregion
 }

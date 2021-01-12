@@ -80,6 +80,7 @@ public class StatureManager : MonoBehaviour
         }
 
     }
+
     #region BUTTON FUNCTIONS
     public void Enhancement(int num)
     {
@@ -125,5 +126,7 @@ public class StatureManager : MonoBehaviour
                 break;
         }
     }
+
+    public void QuitButton() { gameObject.SetActive(false); }
     #endregion
 }
