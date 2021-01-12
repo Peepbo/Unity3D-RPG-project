@@ -32,6 +32,7 @@ public partial class Player : MonoBehaviour
         ReturnData();
         potion = GameObject.Find("PotionButton").GetComponent<Potion>();
         potion.potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
+        UiManager0.Instance.PanelOpen = false;
     }
    
     // Update is called once per frame
