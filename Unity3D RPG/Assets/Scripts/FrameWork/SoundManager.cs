@@ -179,7 +179,7 @@ public class SoundManager : Singleton<SoundManager>
             if(isStop)
                 player.Stop();
         }
-        Debug.Log(player.name);
+        //Debug.Log(player.name);
     }
     public IEnumerator FadeIn(AudioSource player)
     {
@@ -190,7 +190,7 @@ public class SoundManager : Singleton<SoundManager>
         else 
             player.volume = 0.5f;
 
-        Debug.Log(player.name);
+        //Debug.Log(player.name);
     }
 
     IEnumerator ObjectPoolReturn(float time, GameObject gameObject)
