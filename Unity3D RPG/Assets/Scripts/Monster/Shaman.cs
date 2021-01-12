@@ -205,15 +205,15 @@ public class Shaman : EnemyMgr, IDamagedState
             if (hp <= 0)
             {
                 hp = 0;
-                isDead = true;
                 anim.SetTrigger("die");
+                isDead = true;
                 controller.enabled = false;
                 AI.enabled = false;
                 StopAllCoroutines();
-
                 DungeonMng.Instance.killRange++;
             }
         }
+
 
         if (player.isCri)
             anim.SetTrigger("damage");
