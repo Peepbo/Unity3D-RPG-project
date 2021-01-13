@@ -20,7 +20,14 @@ public class MoveScene : MonoBehaviour
                 if (sceneName == "TownScene")
                 {
                     PlayerData.Instance.isReturn = true;
-                    LootManager.Instance.Delivery();
+                    if(LootManager.Instance.isDelivery == false)
+                    {
+                        LootManager.Instance.Delivery();
+                    }
+                    else
+                    {
+                        LootManager.Instance.isDelivery = false;
+                    }
                 }
 
                 if (LoadingSceneController.Instance.loadSceneName == "TownScene")
@@ -40,12 +47,19 @@ public class MoveScene : MonoBehaviour
         if (sceneName == "TownScene")
         {
             PlayerData.Instance.isReturn = true;
-
-            if(LoadingSceneController.Instance.loadSceneName != "")
+            
+            if (LoadingSceneController.Instance.loadSceneName != "")
             {
                 //Debug.Log(LoadingSceneController.Instance.loadSceneName);
                 DungeonMng.Instance.ClearCount();
-                LootManager.Instance.Delivery();
+                if (LootManager.Instance.isDelivery == false)
+                {
+                    LootManager.Instance.Delivery();
+                }
+                else
+                {
+                    LootManager.Instance.isDelivery = false;
+                }
             }
         }
 

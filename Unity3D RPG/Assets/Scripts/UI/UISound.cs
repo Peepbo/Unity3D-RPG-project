@@ -36,5 +36,6 @@ public class UISound : MonoBehaviour
     public void ClearItemData()
     {
         LootManager.Instance.ClearPocketData();
+        LootManager.Instance.isDelivery = true;
     }
 }
