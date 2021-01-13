@@ -131,6 +131,11 @@ public class StatureManager : MonoBehaviour
 
     public void QuitButton() { gameObject.SetActive(false); }
 
+    public void CanTouch()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
+
     public void UI_ClickSound()
     {
         SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);

@@ -167,5 +167,10 @@ class ChestEquipManager : MonoBehaviour
     public void CancleSound() { SoundManager.Instance.SFXPlay2D("UI_Click"); }
 
     public void QuitButton() { gameObject.SetActive(false); }
+
+    public void CanTouch()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
     #endregion
 }

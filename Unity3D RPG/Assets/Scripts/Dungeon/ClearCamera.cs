@@ -27,7 +27,7 @@ public class ClearCamera : MonoBehaviour
         SoundManager.Instance.SFXPlay2D("Portal_Open",0.8f);
 
         SoundManager.Instance.SFXPlay("Portal_Loop",
-            transform.parent.GetChild(1).position);
+            transform.parent.GetChild(1).position, true);
         yield return new WaitForSecondsRealtime(dieTime - 0.2f);
         //yield return new WaitForSeconds(dieTime);
         canvas.SetActive(true);

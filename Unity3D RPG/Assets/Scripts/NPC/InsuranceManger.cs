@@ -88,6 +88,10 @@ public class InsuranceManger : MonoBehaviour
     }
 
     public void QuitButton() { gameObject.SetActive(false); }
+    public void CanTouch()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
 
     public void ClickSound() { SoundManager.Instance.SFXPlay2D("UI_Click"); }
     #endregion
