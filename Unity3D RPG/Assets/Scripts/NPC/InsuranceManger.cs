@@ -76,7 +76,9 @@ public class InsuranceManger : MonoBehaviour
                 break;
         }
 
-        for(int i = 0; i < 3; i++)
+        SoundManager.Instance.SFXPlay2D("UI_Success", 0.6f);
+
+        for (int i = 0; i < 3; i++)
         {
             button[i].GetComponent<Button>().enabled = false;
             button[i].GetChild(0).GetComponent<Text>().color = Color.gray;
@@ -86,5 +88,7 @@ public class InsuranceManger : MonoBehaviour
     }
 
     public void QuitButton() { gameObject.SetActive(false); }
+
+    public void ClickSound() { SoundManager.Instance.SFXPlay2D("UI_Click"); }
     #endregion
 }

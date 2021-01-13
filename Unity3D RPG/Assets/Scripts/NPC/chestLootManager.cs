@@ -103,6 +103,8 @@ public class chestLootManager : MonoBehaviour
     #region BUTTON ACTIONS
     public void GetInfo(int number)
     {
+        SoundManager.Instance.SFXPlay2D("UI_Click");
+
         selectNumber = number;
 
         ItemInfo _item = PlayerData.Instance.haveLootItem[selectNumber];
@@ -128,6 +130,7 @@ public class chestLootManager : MonoBehaviour
 
     public void SellItem()
     {
+        SoundManager.Instance.SFXPlay2D("UI_ItemSell");
 
         int _price = PlayerData.Instance.haveLootItem[selectNumber].price;
 
@@ -146,5 +149,7 @@ public class chestLootManager : MonoBehaviour
     }
 
     public void QuitButton() { gameObject.SetActive(false); }
+
+    public void CancleSound() { SoundManager.Instance.SFXPlay2D("UI_Click"); }
     #endregion
 }

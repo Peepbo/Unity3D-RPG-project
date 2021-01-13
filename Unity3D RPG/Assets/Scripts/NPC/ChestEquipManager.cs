@@ -123,6 +123,8 @@ class ChestEquipManager : MonoBehaviour
     #region BUTTON ACTIONS
     public void SelectNumber(int number)
     {
+        SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);
+
         selectNumber = number;
 
         int _selectId = PlayerData.Instance.haveEquipItem[selectNumber].id;
@@ -132,6 +134,8 @@ class ChestEquipManager : MonoBehaviour
 
     public void ItemWear()
     {
+        SoundManager.Instance.SFXPlay2D("UI_Equip");
+
         ItemInfo _item = PlayerData.Instance.haveEquipItem[selectNumber];
         int _id = _item.id;
         int _kind = _item.kindID;
@@ -159,6 +163,8 @@ class ChestEquipManager : MonoBehaviour
 
         LinkData();
     }
+
+    public void CancleSound() { SoundManager.Instance.SFXPlay2D("UI_Click"); }
 
     public void QuitButton() { gameObject.SetActive(false); }
     #endregion
