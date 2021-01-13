@@ -47,8 +47,18 @@ public class DungeonPortal : MonoBehaviour
                     "D 1-3",
                     "D 1-4" };
 
-        int _ran = Random.Range(0, 4);
 
-        return _scenes[_ran];
+        List<int> _list = new List<int>();
+        for(int i = 0; i < 4; i++)
+        {
+            if (i != DungeonMng.Instance.playMap) _list.Add(i);
+        }
+
+        int _ran = Random.Range(0, _list.Count);
+
+        int _index = _list[_ran];
+        DungeonMng.Instance.playMap = _index;
+
+        return _scenes[_index];
     }
 }

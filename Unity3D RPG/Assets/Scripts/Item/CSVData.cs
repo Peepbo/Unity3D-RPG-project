@@ -64,7 +64,7 @@ public class CSVData : Singleton<CSVData>
     protected CSVData() { }
 
     Dictionary<int, ItemInfo> dictionaryData;
-    Dictionary<int, AchieveInfo> achieveDictionary;
+    //Dictionary<int, AchieveInfo> achieveDictionary;
 
     public List<string> achieveListData;
     /*
@@ -106,7 +106,7 @@ public class CSVData : Singleton<CSVData>
         //Debug.Log(_item.count);
         return _item;
     }
-    public AchieveInfo findAchieve(int num) { return achieveDictionary[num]; }
+    //public AchieveInfo findAchieve(int num) { return achieveDictionary[num]; }
 
     void Awake()
     {

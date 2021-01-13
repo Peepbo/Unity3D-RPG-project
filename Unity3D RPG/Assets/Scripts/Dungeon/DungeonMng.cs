@@ -14,6 +14,8 @@ public class DungeonMng : Singleton<DungeonMng>
     public int countRange;
     public int killCount = 0; //레인지, 밀리 몬스터 총 합
 
+    public int playMap = -1;
+
     private void Start()
     {
         Debug.Log("DungeonMng start");
@@ -93,6 +95,7 @@ public class DungeonMng : Singleton<DungeonMng>
         killCount = countMelee + countRange;
     }
 
+    //player
     public void ClearCount()
     {
         killCount = 0;
@@ -100,5 +103,10 @@ public class DungeonMng : Singleton<DungeonMng>
         countRange = 0;
     }
 
-    public void ResetStage() { stage = 0; }
+    //player
+    public void ResetStage()
+    {
+        stage = 0;
+        playMap = -1;
+    }
 }

@@ -221,7 +221,8 @@ partial class Player
             else
             {
                 hp -= (int)(damage *(1- realDef/100));
-                if(hp < 0)
+                SoundManager.Instance.SFXPlay2D("Player_Hit");
+                if (hp < 0)
                 {
                     hp = 0;
                     PlayerDie();
