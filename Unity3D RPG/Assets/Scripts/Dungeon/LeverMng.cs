@@ -28,11 +28,14 @@ public class LeverMng : MonoBehaviour
 
     IEnumerator CameraEvent()
     {
-        yield return new WaitForSeconds(0.7f);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.7f);
         cam.SetActive(true);
-        yield return new WaitForSeconds(1.3f);
+        yield return new WaitForSecondsRealtime(1.3f);
         door.GetComponent<Animator>().SetBool("Open", true);
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSecondsRealtime(2.5f);
         cam.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.8f);
+        Time.timeScale = 1f;
     }
 }
