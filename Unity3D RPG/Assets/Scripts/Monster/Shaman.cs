@@ -231,7 +231,7 @@ public class Shaman : EnemyMgr, IDamagedState
     public override void Die()
     {
         disappearTime += Time.deltaTime;
-        if (disappearTime > 5f)
+        if (disappearTime > 2.5f)
         {
             //아이템 떨어트리기
             var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
