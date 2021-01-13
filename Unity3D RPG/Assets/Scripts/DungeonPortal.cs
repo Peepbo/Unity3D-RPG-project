@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class DungeonPortal : MonoBehaviour
 {
-    int myStage = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        myStage = DungeonMng.Instance.stage;
-    }
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -23,14 +16,15 @@ public class DungeonPortal : MonoBehaviour
                 for(int i = 5; i <= 10; i++)
                 {
                     _list[i].Number += DungeonMng.Instance.killCount;
-                    DungeonMng.Instance.ClearCount();
                 }
+                DungeonMng.Instance.ClearCount();
+                JsonData.Instance.AchieveSave(_list);
             }
 
             DungeonMng.Instance.stage++;
             Debug.Log(DungeonMng.Instance.stage);
 
-            if (myStage < 2)
+            if (DungeonMng.Instance.stage < 3)
             {
                 LoadingSceneController.Instance.LoadScene(GetRandomMap());
             }
