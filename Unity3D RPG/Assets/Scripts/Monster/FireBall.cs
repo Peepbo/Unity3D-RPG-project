@@ -11,7 +11,12 @@ public class FireBall : MonoBehaviour
     //awake : 최초 생성 즉 gameobject가 처음 켜질때만 작동되는듯
     //start : 스크립트 (즉 게임오브젝트)가 실행됬을 때
 
-    private void Start() // 
+    //private void Start() // 
+    //{
+    //    spawnPos = transform.position;
+    //}
+
+    private void OnEnable()
     {
         spawnPos = transform.position;
     }

@@ -328,9 +328,11 @@ public class GoblinChieftain : BossDB, IDamagedState
         var bossItem = Instantiate(itemBox, transform.position, Quaternion.identity);
         bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
 
-        Destroy(gameObject);
         yield return new WaitForSeconds(1.0f);
         returnButton.SetActive(true);
+
+        Destroy(gameObject);
+
 
     }
     private void Hit()
