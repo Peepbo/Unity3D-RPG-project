@@ -33,4 +33,8 @@ public class UISound : MonoBehaviour
         noTouch_3.transform.GetComponent<Button>().enabled = true;
         noTouch_4.transform.GetComponent<Button>().enabled = true;
     }
+    public void ClearItemData()
+    {
+        LootManager.Instance.ClearPocketData();
+    }
 }
