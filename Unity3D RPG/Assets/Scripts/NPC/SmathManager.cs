@@ -354,5 +354,11 @@ public partial class SmathManager : MonoBehaviour
 
     #region BUTTON ACTIONS
     public void QuitButton() { gameObject.SetActive(false); }
+
+    public void CanTouch()
+    {
+        UiManager0.Instance.PanelOpen = false;
+    }
+
     #endregion
 }
