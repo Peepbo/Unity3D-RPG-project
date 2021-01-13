@@ -32,7 +32,8 @@ public class SoundManager : Singleton<SoundManager>
     private void Start()
     {
         
-        BGMPlay("MainTitleBGM");
+        //BGMPlay("MainTitleBGM");
+        AMBPlay("Intro_Amb",0.7f);
         
     }
     private void SoundBankInit()

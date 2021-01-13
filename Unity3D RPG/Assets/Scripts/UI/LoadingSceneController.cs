@@ -74,6 +74,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                         {
                             case "TownScene":
                                 SoundManager.Instance.BGMPlay("VillageBGM");
+                                SoundManager.Instance.AMBPlay("Town_Amb");
                                 isDun = false;
                                 break;
                             case "Dungeon 1(light bake)":
@@ -81,11 +82,13 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                                 if (!isDun)
                                 {
                                     SoundManager.Instance.BGMPlay("Dungeon1_BGM");
+                                    SoundManager.Instance.AMBPlay("Dungeon_Amb");
                                     isDun = true;
                                 }
                                 break;
                             case "BossRoom(light bake)":
                                 SoundManager.Instance.BGMPlay("Boss1_BGM");
+                                SoundManager.Instance.AMBPlay("Dungeon_Amb");
                                 isDun = false;
                                 break;
                         }
