@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1323356591
 Transform:
   m_ObjectHideFlags: 0
@@ -89,6 +89,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slowdownFactor: 0.05
   slowdownLength: 2
+--- !u!1 &1710307457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1710307458}
+  - component: {fileID: 1710307459}
+  m_Layer: 0
+  m_Name: DungeonMng
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1710307458
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710307457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5266232993249729025}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1710307459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710307457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517cdfdbd23ee6a419da82b3ef757f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countMelee: 0
+  countRange: 0
+  killCount: 0
 --- !u!1 &2016718585
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,6 +211,7 @@ Transform:
   - {fileID: 1323356591}
   - {fileID: 2016718586}
   - {fileID: 1275199443}
+  - {fileID: 1710307458}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -270,6 +317,31 @@ MonoBehaviour:
   - objectIndex: 7
     amountToPool: 3
     objectToPool: {fileID: 1829163952570794, guid: fcb34a996abd2754f8972731c009a1f5,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 8
+    amountToPool: 1
+    objectToPool: {fileID: 1607639662943796, guid: db01576f81de433409704055acea7f8a,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 9
+    amountToPool: 1
+    objectToPool: {fileID: 1610468776334564, guid: caa71c1860f9ca24e8546376d8d1f953,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 10
+    amountToPool: 4
+    objectToPool: {fileID: 1231247210357622, guid: f4f4b78bae3eb5e40af4483196c3f998,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 11
+    amountToPool: 1
+    objectToPool: {fileID: 1380329679129358, guid: 759f74a51befa4b45bdbb5f83f90beb9,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 12
+    amountToPool: 1
+    objectToPool: {fileID: 1159970587636746, guid: 10e6b3a3d790f024baec110b3247e1a1,
       type: 3}
     shouldExpand: 1
   pooledObjects:
