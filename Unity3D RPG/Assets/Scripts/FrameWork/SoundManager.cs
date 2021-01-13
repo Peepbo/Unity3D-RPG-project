@@ -61,7 +61,7 @@ public class SoundManager : Singleton<SoundManager>
         _audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         _audioSource.playOnAwake = false;
         _audioSource.clip = soundBank[clipName];
-        _audioSource.spatialBlend = 0.7f;
+        _audioSource.spatialBlend = 0.9f;
         _audioSource.minDistance = 5f;
         _audioSource.maxDistance = 10f;
         if (isSFXMute)
