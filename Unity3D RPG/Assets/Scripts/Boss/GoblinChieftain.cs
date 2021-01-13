@@ -53,7 +53,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     {
         const int itemDropCount = 3;
         bossName = "고블린 치프틴";
-        hpMax = 200;
+        hpMax = 500;
         hp = hpMax;
         atk = 50;
         def = 15;
@@ -143,11 +143,12 @@ public class GoblinChieftain : BossDB, IDamagedState
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
             anim.SetTrigger("Roar");
-            //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ROAR]);
+            def = def * 2;
             Vector3 _temp = transform.position;
             _temp.y -= 1.629f;
-            //_fx.transform.position = _temp;
             EffectManager.Instance.EffectActive(9, _temp,Quaternion.identity);
+            SoundManager.Instance.SFXPlay("Chief_Roar", transform.position);
+            SoundManager.Instance.SFXPlay("Chief_RoarVO", transform.position);
         }
         else if (atkTime > atkDelay)
         {
@@ -188,9 +189,11 @@ public class GoblinChieftain : BossDB, IDamagedState
                 //ATKPattern(atkPattern);
                 anim.SetTrigger("ThreeATK");
                 anim.SetInteger("ThreeATKKind", 0);
+                
                 break;
             case BossATKPattern.THUMP:
                 anim.SetTrigger("Thump");
+                SoundManager.Instance.SFXPlay("Chief_ThumpVO", transform.position);//
                 break;
             case BossATKPattern.SPAWN:
                 anim.SetTrigger("Spawn");
@@ -199,12 +202,19 @@ public class GoblinChieftain : BossDB, IDamagedState
                 _temp.y -= 1.629f;
                 //_fx.transform.position = _temp;
                 EffectManager.Instance.EffectActive(10, _temp, Quaternion.identity);
+                SoundManager.Instance.SFXPlay("Chief_Spawn", transform.position);
+                SoundManager.Instance.SFXPlay("Chief_SpawnVO", transform.position);
 
                 break;
         }
     }
 
-
+    public void NormalATKSound()
+    {
+        SoundManager.Instance.SFXPlay("Chief_ATK", transform.position);
+        string _atkVo = "Chief_ATKVO0" + Random.Range(1, 4).ToString();
+        SoundManager.Instance.SFXPlay(_atkVo, transform.position);
+    }
     public void ThreeATKCombo()
     {
         if ((int)(transform.position - target.position).magnitude > (int)distance)
@@ -223,6 +233,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         _temp.y -= 1.629f;
         //fx.transform.position = _temp;
         EffectManager.Instance.EffectActive(12, _temp, Quaternion.identity);
+        SoundManager.Instance.SFXPlay("Chief_Thump", transform.position + transform.forward * 2.6f);
     }
     public void Spawn()
     {
@@ -244,6 +255,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             //_fx.transform.position = spawnArea[i].position;
             Debug.Log("Spawn_S");
             EffectManager.Instance.EffectActive(11, spawnArea[i].position, Quaternion.identity);
+            
         }
     }
 
@@ -261,7 +273,8 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (hp > 0)
         {
             isPlayerCri = target.GetComponent<Player>().isCri;
-            Hit();
+            if(state != BossState.ATK)
+                Hit();
         }
         else
         {
@@ -321,6 +334,7 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     public void Die()
     {
+        SoundManager.Instance.SFXPlay("Chief_DieVO", transform.position);
         StartCoroutine(DieCoroutine());
     }
     IEnumerator DieCoroutine()
@@ -340,14 +354,13 @@ public class GoblinChieftain : BossDB, IDamagedState
     }
     private void Hit()
     {
-        if (state != BossState.ATK)
-        {
             if (isPlayerCri) { anim.SetInteger("HitKind", UnityEngine.Random.Range(2, 4)); }
             else { anim.SetInteger("HitKind", UnityEngine.Random.Range(0, 2)); }
 
+            if(Random.Range(0,3)==0)
+                SoundManager.Instance.SFXPlay("Chief_Hit", transform.position);
             anim.SetTrigger("Hit");
             state = BossState.HIT;
-        }
     }
     public void ActiveCollision()
     {

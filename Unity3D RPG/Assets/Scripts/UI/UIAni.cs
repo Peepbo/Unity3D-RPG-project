@@ -21,10 +21,10 @@ public class UIAni : MonoBehaviour
         Color textColor = myText.color;
         textColor.a = 0;
 
-        if (myImage.color.a > 0.05f)
+        if (myImage.color.a > 0.3f)
         {
-            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.realtimeSinceStartup * 0.05f);
-            myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.05f);
+            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.realtimeSinceStartup * 0.001f);
+            myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.001f);
         }
         else gameObject.SetActive(false);
     }
