@@ -14,6 +14,7 @@ public class LeverActive : MonoBehaviour, IDamagedState
             isActive = true;
             transform.GetComponentInParent<LeverMng>().TurnOn();
             gameObject.tag = "Untagged";
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
