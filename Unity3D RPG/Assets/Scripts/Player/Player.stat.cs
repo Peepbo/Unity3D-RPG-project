@@ -217,7 +217,6 @@ partial class Player
                 }
                 animator.Play("ShieldBlock");
                 animator.SetBool("isGuardHit", true);
-                //animator.SetTrigger("GuardHit");
             }
             else
             {
@@ -225,7 +224,7 @@ partial class Player
                 if(hp < 0)
                 {
                     hp = 0;
-                    //PlayerDie();
+                    PlayerDie();
                 }
             }
         }
