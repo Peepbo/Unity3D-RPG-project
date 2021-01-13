@@ -23,6 +23,7 @@ public class MoveScene : MonoBehaviour
                     if(LootManager.Instance.isDelivery == false)
                     {
                         LootManager.Instance.Delivery();
+                        DungeonMng.Instance.ResetStage();
                     }
                     else
                     {
@@ -52,6 +53,8 @@ public class MoveScene : MonoBehaviour
             {
                 //Debug.Log(LoadingSceneController.Instance.loadSceneName);
                 DungeonMng.Instance.ClearCount();
+                DungeonMng.Instance.ResetStage();
+
                 if (LootManager.Instance.isDelivery == false)
                 {
                     LootManager.Instance.Delivery();

@@ -6,6 +6,8 @@ public class DungeonMng : Singleton<DungeonMng>
 {
     protected DungeonMng() { }
 
+    public int stage = 0;
+
     DungeonQuest dungeonQuest;
 
     public int countMelee;
@@ -97,4 +99,6 @@ public class DungeonMng : Singleton<DungeonMng>
         countMelee = 0;
         countRange = 0;
     }
+
+    public void ResetStage() { stage = 0; }
 }

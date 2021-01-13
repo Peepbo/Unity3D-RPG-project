@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &2160088129789196430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161500074434728500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e130888d6bb74be499c033a0fba03e39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeleton: 1
 --- !u!114 &2160088130707678766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,6 +26,7 @@ GameObject:
   - component: {fileID: 2160088131318499927}
   - component: {fileID: 2160088131318499947}
   - component: {fileID: 2160088131318499926}
+  - component: {fileID: 7191846018352996990}
   m_Layer: 0
   m_Name: SkeletonK
   m_TagString: Enemy
@@ -167,6 +155,33 @@ MonoBehaviour:
   attackRange: 2
   observeRange: 0
   weapon: {fileID: 2160088130707558644}
+--- !u!114 &7191846018352996990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2160088131318499944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546f5ca7f79f61440b858dda8873008f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  enemyName: 6
+--- !u!114 &2160088129789196430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161500074434728500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e130888d6bb74be499c033a0fba03e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeleton: 1
 --- !u!1001 &2160088130707678764
 PrefabInstance:
   m_ObjectHideFlags: 0
