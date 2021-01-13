@@ -79,6 +79,8 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                                 break;
                             case "Dungeon 1(light bake)":
                             case "Dungeon 2(light bake)":
+                            case "D 1-3":
+                            case "D 1-4":
                                 if (!isDun)
                                 {
                                     SoundManager.Instance.BGMPlay("Dungeon1_BGM");
