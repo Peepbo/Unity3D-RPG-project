@@ -8,16 +8,16 @@ using UnityEngine.AI;
 
 public class GoblinChieftain : BossDB, IDamagedState
 {
-    enum ChiefTainFXPrefab
-    {
-        ATK1,
-        ATK2,
-        THUMP,
-        ROAR,
-        SPAWNM,
-        SPAWNS,
+    //enum ChiefTainFXPrefab
+    //{
+    //    ATK1,
+    //    ATK2,
+    //    THUMP,
+    //    ROAR,
+    //    SPAWNM,
+    //    SPAWNS,
 
-    }
+    //}
     enum BossATKPattern
     {
         THREEATK,
@@ -143,10 +143,11 @@ public class GoblinChieftain : BossDB, IDamagedState
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
             anim.SetTrigger("Roar");
-            GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ROAR]);
+            //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.ROAR]);
             Vector3 _temp = transform.position;
             _temp.y -= 1.629f;
-            _fx.transform.position = _temp;
+            //_fx.transform.position = _temp;
+            EffectManager.Instance.EffectActive(9, _temp,Quaternion.identity);
         }
         else if (atkTime > atkDelay)
         {
@@ -193,11 +194,11 @@ public class GoblinChieftain : BossDB, IDamagedState
                 break;
             case BossATKPattern.SPAWN:
                 anim.SetTrigger("Spawn");
-                GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNM]);
+                //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNM]);
                 Vector3 _temp = transform.position;
                 _temp.y -= 1.629f;
-                _fx.transform.position = _temp;
-                
+                //_fx.transform.position = _temp;
+                EffectManager.Instance.EffectActive(10, _temp, Quaternion.identity);
 
                 break;
         }
@@ -216,11 +217,12 @@ public class GoblinChieftain : BossDB, IDamagedState
     }
     public void ThumpFX()
     {
-        GameObject fx;
-        fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
-        Vector3 temp = transform.position + transform.forward*2.6f;
-        temp.y -= 1.629f;
-        fx.transform.position = temp;
+        //GameObject fx;
+        //fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
+        Vector3 _temp = transform.position + transform.forward*2.6f;
+        _temp.y -= 1.629f;
+        //fx.transform.position = _temp;
+        EffectManager.Instance.EffectActive(12, _temp, Quaternion.identity);
     }
     public void Spawn()
     {
@@ -238,8 +240,9 @@ public class GoblinChieftain : BossDB, IDamagedState
         {
             minions.Add(Instantiate(minionFactory));
             minions[i].transform.position = spawnArea[i].position;
-            GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNS]);
-            _fx.transform.position = spawnArea[i].position;
+            //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNS]);
+            //_fx.transform.position = spawnArea[i].position;
+            EffectManager.Instance.EffectActive(11, spawnArea[i].position, Quaternion.identity);
         }
     }
 

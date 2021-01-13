@@ -9,13 +9,23 @@ public class TimeLineController : MonoBehaviour
     public PlayableDirector director;
     public TimelineAsset timeline;
     public GameObject boss;
-    private void Start()
-    {
-        setPlay();
-    }
 
+
+    private void Update()
+    {
+        
+    }
     public void setPlay()
     {
-        director.Play(timeline);
+        director.Play();
+
+       
     }
+
+   
+
+
+
+
+
 }
