@@ -28,8 +28,9 @@ public class DungeonPortal : MonoBehaviour
             }
 
             DungeonMng.Instance.stage++;
+            Debug.Log(DungeonMng.Instance.stage);
 
-            if (myStage != 3)
+            if (myStage < 2)
             {
                 LoadingSceneController.Instance.LoadScene(GetRandomMap());
             }
