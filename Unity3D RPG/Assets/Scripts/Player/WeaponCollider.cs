@@ -8,12 +8,12 @@ public class WeaponCollider : MonoBehaviour
     public GameObject[] effect;
     [SerializeField]
     private Player player;
-    public MeshCollider meshCollider;
+    public BoxCollider meshCollider;
     bool isHit;
     // Start is called before the first frame update
     void Start()
     {
-        meshCollider = GetComponent<MeshCollider>();
+        meshCollider = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
