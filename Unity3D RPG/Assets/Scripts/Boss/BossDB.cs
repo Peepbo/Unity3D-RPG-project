@@ -52,7 +52,7 @@ public abstract class BossDB : MonoBehaviour
     public Transform[] spawnArea;
     protected float dieTime;
     [Space]
-    public GameObject[] FXfactory;
+    //public GameObject[] FXfactory;
     protected bool isHit = false;
     protected bool isPlayerCri;
     protected bool isRoar = false;
