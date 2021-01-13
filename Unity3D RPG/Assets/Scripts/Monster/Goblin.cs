@@ -76,7 +76,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         RaycastHit _hit;
 
-        Debug.DrawRay(transform.position, direction * findRange, Color.blue);
+       // Debug.DrawRay(transform.position, direction * findRange, Color.blue);
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
@@ -147,7 +147,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
             if (returnToHome.getIsReturn())
             {
-
                 Back();
             }
 
@@ -232,6 +231,7 @@ public class Goblin : EnemyMgr, IDamagedState
         //rest를 켜고
         anim.SetBool("isRest", true);
         AI.isStopped = true;
+        SoundManager.Instance.SFXPlay("Worrier_ATK", weapon.transform.position);
         yield return new WaitForSeconds(1.5f);
 
         Vector3 _direction = target.transform.position - transform.position;
@@ -255,7 +255,7 @@ public class Goblin : EnemyMgr, IDamagedState
         isDamaged = true;
         isHit = true;
         AI.isStopped = true;
-
+        SoundManager.Instance.SFXPlay("Worrier_Hit", transform.position);
         yield return new WaitForSeconds(.7f);
 
         AI.isStopped = false;
@@ -299,6 +299,7 @@ public class Goblin : EnemyMgr, IDamagedState
                 StopAllCoroutines();
 
                 DungeonMng.Instance.killMelee++;
+                SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }
         }
 
@@ -306,6 +307,7 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             weapon.GetComponent<MeshCollider>().enabled = false;
             anim.SetTrigger("isDamage");
+            
         }
 
     }
@@ -335,7 +337,7 @@ public class Goblin : EnemyMgr, IDamagedState
         //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
-
+    
 
 
 }
