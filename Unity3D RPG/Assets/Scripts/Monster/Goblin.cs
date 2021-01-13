@@ -314,7 +314,7 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         disappearTime += Time.deltaTime;
 
-        if (disappearTime > 3.5f)
+        if (disappearTime > 2.5f)
         {
             //아이템 떨어트리기
             var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
