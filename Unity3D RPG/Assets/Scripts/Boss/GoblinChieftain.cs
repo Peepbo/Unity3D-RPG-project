@@ -38,7 +38,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     float hitTime = 0f;
     BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
-
+    public GameObject returnButton;
     
     
     
@@ -69,7 +69,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         itemDropInfo[1].itemID = 84;
         itemDropInfo[2].itemName = "족장의 목걸이";
         itemDropInfo[2].itemID = 85;
-        state = BossState.IDLE;
+        //state = BossState.IDLE;
         dieTime = 5.5f;
 
         hpBar.maxValue = hpMax;
@@ -329,6 +329,8 @@ public class GoblinChieftain : BossDB, IDamagedState
         bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
 
         Destroy(gameObject);
+        yield return new WaitForSeconds(1.0f);
+        returnButton.SetActive(true);
 
     }
     private void Hit()

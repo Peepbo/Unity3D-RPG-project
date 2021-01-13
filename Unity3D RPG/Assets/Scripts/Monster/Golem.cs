@@ -244,12 +244,12 @@ public class Golem : EnemyMgr, IDamagedState
     {
         destroyCount += Time.deltaTime;
 
-        if (destroyCount > 3.0f)
+        if (destroyCount > 2.5f)
         {
             gameObject.GetComponent<DissolveEft>().SetValue(0);
         }
 
-        if (destroyCount > 6.0f)
+        if (destroyCount > 4.0f)
         {
             //아이템 떨어트리기
             var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);

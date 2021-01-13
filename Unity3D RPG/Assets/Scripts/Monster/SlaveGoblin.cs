@@ -168,7 +168,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
     {
         disappearTime += Time.deltaTime;
 
-        if (disappearTime > 3.5f)
+        if (disappearTime > 2.5f)
         {
             gameObject.SetActive(false);
             disappearTime = 0f;
