@@ -13428,17 +13428,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 743331571}
-        m_MethodName: CanTouch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 3750246194918295589}
         m_MethodName: SetTrigger
         m_Mode: 5
@@ -15458,6 +15447,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d343b5db552af43a43b5b9257f9c4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noTouch_1: {fileID: 3750246193341345409}
+  noTouch_2: {fileID: 4131875669379776860}
+  noTouch_3: {fileID: 8544556440592097560}
+  noTouch_4: {fileID: 2754461129267077381}
 --- !u!95 &3750246194918295589
 Animator:
   serializedVersion: 3
@@ -19359,17 +19352,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 743331571}
-        m_MethodName: CanTouch
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8544556439711833826}
         m_MethodName: ClosePanel
         m_Mode: 1
@@ -19394,6 +19376,17 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 743331571}
         m_MethodName: ClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 743331571}
+        m_MethodName: CanTouch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21570,6 +21563,10 @@ MonoBehaviour:
   popStats: {fileID: 8544556441106864605}
   popHp: {fileID: 8544556440165670056}
   popStamina: {fileID: 8544556439948178542}
+  noTouch_1: {fileID: 8544556440592097560}
+  noTouch_2: {fileID: 2754461129267077381}
+  noTouch_3: {fileID: 3750246193341345409}
+  noTouch_4: {fileID: 4131875669379776860}
 --- !u!222 &8544556439711833827
 CanvasRenderer:
   m_ObjectHideFlags: 0
