@@ -39,5 +39,7 @@ public class DungeonChest : MonoBehaviour, IDamagedState
         anim.SetTrigger("Open");
 
         isOpen = true;
+
+        gameObject.tag = "Untagged";
     }
 }
