@@ -67,18 +67,7 @@ partial class Player
                     state = PlayerState.IDLE;
                 }
                 break;
-            case PlayerState.CRIATK:
-                break;
-            case PlayerState.HIT:
-                break;
-            case PlayerState.EVASION:
-                break;
-            case PlayerState.GUARD:
-
-
-                break;
-            case PlayerState.DIE:
-                break;
+           
             default:
                 break;
         }
@@ -140,7 +129,7 @@ partial class Player
         comboAtk.ComboReset();
 
         comboAtk.animator.SetTrigger("Die");
-        SoundManager.Instance.SFXPlay2D("Player_ATK03");
+        SoundManager.Instance.SFXPlay2D("Player_Die");
 
     }
 }
