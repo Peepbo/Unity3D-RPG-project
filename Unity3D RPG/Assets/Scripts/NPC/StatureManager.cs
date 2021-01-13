@@ -86,6 +86,8 @@ public class StatureManager : MonoBehaviour
     {
         if (paymentAmount[0].color == Color.red) return;
 
+        SoundManager.Instance.SFXPlay2D("UI_Upgrade");
+
         switch ((STAT)num)
         {
             case STAT.HP:
@@ -128,5 +130,10 @@ public class StatureManager : MonoBehaviour
     }
 
     public void QuitButton() { gameObject.SetActive(false); }
+
+    public void UI_ClickSound()
+    {
+        SoundManager.Instance.SFXPlay2D("UI_Click", 0.6f);
+    }
     #endregion
 }
