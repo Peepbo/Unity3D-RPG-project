@@ -140,6 +140,7 @@ partial class Player
         comboAtk.ComboReset();
 
         comboAtk.animator.SetTrigger("Die");
+        SoundManager.Instance.SFXPlay2D("Player_ATK03");
 
     }
 }
