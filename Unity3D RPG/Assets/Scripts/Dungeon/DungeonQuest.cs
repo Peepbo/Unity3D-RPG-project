@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
-using TMPro;
 
 public class DungeonQuest : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class DungeonQuest : MonoBehaviour
 
     //public QUEST Quest { get { return quest; } }
 
-    public TextMeshProUGUI text;
+    public Text text;
 
     public int GetCorrectNumber() { return correctNumber; }
 
