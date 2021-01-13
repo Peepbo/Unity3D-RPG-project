@@ -27,6 +27,9 @@ public class FireBall : MonoBehaviour
 
         if (Vector3.Distance(transform.position, spawnPos) > 15f)
         {
+            #region 01-13
+            EffectManager.Instance.EffectActive(7, transform.position, Quaternion.identity);
+            #endregion
             gameObject.SetActive(false);
         }
     }
@@ -46,7 +49,11 @@ public class FireBall : MonoBehaviour
                 #endregion
             }
             gameObject.SetActive(false);
-
+            #region 01-13
+            EffectManager.Instance.EffectActive(7,
+                other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
+                Quaternion.identity);
+            #endregion
         }
     }
 
