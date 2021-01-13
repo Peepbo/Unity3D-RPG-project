@@ -150,6 +150,7 @@ public class TalkNpc : MonoBehaviour
             talkPanel.SetActive(false);
             UiManager0.Instance.PanelOpen = false;
             SoundManager.Instance.SFXPlay2D("UI_Popup");
+            UI_ClickSound();
         };
 
         btn.onClick.AddListener(_action);
