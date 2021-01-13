@@ -225,7 +225,7 @@ partial class Player
                 if(hp < 0)
                 {
                     hp = 0;
-                    //PlayerDie();
+                    PlayerDie();
                 }
             }
         }

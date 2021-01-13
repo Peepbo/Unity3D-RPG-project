@@ -177,9 +177,38 @@ public class ComboAtk : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 사운드 관련 함수들 입니다 여기는 
+    /// </summary>
     public void FootSound()
     {
         string randomFoot = "Player_Foot0" + Random.Range(1, 5).ToString();
         SoundManager.Instance.SFXPlay2D(randomFoot);
     }
+    public void ShieldHitSound()
+    {
+        SoundManager.Instance.SFXPlay2D("Player_Shield");
+    }
+    public void AtkSound01()
+    {
+        SoundManager.Instance.SFXPlay2D("Player_ATK01");
+
+    }
+    public void AtkSound02()
+    {
+        SoundManager.Instance.SFXPlay2D("Player_ATK02");
+
+    }
+    public void AtkSound03()
+    {
+        SoundManager.Instance.SFXPlay2D("Player_ATK03");
+
+    }
+    public void RollingSound()
+    {
+        SoundManager.Instance.SFXPlay2D("Player_Foot1");
+
+    }
+
 }

@@ -25,18 +25,17 @@ public class Potion : MonoBehaviour, IPointerDownHandler
         {
             if (PlayerData.Instance.myCurrentPotion > 0)
             {
-                if (potionParticle1.activeSelf == false && potionParticle2.activeSelf == false)
+                if (potionParticle1.activeSelf == false && potionParticle2.activeSelf == false && player.hp<player.maxHp)
                 {
                     potionParticle1.SetActive(true);
                     potionParticle2.SetActive(true);
+                    SoundManager.Instance.SFXPlay2D("Player_Shield");
                     player.GetHp(30);
                     potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
 
                 }
             }
         }
-       
     }
-    
     
 }

@@ -71,8 +71,8 @@ public class SoundManager : Singleton<SoundManager>
             _audioSource.mute = true;
         }
         _audioSource.Play();
-        StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
-
+        if(!isLoop)
+            StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
     }
     public void AMBPlay(string clipName, float volume = 0.5f)
     {
