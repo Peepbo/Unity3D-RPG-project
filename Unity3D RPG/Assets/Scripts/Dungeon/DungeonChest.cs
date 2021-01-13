@@ -22,8 +22,6 @@ public class DungeonChest : MonoBehaviour, IDamagedState
         if (isOpen) return;
 
         //DungeonQuest.QUEST.MELEEALLKILL
-      
-     
 
         if (dq.quest == 0)
         {
@@ -41,5 +39,10 @@ public class DungeonChest : MonoBehaviour, IDamagedState
         isOpen = true;
 
         gameObject.tag = "Untagged";
+    }
+
+    public void PlaySound()
+    {
+        SoundManager.Instance.SFXPlay2D("Chest_Open");
     }
 }

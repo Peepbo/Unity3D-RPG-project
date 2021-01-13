@@ -23,7 +23,12 @@ public class ClearCamera : MonoBehaviour
         canvas.SetActive(false);
         cam.Priority = 15;
 
-        yield return new WaitForSecondsRealtime(dieTime);
+        yield return new WaitForSecondsRealtime(0.2f);
+        SoundManager.Instance.SFXPlay2D("Portal_Open",0.8f);
+
+        SoundManager.Instance.SFXPlay("Portal_Loop",
+            transform.parent.GetChild(1).position);
+        yield return new WaitForSecondsRealtime(dieTime - 0.2f);
         //yield return new WaitForSeconds(dieTime);
         canvas.SetActive(true);
         cam.enabled = false;
