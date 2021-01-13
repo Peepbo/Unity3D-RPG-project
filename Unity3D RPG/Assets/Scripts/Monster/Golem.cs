@@ -66,8 +66,7 @@ public class Golem : EnemyMgr, IDamagedState
 
         RaycastHit _hit;
         direction.y = 0;
-        Debug.DrawRay(transform.position, direction * findRange, Color.red);
-
+       
         if (isDead)
         {
             Die();
@@ -121,6 +120,7 @@ public class Golem : EnemyMgr, IDamagedState
                         {
                             target.gameObject.GetComponent<Player>().GetDamage(atk);
 
+
                             damageCheck.gameObject.GetComponent<DamageCheck>().ReadyToDamage(0);
                         }
 
@@ -173,6 +173,7 @@ public class Golem : EnemyMgr, IDamagedState
     {
         AI.isStopped = true;
         AI.updateRotation = false;
+        SoundManager.Instance.SFXPlay("Golem_ATK", transform.position);
         yield return new WaitForSeconds(1.3f);
 
         transform.rotation = Quaternion.LookRotation(direction);
@@ -226,6 +227,7 @@ public class Golem : EnemyMgr, IDamagedState
                     AI.enabled = true;
 
                     DungeonMng.Instance.killMelee++;
+
                 }
 
                 else if (player.isCri)
@@ -247,6 +249,7 @@ public class Golem : EnemyMgr, IDamagedState
         if (destroyCount > 2.5f)
         {
             gameObject.GetComponent<DissolveEft>().SetValue(0);
+
         }
 
         if (destroyCount > 4.0f)
@@ -287,6 +290,11 @@ public class Golem : EnemyMgr, IDamagedState
     public void ChangeIdle()
     {
         anim.SetTrigger("changeState");
+    }
+
+    public void SetDieSound()
+    {
+        SoundManager.Instance.SFXPlay("Golem_Die", transform.position);
     }
     #endregion
 

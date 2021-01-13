@@ -32,7 +32,8 @@ public class SoundManager : Singleton<SoundManager>
     private void Start()
     {
         
-        BGMPlay("MainTitleBGM");
+        //BGMPlay("MainTitleBGM");
+        AMBPlay("Intro_Amb",0.7f);
         
     }
     private void SoundBankInit()
@@ -48,7 +49,7 @@ public class SoundManager : Singleton<SoundManager>
         player[(int)PlayerName.UI].volume = volume;
         player[(int)PlayerName.UI].PlayOneShot(soundBank[clipName]);
     }
-    public void SFXPlay(string clipName, Vector3 position)
+    public void SFXPlay(string clipName, Vector3 position, bool isLoop=false)
     {
         GameObject _speaker = ObjectPool.SharedInstance.GetPooledObject("Sound");
         _speaker.SetActive(true);
@@ -60,16 +61,18 @@ public class SoundManager : Singleton<SoundManager>
         _audioSource.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         _audioSource.playOnAwake = false;
         _audioSource.clip = soundBank[clipName];
-        _audioSource.spatialBlend = 0.7f;
+        _audioSource.spatialBlend = 0.9f;
         _audioSource.minDistance = 5f;
         _audioSource.maxDistance = 10f;
+        if (isLoop)
+            _audioSource.loop = true;
         if (isSFXMute)
         {
             _audioSource.mute = true;
         }
         _audioSource.Play();
-        StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
-
+        if(!isLoop)
+            StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
     }
     public void AMBPlay(string clipName, float volume = 0.5f)
     {

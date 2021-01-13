@@ -211,12 +211,17 @@ public class Shaman : EnemyMgr, IDamagedState
                 AI.enabled = false;
                 StopAllCoroutines();
                 DungeonMng.Instance.killRange++;
+
+                SoundManager.Instance.SFXPlay("Shaman_DieVO", transform.position);
             }
         }
 
 
         if (player.isCri)
+        {
             anim.SetTrigger("damage");
+            SoundManager.Instance.SFXPlay("Shaman_Hit", transform.position);
+        }
     }
 
     public void Flame()
@@ -226,6 +231,8 @@ public class Shaman : EnemyMgr, IDamagedState
         _firePrefab.transform.position = firePos.position;
         _firePrefab.transform.rotation = firePos.rotation;
         _firePrefab.SetActive(true);
+
+        SoundManager.Instance.SFXPlay("Shaman_ATK", firePos.position);
     }
 
     public override void Die()

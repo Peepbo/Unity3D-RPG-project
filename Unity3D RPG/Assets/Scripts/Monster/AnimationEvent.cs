@@ -113,6 +113,10 @@ public class AnimationEvent : MonoBehaviour
         golem.ChangeIdle();
     }
 
+    public void setDieSound()
+    {
+        golem.SetDieSound();
+    }
     #endregion
 
 }

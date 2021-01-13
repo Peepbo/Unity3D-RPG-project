@@ -76,10 +76,16 @@ public class LootBox : MonoBehaviour
         {
             LootManager.Instance.GetPocketData(_itemList);
 
-            Debug.Log(_itemList.Count);
+            //Debug.Log(_itemList.Count);
         }
 
-        else Debug.Log("아무런 아이템이 뜨지 않았습니다");
+      //  else Debug.Log("아무런 아이템이 뜨지 않았습니다");
 
+    }
+
+
+    public void DropSound()
+    {
+        SoundManager.Instance.SFXPlay("ItemBox_Appear", transform.position);
     }
 }

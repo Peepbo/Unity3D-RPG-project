@@ -13,35 +13,33 @@ public class DollyCamAuto : MonoBehaviour
     float endTime;
     private void Start()
     {
+        Time.timeScale = 0;
         dollyCart = GetComponent<Cinemachine.CinemachineDollyCart>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isUp)
+        if (dollyCart.m_Position < endPos)
         {
-            if (dollyCart.m_Position < endPos)
-            {
-                dollyCart.m_Position += Time.deltaTime * dollyCart.m_Speed;
-            }
-            else
-            {
-                Debug.Log("isUp false");
-                isUp = false;
-            }
+            dollyCart.m_Position += Time.unscaledDeltaTime * dollyCart.m_Speed;
         }
-
         else
         {
-            dollyCart.m_Position -= Time.deltaTime * dollyCart.m_Speed;
+            //Debug.Log("isUp false");
+            isUp = false;
+            endTime += Time.unscaledDeltaTime;
 
-            if (dollyCart.m_Position < 1.5f)
+            if (endTime > 1f)
             {
                 cam.SetActive(false);
-                this.enabled = false;
+
+                if (endTime > 2f)
+                {
+                    Time.timeScale = 1;
+                    this.enabled = false;
+                }
             }
         }
-
     }
 }

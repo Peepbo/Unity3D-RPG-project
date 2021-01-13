@@ -119,7 +119,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         if (isSpawn)
             MinionsCheck();
         
-        Debug.Log(state);
+        //Debug.Log(state);
 
     }
 
@@ -242,6 +242,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             minions[i].transform.position = spawnArea[i].position;
             //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNS]);
             //_fx.transform.position = spawnArea[i].position;
+            Debug.Log("Spawn_S");
             EffectManager.Instance.EffectActive(11, spawnArea[i].position, Quaternion.identity);
         }
     }
@@ -275,12 +276,14 @@ public class GoblinChieftain : BossDB, IDamagedState
     public void SetDamage()
     {
         int _atkDam = 0;
-        
+        Vector3 _temp = target.position;
+        _temp.y += 1.5f;
+        EffectManager.Instance.EffectActive(6, _temp, Quaternion.identity);
         switch (pattern)
         {
             case BossATKPattern.THREEATK:
                 _atkDam = atk / 3;
-                EffectManager.Instance.EffectActive(6, target.position, Quaternion.identity);
+               
                 break;
             case BossATKPattern.THUMP:
                 _atkDam = atk;
@@ -328,9 +331,11 @@ public class GoblinChieftain : BossDB, IDamagedState
         var bossItem = Instantiate(itemBox, transform.position, Quaternion.identity);
         bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
 
-        Destroy(gameObject);
         yield return new WaitForSeconds(1.0f);
         returnButton.SetActive(true);
+
+        Destroy(gameObject);
+
 
     }
     private void Hit()
