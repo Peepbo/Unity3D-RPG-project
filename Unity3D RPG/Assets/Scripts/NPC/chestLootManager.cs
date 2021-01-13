@@ -141,6 +141,8 @@ public class chestLootManager : MonoBehaviour
         PlayerData.Instance.SaveData();
 
         LinkData();
+
+        selectNumber = 0;
     }
 
     public void QuitButton() { gameObject.SetActive(false); }

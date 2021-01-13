@@ -105,8 +105,14 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
     }
     private IEnumerator Fade(bool isFadeIn)
     {
+        if (!isFadeIn)
+        {
+            SceneUI.GetComponentsInChildren<Image>()[1].color = Color.clear;
+            SceneUI.GetComponentsInChildren<Image>()[2].color = Color.clear;
+        }
+
         float _timer = 0f;
-        while(_timer>=1f)
+        while(_timer < 1f)
         {
             yield return null;
             _timer += Time.unscaledDeltaTime;
@@ -115,7 +121,6 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
 
         if (!isFadeIn)
         {
-
             SceneUI.SetActive(false);
         }
     }
