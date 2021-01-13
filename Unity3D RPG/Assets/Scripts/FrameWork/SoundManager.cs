@@ -49,7 +49,7 @@ public class SoundManager : Singleton<SoundManager>
         player[(int)PlayerName.UI].volume = volume;
         player[(int)PlayerName.UI].PlayOneShot(soundBank[clipName]);
     }
-    public void SFXPlay(string clipName, Vector3 position)
+    public void SFXPlay(string clipName, Vector3 position, bool isLoop=false)
     {
         GameObject _speaker = ObjectPool.SharedInstance.GetPooledObject("Sound");
         _speaker.SetActive(true);
@@ -64,6 +64,8 @@ public class SoundManager : Singleton<SoundManager>
         _audioSource.spatialBlend = 0.9f;
         _audioSource.minDistance = 5f;
         _audioSource.maxDistance = 10f;
+        if (isLoop)
+            _audioSource.loop = true;
         if (isSFXMute)
         {
             _audioSource.mute = true;
