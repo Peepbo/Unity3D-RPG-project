@@ -1208,9 +1208,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: MasterVolume
-        m_Mode: 0
+      - m_Target: {fileID: 5252699098758919313}
+        m_MethodName: MasterVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1707,9 +1707,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SFXVolumeMixer
-        m_Mode: 0
+      - m_Target: {fileID: 5252699098758919313}
+        m_MethodName: SFXVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16781,9 +16781,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: BGMVolumeMixer
-        m_Mode: 0
+      - m_Target: {fileID: 4131875669541877646}
+        m_MethodName: BGMVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16937,6 +16937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4131875669541877644}
+  - component: {fileID: 4131875669541877646}
   m_Layer: 5
   m_Name: Sound
   m_TagString: Untagged
@@ -16944,6 +16945,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4131875669541877646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4131875669541877645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f9b75b9bd175743b19584d9e5f2e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: dd6b7b4dac5a27542a1cc773df506d82, type: 2}
+  soundData: []
 --- !u!222 &4131875669555471393
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17226,9 +17241,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: MasterVolume
-        m_Mode: 0
+      - m_Target: {fileID: 4131875669541877646}
+        m_MethodName: MasterVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18508,9 +18523,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SFXVolumeMixer
-        m_Mode: 0
+      - m_Target: {fileID: 4131875669541877646}
+        m_MethodName: SFXVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19453,6 +19468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6434427065244874665}
+  - component: {fileID: 5252699098758919313}
   m_Layer: 5
   m_Name: Sound
   m_TagString: Untagged
@@ -19460,6 +19476,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &5252699098758919313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252699098758919312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f9b75b9bd175743b19584d9e5f2e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: dd6b7b4dac5a27542a1cc773df506d82, type: 2}
+  soundData: []
 --- !u!224 &5264598792791089385
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20098,9 +20128,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: BGMVolumeMixer
-        m_Mode: 0
+      - m_Target: {fileID: 5252699098758919313}
+        m_MethodName: BGMVolumeFader
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
