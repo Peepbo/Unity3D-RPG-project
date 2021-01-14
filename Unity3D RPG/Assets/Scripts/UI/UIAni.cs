@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 public class UIAni : MonoBehaviour
 {
     Image myImage;
@@ -27,5 +29,14 @@ public class UIAni : MonoBehaviour
             myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.001f);
         }
         else gameObject.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "TownScene")
+        {
+            this.gameObject.transform.GetChild(0).GetComponent <Text>().text = "마을";
+        }
+       else
+        {
+            this.gameObject.transform.GetChild(0).GetComponent<Text>().text = "던전";
+        }
     }
 }
