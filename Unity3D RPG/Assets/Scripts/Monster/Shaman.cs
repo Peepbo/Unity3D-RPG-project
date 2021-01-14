@@ -219,8 +219,17 @@ public class Shaman : EnemyMgr, IDamagedState
 
         if (player.isCri)
         {
-            anim.SetTrigger("damage");
-            SoundManager.Instance.SFXPlay("Shaman_Hit", transform.position);
+          
+            if(hp<=0)
+            {
+                anim.SetTrigger("die");
+                SoundManager.Instance.SFXPlay("Shaman_DieVO", transform.position);
+            }
+            else
+            {
+                anim.SetTrigger("damage");
+                SoundManager.Instance.SFXPlay("Shaman_Hit", transform.position);
+            }
         }
     }
 

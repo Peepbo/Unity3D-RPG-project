@@ -6,6 +6,7 @@ using UnityEngine;
 public class BlackMarketManager : MonoBehaviour
 {
     public Text currency;
+    public Text potionNumber;
 
     private void OnEnable()
     {
@@ -29,6 +30,7 @@ public class BlackMarketManager : MonoBehaviour
 
                 PlayerData.Instance.myCurrency -= 500;
                 PlayerData.Instance.player.BuyPotion(1);
+                potionNumber.text = (int.Parse(potionNumber.text) + 1).ToString();
 
                 PlayerData.Instance.SaveData();
                 break;
