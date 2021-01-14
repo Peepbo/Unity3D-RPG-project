@@ -200,7 +200,6 @@ partial class Player
     {
         PlayerData.Instance.myCurrentPotion += value;
 
-        potion.potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
     }
 
 
