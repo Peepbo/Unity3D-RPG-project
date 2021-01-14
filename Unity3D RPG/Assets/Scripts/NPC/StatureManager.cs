@@ -115,7 +115,7 @@ public class StatureManager : MonoBehaviour
                 {
                     if (i > PlayerData.Instance.hpLv) return;
 
-                    hpImg[i-1].color = Color.green;
+                    hpImg[i-1].color = Color.red;
                 }
                 break;
             case STAT.STEMINA:
