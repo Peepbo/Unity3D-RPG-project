@@ -45,6 +45,7 @@ public class BlackMarketManager : MonoBehaviour
                 LoadingSceneController.Instance.LoadScene("TownScene");
                 break;
         }
+        LinkData();
     }
 
     public void ClosePanel()
