@@ -199,6 +199,7 @@ partial class Player
     public void BuyPotion(int value)
     {
         PlayerData.Instance.myCurrentPotion += value;
+
     }
 
 
@@ -222,7 +223,7 @@ partial class Player
             {
                 hp -= (int)(damage *(1- realDef/100));
                 SoundManager.Instance.SFXPlay2D("Player_Hit");
-                if (hp < 0)
+                if (hp <= 0)
                 {
                     hp = 0;
                     PlayerDie();
