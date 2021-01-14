@@ -163,7 +163,6 @@ partial class SmathManager
             _itemDB = _temp;
         }
         
-        Debug.Log(_itemDB.itemName);
         switch (_itemDB.kind)
         {
             case hand:

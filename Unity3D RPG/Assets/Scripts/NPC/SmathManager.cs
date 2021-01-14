@@ -213,7 +213,7 @@ public partial class SmathManager : MonoBehaviour
             SoundManager.Instance.SFXPlay2D("UI_Fail");
             MaterialPlayerDataRemove(false);
         }
-
+        makeButton.GetComponent<Button>().interactable = false;
         this.Start();
     }
 
