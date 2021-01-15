@@ -17,7 +17,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     bool isObserve = true;
 
-
     public GameObject weapon;
 
 
@@ -56,7 +55,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
         follow.Init(AI, target, speed, 0);
         returnToHome.init(AI, startPos, speed);
-
 
 
         anim.SetInteger("state", 0);
@@ -158,7 +156,7 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         if (isHit)
         {
-            StartCoroutine(LookBack());
+            StartCoroutine(LookBack(0.7f));
 
         }
         else
