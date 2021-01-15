@@ -38,8 +38,8 @@ public class ShamanT : EnemyMgr, IDamagedState
             Die();
             return;
         }
-        
-        if(!controller.isGrounded)
+
+        if (!controller.isGrounded)
         {
             MoveDir.y += gravity * Time.deltaTime;
             controller.Move(MoveDir * Time.deltaTime);
@@ -101,15 +101,21 @@ public class ShamanT : EnemyMgr, IDamagedState
 
         if (!player.isCri) // 약공격
         {
-            if(tm.questNumber == 1) tm.ChangeQuest(1);
+            if (tm.questNumber == 1) tm.ChangeQuest(1);
         }
 
         else
         {
             if (tm.questNumber == 2)
             {
+<<<<<<< HEAD
                 tm.ChangeQuest(2);
                 StartCoroutine(ChangeState());
+=======
+                isDead = true;
+                StopAllCoroutines();
+                anim.SetTrigger("die");
+>>>>>>> 5d81409ea5a1a56d2fa34c8c0609c2247cf6c09d
             }
         }
     }
@@ -128,7 +134,7 @@ public class ShamanT : EnemyMgr, IDamagedState
 
     public IEnumerator Turn()
     {
-        if(!isDead)
+        if (!isDead)
         {
             float t = 0f;
             while (t < 0.7f)
@@ -149,7 +155,7 @@ public class ShamanT : EnemyMgr, IDamagedState
             isAtkReady = true;
             anim.SetInteger("state", 1);
         }
-               
+
     }
 
     IEnumerator ChangeState()
@@ -187,9 +193,9 @@ public class ShamanT : EnemyMgr, IDamagedState
 
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, attackRange);
+    //}
 }
