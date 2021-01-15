@@ -9,6 +9,7 @@ public class LootBox : MonoBehaviour
     int min, max;
     int currency;
     List<ItemInfo> item = new List<ItemInfo>();
+    GetItemInfo showItemPanel;
 
     #region COLLIDER & LIGHT
     BoxCollider col;
@@ -19,6 +20,9 @@ public class LootBox : MonoBehaviour
     {
         col = GetComponent<BoxCollider>();
         light.intensity = 0;
+        showItemPanel = GameObject.Find("GetItemInfo").GetComponent<GetItemInfo>();
+
+
     }
 
     private void Update()
@@ -57,6 +61,8 @@ public class LootBox : MonoBehaviour
         //Debug.Log("아이템 준비중");
         currency = Random.Range(min, max + 1);
         LootManager.Instance.GetPocketMoney(currency);
+        //UI띄우기 용
+        showItemPanel.ShowCurrency(currency);
 
         List<ItemInfo> _itemList = new List<ItemInfo>();
 
@@ -75,9 +81,11 @@ public class LootBox : MonoBehaviour
         if (_itemList.Count != 0)
         {
             LootManager.Instance.GetPocketData(_itemList);
-
+            showItemPanel.ShowItem(_itemList);
             //Debug.Log(_itemList.Count);
         }
+
+
 
       //  else Debug.Log("아무런 아이템이 뜨지 않았습니다");
 
