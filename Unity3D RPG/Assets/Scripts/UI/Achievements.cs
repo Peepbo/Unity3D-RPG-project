@@ -104,32 +104,32 @@ public class Achievements : MonoBehaviour
         ShowAchieveData();
     }
 
-    private Sprite GetPath(int id) { return Resources.Load<Sprite>(AchieveList[id].icon); }
+    //private Sprite GetPath(int id) { return Resources.Load<Sprite>(AchieveList[id].icon); }
 
     public void ShowAchieveData()
     {
         for (int i = 0; i < AchieveList.Count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
-            popInfo.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetPath(AchieveList[i].id);
+            //popInfo.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetPath(AchieveList[i].id);
             popInfo.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = AchieveList[i].name.ToString();
             popInfo.transform.GetChild(i).GetChild(2).GetComponent<Text>().text = AchieveList[i].descrition.ToString();
             popInfo.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<Text>().text = AchieveList[i].reward.ToString();
 
             if (achieveJsonList[i].State == (int)ACHIEVE_STATE.YET)
             {
-                achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[0];
+                achieveSlots.transform.GetChild(i).GetChild(0).GetComponent<Image>().color = color[0];
             }
             else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.PROGRESS)
             {
-                achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[1];
+                achieveSlots.transform.GetChild(i).GetChild(0).GetComponent<Image>().color = color[1];
             }
             else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.DONE)
             {
-                achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[2];
+                achieveSlots.transform.GetChild(i).GetChild(0).GetComponent<Image>().color = color[2];
             }
             else if (achieveJsonList[i].State == (int)ACHIEVE_STATE.ACHIEVE)
             {
-                achieveSlots.transform.GetChild(i).GetComponent<Image>().color = color[3];
+                achieveSlots.transform.GetChild(i).GetChild(0).GetComponent<Image>().color = color[3];
             }
         }
     }
