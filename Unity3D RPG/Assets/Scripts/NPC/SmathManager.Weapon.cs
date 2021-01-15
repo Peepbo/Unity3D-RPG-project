@@ -11,7 +11,7 @@ public struct WeaponBaseID
     public int Hand_R ; 
     public int THand_N ;
     public int THand_R ;
-    public int Dagger_N;
+    public int BaseWeapon;
     public int Dagger_R;
 }
 [System.Serializable]
@@ -26,18 +26,19 @@ public struct WeaponMaxLevel
 }
 enum WeaponKind
 {
-    HAND_N,HAND_R,THAND_N,THAND_R,DAGGER_N,DAGGER_R
+    HAND_N,HAND_R,THAND_N,THAND_R,BaseWeapon, BaseTWeapon
 }
 partial class SmathManager
 {
-    const int maxWeapon = 4;
+    int maxWeapon;
     Text[] weaponListText;
     Dictionary<WeaponKind,ItemInfo> weaponList = new Dictionary<WeaponKind,ItemInfo>();
     const string hand = "한손검";
     const string twoHand = "대검";
-    const string dagger = "단검";
+    //const string dagger = "단검";
     bool isWeapon =false;
-    
+    //int baseHandCount = 0;
+    int baseWeaponKind;
     public WeaponBaseID baseWeaponID;
     public WeaponMaxLevel weaponMaxLevel;
    
@@ -64,18 +65,32 @@ partial class SmathManager
                         break;
                     case WeaponKind.HAND_R:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_R));
+                        if (!weaponList.ContainsKey(WeaponKind.BaseWeapon))
+                        { maxWeapon++; baseWeaponKind=1; } //baseWeaponKind는 베이스 무기가 필요한 종류를 나눈것
                         break;
                     case WeaponKind.THAND_N:                     
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_N));
                         break;
                     case WeaponKind.THAND_R:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_R));
+                        if (!weaponList.ContainsKey(WeaponKind.BaseTWeapon))
+                        { maxWeapon++; if (maxWeapon < 6) baseWeaponKind = 3; else baseWeaponKind = 2; }
                         break;
-                    case WeaponKind.DAGGER_N:
-                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Dagger_N));
+                    case WeaponKind.BaseWeapon:
+                        switch(baseWeaponKind)
+                        {
+                            case 1: // 1= 한손검만
+                            case 2: // 2 = 둘다
+                                weaponList.Add(WeaponKind.BaseWeapon, CSVData.Instance.find(baseWeaponID.Hand_N));
+                                break;
+                            case 3: // 3 = 두손검만
+                                weaponList.Add(WeaponKind.BaseWeapon, CSVData.Instance.find(baseWeaponID.THand_N));
+                                break;
+                            
+                        }
                         break;
-                    case WeaponKind.DAGGER_R:
-                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Dagger_R));
+                    case WeaponKind.BaseTWeapon:
+                        weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_N));
                         break;
                 }
             }
@@ -104,12 +119,12 @@ partial class SmathManager
             case WeaponKind.THAND_R:
                 if (_item.skillIncrease == weaponMaxLevel.THand_R) ListDisable(num);
                 break;
-            case WeaponKind.DAGGER_N:
+            case WeaponKind.BaseWeapon:
                 if (_item.skillIncrease == weaponMaxLevel.Dagger_N) ListDisable(num);
                 break;
-            case WeaponKind.DAGGER_R:
-                if (_item.skillIncrease == weaponMaxLevel.Dagger_R) ListDisable(num);
-                break;
+            //case WeaponKind.DAGGER_R:
+            //    if (_item.skillIncrease == weaponMaxLevel.Dagger_R) ListDisable(num);
+            //    break;
            
         }
         
@@ -168,29 +183,39 @@ partial class SmathManager
             case hand:
                 if (_itemDB.grade == normal) 
                 {
-                    weaponList.Add(WeaponKind.HAND_N, _itemDB); 
+                    if (weaponList.ContainsKey(WeaponKind.HAND_N))
+                        weaponList.Add(WeaponKind.BaseWeapon, _itemDB); 
+                    else
+                        weaponList.Add(WeaponKind.HAND_N, _itemDB);
                 }
                 else {
-                    weaponList.Add(WeaponKind.HAND_R, _itemDB); 
+                    weaponList.Add(WeaponKind.HAND_R, _itemDB);
                 }
+                    //baseHandCount++;
                 break;
             case twoHand:
-                if (_itemDB.grade == normal) 
+                if (_itemDB.grade == normal)
                 {
-                    weaponList.Add(WeaponKind.THAND_N, _itemDB); 
+                    if (weaponList.ContainsKey(WeaponKind.THAND_N))
+                        weaponList.Add(WeaponKind.BaseTWeapon, _itemDB); 
+                    else
+                        weaponList.Add(WeaponKind.THAND_N, _itemDB); 
                 }
                 else {
                     weaponList.Add(WeaponKind.THAND_R, _itemDB); 
                 }
+                //baseTHandCount++;
                 break;
-            case dagger:
-                if (_itemDB.grade == normal) {
-                    weaponList.Add(WeaponKind.DAGGER_N, _itemDB); 
-                }
-                else {
-                    weaponList.Add(WeaponKind.DAGGER_R, _itemDB); 
-                }
-                break;
+            //case dagger:
+            //    if (_itemDB.grade == normal) {
+            //        Debug.Log("대거로 진입");
+            //        weaponList.Add(WeaponKind.DAGGER_R, _itemDB); 
+            //    }
+            //    else {
+            //        Debug.Log("대거로 진입");
+            //        weaponList.Add(WeaponKind.DAGGER_R, _itemDB); 
+            //    }
+            //    break;
         }
     }
    

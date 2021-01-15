@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 enum ArmourKind
 {
-    N, R
+    N, R,Base
 }
 [System.Serializable]
 public struct ArmourBaseID
@@ -25,7 +25,7 @@ partial class SmathManager
 {
     //List<ItemInfo> armourList = new List<ItemInfo>();
     Dictionary<ArmourKind, ItemInfo> armourList = new Dictionary<ArmourKind, ItemInfo>();
-    const int maxArmour = 2;
+    int maxArmour;
     public ArmourBaseID baseArmourID;
     public ArmourMaxLevel armourMaxLevel;
     Text[] armourListText;
@@ -80,8 +80,6 @@ partial class SmathManager
             case ArmourKind.R:
                 if (_item.skillIncrease == armourMaxLevel.rare) ListDisable(num);
                 break;
-            
-
         }
     }
   
@@ -94,7 +92,10 @@ partial class SmathManager
 
         if (_itemDB.grade == normal)
         {
-            armourList.Add(ArmourKind.N, _itemDB);
+            if (armourList.ContainsKey(ArmourKind.N))
+                armourList.Add(ArmourKind.Base, _itemDB);
+            else
+                armourList.Add(ArmourKind.N, _itemDB);
         }
         else
         {
@@ -117,6 +118,11 @@ partial class SmathManager
                         break;
                     case ArmourKind.R:
                         armourList.Add(_temp, CSVData.Instance.find(baseArmourID.rare));
+                        if(!armourList.ContainsKey(ArmourKind.Base))
+                            maxArmour++;
+                        break;
+                    case ArmourKind.Base:
+                        armourList.Add(_temp, CSVData.Instance.find(baseArmourID.normal));
                         break;
                 }
             }

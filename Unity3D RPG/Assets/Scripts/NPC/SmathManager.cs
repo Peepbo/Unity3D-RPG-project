@@ -39,11 +39,7 @@ public partial class SmathManager : MonoBehaviour
         AccListSerch();
         
     }
-    private void Update()
-    {
-     
-    }
-
+ 
     private void ListMake()
     {
         for (int i = 0; i < maxAcc; i++) itemList.Add(Instantiate(itemMakeListFactory, itemListGroup.transform));
@@ -80,19 +76,13 @@ public partial class SmathManager : MonoBehaviour
         accList.Clear();
         accCheck.Clear();
         lootList.Clear();
+        maxWeapon = 4;
+        maxArmour = 2;
 
         List<ItemInfo> _EquipDB = PlayerData.Instance.haveEquipItem;
         List<ItemInfo> _LootDB = PlayerData.Instance.haveLootItem;
         
         int[] _playerItemDB = PlayerData.Instance.myEquipment;
-
-        //test
-        //ItemInfo a = new ItemInfo();
-        //a.id = 79;
-        //a.itemName = "수정 가루";
-        //a.count = 10;
-        //a.kindID = 4;
-        //_itemDB.Add(a);
 
         if (_playerItemDB[1] != -1)
         {
@@ -112,13 +102,9 @@ public partial class SmathManager : MonoBehaviour
             if (_EquipDB[i].kindID == 1) { WeaponListInsert(_EquipDB[i].id); LootListInsert(_EquipDB[i]); }
             else if (_EquipDB[i].kindID == 2) { ArmourListInsert(_EquipDB[i].id); LootListInsert(_EquipDB[i]); }
             else if (_EquipDB[i].kindID == 3) { AccListInsert(_EquipDB[i].id); }
-            //else if (_EquipDB[i].kindID == 4) { LootListInsert(_EquipDB[i]); }
         }
         for (int i = 0; i < _LootDB.Count; i++)
         {
-            //if (_LootDB[i].kindID == 1) { WeaponListInsert(_LootDB[i].id); LootListInsert(_LootDB[i]); }
-            //else if (_LootDB[i].kindID == 2) { ArmourListInsert(_LootDB[i].id); LootListInsert(_LootDB[i]); }
-            //else if (_LootDB[i].kindID == 3) { AccListInsert(_LootDB[i].id); }
             LootListInsert(_LootDB[i]); 
         }
     }
