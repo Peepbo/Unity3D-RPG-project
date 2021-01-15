@@ -83,6 +83,7 @@ public class ShamanT : EnemyMgr, IDamagedState
             if (hp <= 0)
             {
                 isDead = true;
+                StopAllCoroutines();
                 anim.SetTrigger("die");
             }
 
@@ -164,9 +165,9 @@ public class ShamanT : EnemyMgr, IDamagedState
 
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, attackRange);
+    //}
 }
