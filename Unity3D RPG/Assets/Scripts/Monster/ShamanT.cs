@@ -108,14 +108,12 @@ public class ShamanT : EnemyMgr, IDamagedState
         {
             if (tm.questNumber == 2)
             {
-<<<<<<< HEAD
                 tm.ChangeQuest(2);
                 StartCoroutine(ChangeState());
-=======
+
                 isDead = true;
                 StopAllCoroutines();
                 anim.SetTrigger("die");
->>>>>>> 5d81409ea5a1a56d2fa34c8c0609c2247cf6c09d
             }
         }
     }
