@@ -75,6 +75,10 @@ partial class Player
     
     public void staminaDown(int value)
     {
+        if(weaponKind == 1)
+        {
+            value = value * 2;
+        }
         if(stamina >= value)
         {
             stamina -= value;
