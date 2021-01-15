@@ -64,8 +64,6 @@ public class Achievements : MonoBehaviour
 
     public void Content()
     {
-        //Debug.LogError(achieveJsonList.Count);
-
         for (int i = 0; i < AchieveList.Count; i++)
         {
             switch (achieveJsonList[i].State)
@@ -106,12 +104,10 @@ public class Achievements : MonoBehaviour
         ShowAchieveData();
     }
 
-    Sprite GetPath(int id) { return Resources.Load<Sprite>(AchieveList[id].icon); }
+    private Sprite GetPath(int id) { return Resources.Load<Sprite>(AchieveList[id].icon); }
 
     public void ShowAchieveData()
     {
-        //Debug.Log(AchieveList.Count);
-
         for (int i = 0; i < AchieveList.Count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
             popInfo.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetPath(AchieveList[i].id);
