@@ -10,7 +10,8 @@ public class AnimationEvent : MonoBehaviour
         NOBGOBLIN,
         SHAMAN,
         GOLEM,
-        SPAWN
+        SPAWN,
+        TRAINING
     }
 
     public MONSTER monster;
@@ -20,6 +21,8 @@ public class AnimationEvent : MonoBehaviour
     Shaman shaman;
     Golem golem;
     SlaveGoblin spawnGoblin;
+    ShamanT trainingShaman;
+
     private void Start()
     {
         switch (monster)
@@ -38,6 +41,9 @@ public class AnimationEvent : MonoBehaviour
                 break;
             case MONSTER.SPAWN:
                 spawnGoblin = gameObject.GetComponentInParent<SlaveGoblin>();
+                break;
+            case MONSTER.TRAINING:
+                trainingShaman = gameObject.GetComponentInParent<ShamanT>();
                 break;
         }
     }
@@ -99,6 +105,16 @@ public class AnimationEvent : MonoBehaviour
     public void Flame()
     {
         shaman.Flame();
+    }
+
+    public void FireBall()
+    {
+        trainingShaman.Fire();
+    }
+
+    public void ReadyFire()
+    {
+        trainingShaman.ChangeReady();
     }
     #endregion
 
