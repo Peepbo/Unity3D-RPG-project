@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnterSwitch : MonoBehaviour
 {
-    // public BossDB boss;
+    // 0 :controller, 1 :MainPlayer, 2 :ControllPanel1
     public GameObject[] activeObj = new GameObject[3];
 
     TimeLineController timeLine;
