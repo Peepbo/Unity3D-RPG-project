@@ -10,9 +10,12 @@ public class TutorialMng : MonoBehaviour
     public Chat chat;
 
     public bool[] questCheck = new bool[7];
+    public int questNumber = 0;
 
     //shamen
     public GameObject monster;
+
+    public GameObject player;
 
     #region begin
     private void Start()
@@ -26,10 +29,32 @@ public class TutorialMng : MonoBehaviour
         {
             isStart = true;
             col.enabled = false;
-            chat.NextQuest();
 
             monster.SetActive(true);
+            questCheck[questNumber] = true;
+            questNumber++;
+            chat.NextQuest();
         }
     }
     #endregion
+
+    public void ChangeQuest(int index)
+    {
+        questCheck[questNumber] = true;
+        questNumber++;
+        chat.NextQuest();
+    }
+
+    public void KillMonster()
+    {
+        monster.transform.GetChild(1).GetComponent<ShamanT>().Damaged(5);
+    }
+
+    public void Update()
+    {
+        if(questNumber == 4)
+        {
+            if (player.GetComponent<Player>().isDash) ChangeQuest(5);
+        }
+    }
 }

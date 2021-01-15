@@ -17,7 +17,7 @@ public class Chat : MonoBehaviour
         "기본 공격으로 몬스터 처치하기",
         "강 공격으로 몬스터 처치하기",
         "몬스터 공격 방어하기",
-        "굴러서 해당 위치로 이동하기",
+        "구르기 버튼 누르기",
         "시점을 변경하여 특정 오브젝트 파괴하기",
         "포탈 타고 마을로 이동하기",
     };
@@ -35,11 +35,25 @@ public class Chat : MonoBehaviour
 
     public const float distance = 78f;
 
+    public GameObject canvas;
+
     private void Start()
     {
+        quest.text = quests[tutorialMng.questNumber];
+
         anim = GetComponent<Animator>();
         savePos = texts.position;
         savePos.y += distance;
+
+        canvas.SetActive(false);
+        StartCoroutine(ActiveCanvas(4.5f));
+    }
+
+    IEnumerator ActiveCanvas(float time)
+    {
+        canvas.SetActive(false);
+        yield return new WaitForSeconds(time);
+        canvas.SetActive(true);
     }
 
     // Update is called once per frame
@@ -50,7 +64,11 @@ public class Chat : MonoBehaviour
 
     public void NextQuest()
     {
+        quest.text = quests[tutorialMng.questNumber];
         questIndex++;
+        if(questChats[questIndex] == 3) StartCoroutine(ActiveCanvas(9.5f));
+        else StartCoroutine(ActiveCanvas(questChats[questIndex] * 3.5f));
+
         active = true;
         savePos.y += distance;
         texts.position = savePos;

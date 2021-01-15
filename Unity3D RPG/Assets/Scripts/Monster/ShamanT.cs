@@ -18,6 +18,9 @@ public class ShamanT : EnemyMgr, IDamagedState
     private bool isAtkReady;
 
     private float gravity = -9.81f;
+
+    public TutorialMng tm;
+
     protected override void Awake()
     {
         base.Awake();
@@ -75,19 +78,40 @@ public class ShamanT : EnemyMgr, IDamagedState
     {
         if (isDead) return;
 
-        if (!isDamaged)
+
+        //if(state == TrainState.IDLE)
+
+        //if (!isDamaged)
+        //{
+        //    isDamaged = true;
+        //    hp -= value;
+
+        //    if (hp <= 0)
+        //    {
+        //        isDead = true;
+        //        anim.SetTrigger("die");
+        //    }
+
+        //}
+        if (tm.questNumber == 4)
         {
-            isDamaged = true;
-            hp -= value;
-
-            if (hp <= 0)
-            {
-                isDead = true;
-                anim.SetTrigger("die");
-            }
-
+            isDead = true;
+            anim.SetTrigger("die");
         }
 
+        if (!player.isCri) // 약공격
+        {
+            if(tm.questNumber == 1) tm.ChangeQuest(1);
+        }
+
+        else
+        {
+            if (tm.questNumber == 2)
+            {
+                tm.ChangeQuest(2);
+                StartCoroutine(ChangeState());
+            }
+        }
     }
 
     public override void Die()
@@ -128,14 +152,11 @@ public class ShamanT : EnemyMgr, IDamagedState
                
     }
 
-    public TrainState ChangeState
+    IEnumerator ChangeState()
     {
-        get { return state; }
-
-        set
-        {
-            state = value;
-        }
+        yield return new WaitForSeconds(9.5f);
+        Debug.Log("change state");
+        state = TrainState.ATTACKABLE;
     }
 
     #region Animation event functions
@@ -148,7 +169,9 @@ public class ShamanT : EnemyMgr, IDamagedState
 
             StartCoroutine(LookBack(0.7f));
 
-            Instantiate(fireBall, firePos.position, Quaternion.identity);
+            Vector3 _direction = (target.transform.position - transform.position).normalized;
+            _direction.y = 0;
+            Instantiate(fireBall, firePos.position, Quaternion.LookRotation(_direction));
             SoundManager.Instance.SFXPlay("Shaman_ATK", firePos.position);
         }
 
