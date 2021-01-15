@@ -85,11 +85,11 @@ partial class Player
            
             if (PlayerData.Instance.hpLv <= 10)
             {
-                maxHp = 100 + PlayerData.Instance.hpLv * 200;
+                maxHp = 100 + PlayerData.Instance.hpLv * 20;
             }
             else if (PlayerData.Instance.hpLv > 10)
             {
-                maxHp = 2100 + (PlayerData.Instance.hpLv - 10) * 20;
+                maxHp = 300 + (PlayerData.Instance.hpLv - 10) * 5;
             }
 
             if (PlayerData.Instance.stmLv <= 10)
@@ -109,11 +109,11 @@ partial class Player
     {
         if(PlayerData.Instance.hpLv <=10)
         {
-            maxHp = 100+ PlayerData.Instance.hpLv*200 ;
+            maxHp = 100+ PlayerData.Instance.hpLv*20 ;
         }
         else if(PlayerData.Instance.hpLv> 10)
         {
-            maxHp = 2100 + (PlayerData.Instance.hpLv-10) * 20;
+            maxHp = 300 + (PlayerData.Instance.hpLv-10) * 5;
         }
 
         if (PlayerData.Instance.stmLv <= 10)

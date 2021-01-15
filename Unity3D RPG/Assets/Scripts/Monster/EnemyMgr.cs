@@ -50,8 +50,12 @@ public abstract class EnemyMgr : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         target = GameObject.FindWithTag("Player");
-        AI = gameObject.GetComponent<NavMeshAgent>();
-        path = new NavMeshPath();
+
+        if (gameObject.GetComponent<NavMeshAgent>() != null)
+        {
+            AI = gameObject.GetComponent<NavMeshAgent>();
+            path = new NavMeshPath();
+        }
         player = target.GetComponent<Player>();
 
         for (int i = 0; i < transform.childCount; i++)
@@ -59,7 +63,7 @@ public abstract class EnemyMgr : MonoBehaviour
             if (transform.GetChild(i).tag == "Animation")
                 anim = transform.GetChild(i).GetComponent<Animator>();
         }
-       
+
 
         isDead = false;
     }
@@ -77,10 +81,10 @@ public abstract class EnemyMgr : MonoBehaviour
     public abstract void Die();
 
 
-    protected IEnumerator LookBack()
+    protected IEnumerator LookBack(float time)
     {
         float t = 0f;
-        while (t < 0.7f)
+        while (t < time)
         {
             t += Time.deltaTime;
 

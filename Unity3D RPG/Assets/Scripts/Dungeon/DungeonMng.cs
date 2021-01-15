@@ -78,6 +78,12 @@ public class DungeonMng : Singleton<DungeonMng>
 
             LinkCount();
 
+            if (dungeonQuest == null)
+            {
+                var obj = GameObject.FindWithTag("Quest");
+                dungeonQuest = obj.GetComponent<DungeonQuest>();
+            }
+
             if (dungeonQuest.quest == DungeonQuest.QUEST.ALLKILL)
             {
                 if (killCount == dungeonQuest.maxMonster)
