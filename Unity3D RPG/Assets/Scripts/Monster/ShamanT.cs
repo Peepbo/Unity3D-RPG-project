@@ -23,8 +23,8 @@ public class ShamanT : EnemyMgr, IDamagedState
         base.Awake();
         maxHp = hp = 5;
         MoveDir = Vector3.zero;
-        //state = TrainState.IDLE;
-        state = TrainState.ATTACKABLE;
+        state = TrainState.IDLE;
+        //state = TrainState.ATTACKABLE;
         isAtkReady = false;
     }
 
