@@ -8,18 +8,19 @@ public class GetItemInfo : MonoBehaviour
     public class ItemPanel
     {
         public GameObject obj;
-        public float time;
         public string text;
 
         public ItemPanel(GameObject panel, string str)
         {
             obj = panel;
-            time = 3f;
             text = str;
         }
     }
 
-    List<ItemPanel> panelList = new List<ItemPanel>();
+    public List<ItemPanel> panelList = new List<ItemPanel>();
+    public RectTransform[] pt = new RectTransform[4];
+
+    public float panelTime = 0;
 
     #region start
     //private int currency;
@@ -53,32 +54,76 @@ public class GetItemInfo : MonoBehaviour
             //childCount = 내 자식 오브젝트 개수
             //GetChild(num) = 내 자식의 num번째 오브젝트
 
-            for(int i = 0; i < transform.childCount; i++) // childCount = 3
+            int _number = 0;
+
+            for(int i = 0; i < transform.childCount; i++) // childCount = 4
             {
                 var child = transform.GetChild(i).gameObject;
 
-                if (child.activeSelf == false)
+                if(child.activeSelf)
                 {
+                    _number++;
+                    continue;
+                }
+
+                if(_number == 4)
+                {
+                    //맨 앞에 존재하는 애를 끝내줘야한다.
+                    //var _anim = panelList[0].obj.GetComponentInChildren<Animator>();
+                    //_anim.SetTrigger("Close");
+                    panelTime = 0;
+                    panelList[0].obj.SetActive(false);
+                    panelList.RemoveAt(0);
+
                     child.SetActive(true);
 
-                    ItemPanel pn = new ItemPanel(child, "");
+                    child.transform.position = pt[3].transform.position;
 
-                    panelList.Add(pn);
-                    break;
+                    panelList.Add(new ItemPanel(child, ""));
                 }
+
+                else
+                {
+                    child.SetActive(true);
+                    //child.transform.position = panelList.
+
+                    int _index = panelList.Count;
+                    _index = Mathf.Clamp(_index, 0, 3);
+
+                    Debug.Log(_index);
+                    child.transform.position = pt[_index].transform.position;
+
+                    panelList.Add(new ItemPanel(child, ""));
+                }
+
+                break;
             }
         }
 
-        for(int i = 0; i < panelList.Count; i++)
+        if(panelList.Count > 0)
         {
-            panelList[i].time -= Time.deltaTime;
-
-            if(panelList[i].time < 0)
+            //move position
+            for (int i = 0; i < panelList.Count; i++)
             {
-                panelList[i].obj.SetActive(false);
-                panelList.RemoveAt(i);
+                if (i == 4) break;
+
+                panelList[i].obj.transform.position
+                    = Vector3.Lerp(panelList[i].obj.transform.position,
+                    pt[i].transform.position, Time.deltaTime*10f);
+            }
+
+            //del
+            panelTime += Time.deltaTime;
+
+            if (panelTime > 0.5f)
+            {
+                panelTime = 0;
+
+                panelList.RemoveAt(0);
+                panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
             }
         }
+
         
     }
 }
