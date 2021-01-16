@@ -111,9 +111,9 @@ public class ShamanT : EnemyMgr, IDamagedState
                 tm.ChangeQuest(2);
                 StartCoroutine(ChangeState());
 
-                isDead = true;
-                StopAllCoroutines();
-                anim.SetTrigger("die");
+                //isDead = true;
+                //StopAllCoroutines();
+                //anim.SetTrigger("die");
             }
         }
     }

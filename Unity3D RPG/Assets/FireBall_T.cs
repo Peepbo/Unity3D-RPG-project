@@ -52,6 +52,11 @@ public class FireBall_T : MonoBehaviour
                 {
                     tm.ChangeQuest(4);
                     tm.KillMonster();
+
+                    //_obj.transform.GetChild(0).GetComponent<Animator>().SetBool("isGuard", false);
+                    //_obj.comboAtk.animator.SetBool("isGuard",false);
+                    //_obj.isGuard = false;
+                    //_obj.state = Player.PlayerState.IDLE;
                 }
 
                 #region 01-11
