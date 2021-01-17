@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LoadingUI : MonoBehaviour
 {
     int textCase;
+    int imgCase;
     Text tipText;
 
     // Start is called before the first frame update
@@ -19,14 +20,37 @@ public class LoadingUI : MonoBehaviour
         
     }
 
+    Sprite GetPath(int i) { return Resources.Load<Sprite>("LoadingImg" + i); }
+
     private void OnEnable()
     {
         textCase = Random.Range(0, 10);
-        tipText = gameObject.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>();
+        imgCase = Random.Range(0, 4);
 
-        //gameObject.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+        tipText = gameObject.transform.GetChild(3).GetChild(2).GetChild(0).GetComponent<Text>();
 
-        switch(textCase)
+        switch (imgCase)
+        {
+            case 0:
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(0);
+                break;
+            case 1:
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(1);
+                break;
+            case 2:
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(2);
+                break;
+            case 3:
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(3);
+                break;
+            case 4:
+                gameObject.transform.GetChild(0).GetComponent<Image>().sprite = GetPath(4);
+                break;
+            default:
+                break;
+        }
+
+        switch (textCase)
         {
             case 0:
                 tipText.text = "스태미너를 다 쓰면 완전히 회복될 때까지 방어할 수 없어요."; 
