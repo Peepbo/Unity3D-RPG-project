@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class DropDeActive : MonoBehaviour
 {
-    public void DeActive()
-    {
-        transform.parent.gameObject.SetActive(false);
-    }
+    public void DeActive() { transform.parent.gameObject.SetActive(false); }
 }

@@ -61,8 +61,9 @@ public class LootBox : MonoBehaviour
         //Debug.Log("아이템 준비중");
         currency = Random.Range(min, max + 1);
         LootManager.Instance.GetPocketMoney(currency);
+
         //UI띄우기 용
-        //showItemPanel.ShowCurrency(currency);
+        showItemPanel.DisplayCurrency(currency);
 
         List<ItemInfo> _itemList = new List<ItemInfo>();
 
@@ -81,11 +82,12 @@ public class LootBox : MonoBehaviour
         if (_itemList.Count != 0)
         {
             LootManager.Instance.GetPocketData(_itemList);
-            //showItemPanel.ShowItem(_itemList);
-            //Debug.Log(_itemList.Count);
+
+            //UI띄우기 용
+            showItemPanel.DisplayItem(_itemList);
         }
 
-      //  else Debug.Log("아무런 아이템이 뜨지 않았습니다");
+        //  else Debug.Log("아무런 아이템이 뜨지 않았습니다");
 
     }
 
