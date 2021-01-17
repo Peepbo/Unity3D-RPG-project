@@ -23,20 +23,20 @@ public class UIAni : MonoBehaviour
         Color textColor = myText.color;
         textColor.a = 0;
 
-        if (myImage.color.a > 0.3f)
+        if (myImage.color.a > 0.5f)
         {
-            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.realtimeSinceStartup * 0.001f);
-            myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.001f);
+            myImage.color = Color.Lerp(myImage.color, sampleColor, Time.realtimeSinceStartup * 0.002f);
+            myText.color = Color.Lerp(myText.color, textColor, Time.realtimeSinceStartup * 0.002f);
         }
         else gameObject.SetActive(false);
 
         if (SceneManager.GetActiveScene().name == "TownScene")
         {
-            this.gameObject.transform.GetChild(0).GetComponent <Text>().text = "마을";
+             myText.transform.GetComponent <Text>().text = "마을";
         }
        else
         {
-            this.gameObject.transform.GetChild(0).GetComponent<Text>().text = "던전";
+             myText.transform.GetComponent<Text>().text = "던전";
         }
     }
 }
