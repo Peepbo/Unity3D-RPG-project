@@ -338,7 +338,7 @@ public class GoblinChieftain : BossDB, IDamagedState
 
         Destroy(gameObject);
 
-        DungeonResultPanel.Instance.GameResult(true);
+        ResultController.Instance.GameResult(true);
 
     }
     private void Hit()

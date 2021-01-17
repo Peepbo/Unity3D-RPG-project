@@ -134,7 +134,7 @@ partial class Player
 
         comboAtk.animator.SetTrigger("Die");
         SoundManager.Instance.SFXPlay2D("Player_Die");
-        DungeonResultPanel.Instance.GameResult(false);
+        ResultController.Instance.GameResult(false);
         //DieChangeScene("TownScene");
     }
     //public void DieChangeScene(string sceneName)
