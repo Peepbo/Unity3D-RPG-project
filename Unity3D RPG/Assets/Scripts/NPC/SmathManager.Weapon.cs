@@ -37,6 +37,7 @@ partial class SmathManager
     const string twoHand = "대검";
     //const string dagger = "단검";
     bool isWeapon =false;
+    bool isTHandBase = false;
     //int baseHandCount = 0;
     int baseWeaponKind;
     public WeaponBaseID baseWeaponID;
@@ -70,23 +71,20 @@ partial class SmathManager
                         break;
                     case WeaponKind.THAND_N:                     
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_N));
+                        isTHandBase = true;
                         break;
                     case WeaponKind.THAND_R:
                         weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.THand_R));
-                        if (!weaponList.ContainsKey(WeaponKind.BaseTWeapon))
-                        { maxWeapon++; if (maxWeapon < 6) baseWeaponKind = 3; else baseWeaponKind = 2; }
+                        if (!weaponList.ContainsKey(WeaponKind.BaseTWeapon)&&!isTHandBase)
+                        { ++maxWeapon; if (maxWeapon < 6) baseWeaponKind = 3; else baseWeaponKind = 2; }
                         break;
                     case WeaponKind.BaseWeapon:
-                        switch(baseWeaponKind)
+                        switch (baseWeaponKind)
                         {
                             case 1: // 1= 한손검만
                             case 2: // 2 = 둘다
-                                weaponList.Add(WeaponKind.BaseWeapon, CSVData.Instance.find(baseWeaponID.Hand_N));
+                                weaponList.Add((WeaponKind)i, CSVData.Instance.find(baseWeaponID.Hand_N));
                                 break;
-                            case 3: // 3 = 두손검만
-                                weaponList.Add(WeaponKind.BaseWeapon, CSVData.Instance.find(baseWeaponID.THand_N));
-                                break;
-                            
                         }
                         break;
                     case WeaponKind.BaseTWeapon:
@@ -94,13 +92,20 @@ partial class SmathManager
                         break;
                 }
             }
-           
         }
+        if(maxWeapon ==5 && baseWeaponKind==3)
+            weaponList.Add(WeaponKind.BaseTWeapon, CSVData.Instance.find(baseWeaponID.THand_N));
     }
     private void WeaponListSetting(int num)
     {
-        weaponListText = itemList[num].GetComponentsInChildren<Text>();
         WeaponKind _temp = (WeaponKind)num;
+        if (num ==4 )
+        {
+            if (baseWeaponKind == 3)
+                _temp = WeaponKind.BaseTWeapon; 
+        }
+        weaponListText = itemList[num].GetComponentsInChildren<Text>();
+        
         ItemInfo _item = weaponList[_temp];
         weaponListText[0].text = _item.skillIncrease + "티어 "+ _item.itemName;
         weaponListText[1].text = _item.kind;
@@ -181,31 +186,27 @@ partial class SmathManager
         switch (_itemDB.kind)
         {
             case hand:
-                if (_itemDB.grade == normal) 
+                if (_itemDB.grade == normal)
                 {
                     if (weaponList.ContainsKey(WeaponKind.HAND_N))
-                        weaponList.Add(WeaponKind.BaseWeapon, _itemDB); 
+                        weaponList.Add(WeaponKind.BaseWeapon, _itemDB);
                     else
                         weaponList.Add(WeaponKind.HAND_N, _itemDB);
                 }
-                else {
-                    weaponList.Add(WeaponKind.HAND_R, _itemDB);
-                }
-                    //baseHandCount++;
+                else weaponList.Add(WeaponKind.HAND_R, _itemDB);
                 break;
             case twoHand:
                 if (_itemDB.grade == normal)
                 {
                     if (weaponList.ContainsKey(WeaponKind.THAND_N))
-                        weaponList.Add(WeaponKind.BaseTWeapon, _itemDB); 
+                        weaponList.Add(WeaponKind.BaseTWeapon, _itemDB);
                     else
-                        weaponList.Add(WeaponKind.THAND_N, _itemDB); 
+                        weaponList.Add(WeaponKind.THAND_N, _itemDB);
                 }
-                else {
-                    weaponList.Add(WeaponKind.THAND_R, _itemDB); 
-                }
-                //baseTHandCount++;
+                else weaponList.Add(WeaponKind.THAND_R, _itemDB);
                 break;
+                
+                //baseTHandCount++;
             //case dagger:
             //    if (_itemDB.grade == normal) {
             //        Debug.Log("대거로 진입");

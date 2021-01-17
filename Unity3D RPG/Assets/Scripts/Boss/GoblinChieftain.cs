@@ -126,7 +126,7 @@ public class GoblinChieftain : BossDB, IDamagedState
         {
             isRoar = true;
             anim.SetBool("isRoaring", true);
-            atkTime = atkDelay / 2;
+            atkDelay = atkDelay *0.5f;
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
             anim.SetTrigger("Roar");

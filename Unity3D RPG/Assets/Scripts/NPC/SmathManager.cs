@@ -78,6 +78,8 @@ public partial class SmathManager : MonoBehaviour
         lootList.Clear();
         maxWeapon = 4;
         maxArmour = 2;
+        isTHandBase = false;
+         
 
         List<ItemInfo> _EquipDB = PlayerData.Instance.haveEquipItem;
         List<ItemInfo> _LootDB = PlayerData.Instance.haveLootItem;
