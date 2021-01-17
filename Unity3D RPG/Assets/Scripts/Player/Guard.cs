@@ -61,4 +61,10 @@ public class Guard : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
         isPress = false;
         
     }
+    public void GuardEnd()
+    {
+        player.state = Player.PlayerState.IDLE;
+        isPress = false;
+
+    }
 }

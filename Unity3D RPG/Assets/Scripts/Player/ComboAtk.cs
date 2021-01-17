@@ -61,18 +61,37 @@ public class ComboAtk : MonoBehaviour
                 player.isFight = true;
                 if (comboStep == 0)
                 {
-                    if (player.stamina >= 15)
+                    if(player.weaponKind == 1)
                     {
-                        player.staminaDown(15);
-                        animator.Play("Atk1");
-                        comboStep = 1;
-                        return;
+                        if (player.stamina >= 30)
+                        {
+                            player.staminaDown(15);
+                            animator.Play("Atk1");
+                            comboStep = 1;
+                            return;
+                        }
+                        else
+                        {
+                            player.isFight = false;
+                            player.isCri = false;
+                        }
                     }
                     else
                     {
-                        player.isFight = false;
-                        player.isCri = false;
+                        if (player.stamina >= 15)
+                        {
+                            player.staminaDown(15);
+                            animator.Play("Atk1");
+                            comboStep = 1;
+                            return;
+                        }
+                        else
+                        {
+                            player.isFight = false;
+                            player.isCri = false;
+                        }
                     }
+                   
                 }
                 else if (comboStep != 0)
                 {
@@ -98,17 +117,36 @@ public class ComboAtk : MonoBehaviour
             {
                 if (comboStep == 0)
                 {
-                    if ( player.stamina >= 25)
+                    if(player.weaponKind == 1)
                     {
-                        player.staminaDown(25);
-                        animator.Play("Atk3"); //크리공격시작
-                        comboStep = 100;
-                        return;
+                        if (player.stamina >= 50)
+                        {
+                            player.staminaDown(25);
+                            animator.Play("Atk3"); //크리공격시작
+                            comboStep = 100;
+                            return;
+                        }
+                        else
+                        {
+                            player.isFight = false;
+                            player.isCri = false;
+                        }
                     }
                     else
                     {
-                        player.isFight = false;
-                        player.isCri = false;
+
+                        if ( player.stamina >= 25)
+                        {
+                            player.staminaDown(25);
+                            animator.Play("Atk3"); //크리공격시작
+                            comboStep = 100;
+                            return;
+                        }
+                        else
+                        {
+                            player.isFight = false;
+                            player.isCri = false;
+                        }
                     }
                 }
                 else if (comboStep != 0)

@@ -5,25 +5,13 @@ using UnityEngine;
 
 public class GetItemInfo : MonoBehaviour
 {
-    public class ItemPanel
-    {
-        public GameObject obj;
-        public string text;
-
-        public ItemPanel(GameObject panel, string str)
-        {
-            obj = panel;
-            text = str;
-        }
-    }
-
-    public List<ItemPanel> panelList = new List<ItemPanel>();
+    public List<GameObject> panelList = new List<GameObject>();
     public RectTransform[] pt = new RectTransform[4];
 
     public float panelTime = 0;
     bool firstIn = true;
 
-    public int panelCount = 0;
+    public Sprite[] sprite = new Sprite[2];
 
     #region start
     //private int currency;
@@ -52,54 +40,6 @@ public class GetItemInfo : MonoBehaviour
 
     private void Update()
     {
-        #region FUNCTION
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //childCount = 내 자식 오브젝트 개수
-            //GetChild(num) = 내 자식의 num번째 오브젝트
-
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                var child = transform.GetChild(i).gameObject;
-
-                if (child.activeSelf) { continue; }
-
-                if (panelList.Count == 0) firstIn = true;
-
-                if (panelList.Count > 3)
-                {
-                    firstIn = false;
-
-                    panelTime = 0;
-
-                    panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
-                    panelList.RemoveAt(0);
-
-                    child.SetActive(true);
-
-                    child.transform.position = pt[3].transform.position;
-
-                    panelList.Add(new ItemPanel(child, ""));
-                }
-
-                else
-                {
-                    child.SetActive(true);
-
-                    int _index = panelList.Count;
-                    _index = Mathf.Clamp(_index, 0, 3);
-
-                    Debug.Log(_index);
-                    child.transform.position = pt[_index].transform.position;
-
-                    panelList.Add(new ItemPanel(child, ""));
-                }
-
-                break;
-            }
-        }
-        #endregion
-
         #region UPDATE
         if (panelList.Count > 0)
         {
@@ -107,8 +47,8 @@ public class GetItemInfo : MonoBehaviour
             int _max = panelList.Count;
             for (int i = 0; i < _max; i++)
             {
-                panelList[i].obj.transform.position
-                    = Vector3.Lerp(panelList[i].obj.transform.position,
+                panelList[i].transform.position
+                    = Vector3.Lerp(panelList[i].transform.position,
                     pt[i].transform.position, Time.deltaTime * 10f);
             }
 
@@ -123,14 +63,14 @@ public class GetItemInfo : MonoBehaviour
 
                 if (firstIn) firstIn = false;
 
-                panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
+                panelList[0].GetComponentInChildren<Animator>().SetTrigger("Close");
                 panelList.RemoveAt(0);
             }
         }
         #endregion
     }
 
-    private void DisplayPanel(string panelText)
+    private void DisplayPanel(string panelText, int spriteNumber)
     {
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -146,14 +86,19 @@ public class GetItemInfo : MonoBehaviour
 
                 panelTime = 0;
 
-                panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
+                panelList[0].GetComponentInChildren<Animator>().SetTrigger("Close");
                 panelList.RemoveAt(0);
 
                 child.SetActive(true);
 
                 child.transform.position = pt[3].transform.position;
 
-                panelList.Add(new ItemPanel(child, panelText));
+                child.transform.GetChild(0).GetComponentInChildren<Text>().text
+                    = panelText;
+                child.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite
+                    = sprite[spriteNumber];
+
+                panelList.Add(child);
             }
 
             else
@@ -163,10 +108,14 @@ public class GetItemInfo : MonoBehaviour
                 int _index = panelList.Count;
                 _index = Mathf.Clamp(_index, 0, 3);
 
-                Debug.Log(_index);
                 child.transform.position = pt[_index].transform.position;
 
-                panelList.Add(new ItemPanel(child, panelText));
+                child.transform.GetChild(0).GetComponentInChildren<Text>().text
+                    = panelText;
+                child.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite
+                    = sprite[spriteNumber];
+
+                panelList.Add(child);
             }
 
             break;
@@ -176,7 +125,7 @@ public class GetItemInfo : MonoBehaviour
     public void DisplayCurrency(int currency)
     {
         string text = currency.ToString() + "골드를 획득";
-        DisplayPanel(text);
+        DisplayPanel(text, 0);
     }
 
     public void DisplayItem(List<ItemInfo> item)
@@ -185,7 +134,7 @@ public class GetItemInfo : MonoBehaviour
         for(int i = 0; i < item.Count; i++)
         {
             text = item[i].itemName + "을 " + item[i].count + "개 획득";
-            DisplayPanel(text);
+            DisplayPanel(text, 1);
         }
     }
 }
