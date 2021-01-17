@@ -26,7 +26,6 @@ public class GoblinChieftain : BossDB, IDamagedState
     float hitTime = 0f;
     BossATKPattern pattern;
     const int spawnAreaMaxCount = 5;
-    public GameObject returnButton;
     
     
     
@@ -334,7 +333,6 @@ public class GoblinChieftain : BossDB, IDamagedState
         bossItem.GetComponent<LootBox>().setItemInfo(item, 3, goldMin, goldMax);
 
         yield return new WaitForSeconds(1.0f);
-        returnButton.SetActive(true);
 
         Destroy(gameObject);
 

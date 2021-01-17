@@ -6,6 +6,7 @@ public class Button_T : MonoBehaviour, IDamagedState
 {
     public TutorialMng tm;
     public GameObject portal;
+    public GameObject effect;
 
     public void Damaged(int value)
     {
@@ -15,6 +16,7 @@ public class Button_T : MonoBehaviour, IDamagedState
             tm.ChangeQuest();
 
             portal.SetActive(true);
+            effect.SetActive(false);
         }
     }
 }
