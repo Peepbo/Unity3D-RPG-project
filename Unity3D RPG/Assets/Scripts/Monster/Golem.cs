@@ -76,7 +76,7 @@ public class Golem : EnemyMgr, IDamagedState
         if (isStay)
         {
             anim.SetInteger("state", 0);
-            if (distance < findRange)
+            if (distance < findRange && findCount ==0)
             {
                 if (Physics.Raycast(transform.position, direction, out _hit, findRange))
                 {
