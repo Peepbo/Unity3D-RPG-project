@@ -29,37 +29,37 @@ public class LoadingUI : MonoBehaviour
         switch(textCase)
         {
             case 0:
-                tipText.text = "골렘은 보기보다 강력합니다 조심하세요!";
+                tipText.text = "스태미너를 다 쓰면 완전히 회복될 때까지 방어할 수 없어요."; 
                 break;
             case 1:
-                tipText.text = "샤먼의 파이어볼은 생각보다 느립니다.";
+                tipText.text = "혹시라도 화면이 답답하면 뷰 버튼을 눌러보세요.";
                 break;
             case 2:
-                tipText.text = "부장님은 가까이서 보면 더 귀엽습니다.";
+                tipText.text = "골렘은 보기보다 강력합니다 조심하세요!";
                 break;
             case 3:
-                tipText.text = "사실, 산돌프의 마스코트는 샘이라는 사실을 알고 계신가요?";
+                tipText.text = "던전에 배치된 수상한 상자를 부셔본적 있나요?";
                 break;
             case 4:
-                tipText.text = "혜림의 목소리는 만년설도 살살 녹인답니다.";
+                tipText.text = "던전에 숨겨져있는 암상인을 찾아보세요.";
                 break;
             case 5:
-                tipText.text = "수현은 가장 잘생긴 디렉터입니다.";
+                tipText.text = "공격을 피하고 싶거나 빠른 이동을 원하면 구르기를 사용해보세요!";
                 break;
             case 6:
-                tipText.text = "산돌프는 귀요미 집합체라고 합니다!";
+                tipText.text = "가드 시 몸이 단단해져 뒤쪽에서 맞아도 안 아픕니다!";
                 break;
             case 7:
-                tipText.text = "교수님은 신호를 보내는 일 말고 하시는 일이 무엇일까요?";
+                tipText.text = "트레이너에게 돈을 주고 캐릭터를 성장시킬 수 있습니다.";
                 break;
             case 8:
-                tipText.text = "탈룰라는 룰라 탈퇴가 아닙니다.";
+                tipText.text = "강공격은 기본 공격과 다르게 경직 효과가 있습니다";
                 break;
             case 9:
-                tipText.text = "ㄷㄷㄷㅈ";
+                tipText.text = "창고에서 가지고있는 전리품을 판매할 수 있습니다!";
                 break;
             case 10:
-                tipText.text = "더이상 쓸말도 없다.. 아이디어 내놔..";
+                tipText.text = "재료를 모아 아이템을 강화하세요!";
                 break;
             default:
                 break;
