@@ -12,6 +12,7 @@ public class CameraLook : MonoBehaviour
     private MainPlayer playerInput;
     public TouchBoard touchBoard;
     public CinemachineFreeLook cinemachine2;
+    public CinemachineVirtualCamera cinemachine3;
 
     private void Awake()
     {
@@ -53,12 +54,12 @@ public class CameraLook : MonoBehaviour
         if(PlayerData.Instance.isCameraBack)
         {
             PlayerData.Instance.isCameraBack = false;
-            cinemachine2.enabled = true;
+            cinemachine3.enabled = true;
         }
         else
         {
             PlayerData.Instance.isCameraBack = true;
-            cinemachine2.enabled = false;
+            cinemachine3.enabled = false;
         }
 
     }
