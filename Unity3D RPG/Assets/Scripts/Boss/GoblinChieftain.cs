@@ -8,16 +8,6 @@ using UnityEngine.AI;
 
 public class GoblinChieftain : BossDB, IDamagedState
 {
-    //enum ChiefTainFXPrefab
-    //{
-    //    ATK1,
-    //    ATK2,
-    //    THUMP,
-    //    ROAR,
-    //    SPAWNM,
-    //    SPAWNS,
-
-    //}
     enum BossATKPattern
     {
         THREEATK,
@@ -26,10 +16,8 @@ public class GoblinChieftain : BossDB, IDamagedState
         END
     }
 
-    //[SerializeField]
-    //private BossDB info = new BossDB();
-    //private BossState state = BossState.IDLE;
-    //private BossController bossContrroller = new BossController();
+    
+  
     private Animator anim;
     NavMeshAgent agent;
     const float distance = 3f;
@@ -52,23 +40,23 @@ public class GoblinChieftain : BossDB, IDamagedState
     private void ChieftainDBInit()
     {
         const int itemDropCount = 3;
-        bossName = "고블린 치프틴";
-        hpMax = 500;
+        //bossName = "고블린 치프틴";
+        //hpMax = 500;
         hp = hpMax;
-        atk = 50;
-        def = 15;
-        atkSpeed = 1.0f;
-        atkDelay = 4.0f;
-        moveSpeed = 2.0f;
-        goldMin = 200;
-        goldMax = 300;
-        itemDropInfo = new ItemDropInfo[itemDropCount];
-        itemDropInfo[0].itemName = "고블린 수정";
-        itemDropInfo[0].itemID = 81;
-        itemDropInfo[1].itemName = "고블린 족장의 증표";
-        itemDropInfo[1].itemID = 84;
-        itemDropInfo[2].itemName = "족장의 목걸이";
-        itemDropInfo[2].itemID = 85;
+        //atk = 50;
+        //def = 15;
+        //atkSpeed = 1.0f;
+        //atkDelay = 4.0f;
+        //moveSpeed = 2.0f;
+        //goldMin = 200;
+        //goldMax = 300;
+        //itemDropInfo = new ItemDropInfo[itemDropCount];
+        //itemDropInfo[0].itemName = "고블린 수정";
+        //itemDropInfo[0].itemID = 81;
+        //itemDropInfo[1].itemName = "고블린 족장의 증표";
+        //itemDropInfo[1].itemID = 84;
+        //itemDropInfo[2].itemName = "족장의 목걸이";
+        //itemDropInfo[2].itemID = 85;
         //state = BossState.IDLE;
         dieTime = 5.5f;
 
@@ -350,6 +338,7 @@ public class GoblinChieftain : BossDB, IDamagedState
 
         Destroy(gameObject);
 
+        DungeonResultPanel.Instance.GameResult(true);
 
     }
     private void Hit()

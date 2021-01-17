@@ -134,22 +134,22 @@ partial class Player
 
         comboAtk.animator.SetTrigger("Die");
         SoundManager.Instance.SFXPlay2D("Player_Die");
-
-        DieChangeScene("TownScene");
+        DungeonResultPanel.Instance.GameResult(false);
+        //DieChangeScene("TownScene");
     }
-    public void DieChangeScene(string sceneName)
-    {
-        if (sceneName == "TownScene")
-        {
-            PlayerData.Instance.isReturn = true;
-            LootManager.Instance.Delivery(true);
-            DungeonMng.Instance.ClearCount();
-            DungeonMng.Instance.ResetStage();
+    //public void DieChangeScene(string sceneName)
+    //{
+    //    if (sceneName == "TownScene")
+    //    {
+    //        PlayerData.Instance.isReturn = true;
+    //        LootManager.Instance.Delivery(true);
+    //        DungeonMng.Instance.ClearCount();
+    //        DungeonMng.Instance.ResetStage();
             
-        }
+    //    }
 
-        LoadingSceneController.Instance.LoadScene(sceneName);
-    }
+    //    LoadingSceneController.Instance.LoadScene(sceneName);
+    //}
 
 
 }
