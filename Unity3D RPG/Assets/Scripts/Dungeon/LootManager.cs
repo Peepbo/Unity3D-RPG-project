@@ -8,7 +8,6 @@ public partial class LootManager : Singleton<LootManager>
     public List<ItemInfo> pocketItem = new List<ItemInfo>();
     public int pocketMoney = 0;
 
-    public bool isDelivery = false;
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
         List<ItemInfo> _list = new List<ItemInfo>();
@@ -105,6 +104,8 @@ public partial class LootManager : Singleton<LootManager>
         PlayerData.Instance.ResetInsurance();
 
         PlayerData.Instance.SaveData();
+
+        ClearPocketData();
     }
 
     public void ClearPocketData()
