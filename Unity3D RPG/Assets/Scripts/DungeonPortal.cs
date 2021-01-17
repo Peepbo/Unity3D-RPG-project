@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DungeonPortal : MonoBehaviour
 {
+    bool isFirst = false;
     public void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !isFirst)
         {
+            isFirst = true;
+
             if (DungeonMng.Instance.stage != 0) // 마을이 아니면?
             {
                 List<Achieve> _list = new List<Achieve>(JsonData.Instance.LoadAchieve());

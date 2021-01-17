@@ -12,7 +12,7 @@ public class Button_T : MonoBehaviour, IDamagedState
         if(tm.questNumber == 5)
         {
             gameObject.tag = "Untagged";
-            tm.ChangeQuest(5);
+            tm.ChangeQuest();
 
             portal.SetActive(true);
         }

@@ -21,6 +21,9 @@ public class GetItemInfo : MonoBehaviour
     public RectTransform[] pt = new RectTransform[4];
 
     public float panelTime = 0;
+    bool firstIn = true;
+
+    public int panelCount = 0;
 
     #region start
     //private int currency;
@@ -49,30 +52,27 @@ public class GetItemInfo : MonoBehaviour
 
     private void Update()
     {
+        #region FUNCTION
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //childCount = 내 자식 오브젝트 개수
             //GetChild(num) = 내 자식의 num번째 오브젝트
 
-            int _number = 0;
-
-            for(int i = 0; i < transform.childCount; i++) // childCount = 4
+            for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i).gameObject;
 
-                if(child.activeSelf)
-                {
-                    _number++;
-                    continue;
-                }
+                if (child.activeSelf) { continue; }
 
-                if(_number == 4)
+                if (panelList.Count == 0) firstIn = true;
+
+                if (panelList.Count > 3)
                 {
-                    //맨 앞에 존재하는 애를 끝내줘야한다.
-                    //var _anim = panelList[0].obj.GetComponentInChildren<Animator>();
-                    //_anim.SetTrigger("Close");
+                    firstIn = false;
+
                     panelTime = 0;
-                    panelList[0].obj.SetActive(false);
+
+                    panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
                     panelList.RemoveAt(0);
 
                     child.SetActive(true);
@@ -85,7 +85,6 @@ public class GetItemInfo : MonoBehaviour
                 else
                 {
                     child.SetActive(true);
-                    //child.transform.position = panelList.
 
                     int _index = panelList.Count;
                     _index = Mathf.Clamp(_index, 0, 3);
@@ -99,31 +98,94 @@ public class GetItemInfo : MonoBehaviour
                 break;
             }
         }
+        #endregion
 
-        if(panelList.Count > 0)
+        #region UPDATE
+        if (panelList.Count > 0)
         {
             //move position
-            for (int i = 0; i < panelList.Count; i++)
+            int _max = panelList.Count;
+            for (int i = 0; i < _max; i++)
             {
-                if (i == 4) break;
-
                 panelList[i].obj.transform.position
                     = Vector3.Lerp(panelList[i].obj.transform.position,
-                    pt[i].transform.position, Time.deltaTime*10f);
+                    pt[i].transform.position, Time.deltaTime * 10f);
             }
 
             //del
-            panelTime += Time.deltaTime;
+            if (firstIn) { panelTime += Time.deltaTime * 0.5f; }
+
+            else panelTime += Time.deltaTime;
 
             if (panelTime > 0.5f)
             {
                 panelTime = 0;
 
-                panelList.RemoveAt(0);
+                if (firstIn) firstIn = false;
+
                 panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
+                panelList.RemoveAt(0);
             }
         }
+        #endregion
+    }
 
-        
+    private void DisplayPanel(string panelText)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            var child = transform.GetChild(i).gameObject;
+
+            if (child.activeSelf) { continue; }
+
+            if (panelList.Count == 0) firstIn = true;
+
+            if (panelList.Count > 3)
+            {
+                firstIn = false;
+
+                panelTime = 0;
+
+                panelList[0].obj.GetComponentInChildren<Animator>().SetTrigger("Close");
+                panelList.RemoveAt(0);
+
+                child.SetActive(true);
+
+                child.transform.position = pt[3].transform.position;
+
+                panelList.Add(new ItemPanel(child, panelText));
+            }
+
+            else
+            {
+                child.SetActive(true);
+
+                int _index = panelList.Count;
+                _index = Mathf.Clamp(_index, 0, 3);
+
+                Debug.Log(_index);
+                child.transform.position = pt[_index].transform.position;
+
+                panelList.Add(new ItemPanel(child, panelText));
+            }
+
+            break;
+        }
+    }
+
+    public void DisplayCurrency(int currency)
+    {
+        string text = currency.ToString() + "골드를 획득";
+        DisplayPanel(text);
+    }
+
+    public void DisplayItem(List<ItemInfo> item)
+    {
+        string text = "";
+        for(int i = 0; i < item.Count; i++)
+        {
+            text = item[i].itemName + "을 " + item[i].count + "개 획득";
+            DisplayPanel(text);
+        }
     }
 }

@@ -50,7 +50,7 @@ public class FireBall_T : MonoBehaviour
 
                 if(_check)
                 {
-                    tm.ChangeQuest(4);
+                    tm.ChangeQuest();
                     tm.KillMonster();
 
                     //_obj.transform.GetChild(0).GetComponent<Animator>().SetBool("isGuard", false);

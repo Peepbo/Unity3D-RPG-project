@@ -101,14 +101,14 @@ public class ShamanT : EnemyMgr, IDamagedState
 
         if (!player.isCri) // 약공격
         {
-            if (tm.questNumber == 1) tm.ChangeQuest(1);
+            if (tm.questNumber == 1) tm.ChangeQuest();
         }
 
         else
         {
             if (tm.questNumber == 2)
             {
-                tm.ChangeQuest(2);
+                tm.ChangeQuest();
                 StartCoroutine(ChangeState());
 
                 //isDead = true;

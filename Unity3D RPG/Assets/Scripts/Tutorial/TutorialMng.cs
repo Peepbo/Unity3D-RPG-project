@@ -15,6 +15,9 @@ public class TutorialMng : MonoBehaviour
     //shamen
     public GameObject monster;
 
+    //Box
+    public GameObject box;
+
     public GameObject player;
 
     #region begin
@@ -38,11 +41,19 @@ public class TutorialMng : MonoBehaviour
     }
     #endregion
 
-    public void ChangeQuest(int index)
+    public void ChangeQuest()
     {
         questCheck[questNumber] = true;
         questNumber++;
         chat.NextQuest();
+
+        if(questNumber == 5) StartCoroutine(DelayBox());
+    }
+
+    IEnumerator DelayBox()
+    {
+        yield return new WaitForSeconds(3.7f);
+        CreateBox();
     }
 
     public void KillMonster()
@@ -50,11 +61,16 @@ public class TutorialMng : MonoBehaviour
         monster.transform.GetChild(1).GetComponent<ShamanT>().Damaged(5);
     }
 
+    public void CreateBox()
+    {
+        box.SetActive(true);
+    }
+
     public void Update()
     {
         if(questNumber == 4)
         {
-            if (player.GetComponent<Player>().isDash) ChangeQuest(5);
+            if (player.GetComponent<Player>().isDash) ChangeQuest();
         }
     }
 }
