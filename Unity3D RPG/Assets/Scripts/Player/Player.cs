@@ -46,5 +46,9 @@ public partial class Player : MonoBehaviour
         PlayerStatUpdate();
 
      
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            PlayerData.Instance.SaveChest(11);
+        }
     }
 }

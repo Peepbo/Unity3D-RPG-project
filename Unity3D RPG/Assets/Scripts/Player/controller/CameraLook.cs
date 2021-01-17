@@ -11,6 +11,8 @@ public class CameraLook : MonoBehaviour
     private CinemachineFreeLook cinemachine;
     private MainPlayer playerInput;
     public TouchBoard touchBoard;
+    public CinemachineFreeLook cinemachine2;
+    public CinemachineVirtualCamera cinemachine3;
 
     private void Awake()
     {
@@ -29,8 +31,17 @@ public class CameraLook : MonoBehaviour
 
     private void FixedUpdate()
     {
-        cinemachine.m_XAxis.Value += touchBoard.TouchDist.x * 15f * lookSpeed * Time.deltaTime;
-        cinemachine.m_YAxis.Value += -touchBoard.TouchDist.y * lookSpeed * Time.deltaTime/20 ;
+        if(PlayerData.Instance.isCameraBack)
+        {
+            cinemachine.m_XAxis.Value += touchBoard.TouchDist.x * 15f * lookSpeed * Time.deltaTime;
+            cinemachine.m_YAxis.Value += -touchBoard.TouchDist.y * lookSpeed * Time.deltaTime / 20;
+        }
+        else
+        {
+            //cinemachine2.m_XAxis.Value += touchBoard.TouchDist.x * 15f * lookSpeed * Time.deltaTime;
+
+        }
+
     }
     // Update is called once per frame
     void Update()
@@ -38,5 +49,18 @@ public class CameraLook : MonoBehaviour
         //Vector2 _delta = playerInput.PlayerMain.Look.ReadValue<Vector2>();
         
     }
+    public void CameraChange()
+    {
+        if(PlayerData.Instance.isCameraBack)
+        {
+            PlayerData.Instance.isCameraBack = false;
+            cinemachine3.enabled = true;
+        }
+        else
+        {
+            PlayerData.Instance.isCameraBack = true;
+            cinemachine3.enabled = false;
+        }
 
+    }
 }

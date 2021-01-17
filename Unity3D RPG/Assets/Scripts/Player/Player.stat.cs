@@ -245,7 +245,7 @@ partial class Player
                         if (staminaTime > 6 * Time.deltaTime)
                         {
                             staminaTime = 0;
-                            stamina += (maxStamina / 200);
+                            stamina += (maxStamina / 100);
                             if (stamina >= maxStamina)
                             {
                                 stamina = maxStamina;
@@ -261,7 +261,7 @@ partial class Player
                         if (staminaTime > 6 * Time.deltaTime)
                         {
                             staminaTime = 0;
-                            stamina += maxStamina / 100;
+                            stamina += maxStamina / 50;
                             if (stamina >= maxStamina)
                             {
                                 stamina = maxStamina;
