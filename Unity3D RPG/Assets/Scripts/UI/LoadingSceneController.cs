@@ -36,6 +36,9 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
 
     public void LoadScene(string sceneName)
     {
+        SceneUI.GetComponentsInChildren<Image>()[1].color = Color.white;
+        SceneUI.GetComponentsInChildren<Image>()[2].color = new Color(0, 95f / 255, 130f / 255, 1);
+
         Debug.Log("Load");
         SceneUI.SetActive(true);
         SceneManager.sceneLoaded += OnSceneLoaded;
