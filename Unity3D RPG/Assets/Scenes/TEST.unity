@@ -2166,6 +2166,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shaman
       objectReference: {fileID: 0}
+    - target: {fileID: 8070745341243258853, guid: b82e4de3ccb413240a3ba648a5555caf,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b82e4de3ccb413240a3ba648a5555caf, type: 3}
 --- !u!224 &919323964 stripped
@@ -3185,6 +3190,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealEffect1
       objectReference: {fileID: 0}
+    - target: {fileID: 1233254026376546, guid: 63939a20f9701c643b966ee2624369a3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4794637815487418, guid: 63939a20f9701c643b966ee2624369a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3348,6 +3357,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Goblin_Female
       objectReference: {fileID: 0}
+    - target: {fileID: 124030, guid: d48e97c38730e6d4a8a87d44d568bc50, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 419012, guid: d48e97c38730e6d4a8a87d44d568bc50, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.63248575
@@ -3432,6 +3445,10 @@ PrefabInstance:
     - target: {fileID: 1173262663564242, guid: 826ca68e36ad93f4792e62b28fff3600, type: 3}
       propertyPath: m_Name
       value: GoblinSmeshDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173262663564242, guid: 826ca68e36ad93f4792e62b28fff3600, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1513160824319230, guid: 826ca68e36ad93f4792e62b28fff3600, type: 3}
       propertyPath: m_IsActive
@@ -3675,7 +3692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e8870443fcdba40b4f4f81a52b5f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!4 &1779353967
 Transform:
   m_ObjectHideFlags: 0
@@ -3906,7 +3922,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3e8870443fcdba40b4f4f81a52b5f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!4 &1858634808
 Transform:
   m_ObjectHideFlags: 0
@@ -4082,6 +4097,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSpeed: 1
   touchBoard: {fileID: 1179495148}
+  cinemachine2: {fileID: 0}
+  cinemachine3: {fileID: 0}
 --- !u!1 &1919109541
 GameObject:
   m_ObjectHideFlags: 0
