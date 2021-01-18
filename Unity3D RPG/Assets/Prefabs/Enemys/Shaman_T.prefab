@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7947182463782920616}
   - component: {fileID: 7947182463782920619}
   - component: {fileID: 7947182463782920615}
+  - component: {fileID: 1174440825356897108}
   m_Layer: 0
   m_Name: Shaman_T
   m_TagString: Enemy
@@ -151,6 +152,22 @@ MonoBehaviour:
   observeRange: 0
   fireBall: {fileID: 0}
   firePos: {fileID: 7947182463047380349}
+  tm: {fileID: 0}
+  guard: {fileID: 0}
+--- !u!114 &1174440825356897108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947182463782920618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546f5ca7f79f61440b858dda8873008f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  enemyName: 2
 --- !u!1 &8989262682844677602
 GameObject:
   m_ObjectHideFlags: 0

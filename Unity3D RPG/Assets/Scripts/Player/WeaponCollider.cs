@@ -27,8 +27,7 @@ public class WeaponCollider : MonoBehaviour
         if (other.tag == "Enemy")
         {
             other.GetComponent<IDamagedState>().Damaged((int)player.realAtk);
-            EffectManager.Instance.EffectActive(1, other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), Quaternion.identity);
-            EffectManager.Instance.EffectActive(2, other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), Quaternion.identity);
+            EffectManager.Instance.Hit(other.GetComponent<MonsterType>(), other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position), Quaternion.identity);
         }
     }
 }
