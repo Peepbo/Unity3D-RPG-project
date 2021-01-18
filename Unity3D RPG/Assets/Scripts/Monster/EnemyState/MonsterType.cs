@@ -4,12 +4,16 @@ using UnityEngine;
 
 public enum MonType
 {
-    Melee, Range
+    Melee, Range, Other
 }
 public enum EnemyName
 {
     GOBLINMALE, GOBLINFEMALE, SHAMAN, GOLEM, SLAVEGOBLIN,
-    SKELETON_W,SKELETON_K,SKELETON_S
+    SKELETON_W,SKELETON_K,SKELETON_S,
+
+    BOSS,
+
+    CHEST, SWITCH
 }
 public class MonsterType : MonoBehaviour
 {
