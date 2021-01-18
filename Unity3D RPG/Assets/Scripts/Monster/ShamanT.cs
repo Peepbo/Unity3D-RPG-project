@@ -96,6 +96,7 @@ public class ShamanT : EnemyMgr, IDamagedState
         //}
         if (tm.questNumber == 4)
         {
+            SoundManager.Instance.SFXPlay2D("Shaman_DieVO");
             isDead = true;
             anim.SetTrigger("die");
             guard.GuardEnd();
@@ -103,13 +104,18 @@ public class ShamanT : EnemyMgr, IDamagedState
 
         if (!player.isCri) // 약공격
         {
-            if (tm.questNumber == 1) tm.ChangeQuest();
+            if (tm.questNumber == 1)
+            {
+                SoundManager.Instance.SFXPlay2D("Shaman_Hit");
+                tm.ChangeQuest();
+            }
         }
 
         else
         {
             if (tm.questNumber == 2)
             {
+                SoundManager.Instance.SFXPlay2D("Shaman_Hit");
                 tm.ChangeQuest();
                 StartCoroutine(ChangeState());
 

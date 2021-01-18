@@ -33,6 +33,7 @@ public class TutorialMng : MonoBehaviour
             isStart = true;
             col.enabled = false;
 
+            SoundManager.Instance.SFXPlay2D("ItemBox_Appear");
             monster.SetActive(true);
             questCheck[questNumber] = true;
             questNumber++;
@@ -63,6 +64,7 @@ public class TutorialMng : MonoBehaviour
 
     public void CreateBox()
     {
+        SoundManager.Instance.SFXPlay2D("ItemBox_Appear");
         box.SetActive(true);
     }
 

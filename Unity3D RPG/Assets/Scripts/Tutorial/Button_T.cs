@@ -14,6 +14,8 @@ public class Button_T : MonoBehaviour, IDamagedState
             gameObject.tag = "Untagged";
             tm.ChangeQuest();
 
+            SoundManager.Instance.SFXPlay2D("Portal_Open");
+            SoundManager.Instance.SFXPlay("Portal_Loop", portal.transform.position, true);
             portal.SetActive(true);
         }
     }
