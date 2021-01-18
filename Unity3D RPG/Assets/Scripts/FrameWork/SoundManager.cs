@@ -81,6 +81,10 @@ public class SoundManager : Singleton<SoundManager>
         player[(int)PlayerName.AMB].Play();
 
     }
+    public void AMBStop()
+    {
+        StartCoroutine(FadeOut(player[(int)PlayerName.AMB]));
+    }
     public void BGMPlay(string clipName)
     {
         if(player[(int)PlayerName.BGM1].isPlaying)
@@ -183,7 +187,7 @@ public class SoundManager : Singleton<SoundManager>
             if(isStop)
                 player.Stop();
         }
-        //Debug.Log(player.name);
+       // Debug.Log(player.name);
     }
     public IEnumerator FadeIn(AudioSource player)
     {

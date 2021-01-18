@@ -38,7 +38,8 @@ public class DungeonPortal : MonoBehaviour
             }
             
             //sound
-            SoundManager.Instance.SFXPlay2D("UI_Warp", 0.3f);
+            SoundManager.Instance.SFXPlay2D("UI_Warp");
+            //Debug.Log("warp");
         }
     }
 
