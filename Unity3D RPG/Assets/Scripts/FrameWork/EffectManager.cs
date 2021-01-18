@@ -28,8 +28,8 @@ public class EffectManager : Singleton<EffectManager>
 
         //전기 (SWITCH)
 
-        Debug.Log(monType.type);
-        Debug.Log(monType.enemyName);
+        //Debug.Log(monType.type);
+        //Debug.Log(monType.enemyName);
 
         GameObject _obj = null;
 

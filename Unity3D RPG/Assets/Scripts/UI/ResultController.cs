@@ -80,7 +80,9 @@ public class ResultController : Singleton<ResultController>
     {
         comeIn = false;
         PlayerData.Instance.isReturn = true;
-        LootManager.Instance.Delivery(true);
+        #region 01/19
+        LootManager.Instance.Delivery(resultText.text.Equals("유다이"));
+        #endregion
         DungeonMng.Instance.ClearCount();
         DungeonMng.Instance.ResetStage();
         LoadingSceneController.Instance.LoadScene("TownScene");
