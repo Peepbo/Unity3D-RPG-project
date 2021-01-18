@@ -42,6 +42,7 @@ public class LootBox : MonoBehaviour
         if (other.tag == "Player")
         {
             Drop();
+            SoundManager.Instance.SFXPlay("UI_ItemGet",transform.position);
             gameObject.SetActive(false);
         }
     }
