@@ -13,6 +13,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOn: 0
+--- !u!65 &3011109450368069222
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535252268412251059}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.23159179, y: 0.82601994, z: 0.24271454}
+  m_Center: {x: -0.013983502, y: 0.18803011, z: 0.030620338}
 --- !u!114 &6535252269008977939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,7 +263,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100.000015
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 64496803163351196, guid: 7a167a044b06be94e8cf799be2cce3d2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7a167a044b06be94e8cf799be2cce3d2, type: 3}
 --- !u!1 &6535252268412251059 stripped
 GameObject:
