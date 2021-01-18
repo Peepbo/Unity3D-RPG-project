@@ -86,6 +86,8 @@ public class Intro : MonoBehaviour
         Left = this.gameObject.transform.GetChild(2).GetComponent<Button>();
         Right = this.gameObject.transform.GetChild(1).GetComponent<Button>();
         Contents = this.gameObject.transform.GetChild(0).GetComponent<Text>();
+
+        UiManager0.Instance.PanelOpen = true;
     }
 
     public void ClickRight()
@@ -99,5 +101,6 @@ public class Intro : MonoBehaviour
     public void SkipIntro()
     {
         IntroCanvas.SetActive(false);
+        UiManager0.Instance.PanelOpen = false;
     }
 }
