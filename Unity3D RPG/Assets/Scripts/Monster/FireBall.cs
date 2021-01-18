@@ -49,6 +49,7 @@ public class FireBall : MonoBehaviour
                     Quaternion.identity);
                 #endregion
             }
+            if (other.transform.name.Equals("DamageBox")) return;
             gameObject.SetActive(false);
             #region 01-13
             EffectManager.Instance.EffectActive(7,
