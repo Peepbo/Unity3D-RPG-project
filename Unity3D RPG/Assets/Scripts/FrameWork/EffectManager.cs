@@ -27,27 +27,30 @@ public class EffectManager : Singleton<EffectManager>
         //나무 (CHEST)
 
         //전기 (SWITCH)
+
+        Debug.Log(monType.type);
+        Debug.Log(monType.enemyName);
+
         GameObject _obj = null;
 
         switch (monType.type)
         {
             case MonType.Melee:
 
-                if(monType.name.Equals("GOBLINMALE") || monType.name.Equals("GOBLINFEMALE") ||
-                   monType.name.Equals("SLAVEGOBLIN") || monType.name.Equals("BOSS"))
+                if (monType.enemyName.Equals(EnemyName.GOLEM))
                 {
-                    //블러드
-                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                    //스톤
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 13);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
                     _obj.SetActive(true);
                 }
 
-                else //골램
+                else
                 {
-                    //스톤
-                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 13);
+                    //블러드
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -68,7 +71,7 @@ public class EffectManager : Singleton<EffectManager>
                 break;
             case MonType.Other:
 
-                if(monType.name.Equals("CHEST"))
+                if(monType.enemyName.Equals(EnemyName.CHEST))
                 {
                     //상자
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 14);
@@ -78,7 +81,7 @@ public class EffectManager : Singleton<EffectManager>
                     _obj.SetActive(true);
                 }
 
-                else if(monType.name.Equals("SWITCH"))
+                else if(monType.enemyName.Equals(EnemyName.SWITCH))
                 {
                     //스위치
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 16);
@@ -88,7 +91,7 @@ public class EffectManager : Singleton<EffectManager>
                     _obj.SetActive(true);
                 }
 
-                else if(monType.name.Equals("BOX"))
+                else if(monType.enemyName.Equals(EnemyName.BOX))
                 {
                     //나무박스
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 15);
