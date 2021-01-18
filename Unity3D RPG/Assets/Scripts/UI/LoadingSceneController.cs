@@ -96,6 +96,11 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                                 SoundManager.Instance.AMBPlay("Dungeon_Amb");
                                 isDun = false;
                                 break;
+                            case "Tutorial":
+                                //SoundManager.Instance.BGMPlay("MainTitleBGM");
+                                SoundManager.Instance.BGMPlay("Dungeon1_BGM");
+                                SoundManager.Instance.AMBStop();
+                                break;
                         }
                     }
                    
