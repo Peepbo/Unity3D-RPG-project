@@ -20,6 +20,7 @@ public class ShamanT : EnemyMgr, IDamagedState
     private float gravity = -9.81f;
 
     public TutorialMng tm;
+    public Guard guard;
 
     protected override void Awake()
     {
@@ -97,6 +98,7 @@ public class ShamanT : EnemyMgr, IDamagedState
         {
             isDead = true;
             anim.SetTrigger("die");
+            guard.GuardEnd();
         }
 
         if (!player.isCri) // 약공격
