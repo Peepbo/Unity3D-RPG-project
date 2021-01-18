@@ -26,8 +26,8 @@ public class Golem : EnemyMgr, IDamagedState
         base.Awake();
 
         findCount = 0;
-        //hp = maxHp = 100 / 2;     //체크용
         hp = maxHp = 100;
+        //atk = 0;
         atk = 56;
         def = 10.0f;
         minGold = 50;
@@ -49,7 +49,7 @@ public class Golem : EnemyMgr, IDamagedState
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
-        follow.Init(AI, target, speed, attackRange);
+        follow.Init(AI, target, speed, attackRange-1);
         back.init(AI, spawnPos, speed);
         damageCheck = transform.GetChild(0).gameObject;
         anim.SetInteger("state", 0);
@@ -59,8 +59,6 @@ public class Golem : EnemyMgr, IDamagedState
 
     private void Update()
     {
-
-
         direction = (target.transform.position - transform.position).normalized;
         distance = Vector3.Distance(target.transform.position, transform.position);
 
