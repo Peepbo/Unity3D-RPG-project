@@ -152,7 +152,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 weapon.GetComponent<MeshCollider>().enabled = false;
                 StopAllCoroutines();
 
-                DungeonMng.Instance.killMelee++;
+                //DungeonMng.Instance.killMelee++;
             }
 
             if (player.isCri)
