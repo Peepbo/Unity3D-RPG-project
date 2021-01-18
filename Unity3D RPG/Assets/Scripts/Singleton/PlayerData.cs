@@ -42,7 +42,8 @@ public partial class PlayerData : Singleton<PlayerData>
     public int currentAccessory = -1;
     public int currentBossItem = -1;
 
-
+    //인트로 실행 하였는지
+    public bool isIntro;
 
     //카메라 쿼터인지 백인지
     public bool isCameraBack;

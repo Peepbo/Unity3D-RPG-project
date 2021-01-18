@@ -19,6 +19,11 @@ public class MoveScene : MonoBehaviour
 
                     LootManager.Instance.Delivery();
                     DungeonMng.Instance.ResetStage();
+                    if (LoadingSceneController.Instance.loadSceneName == "Tutorial")
+                    {
+                        PlayerData.Instance.isIntro = true;
+
+                    }
                 }
 
                 SoundManager.Instance.SFXPlay2D("UI_Warp",0.3f);
@@ -39,6 +44,11 @@ public class MoveScene : MonoBehaviour
                 DungeonMng.Instance.ResetStage();
 
                 LootManager.Instance.Delivery();
+                if(LoadingSceneController.Instance.loadSceneName  == "Tutorial")
+                {
+                    PlayerData.Instance.isIntro = true;
+
+                }
             }
         }
 
