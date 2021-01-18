@@ -6,10 +6,8 @@ using UnityEngine;
 public class Chat : MonoBehaviour
 {
     public Text quest;
-    public RectTransform texts;
+    public Text texts;
     public int chatIndex = 0;
-
-    Vector3 savePos;
 
     string[] quests =
     {
@@ -22,6 +20,26 @@ public class Chat : MonoBehaviour
         "포탈 타고 마을로 이동하기",
     };
 
+    string[] npcTalks =
+    {
+        "신입주제에 늦다니.. 빨리안와?",
+        "몬스터가 네 집을 공격할지도 모르는데 느긋하지?",
+        "오늘도 훈련이다.  타겟을 향해 기본공격 실시",
+        "다음은 조금 더 쎈 공격으로 실시",
+        "약공격중 강공격이 가능하니 유용하게 섞어서 사용해",
+        "지금보니 공격에 힘이 없는데, 살기위해 방어 연습부터 하자",
+        "테스트용 고블린의 공격을 한번 막아봐",
+        "행동이 굼뜨군. 행동이 굼뜨니 굴러다니기 딱 좋겠어",
+        "굴러서 체력도 기르고, 좀 더 빨리 이동해봐",
+        "오.. 구르는게 콩벌레같군 앞으로도 굴러다니도록",
+        "시점을 변경하면 못보던 것들을 볼 수 있으니",
+        "한 번 변경해서 버튼을 찾아봐",
+        "능력도 없는 녀석을 다치지 않게 훈련시키기도 힘들군",
+        "어서 꺼져"
+    };
+
+    int textCount = 0;
+
     //2,1,1,3,2,2,2
     int[] questChats = { 1, 1, 1, 3, 2, 3, 2 };
 
@@ -33,20 +51,22 @@ public class Chat : MonoBehaviour
 
     Animator anim;
 
-    public const float distance = 78f;
-
     public GameObject canvas;
+
+    string typingText = "";
 
     private void Start()
     {
         quest.text = quests[tutorialMng.questNumber];
 
+        texts.text = npcTalks[textCount];
+
         anim = GetComponent<Animator>();
-        savePos = texts.position;
-        savePos.y += distance;
+        //savePos = texts.position;
+        //savePos.y += distance;
 
         canvas.SetActive(false);
-        StartCoroutine(ActiveCanvas(4.5f));
+        StartCoroutine(ActiveCanvas(6.5f));
     }
 
     IEnumerator ActiveCanvas(float time)
@@ -64,14 +84,18 @@ public class Chat : MonoBehaviour
 
     public void NextQuest()
     {
+        chatIndex++;
+
         quest.text = quests[tutorialMng.questNumber];
         questIndex++;
-        if(questChats[questIndex] == 3) StartCoroutine(ActiveCanvas(9.5f));
-        else StartCoroutine(ActiveCanvas(questChats[questIndex] * 3.5f));
+        if(questChats[questIndex] == 3) StartCoroutine(ActiveCanvas(8.5f));
+        else StartCoroutine(ActiveCanvas(questChats[questIndex] * 3.15f));
 
         active = true;
-        savePos.y += distance;
-        texts.position = savePos;
+
+        texts.text = npcTalks[textCount];
+        //savePos.y += distance;
+        //texts.position = savePos;
         anim.SetBool("Close", false);
     }
 
@@ -81,11 +105,12 @@ public class Chat : MonoBehaviour
         {
             delay += Time.deltaTime;
 
-            if(delay > 2)
+            if(delay > 3)
             {
                 delay = 0;
 
-                Debug.Log("close");
+                textCount++;
+                //Debug.Log("close");
 
                 chatIndex = 0;
                 active = false;
@@ -98,20 +123,27 @@ public class Chat : MonoBehaviour
 
         delay += Time.deltaTime;
 
-        if(delay > 2)
+        if(delay > 3)
         {
-            texts.position = Vector3.Lerp(texts.position, savePos, Time.deltaTime * 12f);
+            textCount++;
+            delay = 0;
+            texts.text = npcTalks[textCount];
+            
+            
 
-            if (Vector3.Distance(texts.position, savePos) < 0.05f)
-            {
-                texts.position = savePos;
-                Debug.Log("next");
-
-                savePos.y += distance;
-
-                chatIndex++;
-                delay = 0;
-            }
+            chatIndex++;
+            //texts.position = Vector3.Lerp(texts.position, savePos, Time.deltaTime * 12f);
+            //
+            //if (Vector3.Distance(texts.position, savePos) < 0.05f)
+            //{
+            //    texts.position = savePos;
+            //    //Debug.Log("next");
+            //
+            //    savePos.y += distance;
+            //
+            //    chatIndex++;
+            //    delay = 0;
+            //}
         }
     }
 }
