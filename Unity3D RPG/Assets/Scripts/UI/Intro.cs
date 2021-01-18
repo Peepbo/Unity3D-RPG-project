@@ -6,23 +6,13 @@ using UnityEngine.UI;
 
 public class Intro : MonoBehaviour
 {
-    int curPage = 0;
     Button Go;
     Button Left;
     Button Right;
     Text Contents;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    int curPage = 0;
+    public GameObject IntroScene;
 
     private void OnEnable()
     {
@@ -35,11 +25,11 @@ public class Intro : MonoBehaviour
         {
             Left.gameObject.SetActive(false);
             Contents.text = "흐아암~.. \r\n " +
-                "침대에서 일어난 당신은 기지개를 펴며 일어난다. \r\n" +
-                "무리하게 대출까지 받아가면 구입한 \r\n" +
-                "집에대한 애정이 매우 강했다. \r\n" +
-                "흐뭇한 미소로 집을 감상하는 것도 잠시, \r\n" +
-                "순식간에 나갈 채비를 마쳤다.";
+                            "침대에서 일어난 당신은 기지개를 피며 일어난다. \r\n" +
+                            "무리하게 대출까지 받아가면 구입한 \r\n" +
+                            "집에대한 애정이 매우 강했다. \r\n" +
+                            "흐뭇한 미소로 집을 감상하는 것도 잠시, \r\n" +
+                            "당신은 순식간에 나갈 채비를 마쳤다.";
         }
         else if (curPage > 0 && curPage < 5)
         {
@@ -49,10 +39,10 @@ public class Intro : MonoBehaviour
             if (curPage == 1)
             {
                 Contents.text = "출발해볼까 ? \r\n" +
-                    "곧이어 마을 바깥에 있는 검술 훈련장으로 발걸음을 옮긴다. \r\n" +
-                    "위요오오오오옹! 애용애용애용애용! \r\n" +
-                    "검술을 익히던 중 마을에서 비상 알림이 들려 급하게 돌아간다. \r\n" + 
-                    "마을에 거의 다다르자 당신의 집 앞에 많은 사람들이 모여있는것을 볼 수 있었다.";
+                                "곧이어 마을 바깥에 있는 검술 훈련장으로 발걸음을 옮긴다. \r\n" +
+                                "위요오오오오옹! 애용애용애용애용! \r\n" +
+                                "검술을 익히던 중 마을에서 비상 알림이 들려 급하게 돌아간다. \r\n" + 
+                                "마을에 거의 다다르자 당신의 집 앞에 많은 사람들이 모여있는것을 볼 수 있었다.";
             }
             else if (curPage == 2)
             {
@@ -99,5 +89,11 @@ public class Intro : MonoBehaviour
     public void ClickLeft()
     {
         curPage--;
+    }
+
+    public void OpenIntro()
+    {
+        if (LoadingSceneController.Instance.loadSceneName == "Tutorial") IntroScene.SetActive(true);
+        else IntroScene.SetActive(false);
     }
 }
