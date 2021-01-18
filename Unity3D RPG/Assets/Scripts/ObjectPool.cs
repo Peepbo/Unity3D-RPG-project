@@ -36,13 +36,17 @@ public class ObjectPool : MonoBehaviour
     {
         pooledObjects = new List<GameObject>();
 
-        foreach (ObjectPoolItem item in itemsToPool)
+        int _poolCount = itemsToPool.Count;
+        for (int i = 0; i < _poolCount; i++)
         {
-            for (int i = 0; i < item.amountToPool; i++)
-            {
-                GameObject _obj = Instantiate(item.objectToPool);
+            ObjectPoolItem _item = itemsToPool[i];
 
-                if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
+            int _amount = _item.amountToPool;
+            for (int j = 0; j < _amount; j++)
+            {
+                GameObject _obj = Instantiate(_item.objectToPool);
+
+                if (_item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = _item.objectIndex;
 
                 _obj.transform.parent = transform;
                 _obj.SetActive(false);
@@ -50,13 +54,18 @@ public class ObjectPool : MonoBehaviour
             }
         }
 
-        //for (int i = 0; i < amountToPool; i++)
+        //foreach (ObjectPoolItem item in itemsToPool)
         //{
-        //    GameObject obj = Instantiate(objectToPool);
+        //    for (int i = 0; i < item.amountToPool; i++)
+        //    {
+        //        GameObject _obj = Instantiate(item.objectToPool);
 
-        //    obj.SetActive(false);
+        //        if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
 
-        //    pooledObjects.Add(obj);
+        //        _obj.transform.parent = transform;
+        //        _obj.SetActive(false);
+        //        pooledObjects.Add(_obj);
+        //    }
         //}
     }
 
@@ -68,11 +77,11 @@ public class ObjectPool : MonoBehaviour
             //그 오브젝트가 Hierarchy창에서 활성화가 아니며,
             //내가 매개변수로 입력한 tag와 그 오브젝트의 tag가 같을 때
             if (pooledObjects[i].activeInHierarchy == false &&
-                pooledObjects[i].tag == tag)
+                pooledObjects[i].tag.Equals(tag))
             {
-                if(index != 0)
+                if (index != 0)
                 {
-                    if (pooledObjects[i].GetComponent<ObjectIndex>().index != index) 
+                    if (pooledObjects[i].GetComponent<ObjectIndex>().index != index)
                         continue;
                 }
 
@@ -85,21 +94,21 @@ public class ObjectPool : MonoBehaviour
 
         //1. tag를 실수로 잘못 입력했을 때 -> 밑에 foreach로 들어가도 맞는 tag가 없어서 결국 return null로 된다..
 
-        //2. 가져오려는 오브젝트가 다 활성화 상태일 때
-        foreach (ObjectPoolItem item in itemsToPool)
+        int _poolCount = itemsToPool.Count;
+        for (int i = 0; i < _poolCount; i++)
         {
+            ObjectPoolItem _item = itemsToPool[i];
 
-            //우리가 종류별로 만들어 놓은 오브젝트(프리펩)의 태그랑 내가 매개변수로 넣어준 태그를 검사한다.
-            if (item.objectToPool.tag == tag)
+            if (_item.objectToPool.tag.Equals(tag))
             {
 
                 //해당 프리펩의 확장성이 true?
-                if (item.shouldExpand == true)
+                if (_item.shouldExpand == true)
                 {
                     //생성 후
-                    GameObject _obj = Instantiate(item.objectToPool);
+                    GameObject _obj = Instantiate(_item.objectToPool);
 
-                    if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
+                    if (_item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = _item.objectIndex;
 
                     _obj.SetActive(false);
                     pooledObjects.Add(_obj);
@@ -110,25 +119,31 @@ public class ObjectPool : MonoBehaviour
             }
         }
 
-        return null;
-
-        ////확장성이 true
-        //if (shouldExpand)
+        ////2. 가져오려는 오브젝트가 다 활성화 상태일 때
+        //foreach (ObjectPoolItem item in itemsToPool)
         //{
-        //    //생성 해준 뒤 obj에 할당
-        //    GameObject obj = Instantiate(objectToPool);
 
-        //    //obj를 비활성화 한 뒤
-        //    obj.SetActive(false);
+        //    //우리가 종류별로 만들어 놓은 오브젝트(프리펩)의 태그랑 내가 매개변수로 넣어준 태그를 검사한다.
+        //    if (item.objectToPool.tag.Equals(tag))
+        //    {
 
-        //    //pool에 add해주고
-        //    pooledObjects.Add(obj);
+        //        //해당 프리펩의 확장성이 true?
+        //        if (item.shouldExpand == true)
+        //        {
+        //            //생성 후
+        //            GameObject _obj = Instantiate(item.objectToPool);
 
-        //    //해당 obj를 return
-        //    return obj;
+        //            if (item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = item.objectIndex;
+
+        //            _obj.SetActive(false);
+        //            pooledObjects.Add(_obj);
+
+        //            //반환
+        //            return _obj;
+        //        }
+        //    }
         //}
 
-        ////확장성이 false
-        //else return null;
+        return null;
     }
 }
