@@ -88,15 +88,15 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
     }
 
 
-    public void ActiveMeshCol()
+    public void ActiveCollider()
     {
         if (isDead) return;
-        weapon.GetComponent<MeshCollider>().enabled = true;
+        weapon.GetComponent<BoxCollider>().enabled = true;
     }
-    public void DeActiveMeshCol()
+    public void DeActiveCollider()
     {
         if (isDead) return;
-        weapon.GetComponent<MeshCollider>().enabled = false;
+        weapon.GetComponent<BoxCollider>().enabled = false;
     }
 
 
@@ -149,7 +149,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 controller.enabled = false;
 
                 AI.enabled = false;
-                weapon.GetComponent<MeshCollider>().enabled = false;
+                weapon.GetComponent<BoxCollider>().enabled = false;
                 StopAllCoroutines();
 
                 //DungeonMng.Instance.killMelee++;
@@ -158,7 +158,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
             if (player.isCri)
             {
                 anim.SetTrigger("isDamage");
-                weapon.GetComponent<MeshCollider>().enabled = false;
+                weapon.GetComponent<BoxCollider>().enabled = false;
             }
 
         }

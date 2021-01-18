@@ -207,15 +207,15 @@ public class Goblin : EnemyMgr, IDamagedState
         }
 
     }
-    public void ActiveMeshCol()
+    public void ActiveCollider()
     {
         if (isDead) return;
-        weapon.GetComponent<MeshCollider>().enabled = true;
+        weapon.GetComponent<BoxCollider>().enabled = true;
     }
-    public void DeActiveMeshCol()
+    public void DeActiveCollider()
     {
         if (isDead) return;
-        weapon.GetComponent<MeshCollider>().enabled = false;
+        weapon.GetComponent<BoxCollider>().enabled = false;
     }
 
 
@@ -304,7 +304,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         if (player.isCri)
         {
-            weapon.GetComponent<MeshCollider>().enabled = false;
+            weapon.GetComponent<BoxCollider>().enabled = false;
             anim.SetTrigger("isDamage");
             
         }

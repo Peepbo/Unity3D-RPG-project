@@ -5,12 +5,12 @@ using UnityEngine;
 public class AxColision : MonoBehaviour
 {
     public bool isOn;
-
-    MeshCollider meshCol;
+   
+    BoxCollider boxCol;
     int damage = 0;
     private void Awake()
     {
-        meshCol = GetComponent<MeshCollider>();
+        boxCol = GetComponent<BoxCollider>();
     }
 
 
@@ -19,7 +19,7 @@ public class AxColision : MonoBehaviour
         if (other.tag == "Player")
         {
             other.GetComponent<Player>().GetDamage(damage);
-            GetComponent<MeshCollider>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
 
             #region 01-11
             EffectManager.Instance.EffectActive(6,
