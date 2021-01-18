@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class MenuPopUp : MonoBehaviour
 {
+    public GameObject intro;
     public GameObject quitPanel;
-
+    private void Awake()
+    {
+        if(PlayerData.Instance.isIntro)
+        {
+            intro.SetActive(true);
+            PlayerData.Instance.isIntro = false;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        if (Application.platform == RuntimePlatform.Android) // 안드로이드에서
-        {
-            if (Input.GetKeyDown(KeyCode.Escape)) // 뒤로가기 버튼 누르면
-            {
-                Time.timeScale = 0f; // 시간정지
-                quitPanel.SetActive(true);
-            }
-        }
+        //OpenIntro();
     }
 
     public void MenuPop()

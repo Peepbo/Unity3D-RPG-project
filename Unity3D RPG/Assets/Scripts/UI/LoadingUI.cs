@@ -9,17 +9,6 @@ public class LoadingUI : MonoBehaviour
     int imgCase;
     Text tipText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     Sprite GetPath(int i) { return Resources.Load<Sprite>("LoadingImg" + i); }
 
     private void OnEnable()
