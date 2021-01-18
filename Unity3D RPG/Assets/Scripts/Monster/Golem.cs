@@ -166,6 +166,7 @@ public class Golem : EnemyMgr, IDamagedState
         {
             setMoveType(back);
             back.move();
+            anim.SetInteger("state", 1);
         }
     }
 
