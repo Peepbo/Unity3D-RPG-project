@@ -65,36 +65,36 @@ public class AnimationEvent : MonoBehaviour
         }
     }
 
-    public void ActiveMeshCol(MONSTER mon)
+    public void ActiveCollider(MONSTER mon)
     {
         switch (mon)
         {
             case MONSTER.OBGOBLIN:
-                obGoblin.ActiveMeshCol();
+                obGoblin.ActiveCollider();
                 break;
             case MONSTER.NOBGOBLIN:
-                nGoblin.ActiveMeshCol();
+                nGoblin.ActiveCollider();
                 break;
             case MONSTER.SPAWN:
-                spawnGoblin.ActiveMeshCol();
+                spawnGoblin.ActiveCollider();
                 break;
           
         }
        
     }
 
-    public void DeActiveMeshCol(MONSTER mon)
+    public void DeActiveCollider(MONSTER mon)
     {
         switch (mon)
         {
             case MONSTER.OBGOBLIN:
-                obGoblin.DeActiveMeshCol();
+                obGoblin.DeActiveCollider();
                 break;
             case MONSTER.NOBGOBLIN:
-                nGoblin.DeActiveMeshCol();
+                nGoblin.DeActiveCollider();
                 break;
             case MONSTER.SPAWN:
-                spawnGoblin.DeActiveMeshCol();
+                spawnGoblin.DeActiveCollider();
                 break;
 
         }
