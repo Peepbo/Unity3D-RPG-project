@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pocketMoney: 0
-  isDelivery: 0
 --- !u!1 &1323356590
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,9 +132,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517cdfdbd23ee6a419da82b3ef757f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage: 0
   countMelee: 0
   countRange: 0
   killCount: 0
+  playMap: -1
 --- !u!1 &2016718585
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,12 +287,12 @@ MonoBehaviour:
       type: 3}
     shouldExpand: 1
   - objectIndex: 1
-    amountToPool: 3
+    amountToPool: 5
     objectToPool: {fileID: 1489431029902184, guid: 4430919f14c50f84085d287cbcb2c30e,
       type: 3}
     shouldExpand: 1
   - objectIndex: 2
-    amountToPool: 3
+    amountToPool: 5
     objectToPool: {fileID: 1473356317183098, guid: 16b154ffbfe6c5841b0a46456345a632,
       type: 3}
     shouldExpand: 1
@@ -343,6 +344,26 @@ MonoBehaviour:
   - objectIndex: 12
     amountToPool: 1
     objectToPool: {fileID: 1159970587636746, guid: 10e6b3a3d790f024baec110b3247e1a1,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 13
+    amountToPool: 1
+    objectToPool: {fileID: 1450638143650814, guid: d614d64be0d81d9428052d51ffab13a5,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 14
+    amountToPool: 1
+    objectToPool: {fileID: 6032241608193250730, guid: 5afe14c712d47fb409b7c4084969fe90,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 15
+    amountToPool: 1
+    objectToPool: {fileID: 8813217693637310832, guid: ccd00b233b522d04a9fddae10c63b399,
+      type: 3}
+    shouldExpand: 1
+  - objectIndex: 16
+    amountToPool: 1
+    objectToPool: {fileID: 1190131086089332, guid: 32628332a08d94a4eae00b308601bea5,
       type: 3}
     shouldExpand: 1
   pooledObjects:

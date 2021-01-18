@@ -13,7 +13,7 @@ public enum EnemyName
 
     BOSS,
 
-    CHEST, SWITCH
+    CHEST, SWITCH, BOX
 }
 public class MonsterType : MonoBehaviour
 {

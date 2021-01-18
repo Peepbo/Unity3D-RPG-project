@@ -36,6 +36,7 @@ public class EffectManager : Singleton<EffectManager>
                 if(monType.name.Equals("GOBLINMALE") || monType.name.Equals("GOBLINFEMALE") ||
                    monType.name.Equals("SLAVEGOBLIN") || monType.name.Equals("BOSS"))
                 {
+                    //블러드
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
@@ -45,7 +46,8 @@ public class EffectManager : Singleton<EffectManager>
 
                 else //골램
                 {
-                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                    //스톤
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 13);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -56,6 +58,7 @@ public class EffectManager : Singleton<EffectManager>
             case MonType.Range:
                 //샤먼
 
+                //블러드
                 _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
                 _obj.transform.position = pos;
                 _obj.transform.rotation = rot;
@@ -67,16 +70,28 @@ public class EffectManager : Singleton<EffectManager>
 
                 if(monType.name.Equals("CHEST"))
                 {
-                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                    //상자
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 14);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
                     _obj.SetActive(true);
                 }
 
-                else
+                else if(monType.name.Equals("SWITCH"))
                 {
-                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                    //스위치
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 16);
+                    _obj.transform.position = pos;
+                    _obj.transform.rotation = rot;
+
+                    _obj.SetActive(true);
+                }
+
+                else if(monType.name.Equals("BOX"))
+                {
+                    //나무박스
+                    _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 15);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
