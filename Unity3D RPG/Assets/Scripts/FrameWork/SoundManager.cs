@@ -111,15 +111,15 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
-    public void BGMStop(string clipName)
+    public void BGMStop()
     {
-        if(player[(int)PlayerName.BGM1].clip == soundBank[clipName])
+        if(player[(int)PlayerName.BGM1].isPlaying)
         {
-            player[(int)PlayerName.BGM1].Stop();
+            StartCoroutine(FadeOut(player[(int)PlayerName.BGM1]));
         }
         else
         {
-            player[(int)PlayerName.BGM2].Stop();
+            StartCoroutine(FadeOut(player[(int)PlayerName.BGM2]));
         }
     }
     public void BGMAllStop()
