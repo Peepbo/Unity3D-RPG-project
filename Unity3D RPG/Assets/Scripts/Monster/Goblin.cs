@@ -295,6 +295,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
                 AI.enabled = false;
 
+                weapon.GetComponent<BoxCollider>().enabled = false;
                 StopAllCoroutines();
 
                 DungeonMng.Instance.killMelee++;
