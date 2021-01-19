@@ -245,7 +245,7 @@ public class ComboAtk : MonoBehaviour
     }
     public void RollingSound()
     {
-        SoundManager.Instance.SFXPlay2D("Player_Foot1");
+        SoundManager.Instance.SFXPlay2D("Player_Roll");
 
     }
 

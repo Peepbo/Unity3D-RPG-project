@@ -183,7 +183,6 @@ partial class Player
 
     public void GetHp(int value)
     {
-        Debug.Log("potion "+ PlayerData.Instance.myCurrentPotion);
         if(PlayerData.Instance.myCurrentPotion > 0)
         {
             PlayerData.Instance.myCurrentPotion--;
