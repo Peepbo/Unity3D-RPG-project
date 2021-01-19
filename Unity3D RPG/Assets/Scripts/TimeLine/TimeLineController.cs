@@ -52,7 +52,7 @@ public class TimeLineController : MonoBehaviour
             boss.start = true;
             boss.state = BossState.COMBATIDLE;
             boss.hpBar.gameObject.SetActive(true);
-
+            SoundManager.Instance.BGMPlay("Boss1_BGM");
             skipButton.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
         }
@@ -80,6 +80,7 @@ public class TimeLineController : MonoBehaviour
         bossObj.SetActive(true);
         boss.start = true;
         boss.state = BossState.COMBATIDLE;
+        SoundManager.Instance.BGMPlay("Boss1_BGM");
         boss.hpBar.gameObject.SetActive(true);
 
         this.enabled = false;
