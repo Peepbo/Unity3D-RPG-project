@@ -226,7 +226,6 @@ public class ComboAtk : MonoBehaviour
     }
     public void ShieldHitSound()
     {
-        SoundManager.Instance.SFXPlay2D("Player_Shield",0.7f);
     }
     public void AtkSound01()
     {
