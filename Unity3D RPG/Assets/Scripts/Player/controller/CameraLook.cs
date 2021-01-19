@@ -18,6 +18,8 @@ public class CameraLook : MonoBehaviour
     {
         playerInput = new MainPlayer();
         cinemachine = GetComponent<CinemachineFreeLook>();
+
+        CameraSetting();
     }
     private void OnEnable()
     {
@@ -62,5 +64,17 @@ public class CameraLook : MonoBehaviour
             cinemachine3.enabled = false;
         }
 
+    }
+
+    public void CameraSetting()
+    {
+        if (!PlayerData.Instance.isCameraBack)
+        {
+            cinemachine3.enabled = true;
+        }
+        else
+        {
+            cinemachine3.enabled = false;
+        }
     }
 }
