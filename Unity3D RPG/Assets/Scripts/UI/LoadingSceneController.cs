@@ -92,7 +92,7 @@ public class LoadingSceneController : Singleton<LoadingSceneController>
                                 }
                                 break;
                             case "BossRoom(light bake)":
-                                SoundManager.Instance.BGMStop();
+                                SoundManager.Instance.BGMAllStop();
                                 //SoundManager.Instance.BGMPlay("Boss1_BGM");
                                 
                                 isDun = false;

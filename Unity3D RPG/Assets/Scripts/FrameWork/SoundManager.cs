@@ -136,8 +136,10 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void BGMAllStop()
     {
-        player[(int)PlayerName.BGM1].Stop();
-        player[(int)PlayerName.BGM2].Stop();
+        StartCoroutine(FadeOut(player[(int)PlayerName.BGM1]));
+        StartCoroutine(FadeOut(player[(int)PlayerName.BGM2]));
+        //player[(int)PlayerName.BGM1].Stop();
+        //player[(int)PlayerName.BGM2].Stop();
     }
 
     public void SFXVolumeFader(float volume)
