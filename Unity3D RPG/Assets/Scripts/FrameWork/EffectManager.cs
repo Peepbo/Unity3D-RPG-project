@@ -102,6 +102,9 @@ public class EffectManager : Singleton<EffectManager>
                 }
 
                 break;
+            default:
+                Debug.Log("타입을 찾을 수 없습니다");
+                break;
         }
     }
 }

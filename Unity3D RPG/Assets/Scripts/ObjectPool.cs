@@ -107,6 +107,7 @@ public class ObjectPool : MonoBehaviour
                 {
                     //생성 후
                     GameObject _obj = Instantiate(_item.objectToPool);
+                    _obj.transform.parent = transform;
 
                     if (_item.objectIndex != 0) _obj.AddComponent<ObjectIndex>().index = _item.objectIndex;
 
