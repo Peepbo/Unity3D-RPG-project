@@ -44,8 +44,12 @@ public class TalkNpc : MonoBehaviour
         {
             Debug.Log(npcName);
             if (npcName != NPC.CHEST) anim.SetTrigger("Talk");
-
-            else anim.SetBool("Talk", true);
+            
+            else
+            {
+                anim.SetBool("Talk", true);
+                SoundManager.Instance.SFXPlay2D("Chest_Open", 0.75f);
+            }
 
             talkPanel.SetActive(true);
 
@@ -169,6 +173,7 @@ public class TalkNpc : MonoBehaviour
                     break;
             }
 
+            //if(npcName != NPC.CHEST) SoundManager.Instance.SFXPlay2D("UI_NPCPopup");
             SoundManager.Instance.SFXPlay2D("UI_NPCPopup");
         }
     }

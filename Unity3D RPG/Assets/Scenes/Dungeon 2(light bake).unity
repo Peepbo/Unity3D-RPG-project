@@ -15390,12 +15390,12 @@ PrefabInstance:
     - target: {fileID: 7352739533250445751, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.000066655055
+      value: -0.00006662916
       objectReference: {fileID: 0}
     - target: {fileID: 7352739533250445751, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000011901818
+      value: 0.000011897196
       objectReference: {fileID: 0}
     - target: {fileID: 7352739533250445751, guid: 6bce0f299e960f1458bcc4adaa00a86e,
         type: 3}
@@ -38779,6 +38779,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2720804391485072236, guid: bf3be1e7655a3f7448833f8afe2b8592,
+        type: 3}
+      propertyPath: m_Priority
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2720804391485072237, guid: bf3be1e7655a3f7448833f8afe2b8592,
         type: 3}
       propertyPath: canvas
@@ -38794,7 +38799,9 @@ PrefabInstance:
       propertyPath: sceneName
       value: BossRoom(light bake)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2720804390648269893, guid: bf3be1e7655a3f7448833f8afe2b8592, type: 3}
+    - {fileID: 2720804390648269890, guid: bf3be1e7655a3f7448833f8afe2b8592, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bf3be1e7655a3f7448833f8afe2b8592, type: 3}
 --- !u!1 &1838478458 stripped
 GameObject:
@@ -39655,7 +39662,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.776908, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
