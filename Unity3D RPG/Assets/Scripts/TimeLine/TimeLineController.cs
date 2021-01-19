@@ -56,7 +56,7 @@ public class TimeLineController : MonoBehaviour
     public void setPlay()
     {
         director.Play();
-        SoundManager.Instance.SFXPlay2D("BossCutScene_SFX");
+       // SoundManager.Instance.SFXPlay2D("BossCutScene_SFX");
     }
 
 
