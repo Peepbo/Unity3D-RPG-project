@@ -71,8 +71,20 @@ public class SoundManager : Singleton<SoundManager>
             _audioSource.mute = true;
         }
         _audioSource.Play();
+        string curruntSceneName = LoadingSceneController.Instance.loadSceneName;
         if(!isLoop)
             StartCoroutine(ObjectPoolReturn(_audioSource.clip.length, _speaker));
+        else
+        {
+            StartCoroutine(LoopStop(curruntSceneName, _audioSource));
+        }
+
+    }
+    IEnumerator LoopStop(string sceneName,AudioSource _audio)
+    {
+        yield return new WaitUntil(() => sceneName != LoadingSceneController.Instance.loadSceneName);
+        
+        _audio.Stop();
     }
     public void AMBPlay(string clipName, float volume = 0.5f)
     {
