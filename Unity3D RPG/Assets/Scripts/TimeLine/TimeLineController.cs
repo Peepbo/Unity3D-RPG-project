@@ -37,15 +37,10 @@ public class TimeLineController : MonoBehaviour
 
         if (director.time >= time)
         {
-            // isPlaying = false;
-            // controller.SetActive(false);
-
             for (int i = 0; i < 3; i++)
             {
-
                 if (activeObj[i].activeSelf == false) activeObj[i].SetActive(true);
                 else activeObj[i].SetActive(false);
-
             }
 
             bossObj.SetActive(true);
