@@ -108,7 +108,7 @@ partial class Player
     }
     public void PlayerDash()
     {
-        if (stamina > dashValue && isDash == false && isCri == false)
+        if (stamina > dashValue && isDash == false && isCri == false && isDie== false)
         {
             animator.SetTrigger("Rolling");
             stamina -= dashValue;
@@ -131,7 +131,6 @@ partial class Player
     {
         isDie = true;
         comboAtk.ComboReset();
-
         comboAtk.animator.SetTrigger("Die");
         SoundManager.Instance.SFXPlay2D("Player_Die");
         ResultController.Instance.GameResult(false);

@@ -10,6 +10,7 @@ public class DungeonPortal : MonoBehaviour
         if (other.tag == "Player" && !isFirst)
         {
             isFirst = true;
+            StartCoroutine(Timer());
 
             if (DungeonMng.Instance.stage != 0) // 마을이 아니면?
             {
@@ -41,6 +42,13 @@ public class DungeonPortal : MonoBehaviour
             SoundManager.Instance.SFXPlay2D("UI_Warp");
             //Debug.Log("warp");
         }
+    }
+
+    IEnumerator Timer()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 1f;
     }
 
     string GetRandomMap()

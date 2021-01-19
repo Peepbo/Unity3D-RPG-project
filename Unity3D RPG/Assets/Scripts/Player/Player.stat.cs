@@ -210,10 +210,12 @@ partial class Player
             if(isGuard && !isGuardGrogi)
             {
                 stamina -= 40;
-                if(stamina <= 0)
+                SoundManager.Instance.SFXPlay2D("Player_Shield", 0.8f);
+                if (stamina <= 0)
                 {
                     stamina = 0;
                     isGuardGrogi = true;
+
                 }
                 animator.Play("ShieldBlock");
                 animator.SetBool("isGuardHit", true);
