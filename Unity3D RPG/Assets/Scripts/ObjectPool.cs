@@ -24,7 +24,7 @@ public class ObjectPool : MonoBehaviour
 
     //public bool shouldExpand = true;
 
-    public List<GameObject> pooledObjects;
+    List<GameObject> pooledObjects;
 
     private void Awake()
     {
