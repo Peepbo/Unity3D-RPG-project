@@ -25,7 +25,6 @@ public class TimeLineController : MonoBehaviour
         //playable을 실행시키는 controller가 active상태 일 때
         if (activeObj[2].activeSelf ==true)
         {
-
             popUpTime += Time.deltaTime;
             if (popUpTime >2.0f)
             {
@@ -56,7 +55,7 @@ public class TimeLineController : MonoBehaviour
     public void setPlay()
     {
         director.Play();
-       // SoundManager.Instance.SFXPlay2D("BossCutScene_SFX");
+        SoundManager.Instance.AMBPlay("BossCutScene_SFX");
     }
 
 
@@ -75,7 +74,7 @@ public class TimeLineController : MonoBehaviour
         bossObj.SetActive(true);
         boss.start = true;
         boss.state = BossState.COMBATIDLE;
-        SoundManager.Instance.BGMStop();
+        SoundManager.Instance.AMBStop();
         SoundManager.Instance.BGMPlay("Boss1_BGM");
         boss.hpBar.gameObject.SetActive(true);
 
