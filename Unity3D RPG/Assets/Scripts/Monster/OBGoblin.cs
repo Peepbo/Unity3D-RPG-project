@@ -288,6 +288,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 StopAllCoroutines();
 
                 DungeonMng.Instance.killMelee++;
+                SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }
            
         }
