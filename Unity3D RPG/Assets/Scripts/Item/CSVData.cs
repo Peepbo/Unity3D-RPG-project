@@ -29,9 +29,9 @@ public class ItemInfo
     public string ingredient4;
     public int ingredientCount4;
     public int price;
-    public string descript;
+    //public string descript;
     public float dropRate;
-    public string prefabName;
+    //public string prefabName;
     public string iconPath;
 }
 
@@ -98,9 +98,9 @@ public class CSVData : Singleton<CSVData>
         _item.ingredient4 = dictionaryData[key].ingredient4;
         _item.ingredientCount4 = dictionaryData[key].ingredientCount4;
         _item.price = dictionaryData[key].price;
-        _item.descript = dictionaryData[key].descript;
+        //_item.descript = dictionaryData[key].descript;
         _item.dropRate = dictionaryData[key].dropRate;
-        _item.prefabName = dictionaryData[key].prefabName;
+        //_item.prefabName = dictionaryData[key].prefabName;
         _item.iconPath = dictionaryData[key].iconPath;
 
         //Debug.Log(_item.count);
