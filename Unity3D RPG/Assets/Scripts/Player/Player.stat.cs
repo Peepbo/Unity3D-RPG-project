@@ -29,7 +29,7 @@ partial class Player
     
     public float            def;                //  방어력
     public float            increasedDef;       //  방어력 증가치
-    float                   realDef;            //  최종방어력
+    public float            realDef;            //  최종방어력
 
     public float            power;              //  공격력
     public float            increasedAtk= 0;    //  공격력 증가치
@@ -170,6 +170,7 @@ partial class Player
         {
             armor = PlayerData.Instance.EquipArmor();
             increasedDef = armor.def;
+            realDef = 10 + increasedDef;
         }
         if (accessory != PlayerData.Instance.EquipAccessory())
         {
@@ -192,7 +193,6 @@ partial class Player
                 hp = maxHp;
             }
         }
-        
     }
 
     public void BuyPotion(int value)

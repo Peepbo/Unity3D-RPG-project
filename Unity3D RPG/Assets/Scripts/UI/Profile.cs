@@ -41,7 +41,7 @@ public class Profile : MonoBehaviour
         popStats.transform.GetChild(2).GetComponent<Text>().text =
             "공격력 : " + player.realAtk.ToString();
         popStats.transform.GetChild(3).GetComponent<Text>().text =
-            "방어력 : " + player.def.ToString();
+            "방어력 : " + player.realDef.ToString();
     }
 
     public void GetReinforce()
