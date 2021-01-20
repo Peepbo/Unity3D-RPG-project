@@ -25,8 +25,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
         startPos = transform.position;
 
         hp = maxHp = 30;
-        atk = 30;
-        //atk = 0;
+        atk = 35;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;
