@@ -41,6 +41,7 @@ public class EffectManager : Singleton<EffectManager>
                 {
                     //스톤
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 13);
+                    //Debug.Log("Stone" + _obj.name);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -51,6 +52,7 @@ public class EffectManager : Singleton<EffectManager>
                 {
                     //블러드
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                    //Debug.Log("Blood" + _obj.name);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -63,6 +65,7 @@ public class EffectManager : Singleton<EffectManager>
 
                 //블러드
                 _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 1);
+                //Debug.Log("Blood" + _obj.name);
                 _obj.transform.position = pos;
                 _obj.transform.rotation = rot;
 
@@ -75,6 +78,7 @@ public class EffectManager : Singleton<EffectManager>
                 {
                     //상자
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 14);
+                    //Debug.Log("Chest" + _obj.name);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -85,6 +89,7 @@ public class EffectManager : Singleton<EffectManager>
                 {
                     //스위치
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 16);
+                    //Debug.Log("Switch" + _obj.name);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
@@ -95,15 +100,13 @@ public class EffectManager : Singleton<EffectManager>
                 {
                     //나무박스
                     _obj = ObjectPool.SharedInstance.GetPooledObject("Effect", 15);
+                    //Debug.Log("wood Box" + _obj.name);
                     _obj.transform.position = pos;
                     _obj.transform.rotation = rot;
 
                     _obj.SetActive(true);
                 }
 
-                break;
-            default:
-                Debug.Log("타입을 찾을 수 없습니다");
                 break;
         }
     }

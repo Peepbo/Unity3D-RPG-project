@@ -99,12 +99,14 @@ public class ObjectPool : MonoBehaviour
         {
             ObjectPoolItem _item = itemsToPool[i];
 
-            if (_item.objectToPool.tag.Equals(tag))
+            if (_item.objectToPool.tag.Equals(tag) && _item.objectIndex == index)
             {
 
                 //해당 프리펩의 확장성이 true?
                 if (_item.shouldExpand == true)
                 {
+
+
                     //생성 후
                     GameObject _obj = Instantiate(_item.objectToPool);
                     _obj.transform.parent = transform;
