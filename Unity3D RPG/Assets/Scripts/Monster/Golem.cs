@@ -48,7 +48,7 @@ public class Golem : EnemyMgr, IDamagedState
         follow = gameObject.AddComponent<FollowTarget>();
         back = gameObject.AddComponent<ReturnMove>();
 
-        follow.Init(AI, target, speed, attackRange-1);
+        follow.Init(AI, target, speed, attackRange - 1);
         back.init(AI, spawnPos, speed);
         damageCheck = transform.GetChild(0).gameObject;
         anim.SetInteger("state", 0);
@@ -63,7 +63,7 @@ public class Golem : EnemyMgr, IDamagedState
 
         RaycastHit _hit;
         direction.y = 0;
-       
+
         if (isDead)
         {
             Die();
@@ -73,11 +73,11 @@ public class Golem : EnemyMgr, IDamagedState
         if (isStay)
         {
             anim.SetInteger("state", 0);
-            if (distance < findRange && findCount ==0)
+            if (distance < findRange && findCount == 0)
             {
                 if (Physics.Raycast(transform.position, direction, out _hit, findRange))
                 {
-                    if (_hit.transform.tag == "Player")
+                    if (_hit.transform.tag.Equals("Player"))
                     {
                         AI.isStopped = false;
                         findCount = 1;

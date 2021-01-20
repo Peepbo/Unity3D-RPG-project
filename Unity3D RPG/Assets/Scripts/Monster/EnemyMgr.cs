@@ -32,7 +32,7 @@ public abstract class EnemyMgr : MonoBehaviour
     public float angle;             //Goblin종족 시야범위 판정
     [Range(5, 30)]
     public float findRange;         //타겟 확인 가능 범위
-    [Range(1, 10)] 
+    [Range(1, 10)]
     public float attackRange;       //공격 가능 범위
     [Range(1, 5)]
     public float observeRange;      //Observe 기능을 사용하는 몬스터의 감시 범위
@@ -61,7 +61,7 @@ public abstract class EnemyMgr : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            if (transform.GetChild(i).tag == "Animation")
+            if (transform.GetChild(i).tag.Equals("Animation"))
                 anim = transform.GetChild(i).GetComponent<Animator>();
         }
 
@@ -104,11 +104,11 @@ public abstract class EnemyMgr : MonoBehaviour
         }
 
     }
-    public Vector3 GetRandomDirection()
-    {
-        float _ranX = Random.Range(-1f, 1f);
-        float _ranZ = Random.Range(-1f, 1f);
-        return new Vector3(_ranX, 0, _ranZ);
-    }
+    //public Vector3 GetRandomDirection()
+    //{
+    //    float _ranX = Random.Range(-1f, 1f);
+    //    float _ranZ = Random.Range(-1f, 1f);
+    //    return new Vector3(_ranX, 0, _ranZ);
+    //}
 
 }

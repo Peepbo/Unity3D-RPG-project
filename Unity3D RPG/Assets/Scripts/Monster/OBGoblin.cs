@@ -67,7 +67,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         RaycastHit _hit;
 
-       // Debug.DrawRay(transform.position, direction * findRange, Color.blue);
+        // Debug.DrawRay(transform.position, direction * findRange, Color.blue);
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
@@ -94,7 +94,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 if (Physics.Raycast(transform.position, direction, out _hit, findRange))
                 {
 
-                    if (_hit.transform.tag == "Player")
+                    if (_hit.transform.tag.Equals("Player"))
                     {
                         observe.setIsObserve(false);
                         anim.SetInteger("state", 1);
@@ -160,7 +160,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
     public void FollowTarget()
     {
         //navMesh의 speed를 animation velocity 값에 넣어준다.     
-       
+
         anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
@@ -267,7 +267,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         if (hp > 0)
         {
-            if(!isHit)
+            if (!isHit)
             {
                 hp -= (int)(value * (1.0f - def / 100));
 
@@ -275,7 +275,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 else StartCoroutine(GetDamage());
             }
 
-            if(hp<=0)
+            if (hp <= 0)
             {
                 hp = 0;
                 isDead = true;
@@ -289,7 +289,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 DungeonMng.Instance.killMelee++;
                 SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }
-           
+
         }
 
         if (player.isCri)
