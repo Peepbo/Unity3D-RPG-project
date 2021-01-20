@@ -27,7 +27,6 @@ public class Golem : EnemyMgr, IDamagedState
 
         findCount = 0;
         hp = maxHp = 100;
-        //atk = 0;
         atk = 56;
         def = 10.0f;
         minGold = 50;

@@ -25,10 +25,8 @@ public class Goblin : EnemyMgr, IDamagedState
     {
         base.Awake();
         startPos = transform.position;
-        //hp = maxHp = 30 / 2;       //체크용
         hp = maxHp = 30;
         atk = 35;
-        //atk = 0;
         def = 5.0f;
         minGold = 20;
         maxGold = 30;

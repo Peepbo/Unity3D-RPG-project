@@ -5,8 +5,7 @@ using UnityEngine;
 public class FireBall : MonoBehaviour
 {
     private float speed = 5f;
-    private int atk = 35;
-    //private int atk =0;
+    private int atk = 40;
     Vector3 spawnPos;
 
     //awake : 최초 생성 즉 gameobject가 처음 켜질때만 작동되는듯
