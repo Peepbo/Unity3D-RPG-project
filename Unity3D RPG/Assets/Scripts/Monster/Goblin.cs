@@ -73,7 +73,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
         RaycastHit _hit;
 
-       // Debug.DrawRay(transform.position, direction * findRange, Color.blue);
+        // Debug.DrawRay(transform.position, direction * findRange, Color.blue);
 
         float _distance = Vector3.Distance(transform.position, target.transform.position);
 
@@ -99,7 +99,7 @@ public class Goblin : EnemyMgr, IDamagedState
                 if (Physics.Raycast(transform.position, direction, out _hit, findRange))
                 {
 
-                    if (_hit.transform.tag == "Player")
+                    if (_hit.transform.tag.Equals("Player"))
                     {
                         anim.SetInteger("state", 1);
                         findCount = 1;
@@ -305,7 +305,7 @@ public class Goblin : EnemyMgr, IDamagedState
         {
             weapon.GetComponent<BoxCollider>().enabled = false;
             anim.SetTrigger("isDamage");
-            
+
         }
 
     }
@@ -335,7 +335,7 @@ public class Goblin : EnemyMgr, IDamagedState
         //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
-    
+
 
 
 }

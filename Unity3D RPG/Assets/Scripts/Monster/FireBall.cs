@@ -36,9 +36,9 @@ public class FireBall : MonoBehaviour
     public void setAtk(int value) { atk = value; }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Enemy")
+        if (!other.tag.Equals("Enemy"))
         {
-            if (other.tag == "Player")
+            if (other.tag.Equals("Player"))
             {
                 other.gameObject.GetComponent<Player>().GetDamage(atk);
 

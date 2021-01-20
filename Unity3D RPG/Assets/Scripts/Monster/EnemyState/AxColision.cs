@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AxColision : MonoBehaviour
 {
-    public bool isOn;
-   
     BoxCollider boxCol;
     int damage = 0;
     private void Awake()
@@ -16,7 +14,7 @@ public class AxColision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag.Equals("Player"))
         {
             other.GetComponent<Player>().GetDamage(damage);
             GetComponent<BoxCollider>().enabled = false;
@@ -26,8 +24,6 @@ public class AxColision : MonoBehaviour
                 other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                 Quaternion.identity);
             #endregion
-
-            isOn = false;
         }
     }
 
