@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using LitJson;
-
 using System.IO;
-using System;
+using LitJson;
 
 public class SubItem
 {
@@ -36,19 +32,19 @@ public class Achieve
 [System.Serializable]
 public class CharacterInfo
 {
-    public int Money;                                               // 돈
-    public int[] StaturePoint= new int [2];                         // 성장 포인트
+    public int   Money;                                             // 돈
+    public int[] StaturePoint = new int[2];                         // 성장 포인트
     public int[] Equip = new int[4];                                // 착용 장비
-    public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
     public int[] Characteristic = new int[35];                      // 특성
+    public List<SubItem> Item = new List<SubItem>();                // 소지 아이템
 
-    public CharacterInfo(int money, int[] point, int[] equip, List<SubItem> item, int[] charac)
+    public CharacterInfo(int money, int[] point, int[] equip, int[] charac, List<SubItem> item)
     {
         Money = money;
         StaturePoint = point;
         Equip = equip;
-        Item = item;
         Characteristic = charac;
+        Item = item;
     }
 }
 
@@ -64,7 +60,6 @@ public class JsonData : Singleton<JsonData>
     private void Awake()
     {
         path = PathNameSetup(fileName);
-
         achievePath = PathNameSetup(fileName2);
     }
 
@@ -72,9 +67,13 @@ public class JsonData : Singleton<JsonData>
     {
         if (File.Exists(path) == false)
         {
-            Save(100, new int[] {0, 0}, new int[] { 0, 33, -1, -1 },
+            Save(
+                0, 
+                new int[] { 0, 0}, 
+                new int[] { 0, 33, -1, -1 },
                 new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-                new List<SubItem> { });
+                new List<SubItem> { }
+                );
         }
 
         if( File.Exists(achievePath) == false)
@@ -105,7 +104,7 @@ public class JsonData : Singleton<JsonData>
 
     public void Save(int money, int[] point, int[] equip, int[] charac, List<SubItem> item)
     {
-        CharacterInfo character = new CharacterInfo(money, point, equip, item, charac);
+        CharacterInfo character = new CharacterInfo(money, point, equip, charac, item);
 
         //LitJson.JsonData ItemJson = JsonMapper.ToJson(character);
         //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(ItemJson.ToString());
@@ -137,7 +136,7 @@ public class JsonData : Singleton<JsonData>
             //LitJson.JsonData _data = JsonMapper.ToObject(reformat);
             LitJson.JsonData _data = JsonMapper.ToObject(Jsonstring);
             return _data;
-        } 
+        }
     }
 
     public LitJson.JsonData AchieveJsonData
@@ -147,6 +146,7 @@ public class JsonData : Singleton<JsonData>
             string Jsonstring = File.ReadAllText(achievePath);
             //byte[] bytes = System.Convert.FromBase64String(Jsonstring);
             //string reformat = System.Text.Encoding.UTF8.GetString(bytes);
+            //LitJson.JsonData _data = JsonMapper.ToObject(reformat);
             LitJson.JsonData _data = JsonMapper.ToObject(Jsonstring);
 
             return _data;
@@ -189,7 +189,7 @@ public class JsonData : Singleton<JsonData>
     {
         List<int> _output = new List<int>();
 
-        for (int i = 0; i < jsonData["Equip"].Count; i++)
+        for (int i = 0; i < 4; i++)
         {
             _output.Add(int.Parse(jsonData["Equip"][i].ToString()));
         }

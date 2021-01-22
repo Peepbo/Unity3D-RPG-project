@@ -15,6 +15,8 @@ public class DungeonChest : MonoBehaviour, IDamagedState
     {
         anim = GetComponent<Animator>();
         dq = questObj.GetComponent<DungeonQuest>();
+
+        if (dq.quest != 0) GetComponent<Outline>().enabled = false;
     }
 
     public void Damaged(int value)
