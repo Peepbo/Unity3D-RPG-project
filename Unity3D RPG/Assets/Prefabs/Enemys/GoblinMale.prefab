@@ -115,6 +115,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemBox: {fileID: 1219818311729074143, guid: 30568519b2dba034ab686e54b247cc43, type: 3}
+  skin:
+  - {fileID: 2745745941757373980}
+  - {fileID: 7681984312010455362}
+  - {fileID: 2745745941743886628}
+  - {fileID: 2745745941743719284}
   speed: 3
   angle: 240
   findRange: 10
@@ -216,6 +221,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  - {fileID: 2100000, guid: 38f46ae02c659054db85b9901d0c13a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1126,6 +1132,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  - {fileID: 2100000, guid: 38f46ae02c659054db85b9901d0c13a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4298,6 +4305,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 0574116a7188c654ab34fcd54a2d0ecc, type: 2}
+  - {fileID: 2100000, guid: 38f46ae02c659054db85b9901d0c13a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4807,19 +4815,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.005405426, y: 88.04221, z: -0.7460747}
     m_Extent: {x: 102.46188, y: 99.52502, z: 24.656517}
   m_DirtyAABB: 0
---- !u!114 &308606533953434622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7681984312012923756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ea2110fe8dde684cacdcb073931a3a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOn: 0
 --- !u!65 &6383366484207002014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4833,6 +4828,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.17725098, y: 0.8254008, z: 0.19763313}
   m_Center: {x: 0.00000034758366, y: 0.43884504, z: 0.015713057}
+--- !u!114 &308606533953434622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681984312012923756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ea2110fe8dde684cacdcb073931a3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &308606533953434621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4920,9 +4927,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoblinClub
       objectReference: {fileID: 0}
+    - target: {fileID: 7985867327653087935, guid: f690084620501f84b873643c709f83ac,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985867327653087935, guid: f690084620501f84b873643c709f83ac,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38f46ae02c659054db85b9901d0c13a5, type: 2}
     m_RemovedComponents:
     - {fileID: 7942091935092652175, guid: f690084620501f84b873643c709f83ac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f690084620501f84b873643c709f83ac, type: 3}
+--- !u!23 &7681984312010455362 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7985867327653087935, guid: f690084620501f84b873643c709f83ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 308606533953434621}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7681984312012675180 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7985867327651130257, guid: f690084620501f84b873643c709f83ac,

@@ -278,10 +278,11 @@ public class Goblin : EnemyMgr, IDamagedState
             if (!isHit)
             {
                 hp -= (int)(value * (1.0f - def / 100));
-                Debug.Log("damaged");
-
+       
                 if (player.isCri) StartCoroutine(GetCriDamage());
                 else StartCoroutine(GetDamage());
+
+                if (hp > 0) StartCoroutine(HitSkin());
             }
 
             if (hp <= 0)
@@ -306,6 +307,7 @@ public class Goblin : EnemyMgr, IDamagedState
             weapon.GetComponent<BoxCollider>().enabled = false;
             anim.SetTrigger("isDamage");
 
+            if (hp > 0) StartCoroutine(HitSkin());
         }
 
     }

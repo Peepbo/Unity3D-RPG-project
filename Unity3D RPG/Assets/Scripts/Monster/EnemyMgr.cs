@@ -21,6 +21,8 @@ public abstract class EnemyMgr : MonoBehaviour
 
     public GameObject ItemBox;                  //몬스터가 드롭하는 Item정보를 담고 있을 ItemBox
 
+    //render for damaged
+    public Renderer[] skin = new Renderer[3];
 
     //stat
     protected int maxHp;            //최대 체력
@@ -104,6 +106,24 @@ public abstract class EnemyMgr : MonoBehaviour
         }
 
     }
+
+   protected IEnumerator HitSkin()
+    {
+        Color _color = skin[0].materials[1].color;
+        _color.a = 1f;
+
+        int _maxCount = skin.Length;
+
+        for (int i = 0; i < _maxCount; i++)
+            skin[i].materials[1].color = _color;
+
+        yield return new WaitForSeconds(0.4f);
+        _color.a = 0;
+
+        for (int i = 0; i < _maxCount; i++)
+            skin[i].materials[1].color = _color;
+    }
+
     //public Vector3 GetRandomDirection()
     //{
     //    float _ranX = Random.Range(-1f, 1f);

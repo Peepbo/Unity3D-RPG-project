@@ -199,6 +199,7 @@ public class Shaman : EnemyMgr, IDamagedState
             {
                 hp -= (int)(value * (1.0f - def / 100));
                 StartCoroutine(GetDamage());
+                if(hp>0)StartCoroutine(HitSkin());
             }
 
             if (hp <= 0)
@@ -227,6 +228,7 @@ public class Shaman : EnemyMgr, IDamagedState
             else
             {
                 anim.SetTrigger("damage");
+                StartCoroutine(HitSkin());
                 SoundManager.Instance.SFXPlay("Shaman_Hit", transform.position);
             }
         }

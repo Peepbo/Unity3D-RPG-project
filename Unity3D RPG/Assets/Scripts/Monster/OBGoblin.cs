@@ -260,6 +260,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
         isHit = false;
     }
 
+    
 
     public void Damaged(int value)
     {
@@ -273,6 +274,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
                 if (player.isCri) StartCoroutine(GetCriDamage());
                 else StartCoroutine(GetDamage());
+
+                if (hp > 0) StartCoroutine(HitSkin());
             }
 
             if (hp <= 0)
@@ -296,6 +299,8 @@ public class OBGoblin : EnemyMgr, IDamagedState
         {
             weapon.GetComponent<BoxCollider>().enabled = false;
             anim.SetTrigger("isDamage");
+
+            if(hp > 0) StartCoroutine(HitSkin());
         }
 
     }
