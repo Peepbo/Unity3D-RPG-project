@@ -16,6 +16,14 @@ public class DungeonMng : Singleton<DungeonMng>
 
     public int playMap = -1;
 
+    #region Achieve
+    //Goblin, OBGoblin, Shaman, Boss
+    //bool KillGoblin = false;
+    //bool KillOBGoblin = false;
+    //bool KillShaman = false;
+    //bool KillBoss = false;
+    #endregion
+
     private void Start()
     {
         Debug.Log("DungeonMng start");
@@ -34,7 +42,6 @@ public class DungeonMng : Singleton<DungeonMng>
 
         set
         {
-            //여기 앞에서 업적에 저장
             countMelee = value;
 
             LinkCount();
@@ -51,7 +58,7 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killMelee == dungeonQuest.meleeMonster)
                 {
                     dungeonQuest.Clear();
-                    ClearCount();
+                    //ClearCount();
                 }
             }
 
@@ -60,7 +67,7 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killCount == dungeonQuest.maxMonster)
                 {
                     dungeonQuest.Clear();
-                    ClearCount();
+                    //ClearCount();
                 }
             }
             
@@ -89,7 +96,7 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killCount == dungeonQuest.maxMonster)
                 {
                     dungeonQuest.Clear();
-                    ClearCount();
+                    //ClearCount();
                 }
             }
         }

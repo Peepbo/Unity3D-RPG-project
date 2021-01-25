@@ -62,7 +62,8 @@ public class DungeonQuest : MonoBehaviour
                     //Debug.Log(_allEnemys[i].name);
                     if (_allEnemys[i].TryGetComponent(out mt))
                     {
-                        //Debug.Log("monster");
+                        if (mt.type == MonType.Other) continue;
+
                         maxMonster++;
                     }
                 }

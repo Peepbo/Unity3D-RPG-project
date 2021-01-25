@@ -80,8 +80,28 @@ public class ResultController : Singleton<ResultController>
     {
         comeIn = false;
         PlayerData.Instance.isReturn = true;
-        #region 01/19
+        #region 01/19 아이템 전달
         LootManager.Instance.Delivery(resultText.text.Equals("유다이"));
+        #endregion
+        #region 01/25 업적 데이터 전달
+        List<Achieve> _list = new List<Achieve>(JsonData.Instance.LoadAchieve());
+        //스테이지 클리어 업적
+        for (int i = 0; i <= 4; i++)
+        {
+            _list[i].Number++;
+        }
+        //보스클리어, 챕터 클리어 업적
+        _list[13].Number++;
+        _list[14].Number++;
+        JsonData.Instance.AchieveSave(_list);
+        //돈 획득 업적
+        int _getMoneyInDungeon = LootManager.Instance.dungeonMoney;
+        LootManager.Instance.dungeonMoney = 0;
+
+        for (int i = 15; i <= 19; i++)
+        {
+            _list[i].Number += _getMoneyInDungeon;
+        }
         #endregion
         DungeonMng.Instance.ClearCount();
         DungeonMng.Instance.ResetStage();

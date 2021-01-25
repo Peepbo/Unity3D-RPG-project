@@ -8,6 +8,8 @@ public partial class LootManager : Singleton<LootManager>
     public List<ItemInfo> pocketItem = new List<ItemInfo>();
     public int pocketMoney = 0;
 
+    public int dungeonMoney = 0;
+
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
     {
         List<ItemInfo> _list = new List<ItemInfo>();
@@ -60,6 +62,8 @@ public partial class LootManager : Singleton<LootManager>
     public void GetPocketMoney(int currency)
     {
         pocketMoney += currency;
+
+        dungeonMoney += currency;
     }
 
     public void Delivery(bool die = false)
@@ -110,8 +114,8 @@ public partial class LootManager : Singleton<LootManager>
 
     public void ClearPocketData()
     {
-        
         pocketItem.Clear();
         pocketMoney = 0;
+        dungeonMoney = 0;
     }
 }

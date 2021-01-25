@@ -16,11 +16,28 @@ public class DungeonPortal : MonoBehaviour
             {
                 List<Achieve> _list = new List<Achieve>(JsonData.Instance.LoadAchieve());
 
+                //0~4 stage clear
+                for (int i = 0; i <= 4; i++)
+                {
+                    _list[i].Number++;
+                }
+
                 //5~10 monster kill
                 for(int i = 5; i <= 10; i++)
                 {
                     _list[i].Number += DungeonMng.Instance.killCount;
                 }
+
+                //15~19 money
+                int _getMoneyInDungeon = LootManager.Instance.dungeonMoney;
+                LootManager.Instance.dungeonMoney = 0;
+
+                for (int i = 15; i <= 19; i++)
+                {
+                    _list[i].Number += _getMoneyInDungeon;
+                }
+                
+
                 DungeonMng.Instance.ClearCount();
                 JsonData.Instance.AchieveSave(_list);
             }

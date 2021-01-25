@@ -115,6 +115,32 @@ public class JsonData : Singleton<JsonData>
 
     public void AchieveSave(List<Achieve> achieve)
     {
+        /*
+        ItemInfo _item = list.Find(x => (x.id == item.id));
+
+        if (_item == null) list.Add(item);
+
+        else
+        {
+            int _index = list.IndexOf(_item);
+
+            list[_index].count += item.count;
+        }
+        */
+
+        //List<Achieve> _old = LoadAchieve();
+
+        //int _order = 0;
+        //for(int i = 0; _order < achieve.Count; i++)
+        //{
+        //    if (achieve[_order].Id == _old[i].Id)
+        //    {
+        //        _old[i].Number += achieve[_order].Number;
+
+        //        _order++;
+        //    }
+        //}
+
         //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
 
         //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
