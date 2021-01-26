@@ -290,6 +290,9 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 StopAllCoroutines();
 
                 DungeonMng.Instance.killMelee++;
+                #region 01/26 몬스터 처치 업적
+                DungeonMng.Instance.murderList[1].isKill = true;
+                #endregion
                 SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }
 

@@ -32,8 +32,6 @@ public class DungeonQuest : MonoBehaviour
 
     bool isClear = false;
 
-    //public QUEST Quest { get { return quest; } }
-
     public Text text;
 
     public int GetCorrectNumber() { return correctNumber; }
@@ -43,7 +41,7 @@ public class DungeonQuest : MonoBehaviour
         isClear = false;
 
         var _allEnemys = GameObject.FindGameObjectsWithTag("Enemy");
-        //Debug.Log(_allEnemys.Length);
+
         MonsterType mt;
 
         quest = ChooseQuest();
@@ -51,15 +49,15 @@ public class DungeonQuest : MonoBehaviour
         switch (quest)
         {
             case QUEST.KEY:
-                correctNumber = Random.Range(0, boxNumber);
                 text.text = "던전 목표: 키 찾기";
+
+                correctNumber = Random.Range(0, boxNumber);
                 break;
             case QUEST.ALLKILL:
                 text.text = "던전 목표: 모든 몬스터 처치하기";
                 
                 for (int i = 0; i < _allEnemys.Length; i++)
                 {
-                    //Debug.Log(_allEnemys[i].name);
                     if (_allEnemys[i].TryGetComponent(out mt))
                     {
                         if (mt.type == MonType.Other) continue;
@@ -73,12 +71,10 @@ public class DungeonQuest : MonoBehaviour
 
                 for (int i = 0; i < _allEnemys.Length; i++)
                 {
-                    //Debug.Log(_allEnemys[i].name);
                     if (_allEnemys[i].TryGetComponent(out mt))
                     {
                         if (mt.GetEnemyType() == MonType.Melee)
                         {
-                            //Debug.Log("melee monster");
                             meleeMonster++;
                         }
                     }
@@ -98,11 +94,6 @@ public class DungeonQuest : MonoBehaviour
 
     QUEST ChooseQuest()
     {
-        /*
-            public bool keyQuest = false;
-            public bool allKillQuest = false;
-            public bool meleeAllKillQuest = false;
-        */
         bool[] _ck = new bool[3] { keyQuest, allKillQuest, meleeAllKillQuest };
 
         List<int> _list = new List<int>();

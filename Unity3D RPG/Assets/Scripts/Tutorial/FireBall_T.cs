@@ -5,16 +5,7 @@ using UnityEngine;
 public class FireBall_T : MonoBehaviour
 {
     private float speed = 5f;
-    private int atk = 35;
     Vector3 spawnPos;
-
-    //awake : 최초 생성 즉 gameobject가 처음 켜질때만 작동되는듯
-    //start : 스크립트 (즉 게임오브젝트)가 실행됬을 때
-
-    //private void Start() // 
-    //{
-    //    spawnPos = transform.position;
-    //}
 
     TutorialMng tm;
 
@@ -30,20 +21,18 @@ public class FireBall_T : MonoBehaviour
 
         if (Vector3.Distance(transform.position, spawnPos) > 15f)
         {
-            #region 01-13
             EffectManager.Instance.EffectActive(7, transform.position, Quaternion.identity);
-            #endregion
             gameObject.SetActive(false);
         }
     }
-    public void setAtk(int value) { atk = value; }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag != "Enemy")
+        if (other.tag.Equals("Enemy") == false)
         {
-            if (other.tag == "Player")
+            if (other.tag.Equals("Player"))
             {
-                other.gameObject.GetComponent<Player>().GetDamage(-1);
+                other.gameObject.GetComponent<Player>().GetDamage(0);
 
                 var _obj = other.gameObject.GetComponent<Player>();
                 bool _check = _obj.comboAtk.animator.GetBool("isGuardHit");
@@ -52,25 +41,17 @@ public class FireBall_T : MonoBehaviour
                 {
                     tm.ChangeQuest();
                     tm.KillMonster();
-
-                    //_obj.transform.GetChild(0).GetComponent<Animator>().SetBool("isGuard", false);
-                    //_obj.comboAtk.animator.SetBool("isGuard",false);
-                    //_obj.isGuard = false;
-                    //_obj.state = Player.PlayerState.IDLE;
                 }
 
-                #region 01-11
                 EffectManager.Instance.EffectActive(7,
                     other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                     Quaternion.identity);
-                #endregion
             }
             gameObject.SetActive(false);
-            #region 01-13
+
             EffectManager.Instance.EffectActive(7,
                 other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                 Quaternion.identity);
-            #endregion
         }
     }
 }

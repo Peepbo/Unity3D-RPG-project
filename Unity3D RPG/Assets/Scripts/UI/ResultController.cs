@@ -83,13 +83,15 @@ public class ResultController : Singleton<ResultController>
         #region 01/19 아이템 전달
         LootManager.Instance.Delivery(resultText.text.Equals("유다이"));
         #endregion
-        #region 01/25 업적 데이터 전달
+        #region 01/26 업적 데이터 전달
         List<Achieve> _list = new List<Achieve>(JsonData.Instance.LoadAchieve());
         //스테이지 클리어 업적
         for (int i = 0; i <= 4; i++)
         {
             _list[i].Number++;
         }
+        //킬 리스트
+        DungeonMng.Instance.murderList[4].isKill = true;
         //보스클리어, 챕터 클리어 업적
         _list[13].Number++;
         _list[14].Number++;

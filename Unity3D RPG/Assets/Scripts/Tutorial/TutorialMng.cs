@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class TutorialMng : MonoBehaviour
 {
-    bool isStart = false;
-    BoxCollider col;
-
     public Chat chat;
-
-    public bool[] questCheck = new bool[7];
     public int questNumber = 0;
 
     //shamen
     public GameObject monster;
-
     //Box
     public GameObject box;
-
+    //Player
     public GameObject player;
 
-    #region begin
+    BoxCollider col;
+
     private void Start()
     {
         col = GetComponent<BoxCollider>();
@@ -30,21 +25,17 @@ public class TutorialMng : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            isStart = true;
             col.enabled = false;
 
             SoundManager.Instance.SFXPlay2D("ItemBox_Appear");
             monster.SetActive(true);
-            questCheck[questNumber] = true;
             questNumber++;
             chat.NextQuest();
         }
     }
-    #endregion
 
     public void ChangeQuest()
     {
-        questCheck[questNumber] = true;
         questNumber++;
         chat.NextQuest();
 

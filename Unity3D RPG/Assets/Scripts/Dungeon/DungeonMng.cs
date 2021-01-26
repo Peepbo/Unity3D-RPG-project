@@ -17,11 +17,14 @@ public class DungeonMng : Singleton<DungeonMng>
     public int playMap = -1;
 
     #region Achieve
-    //Goblin, OBGoblin, Shaman, Boss
-    //bool KillGoblin = false;
-    //bool KillOBGoblin = false;
-    //bool KillShaman = false;
-    //bool KillBoss = false;
+    public Murder[] murderList = new Murder[5]
+    {
+        new Murder("Goblin",false),
+        new Murder("OBGoblin",false),
+        new Murder("Shamen",false),
+        new Murder("Golem",false),
+        new Murder("Chieftain",false)
+    };
     #endregion
 
     private void Start()
@@ -114,6 +117,8 @@ public class DungeonMng : Singleton<DungeonMng>
         killCount = 0;
         countMelee = 0;
         countRange = 0;
+
+        for (int i = 0; i < 5; i++) murderList[i].isKill = false;
     }
 
     //player

@@ -19,8 +19,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public GameObject weapon;
 
-
-
     protected override void Awake()
     {
         base.Awake();
@@ -298,6 +296,9 @@ public class Goblin : EnemyMgr, IDamagedState
                 StopAllCoroutines();
 
                 DungeonMng.Instance.killMelee++;
+                #region 01/26 몬스터 처치 업적
+                DungeonMng.Instance.murderList[0].isKill = true;
+                #endregion
                 SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }
         }

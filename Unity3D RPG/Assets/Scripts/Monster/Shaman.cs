@@ -211,7 +211,9 @@ public class Shaman : EnemyMgr, IDamagedState
                 AI.enabled = false;
                 StopAllCoroutines();
                 DungeonMng.Instance.killRange++;
-
+                #region 01/26 몬스터 처치 업적
+                DungeonMng.Instance.murderList[2].isKill = true;
+                #endregion
                 SoundManager.Instance.SFXPlay("Shaman_DieVO", transform.position);
             }
         }

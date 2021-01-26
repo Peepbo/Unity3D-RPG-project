@@ -225,7 +225,9 @@ public class Golem : EnemyMgr, IDamagedState
                     AI.enabled = true;
 
                     DungeonMng.Instance.killMelee++;
-
+                    #region 01/26 몬스터 처치 업적
+                    DungeonMng.Instance.murderList[3].isKill = true;
+                    #endregion
                 }
 
                 else if (player.isCri)

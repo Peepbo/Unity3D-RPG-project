@@ -40,7 +40,6 @@ public class Chat : MonoBehaviour
 
     int textCount = 0;
 
-    //2,1,1,3,2,2,2
     int[] questChats = { 1, 1, 1, 3, 2, 3, 2 };
 
     public TutorialMng tutorialMng;
@@ -53,8 +52,6 @@ public class Chat : MonoBehaviour
 
     public GameObject canvas;
 
-    string typingText = "";
-
     private void Start()
     {
         quest.text = quests[tutorialMng.questNumber];
@@ -62,8 +59,6 @@ public class Chat : MonoBehaviour
         texts.text = npcTalks[textCount];
 
         anim = GetComponent<Animator>();
-        //savePos = texts.position;
-        //savePos.y += distance;
 
         canvas.SetActive(false);
         StartCoroutine(ActiveCanvas(6.5f));
@@ -76,7 +71,6 @@ public class Chat : MonoBehaviour
         canvas.SetActive(true);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(active) moveChat();
@@ -94,8 +88,6 @@ public class Chat : MonoBehaviour
         active = true;
 
         texts.text = npcTalks[textCount];
-        //savePos.y += distance;
-        //texts.position = savePos;
         anim.SetBool("Close", false);
     }
 
@@ -110,7 +102,6 @@ public class Chat : MonoBehaviour
                 delay = 0;
 
                 textCount++;
-                //Debug.Log("close");
 
                 chatIndex = 0;
                 active = false;
@@ -128,22 +119,8 @@ public class Chat : MonoBehaviour
             textCount++;
             delay = 0;
             texts.text = npcTalks[textCount];
-            
-            
 
             chatIndex++;
-            //texts.position = Vector3.Lerp(texts.position, savePos, Time.deltaTime * 12f);
-            //
-            //if (Vector3.Distance(texts.position, savePos) < 0.05f)
-            //{
-            //    texts.position = savePos;
-            //    //Debug.Log("next");
-            //
-            //    savePos.y += distance;
-            //
-            //    chatIndex++;
-            //    delay = 0;
-            //}
         }
     }
 }

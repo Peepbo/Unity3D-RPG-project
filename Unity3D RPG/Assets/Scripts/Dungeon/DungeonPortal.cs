@@ -28,6 +28,9 @@ public class DungeonPortal : MonoBehaviour
                     _list[i].Number += DungeonMng.Instance.killCount;
                 }
 
+                //kill list
+                JsonData.Instance.CheckMurder(DungeonMng.Instance.murderList);
+
                 //15~19 money
                 int _getMoneyInDungeon = LootManager.Instance.dungeonMoney;
                 LootManager.Instance.dungeonMoney = 0;
@@ -36,7 +39,6 @@ public class DungeonPortal : MonoBehaviour
                 {
                     _list[i].Number += _getMoneyInDungeon;
                 }
-                
 
                 DungeonMng.Instance.ClearCount();
                 JsonData.Instance.AchieveSave(_list);
