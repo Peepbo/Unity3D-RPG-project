@@ -19,11 +19,11 @@ public class DungeonMng : Singleton<DungeonMng>
     #region Achieve
     public Murder[] murderList = new Murder[5]
     {
-        new Murder("Goblin",false),
-        new Murder("OBGoblin",false),
-        new Murder("Shamen",false),
-        new Murder("Golem",false),
-        new Murder("Chieftain",false)
+        new Murder("Goblin",0),
+        new Murder("OBGoblin",0),
+        new Murder("Shamen",0),
+        new Murder("Golem",0),
+        new Murder("Chieftain",0)
     };
     #endregion
 
@@ -118,7 +118,7 @@ public class DungeonMng : Singleton<DungeonMng>
         countMelee = 0;
         countRange = 0;
 
-        for (int i = 0; i < 5; i++) murderList[i].isKill = false;
+        for (int i = 0; i < 5; i++) murderList[i].killCount = 0;
     }
 
     //player

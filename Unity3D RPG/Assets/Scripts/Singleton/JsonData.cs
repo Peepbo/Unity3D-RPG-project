@@ -83,7 +83,7 @@ public partial class JsonData : Singleton<JsonData>
             string[] _name = new string[5] { "Goblin", "OBGoblin", "Shaman", "Golem", "Chieftain" };
             for(int i = 0; i < 5; i++)
             {
-                _list.Add(new Murder(_name[i], false));
+                _list.Add(new Murder(_name[i], 0));
             }
 
             MurderSave(_list);

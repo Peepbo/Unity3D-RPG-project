@@ -297,7 +297,7 @@ public class Goblin : EnemyMgr, IDamagedState
 
                 DungeonMng.Instance.killMelee++;
                 #region 01/26 몬스터 처치 업적
-                DungeonMng.Instance.murderList[0].isKill = true;
+                DungeonMng.Instance.murderList[0].killCount++;
                 #endregion
                 SoundManager.Instance.SFXPlay("Worrier_DieVO", transform.position);
             }

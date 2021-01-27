@@ -49,11 +49,13 @@ public class DungeonPortal : MonoBehaviour
 
             if (DungeonMng.Instance.stage < 3)
             {
+                //Debug.Log("not Boss" + DungeonMng.Instance.stage);
                 LoadingSceneController.Instance.LoadScene(GetRandomMap());
             }
 
             else//boss room
             {
+                //Debug.Log("Boss"+DungeonMng.Instance.stage);
                 LoadingSceneController.Instance.LoadScene("BossRoom(light bake)");
             }
             

@@ -6,12 +6,12 @@ using LitJson;
 public class Murder
 {
     public string monsterName;
-    public bool isKill;
+    public int killCount;
 
-    public Murder(string name, bool kill)
+    public Murder(string name, int kill)
     {
         monsterName = name;
-        isKill = kill;
+        killCount = kill;
     }
 }
 
@@ -76,11 +76,14 @@ partial class JsonData
     {
         List<Murder> _output = new List<Murder>();
 
-        for (int i = 0; i < jsonData(achievePath).Count; i++)
+        for (int i = 0; i < jsonData(murderPath).Count; i++)
         {
-            _output.Add(new Murder(
-                jsonData(murderPath)[i]["monsterName"].ToString(), 
-                jsonData(murderPath)[i]["isKill"].ToString() == "true"));
+            Debug.Log(jsonData(murderPath)[i]["monsterName"].ToString());
+            Debug.Log(jsonData(murderPath)[i]["killCount"].ToString());
+
+            Murder _murder = new Murder(jsonData(murderPath)[i]["monsterName"].ToString(), int.Parse(jsonData(murderPath)[i]["killCount"].ToString()));
+
+            _output.Add(_murder);
         }
 
         return _output;
@@ -92,19 +95,34 @@ partial class JsonData
 
         for(int i = 0; i < 5; i++) // 내가 잡은것
         {
-            if (murder[i].isKill == false) continue; // 잡지 못한거면 넘기고
+            if (murder[i].killCount == 0) continue; // 잡지 못한거면 넘기고
 
             for(int j = 0; j < 5; j++) // 저장되어 있는것
             {
-                if(murder[i].monsterName.Equals (_list[i].monsterName))
+                if(murder[i].monsterName.Equals (_list[j].monsterName))
                 {
-                    _list[i].isKill = true;
+                    _list[j].killCount += murder[i].killCount;
                     break;
                 }
             }
         }
 
         MurderSave(_list);
+
+        List<Achieve> _achieve = LoadAchieve();
+        if (_achieve[12].Number == 1) return;
+
+        int[] _checkNumber = new int[4] { 0, 1, 2, 4 };
+        
+        for(int i = 0; i < 4; i++)
+        {
+            int _order = _checkNumber[i];
+
+            if (_list[_order].killCount == 0) return;
+        }
+
+        _achieve[12].Number = 1;
+        AchieveSave(_achieve);
     }
     #endregion
 }

@@ -226,7 +226,7 @@ public class Golem : EnemyMgr, IDamagedState
 
                     DungeonMng.Instance.killMelee++;
                     #region 01/26 몬스터 처치 업적
-                    DungeonMng.Instance.murderList[3].isKill = true;
+                    DungeonMng.Instance.murderList[3].killCount++;
                     #endregion
                 }
 

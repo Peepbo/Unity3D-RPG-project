@@ -91,7 +91,7 @@ public class ResultController : Singleton<ResultController>
             _list[i].Number++;
         }
         //킬 리스트
-        DungeonMng.Instance.murderList[4].isKill = true;
+        DungeonMng.Instance.murderList[4].killCount++;
         //보스클리어, 챕터 클리어 업적
         _list[13].Number++;
         _list[14].Number++;
