@@ -10,12 +10,6 @@ public enum ACHIEVE_STATE
     ACHIEVE
 }
 
-public enum ACHIEVE_TYPE
-{
-    WITHSTEP,
-    WITHOUTSTEP
-}
-
 public class AchieveData
 {
     public ACHIEVE_STATE state;
@@ -97,20 +91,20 @@ public class Achievements : MonoBehaviour
 
     public void GetReward(int num)
     {
+        SoundManager.Instance.SFXPlay2D("UI_ItemSell", 0.6f);
+
         PlayerData.Instance.myCurrency += AchieveList[num].reward; // 재화를 얻는다
         achieveJsonList[num].State = (int)ACHIEVE_STATE.ACHIEVE;   // 업적 상태를 바꿔준다
 
+        PlayerData.Instance.SaveData();
         SaveJson();
         ShowAchieveData();
     }
-
-    //private Sprite GetPath(int id) { return Resources.Load<Sprite>(AchieveList[id].icon); }
 
     public void ShowAchieveData()
     {
         for (int i = 0; i < AchieveList.Count; i++) // 0 = 업적아이콘 / 1 = 업적이름 / 2 = 업적설명 / 3 = 보상받기
         {
-            //popInfo.transform.GetChild(i).GetChild(0).GetComponent<Image>().sprite = GetPath(AchieveList[i].id);
             popInfo.transform.GetChild(i).GetChild(1).GetComponent<Text>().text = AchieveList[i].name.ToString();
             popInfo.transform.GetChild(i).GetChild(2).GetComponent<Text>().text = AchieveList[i].descrition.ToString();
             popInfo.transform.GetChild(i).GetChild(3).GetChild(0).GetComponent<Text>().text = AchieveList[i].reward.ToString();
