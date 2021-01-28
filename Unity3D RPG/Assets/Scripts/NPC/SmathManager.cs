@@ -10,22 +10,23 @@ public partial class SmathManager : MonoBehaviour
     const string normal = "normal";
     const string make = "제작하기 ";
     const int materialMaxCount = 8;
+    const int makePercent =9;
     bool[] isHasMaterial = new bool[materialMaxCount/2];
     int materialCount;
-    const int makePercent =9;
+
     Text moneyText;
     Text infoText;
     Text[] materialText;
     Text percentText;
-    GameObject makeButton;
     ItemInfo curruntInfo = new ItemInfo();
     Image infoImage;
-    public GameObject itemMakeListFactory;
+    GameObject makeButton;
     GameObject itemListGroup;
+    public GameObject itemMakeListFactory;
     public GameObject resultPanel;
     List<GameObject> itemList = new List<GameObject>();
     Dictionary<string, ItemInfo> lootList = new Dictionary<string, ItemInfo>();
-    // int itemListCount =0;
+
     private void Awake()
     {
         InfoInit();
@@ -51,7 +52,6 @@ public partial class SmathManager : MonoBehaviour
         moneyText = transform.Find("CoinText").GetComponent<Text>();
         
         //itemList
-        //itemMakeListFactory = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/ItemMakeList.prefab", typeof(GameObject));
         itemListGroup = transform.Find("ItemList/ScrollRect/ListGroup").gameObject;
         //itemInfo
         infoImage = transform.Find("ItemInfo/ItemIconBG/ItemIcon").GetComponent<Image>();
@@ -61,14 +61,11 @@ public partial class SmathManager : MonoBehaviour
         percentText = transform.Find("ItemInfo/PercentText").GetComponent<Text>();
         percentText.text = "제작 확률 : " + makePercent.ToString() + "0%";
         //percentText.color = Color.blue;
-       
-       
     }
 
     private void PlayerItemListInit()
     {
         //NPC List Clear
-
         moneyText.text = PlayerData.Instance.myCurrency.ToString();
         for (int i = 0; i < maxAcc; i++) itemList[i].SetActive(false);
         weaponList.Clear();
@@ -80,12 +77,13 @@ public partial class SmathManager : MonoBehaviour
         maxArmour = 2;
         isTHandBase = false;
          
-
-        List<ItemInfo> _EquipDB = PlayerData.Instance.haveEquipItem;
-        List<ItemInfo> _LootDB = PlayerData.Instance.haveLootItem;
+        //플레이어 정보 리스트에 저장
+        List<ItemInfo> _EquipDB = PlayerData.Instance.haveEquipItem; //창고아이템 (장비)
+        List<ItemInfo> _LootDB = PlayerData.Instance.haveLootItem; //창고아이템 (전리품)
         
-        int[] _playerItemDB = PlayerData.Instance.myEquipment;
+        int[] _playerItemDB = PlayerData.Instance.myEquipment; //착용아이템
 
+        
         if (_playerItemDB[1] != -1)
         {
             WeaponListInsert(_playerItemDB[1]);
@@ -111,13 +109,14 @@ public partial class SmathManager : MonoBehaviour
         }
     }
 
-    private void ListDisable(int kind)
+    private void ListDisable(int kind) //아이템제작 리스트 활성화 / 비활성화
     {
-        itemList[kind].GetComponent<Button>().interactable = (itemList[kind].GetComponent<Button>().interactable )? false:true;
+        itemList[kind].GetComponent<Button>().interactable = 
+            (itemList[kind].GetComponent<Button>().interactable )? false:true;
     }
 
 
-    private void LootListInsert(ItemInfo info)
+    private void LootListInsert(ItemInfo info) //플레이어의 전리품들 한곳으로 모으기위한 루트리스트에 등록
     {
         if (lootList.ContainsKey(info.itemName) == false)
             lootList.Add(info.itemName, info);
@@ -125,7 +124,7 @@ public partial class SmathManager : MonoBehaviour
             lootList[info.itemName].count += info.count;
     }
 
-    private string LootFind(string itemName)
+    private string LootFind(string itemName) //플레이어가 갖고있는 전리품 갯수 확인
     {
         if (lootList.ContainsKey(itemName) == false)
             return "0";
@@ -133,7 +132,7 @@ public partial class SmathManager : MonoBehaviour
             return lootList[itemName].count.ToString();
     }
 
-    private void MaterialTextSetting()
+    private void MaterialTextSetting() //제작아이템의 대한 정보와 필요한 재료에 대한 정보
     {
         infoImage.sprite = Resources.Load(curruntInfo.iconPath, typeof(Sprite)) as Sprite;
         infoText.text = curruntInfo.skillIncrease + "티어 " + curruntInfo.itemName + "\n" + "공격력 " +
@@ -161,7 +160,7 @@ public partial class SmathManager : MonoBehaviour
         MakeButtonActive();
     }
 
-    private void MaterialText(Text text, string num1, string num2)
+    private void MaterialText(Text text, string num1, string num2) //필요한 재료의 갯수를 처리하는 곳
     {
         text.text = num1 + " / " + num2;
         if (int.Parse(num1) < int.Parse(num2)) { text.color = Color.red; }
@@ -169,7 +168,7 @@ public partial class SmathManager : MonoBehaviour
         materialCount++;
     }
 
-    private void MakeButtonActive()
+    private void MakeButtonActive() //필요한 재료를 확인하고 다 갖춰졌으면 활성화
     {
         makeButton.GetComponent<Button>().interactable = true;
 
@@ -180,21 +179,21 @@ public partial class SmathManager : MonoBehaviour
         if (curruntInfo.price > PlayerData.Instance.myCurrency) makeButton.GetComponent<Button>().interactable = false;
     }
 
-    public void OnMakeButton()
+    public void OnMakeButton() //장비제작 버튼을 눌렀을 경우 로직
     {
         ClickSound();
         resultPanel.SetActive(true);
         GameObject _success = resultPanel.transform.Find("ResultRect/Success").gameObject;
         GameObject _fail = resultPanel.transform.Find("ResultRect/Fail").gameObject;
         
-        if (Random.Range(0,10) <makePercent) // 강화성공
+        if (Random.Range(0,10) <makePercent) // 제작성공
         {
             _success.SetActive(true);
             _fail.SetActive(false);
             SoundManager.Instance.SFXPlay2D("UI_Success");
             MaterialPlayerDataRemove(true);
         }
-        else //강화실패
+        else //제작실패
         {
             _success.SetActive(false);
             _fail.SetActive(true);
@@ -205,7 +204,7 @@ public partial class SmathManager : MonoBehaviour
         this.Start();
     }
 
-    private void MaterialPlayerDataRemove(bool success)
+    private void MaterialPlayerDataRemove(bool success) //장비제작 후처리(아이템재료삭제)
     {
         bool _isSave = false;
         bool[] _check = new bool[materialCount];
@@ -219,7 +218,7 @@ public partial class SmathManager : MonoBehaviour
 
 
     }
-
+    //창고아이템에 아이템재료가 있는지 확인 후 삭제
     private void ChestCheck(ref bool[] check)
     {
         for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count;)
@@ -282,7 +281,7 @@ public partial class SmathManager : MonoBehaviour
             i++;
         }
     }
-
+    //장비아이템에 아이템재료가 있는지 확인 후 삭제
     private void EquipmentCheck(bool success, ref bool _isSave, ref bool[] check)
     {
         for (int k = 0; k < PlayerData.Instance.myEquipment.Length; k++)

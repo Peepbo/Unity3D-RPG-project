@@ -39,15 +39,15 @@ public abstract class EnemyMgr : MonoBehaviour
     [Range(1, 5)]
     public float observeRange;      //Observe 기능을 사용하는 몬스터의 감시 범위
 
-    //Item
+    #region DropItem variable
     protected int minGold;
     protected int maxGold;
     protected int currency;
 
-
     protected int[] itemKind = new int[3];
     protected ItemInfo drop = new ItemInfo();
     protected List<ItemInfo> item = new List<ItemInfo>();
+    #endregion
 
     protected virtual void Awake()
     {
@@ -107,6 +107,7 @@ public abstract class EnemyMgr : MonoBehaviour
 
     }
 
+    //피격확인을 위해 넣은 이펙트 요소 
    protected IEnumerator HitSkin()
     {
         Color _color = skin[0].materials[1].color;

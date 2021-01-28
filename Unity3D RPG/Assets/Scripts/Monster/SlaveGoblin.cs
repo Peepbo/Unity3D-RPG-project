@@ -10,6 +10,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
     private Vector3 direction;
 
+    //소환 된 상태
     private bool isStart = true;
 
     public GameObject weapon;
@@ -20,10 +21,8 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         //startPos = transform.position;
         hp = maxHp = 30;
-        atk = 30;
+        atk = 35;
         def = 5.0f;
-        minGold = 20;
-        maxGold = 30;
 
         follow = gameObject.AddComponent<FollowTarget>();
         follow.Init(AI, target, speed, attackRange);
@@ -51,6 +50,8 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         if (isStart)
         {
+            
+            //소환 되면 범위 내의 타겟을 찾는다
             if (_distance < findRange)
             {
                 isStart = false;
@@ -59,6 +60,7 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         else
         {
+            //타겟이 범위에 있으면 타겟을 따라간다.
             if (_distance < findRange)
             {
                 FollowTarget();
@@ -88,23 +90,26 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
     }
 
 
+    #region Use for Animation Event script
     public void ActiveCollider()
     {
         if (isDead) return;
         weapon.GetComponent<BoxCollider>().enabled = true;
     }
+
     public void DeActiveCollider()
     {
         if (isDead) return;
         weapon.GetComponent<BoxCollider>().enabled = false;
     }
 
-
     public void GetRest()
     {
         if (isDead) return;
         StartCoroutine(AttackRoutine());
     }
+
+    #endregion
 
     IEnumerator AttackRoutine()
     {
@@ -152,7 +157,6 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
                 weapon.GetComponent<BoxCollider>().enabled = false;
                 StopAllCoroutines();
 
-                //DungeonMng.Instance.killMelee++;
             }
 
             if (player.isCri)
@@ -170,21 +174,9 @@ public class SlaveGoblin : EnemyMgr, IDamagedState
 
         if (disappearTime > 2.5f)
         {
-            gameObject.SetActive(false);
             disappearTime = 0f;
+            gameObject.SetActive(false);
         }
-    }
-
-
-    private void OnDrawGizmos()
-    {
-
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(transform.position, findRange);
-
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, attackRange);
-
     }
 
 

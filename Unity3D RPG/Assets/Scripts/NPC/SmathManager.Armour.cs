@@ -30,7 +30,7 @@ partial class SmathManager
     public ArmourMaxLevel armourMaxLevel;
     Text[] armourListText;
     bool isArmour = false;
-    public void OnArmourButton()
+    public void OnArmourButton() //방어종류 버튼
     {
         ClickSound();
         isWeapon = false;
@@ -41,7 +41,7 @@ partial class SmathManager
         
     }
 
-    private void ArmourListSetActive()
+    private void ArmourListSetActive() //아이템리스트중 방어갯수만큼만 남겨두고 게임오브젝트를 꺼둔다.
     {
         for (int i = 0; i < maxArmour; i++)
         {
@@ -63,7 +63,7 @@ partial class SmathManager
         }
     }
 
-    private void ArmourListSetting(int num)
+    private void ArmourListSetting(int num) //아이템리스트에 방어구관련 정보를 띄운다.
     {
         armourListText = itemList[num].GetComponentsInChildren<Text>();
         ArmourKind _temp = (ArmourKind)num;
@@ -83,7 +83,7 @@ partial class SmathManager
         }
     }
   
-    private void ArmourListInsert(int id)
+    private void ArmourListInsert(int id) // 플레이어 장비를 방어구리스트에 담는다.
     {
         ItemInfo _temp = CSVData.Instance.find(id);
         ItemInfo _itemDB = CSVData.Instance.find(id + 1);
@@ -104,7 +104,7 @@ partial class SmathManager
 
     }
 
-    private void ArmourListSerch()
+    private void ArmourListSerch() //방어구리스트를 파악후 없는 종류에 아머는 베이스장비로 채운다.
     {
         for (int i = 0; i < maxArmour; i++)
         {
@@ -131,7 +131,7 @@ partial class SmathManager
     }
 
 
-    private void OnArmourClick(int num)
+    private void OnArmourClick(int num) // 아이템리스트 번호와 맞는 방어구리스트 정보를 현재 보여줘야할 아이템정보로 교체.
     {
         if (!isArmour) return;
         ClickSound();

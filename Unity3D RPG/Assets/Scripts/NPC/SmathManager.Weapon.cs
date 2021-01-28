@@ -35,6 +35,7 @@ partial class SmathManager
     Dictionary<WeaponKind,ItemInfo> weaponList = new Dictionary<WeaponKind,ItemInfo>();
     const string hand = "한손검";
     const string twoHand = "대검";
+    const int maxWeaponID = 21;
     //const string dagger = "단검";
     bool isWeapon =false;
     bool isTHandBase = false;
@@ -44,7 +45,7 @@ partial class SmathManager
     public WeaponMaxLevel weaponMaxLevel;
    
 
-    public void OnWeaponButton()
+    public void OnWeaponButton() //무기종류버튼
     {
         ClickSound();
         isWeapon = true;
@@ -52,7 +53,7 @@ partial class SmathManager
         isAcc = false;
         WeaponListSetActive();
     }
-    private void WeaponListSerch()
+    private void WeaponListSerch() //무기리스트중 없는 종류는 베이스 무기를 리스트에 넣어놓는다.
     {
         for(int i=0; i<maxWeapon; i++)
         {
@@ -96,7 +97,7 @@ partial class SmathManager
         if(maxWeapon ==5 && baseWeaponKind==3)
             weaponList.Add(WeaponKind.BaseTWeapon, CSVData.Instance.find(baseWeaponID.THand_N));
     }
-    private void WeaponListSetting(int num)
+    private void WeaponListSetting(int num) //무기리스트를 파악하여 아이템리스트창에 정보를 채운다.
     {
         WeaponKind _temp = (WeaponKind)num;
         if (num ==4 )
@@ -134,7 +135,7 @@ partial class SmathManager
         }
         
     }
-    private void WeaponListSetActive()
+    private void WeaponListSetActive() //아이템리스트중 무기갯수만큼만 남겨두고 게임오브젝트를 꺼둔다.
     {
 
         for (int i = 0; i < maxWeapon; i++)
@@ -158,7 +159,7 @@ partial class SmathManager
         }
     }
 
-    private void OnWeaponClick(int num)
+    private void OnWeaponClick(int num) //아이템리스트 번호에 맞는 무기리스트정보를 현재 보여줘야하는 정보로 사용한다.
     {
         if (!isWeapon) return;
         ClickSound();
@@ -169,11 +170,11 @@ partial class SmathManager
 
    
 
-    private void WeaponListInsert(int id)
+    private void WeaponListInsert(int id) //플레이어 아이템정보를 무기리스트에 담는다.
     {
         ItemInfo _temp = CSVData.Instance.find(id);
         ItemInfo _itemDB;
-        if (id != 21)
+        if (id != maxWeaponID) 
         {
             _itemDB = CSVData.Instance.find(id + 1);
             if (_temp.grade != _itemDB.grade) { _itemDB = _temp; }

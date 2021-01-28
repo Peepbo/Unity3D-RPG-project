@@ -50,6 +50,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
         viewAngle = gameObject.AddComponent<ViewingAngle>();
         returnToHome = gameObject.AddComponent<ReturnMove>();
 
+        
         weapon.GetComponent<AxColision>().SetDamage(atk);
 
         observe.Init(AI, startPos, 1.5f, observeRange);
@@ -160,7 +161,6 @@ public class OBGoblin : EnemyMgr, IDamagedState
     public void FollowTarget()
     {
         //navMesh의 speed를 animation velocity 값에 넣어준다.     
-
         anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
@@ -181,8 +181,10 @@ public class OBGoblin : EnemyMgr, IDamagedState
                 returnToHome.setIsReturn(false);
                 observe.setIsObserve(true);
 
-                //controller의 speed를 velocity의 값에 넣어준다.
                 anim.SetInteger("state", 0);
+
+                //observe 상태에서의 속도를 줄이기 위해
+                //controller의 speed를 velocity의 값에 넣어준다. 
                 anim.SetFloat("velocity", controller.velocity.magnitude);
             }
 
@@ -192,27 +194,32 @@ public class OBGoblin : EnemyMgr, IDamagedState
         {
             transform.rotation = Quaternion.LookRotation(direction);
             returnToHome.setIsReturn(false);
-
         }
 
     }
+
+    #region Use for Animation Event Script
     public void ActiveCollider()
     {
         if (isDead) return;
         weapon.GetComponent<BoxCollider>().enabled = true;
     }
+
     public void DeActiveCollider()
     {
         if (isDead) return;
         weapon.GetComponent<BoxCollider>().enabled = false;
     }
 
-
     public void GetRest()
     {
         if (isDead) return;
         StartCoroutine(AttackRoutine());
     }
+
+    #endregion
+
+
     IEnumerator AttackRoutine()
     {
         //rest를 켜고
@@ -250,9 +257,9 @@ public class OBGoblin : EnemyMgr, IDamagedState
         isHit = false;
         isDamaged = false;
     }
+
     IEnumerator GetDamage()
     {
-
         isHit = true;
 
         yield return new WaitForSeconds(.7f);
@@ -260,7 +267,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
         isHit = false;
     }
 
-    
+
 
     public void Damaged(int value)
     {
@@ -303,7 +310,7 @@ public class OBGoblin : EnemyMgr, IDamagedState
             weapon.GetComponent<BoxCollider>().enabled = false;
             anim.SetTrigger("isDamage");
 
-            if(hp > 0) StartCoroutine(HitSkin());
+            if (hp > 0) StartCoroutine(HitSkin());
         }
 
     }
@@ -314,24 +321,14 @@ public class OBGoblin : EnemyMgr, IDamagedState
 
         if (disappearTime > 2.5f)
         {
-            //아이템 떨어트리기
+            // 아이템 드롭
             var Item = Instantiate(ItemBox, transform.position, Quaternion.identity);
             Item.GetComponent<LootBox>().setItemInfo(item, 5, minGold, maxGold);
 
-            gameObject.SetActive(false);
             disappearTime = 0f;
+            gameObject.SetActive(false);
         }
     }
 
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawWireSphere(startPos, 5f);
-
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, attackRange);
-
-    }
 }
 
