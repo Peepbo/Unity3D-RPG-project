@@ -39,7 +39,7 @@ public abstract class EnemyMgr : MonoBehaviour
     [Range(1, 5)]
     public float observeRange;      //Observe 기능을 사용하는 몬스터의 감시 범위
 
-    #region DropItem Info
+    #region DropItem variable
     protected int minGold;
     protected int maxGold;
     protected int currency;
