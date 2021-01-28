@@ -65,33 +65,31 @@ public class GoblinChieftain : BossDB, IDamagedState
             case BossState.COMBATIDLE:
                 CombatIdle();
                 break;
-            case BossState.ATK:
-                hitTime += Time.deltaTime;
-                if (hitTime > 5f)
-                { state = BossState.COMBATIDLE; hitTime = 0f; }
-                break;
+            //case BossState.ATK:
+            //    break;
             case BossState.RUN:
                 Move();
                 break;
-            case BossState.HIT:
-                hitTime += Time.deltaTime;
-                if (hitTime > 5f)
-                { state = BossState.COMBATIDLE; hitTime = 0f; }
-                break;
-            case BossState.DIE:
-                break;
+            //case BossState.HIT:
+            //    break;
+            //case BossState.DIE:
+            //    break;
+            //case BossState.ROAR:
+            //    break;
         }
 
         if (state != BossState.ATK)
             atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
-        
-        //Debug.Log(state);
 
     }
 
-    public void IsRoaring() { anim.SetBool("isRoaring", false); } 
+    public void IsRoaring() //애니메이션 이벤트에서 사용중
+    {
+        anim.SetBool("isRoaring", anim.GetBool("isRoaring") ? false : true);
+    }
+    
 
     private void CombatIdle()
     {
@@ -106,7 +104,6 @@ public class GoblinChieftain : BossDB, IDamagedState
         else if (hp <= (hpMax / 2) && !isRoar)
         {
             isRoar = true;
-            anim.SetBool("isRoaring", true);
             atkDelay = atkDelay *0.5f;
             state = BossState.ATK;
             anim.ResetTrigger("CombatIdle");
@@ -117,6 +114,7 @@ public class GoblinChieftain : BossDB, IDamagedState
             EffectManager.Instance.EffectActive(9, _temp,Quaternion.identity);
             SoundManager.Instance.SFXPlay("Chief_Roar", transform.position);
             SoundManager.Instance.SFXPlay("Chief_RoarVO", transform.position);
+            
         }
         else if (atkTime > atkDelay)
         {
@@ -141,10 +139,11 @@ public class GoblinChieftain : BossDB, IDamagedState
         anim.ResetTrigger("CombatIdle");
 
         atkTime = 0f;
+        hitTime = 0f;
         transform.forward = (target.position - transform.position).normalized;
 
         if (isRoar && !isSpawn)
-            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.END);
+            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else if (isRoar)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
@@ -153,11 +152,8 @@ public class GoblinChieftain : BossDB, IDamagedState
         switch (pattern)
         {
             case BossATKPattern.THREEATK:
-                //IBossATKPattern atkPattern = new ThreeATKPattern();
-                //ATKPattern(atkPattern);
                 anim.SetTrigger("ThreeATK");
                 anim.SetInteger("ThreeATKKind", 0);
-                
                 break;
             case BossATKPattern.THUMP:
                 anim.SetTrigger("Thump");
@@ -165,10 +161,10 @@ public class GoblinChieftain : BossDB, IDamagedState
                 break;
             case BossATKPattern.SPAWN:
                 anim.SetTrigger("Spawn");
-                //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNM]);
+                
                 Vector3 _temp = transform.position;
                 _temp.y -= 1.629f;
-                //_fx.transform.position = _temp;
+
                 EffectManager.Instance.EffectActive(10, _temp, Quaternion.identity);
                 SoundManager.Instance.SFXPlay("Chief_Spawn", transform.position);
                 SoundManager.Instance.SFXPlay("Chief_SpawnVO", transform.position);
@@ -177,13 +173,13 @@ public class GoblinChieftain : BossDB, IDamagedState
         }
     }
 
-    public void NormalATKSound()
+    public void NormalATKSound() //애니메이션 이벤트에서 사용중
     {
         SoundManager.Instance.SFXPlay("Chief_ATK", transform.position);
         string _atkVo = "Chief_ATKVO0" + Random.Range(1, 4).ToString();
         SoundManager.Instance.SFXPlay(_atkVo, transform.position);
     }
-    public void ThreeATKCombo()
+    public void ThreeATKCombo() //애니메이션 이벤트에서 사용중
     {
         if ((int)(transform.position - target.position).magnitude > (int)distance)
             ComBatIdleState();
@@ -193,17 +189,14 @@ public class GoblinChieftain : BossDB, IDamagedState
             transform.forward = (target.position - transform.position).normalized;
         }
     }
-    public void ThumpFX()
+    public void ThumpFX()  //애니메이션 이벤트에서 사용중
     {
-        //GameObject fx;
-        //fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.THUMP]);
         Vector3 _temp = transform.position + transform.forward*2.6f;
         _temp.y -= 1.629f;
-        //fx.transform.position = _temp;
         EffectManager.Instance.EffectActive(12, _temp, Quaternion.identity);
         SoundManager.Instance.SFXPlay("Chief_Thump", transform.position + transform.forward * 2.6f);
     }
-    public void Spawn()
+    public void Spawn()  //애니메이션 이벤트에서 사용중
     {
         isSpawn = true;
 
@@ -214,20 +207,17 @@ public class GoblinChieftain : BossDB, IDamagedState
         }
 
         atkTime += atkDelay * 0.5f;
-        shuffle();
+        Shuffle();
         for (int i = 0; i < minionMaxCount; i++)
         {
             minions.Add(Instantiate(minionFactory));
             minions[i].transform.position = spawnArea[i].position;
-            //GameObject _fx = Instantiate(FXfactory[(int)ChiefTainFXPrefab.SPAWNS]);
-            //_fx.transform.position = spawnArea[i].position;
-            Debug.Log("Spawn_S");
-            EffectManager.Instance.EffectActive(11, spawnArea[i].position, Quaternion.identity);
             
+            EffectManager.Instance.EffectActive(11, spawnArea[i].position, Quaternion.identity);
         }
     }
 
-    public void ComBatIdleState()
+    public void ComBatIdleState()  //애니메이션 이벤트에서 사용중
     {
         state = BossState.COMBATIDLE;
     }
@@ -240,9 +230,10 @@ public class GoblinChieftain : BossDB, IDamagedState
        
         if (hp > 0)
         {
+            if (state == BossState.ATK || state == BossState.ROAR || atkTime >= atkDelay) return;
+        
             isPlayerCri = target.GetComponent<Player>().isCri;
-            if(state != BossState.ATK)
-                Hit();
+            Hit();
         }
         else
         {
@@ -270,11 +261,10 @@ public class GoblinChieftain : BossDB, IDamagedState
                 _atkDam = atk;
                 break;
         }
-        //target.GetComponent<TESTATTACK>().GetDamage(temp);
         target.GetComponent<Player>().GetDamage(_atkDam);
     }
 
-    private void shuffle()
+    private void Shuffle()
     {
         for (int i = 0; i < 5; i++)
         {

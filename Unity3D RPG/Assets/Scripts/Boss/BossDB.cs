@@ -19,6 +19,7 @@ public enum BossState
     RUN,
     HIT,
     DIE,
+    ROAR
 
 }
 
