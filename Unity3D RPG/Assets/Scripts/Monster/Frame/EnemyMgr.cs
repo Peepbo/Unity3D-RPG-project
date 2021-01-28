@@ -118,7 +118,7 @@ public abstract class EnemyMgr : MonoBehaviour
         for (int i = 0; i < _maxCount; i++)
             skin[i].materials[1].color = _color;
 
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         _color.a = 0;
 
         for (int i = 0; i < _maxCount; i++)
