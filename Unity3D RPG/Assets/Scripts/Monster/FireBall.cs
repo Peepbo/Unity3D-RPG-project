@@ -8,14 +8,6 @@ public class FireBall : MonoBehaviour
     private int atk = 40;
     Vector3 spawnPos;
 
-    //awake : 최초 생성 즉 gameobject가 처음 켜질때만 작동되는듯
-    //start : 스크립트 (즉 게임오브젝트)가 실행됬을 때
-
-    //private void Start() // 
-    //{
-    //    spawnPos = transform.position;
-    //}
-
     private void OnEnable()
     {
         spawnPos = transform.position;
@@ -27,13 +19,15 @@ public class FireBall : MonoBehaviour
 
         if (Vector3.Distance(transform.position, spawnPos) > 15f)
         {
-            #region 01-13
+            #region 01-13 Effect
             EffectManager.Instance.EffectActive(7, transform.position, Quaternion.identity);
             #endregion
             gameObject.SetActive(false);
         }
     }
-    public void setAtk(int value) { atk = value; }
+
+  //  public void setAtk(int value) { atk = value; }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!other.tag.Equals("Enemy"))
@@ -42,7 +36,7 @@ public class FireBall : MonoBehaviour
             {
                 other.gameObject.GetComponent<Player>().GetDamage(atk);
 
-                #region 01-11
+                #region 01-11 Effect
                 EffectManager.Instance.EffectActive(7,
                     other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                     Quaternion.identity);
@@ -50,7 +44,8 @@ public class FireBall : MonoBehaviour
             }
             if (other.transform.name.Equals("DamageBox")) return;
             gameObject.SetActive(false);
-            #region 01-13
+
+            #region 01-13 Effect
             EffectManager.Instance.EffectActive(7,
                 other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                 Quaternion.identity);

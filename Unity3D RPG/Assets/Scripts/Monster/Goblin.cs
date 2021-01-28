@@ -165,8 +165,6 @@ public class Goblin : EnemyMgr, IDamagedState
 
     public void FollowTarget()
     {
-        //controller의 speed를 animation velocity 값에 넣어준다.
-        //anim.SetFloat("velocity", controller.velocity.magnitude);
         anim.SetFloat("velocity", AI.speed);
         setMoveType(follow);
         Move();
