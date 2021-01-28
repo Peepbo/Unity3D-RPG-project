@@ -29,7 +29,7 @@ public class Potion : MonoBehaviour, IPointerDownHandler
                 {
                     potionParticle1.SetActive(true);
                     potionParticle2.SetActive(true);
-                    SoundManager.Instance.SFXPlay2D("Player_Shield");
+                    SoundManager.Instance.SFXPlay2D("Player_Potion");
                     player.GetHp(30);
                     potionNumTxt.text = PlayerData.Instance.myCurrentPotion.ToString();
 
