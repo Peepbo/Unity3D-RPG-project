@@ -62,13 +62,6 @@ partial class JsonData
     #region Murder
     public void MurderSave(List<Murder> murder)
     {
-        //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
-
-        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
-
-        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(achieve.ToString());
-        //string format = System.Convert.ToBase64String(bytes);
-
         File.WriteAllText(murderPath, JsonMapper.ToJson(murder));
     }
 
@@ -78,9 +71,6 @@ partial class JsonData
 
         for (int i = 0; i < jsonData(murderPath).Count; i++)
         {
-            Debug.Log(jsonData(murderPath)[i]["monsterName"].ToString());
-            Debug.Log(jsonData(murderPath)[i]["killCount"].ToString());
-
             Murder _murder = new Murder(jsonData(murderPath)[i]["monsterName"].ToString(), int.Parse(jsonData(murderPath)[i]["killCount"].ToString()));
 
             _output.Add(_murder);
@@ -97,7 +87,7 @@ partial class JsonData
         {
             if (murder[i].killCount == 0) continue; // 잡지 못한거면 넘기고
 
-            for(int j = 0; j < 5; j++) // 저장되어 있는것
+            for(int j = 0; j < 5; j++) // 저장되어 있는것에 더한다
             {
                 if(murder[i].monsterName.Equals (_list[j].monsterName))
                 {

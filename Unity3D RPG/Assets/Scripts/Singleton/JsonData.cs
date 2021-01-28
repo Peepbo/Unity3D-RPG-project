@@ -159,7 +159,8 @@ public partial class JsonData : Singleton<JsonData>
     {
         List<SubItem> _output = new List<SubItem>();
 
-        for (int i = 0; i < jsonData(userPath)["Item"].Count; i++)
+        int _max = jsonData(userPath)["Item"].Count;
+        for (int i = 0; i < _max; i++)
         {
             _output.Add(new SubItem(
                 int.Parse(jsonData(userPath)["Item"][i][0].ToString()),
@@ -173,7 +174,8 @@ public partial class JsonData : Singleton<JsonData>
     {
         List<int> _output = new List<int>();
 
-        for (int i = 0; i < jsonData(userPath)["Characteristic"].Count; i++)
+        int _max = jsonData(userPath)["Characteristic"].Count;
+        for (int i = 0; i < _max; i++)
         {
             _output.Add(int.Parse(jsonData(userPath)["Characteristic"][i].ToString()));
         }

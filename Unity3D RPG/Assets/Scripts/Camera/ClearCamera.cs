@@ -19,7 +19,6 @@ public class ClearCamera : MonoBehaviour
     {
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(1f);
-        //yield return new WaitForSeconds(1f);
         canvas.SetActive(false);
         cam.Priority = 100;
 
@@ -28,8 +27,8 @@ public class ClearCamera : MonoBehaviour
 
         SoundManager.Instance.SFXPlay("Portal_Loop",
             transform.parent.GetChild(1).position, true);
-        yield return new WaitForSecondsRealtime(dieTime - 0.2f);
-        //yield return new WaitForSeconds(dieTime);
+        yield return new WaitForSecondsRealtime(dieTime);
+
         canvas.SetActive(true);
         cam.enabled = false;
         yield return new WaitForSecondsRealtime(0.7f);

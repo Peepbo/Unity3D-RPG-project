@@ -23,17 +23,9 @@ public class DungeonChest : MonoBehaviour, IDamagedState
     {
         if (isOpen) return;
 
-        //DungeonQuest.QUEST.MELEEALLKILL
-
         if (dq.quest == 0)
         {
-            if (dq.GetCorrectNumber() == index)
-            {
-                Debug.Log("키 획득!");
-                dq.Clear();
-            }
-
-            else Debug.Log("꽝!");
+            if (dq.GetCorrectNumber() == index) dq.Clear();
         }
 
         anim.SetTrigger("Open");

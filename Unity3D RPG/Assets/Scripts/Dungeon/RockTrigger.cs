@@ -8,7 +8,7 @@ public class RockTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag.Equals("Player"))
         {
             for(int i = 0; i < 3; i++)
             {

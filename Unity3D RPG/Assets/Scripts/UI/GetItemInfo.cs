@@ -13,34 +13,8 @@ public class GetItemInfo : MonoBehaviour
 
     public Sprite[] sprite = new Sprite[2];
 
-    #region start
-    //private int currency;
-    //private List<ItemInfo> getItem = new List<ItemInfo>();
-    //public Text myText;
-
-    //public GameObject[] dropItem = new GameObject[3];
-
-    //public void ShowCurrency(int value)
-    //{
-    //    currency = value;
-    //    //Debug.Log(currency);
-    //    //currencyText.text = "골드를 " + currency.ToString() + "획득했습니다.";
-    //}
-
-    //public void ShowItem(List<ItemInfo> gainItem)
-    //{
-    //    getItem = gainItem;
-
-    //    for (int i = 0; i < getItem.Count; i++)
-    //    {
-    //        //dropItem[i].SetActive(true);
-    //    }
-    //}
-    #endregion
-
     private void Update()
     {
-        #region UPDATE
         if (panelList.Count > 0)
         {
             //move position
@@ -52,7 +26,6 @@ public class GetItemInfo : MonoBehaviour
                     pt[i].transform.position, Time.deltaTime * 10f);
             }
 
-            //del
             if (firstIn) { panelTime += Time.deltaTime * 0.5f; }
 
             else panelTime += Time.deltaTime;
@@ -67,7 +40,6 @@ public class GetItemInfo : MonoBehaviour
                 panelList.RemoveAt(0);
             }
         }
-        #endregion
     }
 
     private void DisplayPanel(string panelText, int spriteNumber)

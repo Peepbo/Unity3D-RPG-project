@@ -7,7 +7,6 @@ public partial class LootManager : Singleton<LootManager>
 
     public List<ItemInfo> pocketItem = new List<ItemInfo>();
     public int pocketMoney = 0;
-
     public int dungeonMoney = 0;
 
     public void GetPocketData(List <ItemInfo> pocketItemInfo)
@@ -27,36 +26,6 @@ public partial class LootManager : Singleton<LootManager>
                 pocketItem[_index].count += _list[i].count;
             }
         }
-
-        //for(int i = 0; i < _list.Count; i++)
-        //{
-        //    ItemInfo _item = _list[i];
-
-        //    if (pocketItem.Contains(_item) == false)
-        //    {
-        //        pocketItem.Add(_item);
-        //    }
-
-        //    else
-        //    {
-        //        int _index = pocketItem.IndexOf(_item);
-        //        pocketItem[_index].count += _item.count;
-        //    }
-        //}
-
-
-        /*
-        ItemInfo _item = list.Find(x => (x.id == item.id));
-
-        if (_item == null) list.Add(item);
-
-        else
-        {
-            int _index = list.IndexOf(_item);
-
-            list[_index].count += item.count;
-        }
-         */
     }
 
     public void GetPocketMoney(int currency)

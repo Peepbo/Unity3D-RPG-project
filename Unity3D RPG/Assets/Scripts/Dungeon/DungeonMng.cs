@@ -29,8 +29,6 @@ public class DungeonMng : Singleton<DungeonMng>
 
     private void Start()
     {
-        Debug.Log("DungeonMng start");
-
         var obj = GameObject.FindWithTag("Quest");
 
         if (obj != null)
@@ -61,7 +59,6 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killMelee == dungeonQuest.meleeMonster)
                 {
                     dungeonQuest.Clear();
-                    //ClearCount();
                 }
             }
 
@@ -70,7 +67,6 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killCount == dungeonQuest.maxMonster)
                 {
                     dungeonQuest.Clear();
-                    //ClearCount();
                 }
             }
             
@@ -83,7 +79,6 @@ public class DungeonMng : Singleton<DungeonMng>
 
         set
         {
-            //여기 앞에서 업적에 저장
             countRange = value;
 
             LinkCount();
@@ -99,7 +94,6 @@ public class DungeonMng : Singleton<DungeonMng>
                 if (killCount == dungeonQuest.maxMonster)
                 {
                     dungeonQuest.Clear();
-                    //ClearCount();
                 }
             }
         }
@@ -111,7 +105,6 @@ public class DungeonMng : Singleton<DungeonMng>
         killCount = countMelee + countRange;
     }
 
-    //player
     public void ClearCount()
     {
         killCount = 0;
@@ -121,7 +114,6 @@ public class DungeonMng : Singleton<DungeonMng>
         for (int i = 0; i < 5; i++) murderList[i].killCount = 0;
     }
 
-    //player
     public void ResetStage()
     {
         stage = 0;

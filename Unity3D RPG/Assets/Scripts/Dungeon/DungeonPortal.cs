@@ -14,6 +14,7 @@ public class DungeonPortal : MonoBehaviour
 
             if (DungeonMng.Instance.stage != 0) // 마을이 아니면?
             {
+                #region Achieve
                 List<Achieve> _list = new List<Achieve>(JsonData.Instance.LoadAchieve());
 
                 //0~4 stage clear
@@ -23,7 +24,7 @@ public class DungeonPortal : MonoBehaviour
                 }
 
                 //5~10 monster kill
-                for(int i = 5; i <= 10; i++)
+                for (int i = 5; i <= 10; i++)
                 {
                     _list[i].Number += DungeonMng.Instance.killCount;
                 }
@@ -40,28 +41,26 @@ public class DungeonPortal : MonoBehaviour
                     _list[i].Number += _getMoneyInDungeon;
                 }
 
-                DungeonMng.Instance.ClearCount();
                 JsonData.Instance.AchieveSave(_list);
+                #endregion
+
+                DungeonMng.Instance.ClearCount();
             }
 
             DungeonMng.Instance.stage++;
-            Debug.Log(DungeonMng.Instance.stage);
 
             if (DungeonMng.Instance.stage < 3)
             {
-                //Debug.Log("not Boss" + DungeonMng.Instance.stage);
                 LoadingSceneController.Instance.LoadScene(GetRandomMap());
             }
 
             else//boss room
             {
-                //Debug.Log("Boss"+DungeonMng.Instance.stage);
                 LoadingSceneController.Instance.LoadScene("BossRoom(light bake)");
             }
             
             //sound
             SoundManager.Instance.SFXPlay2D("UI_Warp");
-            //Debug.Log("warp");
         }
     }
 

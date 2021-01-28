@@ -13,6 +13,7 @@ public class TalkNpc : MonoBehaviour
         SMITH,
         INSURANCE
     }
+
     public NPC npcName;
     public GameObject talkPanel;
     public Animator anim;
@@ -23,7 +24,6 @@ public class TalkNpc : MonoBehaviour
 
     [Header("TRAINER")]
     public GameObject growthPanel;
-    //public GameObject characteristicPanel;
 
     [Header("SMITH")]
     public GameObject smithPanel;
@@ -53,9 +53,7 @@ public class TalkNpc : MonoBehaviour
 
             talkPanel.SetActive(true);
 
-            //01/04
             UiManager0.Instance.PanelOpen = true;
-            //
 
             GameObject btn2 = talkPanel.transform.GetChild(0).gameObject;
             GameObject btn3 = talkPanel.transform.GetChild(1).gameObject;
@@ -84,12 +82,7 @@ public class TalkNpc : MonoBehaviour
                     childObj[1].transform.GetChild(0).GetComponent<Text>().text = "아이템 확인";
                     
 
-                    //addListener
-
-                    //action0
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), equipPanel);
-
-                    //action1
                     ResetAndAddListener(childObj[1].GetComponent<Button>(), chestPanel);
 
                     //clickSound
@@ -112,16 +105,11 @@ public class TalkNpc : MonoBehaviour
                     btn2Text.text = _texts2[_ran2];
 
                     childObj[0].GetComponentInChildren<Text>().text = "성장";
-                    //childObj[1].transform.GetChild(0).GetComponent<Text>().text = "특성";
 
-                    //action0
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), growthPanel);
 
                     //clickSound
                     ClickAddListener(childObj[1].GetComponent<Button>());
-                    //action1
-                    //ResetAndAddListener(childObj[1].GetComponent<Button>(), characteristicPanel);
-
                     break;
                 case NPC.SMITH://2가지
                     btn2.SetActive(true);
@@ -139,13 +127,11 @@ public class TalkNpc : MonoBehaviour
                     int _ran3 = Random.Range(0, _texts3.Length);
                     btn2Text.text = _texts3[_ran3];
 
-                    //childObj[0] = btn2.transform.GetChild(0).gameObject;
-
                     childObj[0].GetComponentInChildren<Text>().text = "장비 제작";
+
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), smithPanel);
 
                     ClickAddListener(childObj[1].GetComponent<Button>());
-
                     break;
                 case NPC.INSURANCE://2가지
                     btn2.SetActive(true);
@@ -153,7 +139,6 @@ public class TalkNpc : MonoBehaviour
 
                     for (int i = 0; i < 2; i++)
                         childObj[i] = btn2.transform.GetChild(i).gameObject;
-                    //childObj[0] = btn2.transform.GetChild(0).gameObject;
 
                     btn2Name.gameObject.SetActive(true);
                     btn2Text.gameObject.SetActive(true);
@@ -165,15 +150,13 @@ public class TalkNpc : MonoBehaviour
                     btn2Text.text = _texts4[_ran4];
 
                     childObj[0].GetComponentInChildren<Text>().text = "보험 구매";
+
                     ResetAndAddListener(childObj[0].GetComponent<Button>(), insurancePanel);
-
-
 
                     ClickAddListener(childObj[1].GetComponent<Button>());
                     break;
             }
 
-            //if(npcName != NPC.CHEST) SoundManager.Instance.SFXPlay2D("UI_NPCPopup");
             SoundManager.Instance.SFXPlay2D("UI_NPCPopup");
         }
     }

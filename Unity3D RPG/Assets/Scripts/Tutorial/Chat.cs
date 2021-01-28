@@ -54,6 +54,8 @@ public class Chat : MonoBehaviour
 
     private void Start()
     {
+        Player _player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        _player.hp = _player.maxHp;
         quest.text = quests[tutorialMng.questNumber];
 
         texts.text = npcTalks[textCount];

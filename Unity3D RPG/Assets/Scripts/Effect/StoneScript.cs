@@ -33,7 +33,6 @@ public class StoneScript : MonoBehaviour
             EffectManager.Instance.EffectActive(5, transform.position, Quaternion.identity);
 
             effect.SetActive(false);
-            //gameObject.SetActive(false);
         }
 
         else if (other.tag == "Enemy")
@@ -48,7 +47,6 @@ public class StoneScript : MonoBehaviour
             EffectManager.Instance.EffectActive(5, transform.position, Quaternion.identity);
 
             effect.SetActive(false);
-            //gameObject.SetActive(false);
         }
     }
 
@@ -56,17 +54,12 @@ public class StoneScript : MonoBehaviour
     {
         rigid = gameObject.GetComponent<Rigidbody>();
         effect = transform.GetChild(0).gameObject;
-
         mat = gameObject.GetComponent<Renderer>();
-        Color _color = mat.material.color;
-
-        mat.material.color = _color;
     }
 
     private void Update()
     {
         if (rigid.useGravity == false) return;
-        //Debug.DrawRay(transform.position, Vector3.down * 2.5f, Color.red);
 
         RaycastHit _hit;
         if (Physics.Raycast(transform.position, Vector3.down, out _hit, 2.5f))
@@ -99,5 +92,4 @@ public class StoneScript : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         fadeOn = true;
     }
-
 }

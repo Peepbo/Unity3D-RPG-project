@@ -11,15 +11,15 @@ public class MoveScene : MonoBehaviour
     {
         if (isTrigger)
         {
-            if (other.tag == "Player")
+            if (other.tag.Equals("Player"))
             {
-                if (sceneName == "TownScene")
+                if (sceneName.Equals("TownScene"))
                 {
                     PlayerData.Instance.isReturn = true;
 
                     LootManager.Instance.Delivery();
                     DungeonMng.Instance.ResetStage();
-                    if (LoadingSceneController.Instance.loadSceneName == "Tutorial")
+                    if (LoadingSceneController.Instance.loadSceneName.Equals("Tutorial"))
                     {
                         PlayerData.Instance.isIntro = true;
 
@@ -34,7 +34,7 @@ public class MoveScene : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
-        if (sceneName == "TownScene")
+        if (sceneName.Equals("TownScene"))
         {
             PlayerData.Instance.isReturn = true;
             
@@ -44,7 +44,7 @@ public class MoveScene : MonoBehaviour
                 DungeonMng.Instance.ResetStage();
 
                 LootManager.Instance.Delivery();
-                if(LoadingSceneController.Instance.loadSceneName  == "Tutorial")
+                if(LoadingSceneController.Instance.loadSceneName.Equals("Tutorial"))
                 {
                     PlayerData.Instance.isIntro = true;
 
