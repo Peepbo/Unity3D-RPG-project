@@ -12,7 +12,7 @@ partial class SmathManager
     const int maxAcc = 35;
     const int startNum = 44;
     bool isAcc = false;
-    public void OnAccButton()
+    public void OnAccButton() //악세사리종류 버튼
     {
         ClickSound();
         isWeapon = false;
@@ -31,7 +31,7 @@ partial class SmathManager
         }
     }
 
-    private void AccListSetting(int num)
+    private void AccListSetting(int num) //아이템리스트에 악세사리 정보 띄우기.
     {
         accListText = itemList[num].GetComponentsInChildren<Text>();
       
@@ -41,14 +41,14 @@ partial class SmathManager
         if (accCheck[num]) ListDisable(num);
     }
 
-    private void AccListInsert(int id)
+    private void AccListInsert(int id) //플레이어 아이템을 악세사리리스트에 담는다.
     {
         ItemInfo _itemDB = CSVData.Instance.find(id);
         accList.Add(id-startNum, _itemDB);
         accCheck.Add(id - startNum, true);
     }
 
-    private void AccListSerch()
+    private void AccListSerch() //악세사리 리스트중 없는 악세사리는 채운다.
     {
         for (int i = 0; i < maxAcc; i++)
         {
@@ -61,7 +61,7 @@ partial class SmathManager
 
     }
 
-    private void OnAccClick(int num)
+    private void OnAccClick(int num) // 아이템리스트 번호와 맞는 악세사리리스트 정보를 현재 보여줘야할 아이템정보로 교체.
     {
         if (!isAcc) return;
         ClickSound();
