@@ -22,7 +22,6 @@ public class LootBox : MonoBehaviour
         light.intensity = 0;
         showItemPanel = GameObject.Find("GetItemInfo").GetComponent<GetItemInfo>();
 
-
     }
 
     private void Update()
@@ -59,7 +58,6 @@ public class LootBox : MonoBehaviour
     public void Drop()
     {
 
-        //Debug.Log("아이템 준비중");
         currency = Random.Range(min, max + 1);
         LootManager.Instance.GetPocketMoney(currency);
 
@@ -67,7 +65,8 @@ public class LootBox : MonoBehaviour
         showItemPanel.DisplayCurrency(currency);
 
         List<ItemInfo> _itemList = new List<ItemInfo>();
-
+        
+        //아이템 드롭 개수 결정
         for (int i = 0; i < item.Count; i++)
         {
             int rate = Random.Range(0, 10);
@@ -87,12 +86,10 @@ public class LootBox : MonoBehaviour
             //UI띄우기 용
             showItemPanel.DisplayItem(_itemList);
         }
-
-        //  else Debug.Log("아무런 아이템이 뜨지 않았습니다");
-
     }
 
 
+    //Animation event
     public void DropSound()
     {
         SoundManager.Instance.SFXPlay("ItemBox_Appear", transform.position);
