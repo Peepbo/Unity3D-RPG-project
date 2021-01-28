@@ -86,10 +86,11 @@ public class SoundManager : Singleton<SoundManager>
         
         _audio.Stop();
     }
-    public void AMBPlay(string clipName, float volume = 0.5f)
+    public void AMBPlay(string clipName, float volume = 0.5f, bool isLoop = true)
     {
         player[(int)PlayerName.AMB].clip = soundBank[clipName];
         player[(int)PlayerName.AMB].volume = volume;
+        player[(int)PlayerName.AMB].loop = isLoop;
         player[(int)PlayerName.AMB].Play();
 
     }
