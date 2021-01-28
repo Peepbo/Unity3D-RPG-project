@@ -19,15 +19,11 @@ public class GoblinChieftain : BossDB, IDamagedState
     
   
     private Animator anim;
-    NavMeshAgent agent;
-    const float distance = 3f;
-    
-    //bool isDie = false;
-    float hitTime = 0f;
-    BossATKPattern pattern;
-    const int spawnAreaMaxCount = 5;
-    
-    
+    private NavMeshAgent agent;
+    private const float distance = 3f;
+    private float hitTime = 0f;
+    private BossATKPattern pattern;
+    private const int spawnAreaMaxCount = 5;
     
     void Start()
     {
@@ -39,24 +35,9 @@ public class GoblinChieftain : BossDB, IDamagedState
     private void ChieftainDBInit()
     {
         const int itemDropCount = 3;
-        //bossName = "고블린 치프틴";
-        //hpMax = 500;
+        
         hp = hpMax;
-        //atk = 50;
-        //def = 15;
-        //atkSpeed = 1.0f;
-        //atkDelay = 4.0f;
-        //moveSpeed = 2.0f;
-        //goldMin = 200;
-        //goldMax = 300;
-        //itemDropInfo = new ItemDropInfo[itemDropCount];
-        //itemDropInfo[0].itemName = "고블린 수정";
-        //itemDropInfo[0].itemID = 81;
-        //itemDropInfo[1].itemName = "고블린 족장의 증표";
-        //itemDropInfo[1].itemID = 84;
-        //itemDropInfo[2].itemName = "족장의 목걸이";
-        //itemDropInfo[2].itemID = 85;
-        //state = BossState.IDLE;
+        
         dieTime = 5.5f;
 
         hpBar.maxValue = hpMax;
@@ -110,7 +91,7 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     }
 
-    public void IsRoaring() { anim.SetBool("isRoaring", false); }
+    public void IsRoaring() { anim.SetBool("isRoaring", false); } 
 
     private void CombatIdle()
     {

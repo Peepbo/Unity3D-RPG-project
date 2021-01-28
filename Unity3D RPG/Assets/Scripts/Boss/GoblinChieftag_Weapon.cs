@@ -11,10 +11,8 @@ public class GoblinChieftag_Weapon : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            //transform.GetComponentInParent<GoblinChieftain>().SetDamage();
             chief.SetDamage();
         }
-        //Debug.Log("trigger");
     }
 }
 
