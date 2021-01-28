@@ -236,17 +236,21 @@ public class Shaman : EnemyMgr, IDamagedState
         }
     }
 
+    #region Use for Animation Event Script
     public void Flame()
     {
+        //obejctPool에 담겨져 있는 GameObject를 저장
         var _firePrefab = ObjectPool.SharedInstance.GetPooledObject("EnemySkill");
 
         _firePrefab.transform.position = firePos.position;
         _firePrefab.transform.rotation = firePos.rotation;
+        //생성 transform을 설정한 뒤 GameObject활성화
         _firePrefab.SetActive(true);
+
 
         SoundManager.Instance.SFXPlay("Shaman_ATK", firePos.position);
     }
-
+    #endregion
     public override void Die()
     {
         disappearTime += Time.deltaTime;
@@ -259,11 +263,5 @@ public class Shaman : EnemyMgr, IDamagedState
             gameObject.SetActive(false);
         }
     }
-
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawWireSphere(startPos, observeRange);
-    }
 }
+
