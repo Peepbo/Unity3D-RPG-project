@@ -93,13 +93,18 @@ public class ResultController : Singleton<ResultController>
             {
                 _list[i].Number++;
             }
+
+            if(DungeonMng.Instance.playMap == 4)
+            {
+                //보스클리어, 챕터 클리어 업적
+                _list[13].Number++;
+                _list[14].Number++;
+
+                //킬 리스트
+                DungeonMng.Instance.murderList[4].killCount++;
+            }
         }
 
-        //킬 리스트
-        DungeonMng.Instance.murderList[4].killCount++;
-        //보스클리어, 챕터 클리어 업적
-        _list[13].Number++;
-        _list[14].Number++;
         JsonData.Instance.AchieveSave(_list);
         //돈 획득 업적
         int _getMoneyInDungeon = LootManager.Instance.dungeonMoney;

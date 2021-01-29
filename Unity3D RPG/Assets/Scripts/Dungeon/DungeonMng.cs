@@ -21,7 +21,7 @@ public class DungeonMng : Singleton<DungeonMng>
     {
         new Murder("Goblin",0),
         new Murder("OBGoblin",0),
-        new Murder("Shamen",0),
+        new Murder("Shaman",0),
         new Murder("Golem",0),
         new Murder("Chieftain",0)
     };
