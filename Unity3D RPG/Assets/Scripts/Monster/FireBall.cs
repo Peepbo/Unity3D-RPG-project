@@ -41,6 +41,7 @@ public class FireBall : MonoBehaviour
                     other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                     Quaternion.identity);
                 #endregion
+                SoundManager.Instance.SFXPlay("FireBall_Exp", transform.position);
             }
             if (other.transform.name.Equals("DamageBox")) return;
             gameObject.SetActive(false);
@@ -50,6 +51,7 @@ public class FireBall : MonoBehaviour
                 other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position),
                 Quaternion.identity);
             #endregion
+                SoundManager.Instance.SFXPlay("FireBall_Exp", transform.position);
         }
     }
 
