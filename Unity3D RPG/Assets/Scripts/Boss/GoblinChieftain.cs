@@ -17,7 +17,7 @@ public class GoblinChieftain : BossDB, IDamagedState
     }
 
     
-  
+    
     private Animator anim;
     private NavMeshAgent agent;
     private const float distance = 3f;
@@ -58,38 +58,60 @@ public class GoblinChieftain : BossDB, IDamagedState
     {
         if (hpBar.value != (float)hp)
             hpBar.value -= 1.0f;
+
         if (!start) return;
 
-        switch (state)
+        if (hp <= (hpMax / 2) && !isRoar)
         {
-            case BossState.COMBATIDLE:
-                CombatIdle();
-                break;
-            //case BossState.ATK:
-            //    break;
-            case BossState.RUN:
-                Move();
-                break;
-            //case BossState.HIT:
-            //    break;
-            //case BossState.DIE:
-            //    break;
-            //case BossState.ROAR:
-            //    break;
+            Roar();
+        }
+        else
+        {
+            if (state != BossState.ATK && state != BossState.ROAR)
+            {
+                atkTime += Time.deltaTime;
+
+                if (atkTime >= atkDelay)
+                {
+                    anim.SetBool("isATK", true);
+                    state = BossState.COMBATIDLE;
+                }
+            }
+            
+            switch (state)
+            {
+                case BossState.COMBATIDLE:
+                    CombatIdle();
+                    break;
+                case BossState.RUN:
+                    Move();
+                    break;
+                case BossState.HIT:
+                    hitTime += Time.deltaTime;
+                    if (hitTime >= 0.5f)
+                        state = BossState.COMBATIDLE;
+                    break;
+            }
         }
 
-        if (state != BossState.ATK)
-            atkTime += Time.deltaTime;
         if (isSpawn)
             MinionsCheck();
-
     }
 
-    public void IsRoaring() //애니메이션 이벤트에서 사용중
+    private void Roar()
     {
-        anim.SetBool("isRoaring", anim.GetBool("isRoaring") ? false : true);
+        isRoar = true;
+        atkDelay = atkDelay * 0.5f;
+        state = BossState.ROAR;
+        anim.ResetTrigger("Hit");
+        anim.SetTrigger("Roar");
+        def = def * 2;
+        Vector3 _temp = transform.position;
+        _temp.y -= 1.629f;
+        EffectManager.Instance.EffectActive(9, _temp, Quaternion.identity);
+        SoundManager.Instance.SFXPlay("Chief_Roar", transform.position);
+        SoundManager.Instance.SFXPlay("Chief_RoarVO", transform.position);
     }
-    
 
     private void CombatIdle()
     {
@@ -99,26 +121,11 @@ public class GoblinChieftain : BossDB, IDamagedState
         if ((int)(transform.position - target.position).magnitude > (int)distance)
         {
             state = BossState.RUN;
-
+            Move();
         }
-        else if (hp <= (hpMax / 2) && !isRoar)
+        
+        else if (anim.GetBool("isATK"))
         {
-            isRoar = true;
-            atkDelay = atkDelay *0.5f;
-            state = BossState.ATK;
-            anim.ResetTrigger("CombatIdle");
-            anim.SetTrigger("Roar");
-            def = def * 2;
-            Vector3 _temp = transform.position;
-            _temp.y -= 1.629f;
-            EffectManager.Instance.EffectActive(9, _temp,Quaternion.identity);
-            SoundManager.Instance.SFXPlay("Chief_Roar", transform.position);
-            SoundManager.Instance.SFXPlay("Chief_RoarVO", transform.position);
-            
-        }
-        else if (atkTime > atkDelay)
-        {
-            state = BossState.ATK;
             ATK();
         }
     }
@@ -136,14 +143,14 @@ public class GoblinChieftain : BossDB, IDamagedState
     }
     public void ATK()
     {
+        state = BossState.ATK;
         anim.ResetTrigger("CombatIdle");
-
         atkTime = 0f;
         hitTime = 0f;
         transform.forward = (target.position - transform.position).normalized;
 
         if (isRoar && !isSpawn)
-            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
+            pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.END);
         else if (isRoar)
             pattern = (BossATKPattern)UnityEngine.Random.Range(0, (int)BossATKPattern.SPAWN);
         else
@@ -219,6 +226,8 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     public void ComBatIdleState()  //애니메이션 이벤트에서 사용중
     {
+        if (state == BossState.ATK)
+            anim.SetBool("isATK", false);
         state = BossState.COMBATIDLE;
     }
     public void Damaged(int value)
@@ -230,16 +239,10 @@ public class GoblinChieftain : BossDB, IDamagedState
        
         if (hp > 0)
         {
-            if (state == BossState.ATK || state == BossState.ROAR || atkTime >= atkDelay) return;
-        
-            isPlayerCri = target.GetComponent<Player>().isCri;
             Hit();
         }
         else
         {
-            hp = 0;
-            start = false;
-            isDead = true;
             Die();
         }
     }
@@ -292,13 +295,15 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     public void Die()
     {
-        hpBar.gameObject.SetActive(false);
+        hp = 0;
+        start = false;
+        isDead = true;
         SoundManager.Instance.SFXPlay("Chief_DieVO", transform.position);
+        anim.SetTrigger("Die");
         StartCoroutine(DieCoroutine());
     }
     IEnumerator DieCoroutine()
     {
-        anim.SetTrigger("Die");
         yield return new WaitForSeconds(dieTime);
         //아이템 드롭 
         var bossItem = Instantiate(itemBox, transform.position, Quaternion.identity);
@@ -306,20 +311,25 @@ public class GoblinChieftain : BossDB, IDamagedState
 
         yield return new WaitForSeconds(1.0f);
 
-        Destroy(gameObject);
-
+        hpBar.gameObject.SetActive(false);
         ResultController.Instance.GameResult(true);
+
+        Destroy(gameObject);
 
     }
     private void Hit()
     {
-            if (isPlayerCri) { anim.SetInteger("HitKind", UnityEngine.Random.Range(2, 4)); }
-            else { anim.SetInteger("HitKind", UnityEngine.Random.Range(0, 2)); }
+        if (state == BossState.ATK || isRoar || state==BossState.HIT) return; 
 
-            if(Random.Range(0,3)==0)
-                SoundManager.Instance.SFXPlay("Chief_Hit", transform.position);
-            anim.SetTrigger("Hit");
-            state = BossState.HIT;
+        isPlayerCri = target.GetComponent<Player>().isCri;
+
+        if (isPlayerCri) { anim.SetInteger("HitKind", UnityEngine.Random.Range(2, 4)); }
+        else { anim.SetInteger("HitKind", UnityEngine.Random.Range(0, 2)); }
+
+        if(Random.Range(0,3)==0)
+            SoundManager.Instance.SFXPlay("Chief_Hit", transform.position);
+        anim.SetTrigger("Hit");
+        state = BossState.HIT;
     }
     public void ActiveCollision()
     {
