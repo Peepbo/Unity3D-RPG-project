@@ -10,4 +10,6 @@ public class UiExit : MonoBehaviour
         gameObject.SetActive(false);
         panel.SetActive(false);
     }
+
+    public void CanTouch() { }
 }
