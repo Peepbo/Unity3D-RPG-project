@@ -205,27 +205,31 @@ partial class Player
     {
         if(isDie== false)
         {
-            if(isGuard && !isGuardGrogi)
+            if(!isDash)
             {
-                stamina -= 40;
-                SoundManager.Instance.SFXPlay2D("Player_Shield", 0.8f);
-                if (stamina <= 0)
-                {
-                    stamina = 0;
-                    isGuardGrogi = true;
 
-                }
-                animator.Play("ShieldBlock");
-                animator.SetBool("isGuardHit", true);
-            }
-            else
-            {
-                hp -= (int)(damage *(1- realDef/100));
-                SoundManager.Instance.SFXPlay2D("Player_Hit");
-                if (hp <= 0)
+                if(isGuard && !isGuardGrogi)
                 {
-                    hp = 0;
-                    PlayerDie();
+                    stamina -= 40;
+                    SoundManager.Instance.SFXPlay2D("Player_Shield", 0.8f);
+                    if (stamina <= 0)
+                    {
+                        stamina = 0;
+                        isGuardGrogi = true;
+
+                    }
+                    animator.Play("ShieldBlock");
+                    animator.SetBool("isGuardHit", true);
+                }
+                else
+                {
+                    hp -= (int)(damage *(1- realDef/100));
+                    SoundManager.Instance.SFXPlay2D("Player_Hit");
+                    if (hp <= 0)
+                    {
+                        hp = 0;
+                        PlayerDie();
+                    }
                 }
             }
         }
