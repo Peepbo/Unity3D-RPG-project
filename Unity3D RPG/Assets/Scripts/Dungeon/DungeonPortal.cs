@@ -56,6 +56,7 @@ public class DungeonPortal : MonoBehaviour
 
             else//boss room
             {
+                DungeonMng.Instance.playMap = 4;
                 LoadingSceneController.Instance.LoadScene("BossRoom(light bake)");
             }
             
