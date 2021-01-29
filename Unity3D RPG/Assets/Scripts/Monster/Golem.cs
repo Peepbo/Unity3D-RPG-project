@@ -172,6 +172,7 @@ public class Golem : EnemyMgr, IDamagedState
         AI.isStopped = true;
         AI.updateRotation = false;
         SoundManager.Instance.SFXPlay("Golem_ATK", transform.position);
+        SoundManager.Instance.SFXPlay("Golem_VO", transform.position);
         yield return new WaitForSeconds(1.3f);
 
         transform.rotation = Quaternion.LookRotation(direction);
@@ -265,19 +266,6 @@ public class Golem : EnemyMgr, IDamagedState
         StopAllCoroutines();
         AI.enabled = false;
         controller.enabled = false;
-
-    }
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(spawnPos, 1f);
-
-        //Gizmos.color = Color.blue;
-        //Gizmos.DrawWireSphere(transform.position, findRange);
-
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(transform.position, attackRange);
 
     }
 
