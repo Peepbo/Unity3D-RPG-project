@@ -26,7 +26,7 @@ public class Shaman : EnemyMgr, IDamagedState
         startPos = transform.position;
         firePos = transform.Find("FirePos");
         hp = maxHp = 30;
-        atk = 40;
+        //atk = 40; -> fireBall 에서 처리
         def = 0f;
         minGold = 25;
         maxGold = 45;
