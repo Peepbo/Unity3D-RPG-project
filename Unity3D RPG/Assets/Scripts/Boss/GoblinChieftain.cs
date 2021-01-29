@@ -292,6 +292,7 @@ public class GoblinChieftain : BossDB, IDamagedState
 
     public void Die()
     {
+        hpBar.gameObject.SetActive(false);
         SoundManager.Instance.SFXPlay("Chief_DieVO", transform.position);
         StartCoroutine(DieCoroutine());
     }
