@@ -1,20 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class DollyCamAuto : MonoBehaviour
 {
     public float endPos;
     public GameObject cam;
-    Cinemachine.CinemachineDollyCart dollyCart;
+    CinemachineDollyCart dollyCart;
 
-    bool isUp = true;
-
-    float endTime;
+    float endTime = 0;
     private void Start()
     {
         Time.timeScale = 0;
-        dollyCart = GetComponent<Cinemachine.CinemachineDollyCart>();
+        endTime = 0;
+        dollyCart = GetComponent<CinemachineDollyCart>();
     }
 
     // Update is called once per frame
@@ -24,21 +24,16 @@ public class DollyCamAuto : MonoBehaviour
         {
             dollyCart.m_Position += Time.unscaledDeltaTime * dollyCart.m_Speed;
         }
-        else
+
+        endTime += Time.unscaledDeltaTime;
+        if (endTime > 5f)
         {
-            //Debug.Log("isUp false");
-            isUp = false;
-            endTime += Time.unscaledDeltaTime;
+            cam.SetActive(false);
 
-            if (endTime > 1f)
+            if (endTime > 7f)
             {
-                cam.SetActive(false);
-
-                if (endTime > 2f)
-                {
-                    Time.timeScale = 1;
-                    this.enabled = false;
-                }
+                Time.timeScale = 1;
+                this.enabled = false;
             }
         }
     }
