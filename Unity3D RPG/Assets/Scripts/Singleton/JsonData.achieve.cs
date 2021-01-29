@@ -34,13 +34,6 @@ partial class JsonData
     #region Achieve
     public void AchieveSave(List<Achieve> achieve)
     {
-        //JsonUtility.ToJson(JsonUtility.FromJson(json), true);
-
-        //LitJson.JsonData AchieveJson = JsonMapper.ToJson(achieve);
-
-        //byte[] bytes = System.Text.Encoding.UTF8.GetBytes(achieve.ToString());
-        //string format = System.Convert.ToBase64String(bytes);
-
         File.WriteAllText(achievePath, JsonMapper.ToJson(achieve));
     }
 
