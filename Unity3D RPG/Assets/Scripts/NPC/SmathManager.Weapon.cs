@@ -100,7 +100,7 @@ partial class SmathManager
     private void WeaponListSetting(int num) //무기리스트를 파악하여 아이템리스트창에 정보를 채운다.
     {
         WeaponKind _temp = (WeaponKind)num;
-        if (num ==4 )
+        if (num == (int)WeaponKind.BaseWeapon)
         {
             if (baseWeaponKind == 3)
                 _temp = WeaponKind.BaseTWeapon; 
@@ -163,7 +163,15 @@ partial class SmathManager
     {
         if (!isWeapon) return;
         ClickSound();
+
         curruntInfo = weaponList[(WeaponKind)num];
+
+        if (num == (int)WeaponKind.BaseWeapon)
+        {
+            if (baseWeaponKind == 3)
+                curruntInfo = weaponList[WeaponKind.BaseTWeapon];
+        }
+        
         
         MaterialTextSetting();
     }

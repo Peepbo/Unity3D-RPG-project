@@ -211,116 +211,95 @@ public partial class SmathManager : MonoBehaviour
         for (int i = 0; i < materialCount; i++)
             _check[i] = false;
         EquipmentCheck(success, ref _isSave, ref _check);
-        ChestCheck(ref _check);
-
+        
+        ChestCheck(ref _check, PlayerData.Instance.haveEquipItem);
+        ChestCheck(ref _check, PlayerData.Instance.haveLootItem);
         PlayerData.Instance.myCurrency -= curruntInfo.price;
-        if (!_isSave && success) PlayerData.Instance.SaveChest(curruntInfo.id);
+        if (!_isSave && success) { PlayerData.Instance.SaveChest(curruntInfo.id); }
 
 
     }
     //창고아이템에 아이템재료가 있는지 확인 후 삭제
-    private void ChestCheck(ref bool[] check)
+    private void ChestCheck(ref bool[] check,  List<ItemInfo> itemList)
     {
-        for(int i = 0; i < PlayerData.Instance.haveEquipItem.Count;)
+        for (int i = 0; i < itemList.Count;)
         {
-            if(!check[0]&&lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveEquipItem[i].id)
-            {
-                check[0] = true;
-                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount1;
-                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); continue; }
-            }
-            else if ( materialCount > 1 && !check[1] && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveEquipItem[i].id)
-            {
-                check[1] = true;
-                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount2;
-                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); continue; }
-            }
-            else if (materialCount > 2 && !check[2] && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveEquipItem[i].id)
-            {
-                check[2] = true;
-                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount3;
-                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); continue; }
-            }
-            else if ( materialCount > 3 && !check[3] && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveEquipItem[i].id)
-            {
-                check[3] = true;
-                PlayerData.Instance.haveEquipItem[i].count -= curruntInfo.ingredientCount4;
-                if (PlayerData.Instance.haveEquipItem[i].count == 0) { PlayerData.Instance.haveEquipItem.RemoveAt(i); continue; }
-            }
-        
-            i++;
-        }
 
-        for (int i = 0; i < PlayerData.Instance.haveLootItem.Count;)
-        {
-            if (!check[0] && lootList[curruntInfo.ingredient1].id == PlayerData.Instance.haveLootItem[i].id)
+            if (!check[0] && lootList[curruntInfo.ingredient1].id == itemList[i].id)
             {
-                check[0] = true;
-                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount1;
-                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); continue; }
+                if (ChestItemSubtract(ref check, 0, i, itemList)) continue;
             }
-            else if (materialCount > 1 && !check[1] && lootList[curruntInfo.ingredient2].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 1 && !check[1] && lootList[curruntInfo.ingredient2].id == itemList[i].id)
             {
-                check[1] = true;
-                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount2;
-                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); continue; }
+                if (ChestItemSubtract(ref check, 1, i, itemList)) continue;
             }
-            else if (materialCount > 2 && !check[2] && lootList[curruntInfo.ingredient3].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 2 && !check[2] && lootList[curruntInfo.ingredient3].id == itemList[i].id)
             {
-                check[2] = true;
-                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount3;
-                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); continue; }
+                if (ChestItemSubtract(ref check, 2, i, itemList)) continue;
             }
-            else if (materialCount > 3 && !check[3] && lootList[curruntInfo.ingredient4].id == PlayerData.Instance.haveLootItem[i].id)
+            else if (materialCount > 3 && !check[3] && lootList[curruntInfo.ingredient4].id == itemList[i].id)
             {
-                check[3] = true;
-                PlayerData.Instance.haveLootItem[i].count -= curruntInfo.ingredientCount4;
-                if (PlayerData.Instance.haveLootItem[i].count == 0) { PlayerData.Instance.haveLootItem.RemoveAt(i); continue; }
+                if (ChestItemSubtract(ref check, 3, i, itemList)) continue;
             }
-           
+
             i++;
         }
     }
+    //창고아이템 수량 제거 및 삭제
+    private bool ChestItemSubtract(ref bool[] check,int checkIndex, int EquipItemIndex, List<ItemInfo> listItem)
+    {
+        check[checkIndex] = true;
+        switch(checkIndex)
+        {
+            case 0:
+                listItem[EquipItemIndex].count -= curruntInfo.ingredientCount1;
+                break;
+            case 1:
+                listItem[EquipItemIndex].count -= curruntInfo.ingredientCount2;
+                break;
+            case 2:
+                listItem[EquipItemIndex].count -= curruntInfo.ingredientCount3;
+                break;
+            case 3:
+                listItem[EquipItemIndex].count -= curruntInfo.ingredientCount4;
+                break;
+        }
+       
+        if (listItem[EquipItemIndex].count == 0) 
+        {
+            listItem.RemoveAt(EquipItemIndex); 
+            return true; 
+        }
+        return false;
+    }    
     //장비아이템에 아이템재료가 있는지 확인 후 삭제
     private void EquipmentCheck(bool success, ref bool _isSave, ref bool[] check)
     {
-        for (int k = 0; k < PlayerData.Instance.myEquipment.Length; k++)
+        for (int i = 0; i < PlayerData.Instance.myEquipment.Length; i++)
         {
             if (lootList.ContainsKey(curruntInfo.ingredient1)&&
-                    lootList[curruntInfo.ingredient1].id == PlayerData.Instance.myEquipment[k])
+                    lootList[curruntInfo.ingredient1].id == PlayerData.Instance.myEquipment[i])
             {
                 check[0] = true;
-                if (success)
-                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true;}
-                else
-                { PlayerData.Instance.myEquipment[k] = -1; }
+                EquipmentItemChange(ref _isSave,success,i);
             }
             else if (materialCount > 1 && !check[1] && lootList.ContainsKey(curruntInfo.ingredient2) && 
-                    lootList[curruntInfo.ingredient2].id == PlayerData.Instance.myEquipment[k])
+                    lootList[curruntInfo.ingredient2].id == PlayerData.Instance.myEquipment[i])
             {
                 check[1] = true;
-                if (success)
-                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
-                else
-                { PlayerData.Instance.myEquipment[k] = -1; }
+                EquipmentItemChange(ref _isSave, success, i);
             }
             else if (materialCount > 2 && !check[2] && lootList.ContainsKey(curruntInfo.ingredient3) && 
-                    lootList[curruntInfo.ingredient3].id == PlayerData.Instance.myEquipment[k])
+                    lootList[curruntInfo.ingredient3].id == PlayerData.Instance.myEquipment[i])
             {
                 check[2] = true;
-                if (success)
-                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
-                else
-                { PlayerData.Instance.myEquipment[k] = -1; }
+                EquipmentItemChange(ref _isSave, success, i);
             }
             else if (materialCount > 3 && !check[3] && lootList.ContainsKey(curruntInfo.ingredient4) && 
-                    lootList[curruntInfo.ingredient4].id == PlayerData.Instance.myEquipment[k])
+                    lootList[curruntInfo.ingredient4].id == PlayerData.Instance.myEquipment[i])
             {
                 check[3] = true;
-                if (success)
-                { PlayerData.Instance.myEquipment[k] = curruntInfo.id; _isSave = true; }
-                else
-                { PlayerData.Instance.myEquipment[k] = -1; }
+                EquipmentItemChange(ref _isSave, success, i);
             }
         }
 
@@ -328,11 +307,17 @@ public partial class SmathManager : MonoBehaviour
         {
             //여기에 추가해주세요.
             PlayerData.Instance.player.EquipStat();
-
             PlayerData.Instance.SaveData();
         }
     }
-
+    //장비아이템 교체
+    private void EquipmentItemChange(ref bool isSave, bool success, int index)
+    {
+        if (success)
+        { PlayerData.Instance.myEquipment[index] = curruntInfo.id; isSave = true; }
+        else
+        { PlayerData.Instance.myEquipment[index] = -1; }
+    }
 
     public void ClickSound()
     {

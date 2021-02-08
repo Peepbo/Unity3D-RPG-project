@@ -36,8 +36,14 @@ partial class PlayerData
     {
         ItemInfo _item = list.Find(x => (x.id == item.id));
 
-        if (_item == null) list.Add(item);
-
+        if (_item == null)
+        {
+            list.Add(item); 
+        }
+        else if(_item != null && item.kindID !=4)
+        {
+            list.Add(item);
+        }
         else
         {
             int _index = list.IndexOf(_item);
